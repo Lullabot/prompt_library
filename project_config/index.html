@@ -1,0 +1,277 @@
+<h1>11ty Prompt Library Project Configuration</h1>
+<h2>Project Overview</h2>
+<p>This project is a static site built with 11ty that organizes and presents AI prompts, cursor rules, project configurations, and workflow state examples across different disciplines. The site is hosted on GitHub Pages and features a clean, modern design with discipline-based content organization.</p>
+<h2>Prerequisites</h2>
+<ul>
+<li>Node.js (v16 or higher)</li>
+<li>npm or yarn</li>
+<li>Git</li>
+<li>GitHub account</li>
+</ul>
+<h2>Initial Setup</h2>
+<ol>
+<li>
+<p><strong>Create a new GitHub repository</strong></p>
+<pre><code class="language-bash"># Initialize a new repository
+git init
+git add .
+git commit -m &quot;Initial commit&quot;
+git branch -M main
+git remote add origin &lt;your-repo-url&gt;
+git push -u origin main
+</code></pre>
+</li>
+<li>
+<p><strong>Initialize 11ty project</strong></p>
+<pre><code class="language-bash"># Create package.json
+npm init -y
+
+# Install 11ty and other dependencies
+npm install --save-dev @11ty/eleventy
+</code></pre>
+</li>
+<li>
+<p><strong>Project Structure</strong></p>
+<pre><code>├── _data/              # Global data files
+├── _includes/          # Includes and partials
+├── _layouts/           # Page templates
+│   ├── base.njk        # Base layout
+│   ├── discipline.njk  # Discipline-specific layout
+│   └── content-type.njk # Content type layout
+├── assets/             # Static assets
+│   ├── css/           # Stylesheets
+│   ├── js/            # JavaScript files
+│   └── images/        # Image assets
+├── development/        # Development discipline content
+│   ├── prompts/       # Development prompts
+│   ├── cursor-rules/  # Development cursor rules
+│   ├── project-configs/ # Development project configs
+│   └── workflow-states/ # Development workflow states
+├── project-management/ # Project Management discipline
+├── sales-marketing/    # Sales &amp; Marketing discipline
+├── content-strategy/   # Content Strategy discipline
+├── design/            # Design discipline
+├── .github/workflows/  # GitHub Actions workflows
+├── .eleventy.js       # 11ty configuration
+├── package.json
+└── README.md
+</code></pre>
+</li>
+</ol>
+<h2>Configuration Files</h2>
+<h3>.eleventy.js</h3>
+<pre><code class="language-javascript">const fs = require('fs');
+const path = require('path');
+
+module.exports = function(eleventyConfig) {
+  // Copy static assets
+  eleventyConfig.addPassthroughCopy(&quot;assets&quot;);
+
+  // Add date filter with format support
+  eleventyConfig.addFilter(&quot;date&quot;, function(date, format = &quot;yyyy-MM-dd&quot;) {
+    if (date === &quot;now&quot;) {
+      date = new Date();
+    } else if (!(date instanceof Date)) {
+      date = new Date(date);
+    }
+    
+    if (isNaN(date.getTime())) {
+      return &quot;&quot;;
+    }
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+
+    switch (format) {
+      case &quot;yyyy&quot;:
+        return year.toString();
+      default:
+        return `${year}-${month}-${day}`;
+    }
+  });
+
+  // Add discipline filter
+  eleventyConfig.addFilter(&quot;filterByDiscipline&quot;, function(collection, discipline) {
+    if (!collection) return [];
+    return collection.filter(item =&gt; item.data.discipline === discipline);
+  });
+
+  // Add collections for content types
+  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design'];
+  const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+
+  contentTypes.forEach(type =&gt; {
+    eleventyConfig.addCollection(type, function(collection) {
+      return collection.getFilteredByGlob(
+        disciplines.map(discipline =&gt; `${discipline}/${type}/**/*.md`)
+      );
+    });
+  });
+
+  // Add base URL for GitHub Pages
+  eleventyConfig.addGlobalData(&quot;baseUrl&quot;, process.env.GITHUB_ACTIONS ? &quot;/prompt_library&quot; : &quot;&quot;);
+
+  return {
+    dir: {
+      input: &quot;.&quot;,
+      output: &quot;_site&quot;,
+      includes: &quot;_includes&quot;,
+      layouts: &quot;_layouts&quot;,
+      data: &quot;_data&quot;
+    },
+    templateFormats: [&quot;md&quot;, &quot;njk&quot;, &quot;html&quot;],
+    markdownTemplateEngine: &quot;njk&quot;,
+    htmlTemplateEngine: &quot;njk&quot;,
+    dataTemplateEngine: &quot;njk&quot;,
+    pathPrefix: process.env.GITHUB_ACTIONS ? &quot;/prompt_library/&quot; : &quot;/&quot;
+  };
+};
+</code></pre>
+<h3>package.json Scripts</h3>
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;eleventy --serve&quot;,
+    &quot;build&quot;: &quot;eleventy&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  }
+}
+</code></pre>
+<h2>Content Structure</h2>
+<h3>Discipline Organization</h3>
+<p>Each discipline follows the same content type structure:</p>
+<pre><code class="language-markdown">---
+title: &quot;Content Title&quot;
+description: &quot;Brief description&quot;
+category: &quot;Category&quot;
+tags: [&quot;tag1&quot;, &quot;tag2&quot;]
+date: &quot;2024-03-20&quot;
+discipline: &quot;development&quot;
+---
+
+Content goes here...
+</code></pre>
+<h3>Layout Templates</h3>
+<h4>base.njk</h4>
+<p>Base template with common elements:</p>
+<pre><code class="language-njk">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt; - Prompt Library&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/prompt_library/assets/css/styles.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;nav&gt;
+            &lt;a href=&quot;/prompt_library/&quot;&gt;Home&lt;/a&gt;
+            &lt;a href=&quot;/prompt_library/prompts&quot;&gt;Prompts&lt;/a&gt;
+            &lt;a href=&quot;/prompt_library/cursor-rules&quot;&gt;Cursor Rules&lt;/a&gt;
+            &lt;a href=&quot;/prompt_library/project-configs&quot;&gt;Project Configs&lt;/a&gt;
+            &lt;a href=&quot;/prompt_library/workflow-states&quot;&gt;Workflow States&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&amp;copy; 2025 Prompt Library&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4>discipline.njk</h4>
+<p>Template for discipline-specific pages:</p>
+<pre><code class="language-njk">---
+layout: base.njk
+---
+
+&lt;nav class=&quot;discipline-nav&quot;&gt;
+    &lt;a href=&quot;/prompt_library//prompts&quot;&gt;Prompts&lt;/a&gt;
+    &lt;a href=&quot;/prompt_library//cursor-rules&quot;&gt;Cursor Rules&lt;/a&gt;
+    &lt;a href=&quot;/prompt_library//project-configs&quot;&gt;Project Configs&lt;/a&gt;
+    &lt;a href=&quot;/prompt_library//workflow-states&quot;&gt;Workflow States&lt;/a&gt;
+&lt;/nav&gt;
+
+
+</code></pre>
+<h4>content-type.njk</h4>
+<p>Template for content type pages:</p>
+<pre><code class="language-njk">---
+layout: discipline.njk
+---
+
+&lt;div class=&quot;content-type-header&quot;&gt;
+    &lt;h1&gt;&lt;/h1&gt;
+    &lt;p class=&quot;description&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;content-list&quot;&gt;
+    
+&lt;/div&gt;
+</code></pre>
+<h2>GitHub Pages Setup</h2>
+<h3>.github/workflows/deploy.yml</h3>
+<pre><code class="language-yaml">name: Deploy to GitHub Pages
+on:
+  push:
+    branches: [main]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: $
+          publish_dir: ./_site
+</code></pre>
+<h2>Development Workflow</h2>
+<ol>
+<li>
+<p><strong>Create content in appropriate discipline directory</strong></p>
+<pre><code class="language-bash"># Example: Creating a new prompt in the development discipline
+mkdir -p development/prompts/new-prompt
+touch development/prompts/new-prompt/index.md
+</code></pre>
+</li>
+<li>
+<p><strong>Test locally</strong></p>
+<pre><code class="language-bash">npm start
+</code></pre>
+</li>
+<li>
+<p><strong>Build for production</strong></p>
+<pre><code class="language-bash">npm run build
+</code></pre>
+</li>
+<li>
+<p><strong>Commit and push changes</strong></p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;Add new content&quot;
+git push origin main
+</code></pre>
+</li>
+</ol>
+<h2>Maintenance</h2>
+<ul>
+<li>Keep content organized within appropriate disciplines</li>
+<li>Regularly update dependencies</li>
+<li>Monitor GitHub Pages deployment status</li>
+<li>Review and update content structure as needed</li>
+<li>Test search functionality after content updates</li>
+<li>Check for broken links and assets</li>
+<li>Maintain consistent styling across all pages</li>
+</ul>

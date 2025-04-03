@@ -1,0 +1,61 @@
+<h1>11ty Project Configuration</h1>
+<h2>Project Structure</h2>
+<pre><code>├── _data/              # Global data files
+├── _includes/          # Layouts and partials
+├── _layouts/           # Page templates
+├── assets/             # Static assets
+│   ├── css/
+│   ├── js/
+│   └── images/
+├── content/            # Content files
+├── .eleventy.js        # 11ty configuration
+├── .gitignore
+├── package.json
+└── README.md
+</code></pre>
+<h2>.eleventy.js Configuration</h2>
+<pre><code class="language-javascript">module.exports = function(eleventyConfig) {
+  // Copy static assets
+  eleventyConfig.addPassthroughCopy(&quot;assets&quot;);
+  
+  // Add filters
+  eleventyConfig.addFilter(&quot;date&quot;, function(date) {
+    return new Date(date).toLocaleDateString();
+  });
+
+  // Add collections
+  eleventyConfig.addCollection(&quot;posts&quot;, function(collection) {
+    return collection.getFilteredByGlob(&quot;content/posts/*.md&quot;);
+  });
+
+  return {
+    dir: {
+      input: &quot;.&quot;,
+      output: &quot;_site&quot;,
+      includes: &quot;_includes&quot;,
+      layouts: &quot;_layouts&quot;,
+      data: &quot;_data&quot;
+    },
+    templateFormats: [&quot;md&quot;, &quot;njk&quot;, &quot;html&quot;],
+    markdownTemplateEngine: &quot;njk&quot;,
+    htmlTemplateEngine: &quot;njk&quot;,
+    dataTemplateEngine: &quot;njk&quot;
+  };
+};
+</code></pre>
+<h2>package.json Scripts</h2>
+<pre><code class="language-json">{
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;eleventy --serve&quot;,
+    &quot;build&quot;: &quot;eleventy&quot;,
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  }
+}
+</code></pre>
+<h2>GitHub Pages Deployment</h2>
+<ol>
+<li>Create <code>.github/workflows/deploy.yml</code></li>
+<li>Configure repository settings</li>
+<li>Set up GitHub Pages source</li>
+<li>Monitor deployment status</li>
+</ol>

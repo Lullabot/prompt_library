@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="hero">
+    <h1>Test Page</h1>
+    <p>This is a test page to verify the GitHub Pages deployment.</p>
+</div>
+
+<div class="content-grid">
+    <section class="content-card">
+        <h2>Test Content</h2>
+        <p>If you can see this page, the deployment was successful!</p>
+        <ul>
+            <li>Base URL: /prompt_library</li>
+            <li>Current Date: 2025-04-03</li>
+            <li><a href="/prompt_library/">Return to Home</a></li>
+        </ul>
+    </section>
+</div> 
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
