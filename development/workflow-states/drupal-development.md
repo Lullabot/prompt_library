@@ -1,9 +1,10 @@
 ---
-title: "Drupal 11 Development Workflow"
-description: "Workflow states and processes for Drupal 11 development."
+title: "Drupal Development Workflow"
+description: "Workflow states and processes for Drupal development projects."
 category: "Drupal"
 tags: ["drupal", "workflow", "development", "process"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # Drupal 11 Development Workflow

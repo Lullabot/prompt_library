@@ -1,9 +1,10 @@
 ---
-title: "Drupal 11 Project Configuration"
-description: "Configuration for a modern Drupal 11 project with Composer and CI/CD setup."
+title: "Drupal 11 Project Setup"
+description: "Configuration and setup guide for Drupal 11 projects."
 category: "Drupal"
-tags: ["drupal", "composer", "ci/cd", "configuration"]
+tags: ["drupal", "setup", "configuration", "development"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # Drupal 11 Project Configuration

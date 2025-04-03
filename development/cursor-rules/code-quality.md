@@ -1,9 +1,10 @@
 ---
 title: "Code Quality Standards"
-description: "Rules for maintaining high code quality in development projects."
-category: "Development"
-tags: ["code quality", "standards", "best practices"]
+description: "Rules for maintaining high code quality across all projects."
+category: "Code Quality"
+tags: ["standards", "best practices", "development"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # Code Quality Standards

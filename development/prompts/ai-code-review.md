@@ -1,9 +1,10 @@
 ---
 title: "AI Code Review Assistant"
 description: "A prompt for AI to perform thorough code reviews, focusing on best practices, security, and maintainability."
-category: "Development"
+category: "Code Review"
 tags: ["code review", "best practices", "security", "maintainability"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 Please review the following code with a focus on:

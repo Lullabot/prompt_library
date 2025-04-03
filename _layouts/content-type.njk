@@ -1,0 +1,27 @@
+---
+layout: discipline.njk
+---
+
+<div class="content-type-header">
+    <h1>{{ title }}</h1>
+    <p class="description">{{ description }}</p>
+</div>
+
+<div class="content-list">
+    {% for item in collections[contentType] | filterByDiscipline(discipline) %}
+        <article class="content-item">
+            <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+            <p>{{ item.data.description }}</p>
+            <div class="metadata">
+                <span class="date">{{ item.date | date("yyyy-MM-dd") }}</span>
+                {% if item.data.tags %}
+                    <div class="tags">
+                        {% for tag in item.data.tags %}
+                            <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </article>
+    {% endfor %}
+</div> 
