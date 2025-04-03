@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: Cursor Rules
+---
+
+<div class="hero">
+    <h1>Cursor Rules</h1>
+    <p>Explore cursor rules for different development environments and workflows.</p>
+</div>
+
+<div class="content-grid">
+    {% if collections.cursorRules.length > 0 %}
+        {% for rule in collections.cursorRules %}
+            <section class="content-card">
+                <h2>{{ rule.data.title }}</h2>
+                <p>{{ rule.data.description }}</p>
+                <div class="tags">
+                    {% for tag in rule.data.tags %}
+                        <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{{ baseUrl }}{{ rule.url }}" class="button">View Rule</a>
+            </section>
+        {% endfor %}
+    {% else %}
+        <section class="content-card">
+            <h2>No Rules Yet</h2>
+            <p>Check back soon for our collection of cursor rules!</p>
+        </section>
+    {% endif %}
+</div> 

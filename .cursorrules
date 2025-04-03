@@ -1,0 +1,57 @@
+# Cursor Rules for 11ty Prompt Library Project
+
+# Code Quality and Maintenance
+- Keep changes small and focused on a single feature or fix
+- Write clear, descriptive commit messages
+- Document any complex logic or non-obvious decisions
+- Follow the DRY (Don't Repeat Yourself) principle
+- Use meaningful variable and function names
+
+# Testing and Validation
+- Test all changes locally before committing
+- Ensure all new features have corresponding tests
+- Run the full test suite before pushing changes
+- Validate that the site builds successfully with 11ty
+- Check that all links and assets work correctly
+
+# Performance and Optimization
+- Keep the application lightweight and fast
+- Optimize images and assets before committing
+- Minimize JavaScript usage where possible
+- Use efficient data structures and algorithms
+- Cache results when appropriate
+
+# Content Management
+- Store prompts in a structured, searchable format
+- Use consistent metadata for all content
+- Keep example files organized and well-documented
+- Maintain clear separation between content and presentation
+- Use appropriate content types for different prompt categories
+
+# GitHub Pages Specific
+- Ensure all paths are relative for GitHub Pages compatibility
+- Test the site locally in production mode before deploying
+- Keep the build process simple and reliable
+- Document any GitHub Pages specific configurations
+- Maintain proper CORS and security headers
+
+# Development Workflow
+- Create feature branches for new development
+- Review code changes before merging
+- Keep the main branch stable and deployable
+- Use pull requests for code review
+- Document any environment-specific requirements
+
+# File Organization
+- Keep the project structure clean and logical
+- Use appropriate file extensions
+- Follow consistent naming conventions
+- Group related files together
+- Maintain clear separation of concerns
+
+# Accessibility and Standards
+- Ensure all content is accessible
+- Follow web standards and best practices
+- Use semantic HTML where possible
+- Maintain proper heading hierarchy
+- Test with screen readers and keyboard navigation 

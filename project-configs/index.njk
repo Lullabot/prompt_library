@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: Project Configs
+---
+
+<div class="hero">
+    <h1>Project Configs</h1>
+    <p>Find project configuration examples and templates.</p>
+</div>
+
+<div class="content-grid">
+    {% if collections.projectConfigs.length > 0 %}
+        {% for config in collections.projectConfigs %}
+            <section class="content-card">
+                <h2>{{ config.data.title }}</h2>
+                <p>{{ config.data.description }}</p>
+                <div class="tags">
+                    {% for tag in config.data.tags %}
+                        <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{{ baseUrl }}{{ config.url }}" class="button">View Config</a>
+            </section>
+        {% endfor %}
+    {% else %}
+        <section class="content-card">
+            <h2>No Configs Yet</h2>
+            <p>Check back soon for our collection of project configurations!</p>
+        </section>
+    {% endif %}
+</div> 

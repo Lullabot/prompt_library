@@ -1,0 +1,31 @@
+---
+layout: base.njk
+title: AI Prompts
+---
+
+<div class="hero">
+    <h1>AI Prompts</h1>
+    <p>Browse and search through our collection of AI prompts for various use cases.</p>
+</div>
+
+<div class="content-grid">
+    {% if collections.prompts.length > 0 %}
+        {% for prompt in collections.prompts %}
+            <section class="content-card">
+                <h2>{{ prompt.data.title }}</h2>
+                <p>{{ prompt.data.description }}</p>
+                <div class="tags">
+                    {% for tag in prompt.data.tags %}
+                        <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <a href="{{ baseUrl }}{{ prompt.url }}" class="button">View Prompt</a>
+            </section>
+        {% endfor %}
+    {% else %}
+        <section class="content-card">
+            <h2>No Prompts Yet</h2>
+            <p>Check back soon for our collection of AI prompts!</p>
+        </section>
+    {% endif %}
+</div> 

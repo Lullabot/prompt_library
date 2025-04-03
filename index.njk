@@ -1,0 +1,213 @@
+---
+title: "Prompt Library"
+description: "A collection of AI prompts, cursor rules, project configurations, and workflow states organized by discipline."
+layout: "base.njk"
+---
+
+<div class="disciplines">
+  <h1 class="page-title">Prompt Library</h1>
+  <p class="page-description">Explore AI resources organized by discipline and content type.</p>
+
+  <div class="discipline-grid">
+    <div class="discipline-card">
+      <h2>Project Management</h2>
+      <div class="content-types">
+        <a href="/project-management/prompts" class="content-type-link">
+          <span class="content-type-icon">💡</span>
+          <span class="content-type-label">AI Prompts</span>
+        </a>
+        <a href="/project-management/cursor-rules" class="content-type-link">
+          <span class="content-type-icon">📋</span>
+          <span class="content-type-label">Cursor Rules</span>
+        </a>
+        <a href="/project-management/project-configs" class="content-type-link">
+          <span class="content-type-icon">⚙️</span>
+          <span class="content-type-label">Project Configs</span>
+        </a>
+        <a href="/project-management/workflow-states" class="content-type-link">
+          <span class="content-type-icon">🔄</span>
+          <span class="content-type-label">Workflow States</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="discipline-card">
+      <h2>Development</h2>
+      <div class="content-types">
+        <a href="/development/prompts" class="content-type-link">
+          <span class="content-type-icon">💡</span>
+          <span class="content-type-label">AI Prompts</span>
+        </a>
+        <a href="/development/cursor-rules" class="content-type-link">
+          <span class="content-type-icon">📋</span>
+          <span class="content-type-label">Cursor Rules</span>
+        </a>
+        <a href="/development/project-configs" class="content-type-link">
+          <span class="content-type-icon">⚙️</span>
+          <span class="content-type-label">Project Configs</span>
+        </a>
+        <a href="/development/workflow-states" class="content-type-link">
+          <span class="content-type-icon">🔄</span>
+          <span class="content-type-label">Workflow States</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="discipline-card">
+      <h2>Sales & Marketing</h2>
+      <div class="content-types">
+        <a href="/sales-marketing/prompts" class="content-type-link">
+          <span class="content-type-icon">💡</span>
+          <span class="content-type-label">AI Prompts</span>
+        </a>
+        <a href="/sales-marketing/cursor-rules" class="content-type-link">
+          <span class="content-type-icon">📋</span>
+          <span class="content-type-label">Cursor Rules</span>
+        </a>
+        <a href="/sales-marketing/project-configs" class="content-type-link">
+          <span class="content-type-icon">⚙️</span>
+          <span class="content-type-label">Project Configs</span>
+        </a>
+        <a href="/sales-marketing/workflow-states" class="content-type-link">
+          <span class="content-type-icon">🔄</span>
+          <span class="content-type-label">Workflow States</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="discipline-card">
+      <h2>Content Strategy</h2>
+      <div class="content-types">
+        <a href="/content-strategy/prompts" class="content-type-link">
+          <span class="content-type-icon">💡</span>
+          <span class="content-type-label">AI Prompts</span>
+        </a>
+        <a href="/content-strategy/cursor-rules" class="content-type-link">
+          <span class="content-type-icon">📋</span>
+          <span class="content-type-label">Cursor Rules</span>
+        </a>
+        <a href="/content-strategy/project-configs" class="content-type-link">
+          <span class="content-type-icon">⚙️</span>
+          <span class="content-type-label">Project Configs</span>
+        </a>
+        <a href="/content-strategy/workflow-states" class="content-type-link">
+          <span class="content-type-icon">🔄</span>
+          <span class="content-type-label">Workflow States</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="discipline-card">
+      <h2>Design</h2>
+      <div class="content-types">
+        <a href="/design/prompts" class="content-type-link">
+          <span class="content-type-icon">💡</span>
+          <span class="content-type-label">AI Prompts</span>
+        </a>
+        <a href="/design/cursor-rules" class="content-type-link">
+          <span class="content-type-icon">📋</span>
+          <span class="content-type-label">Cursor Rules</span>
+        </a>
+        <a href="/design/project-configs" class="content-type-link">
+          <span class="content-type-icon">⚙️</span>
+          <span class="content-type-label">Project Configs</span>
+        </a>
+        <a href="/design/workflow-states" class="content-type-link">
+          <span class="content-type-icon">🔄</span>
+          <span class="content-type-label">Workflow States</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .disciplines {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .page-description {
+    font-size: 1.25rem;
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .discipline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .discipline-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .discipline-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .discipline-card h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .content-types {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .content-type-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: #f7fafc;
+    border-radius: 0.375rem;
+    color: #4a5568;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+
+  .content-type-link:hover {
+    background-color: #edf2f7;
+  }
+
+  .content-type-icon {
+    font-size: 1.25rem;
+  }
+
+  .content-type-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .discipline-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .content-types {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 

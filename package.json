@@ -1,0 +1,23 @@
+{
+  "name": "prompt_library",
+  "version": "1.0.0",
+  "description": "A collection of AI prompts, cursor rules, project configurations, and workflow states",
+  "main": "index.js",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ai",
+    "prompts",
+    "cursor",
+    "workflow",
+    "11ty"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

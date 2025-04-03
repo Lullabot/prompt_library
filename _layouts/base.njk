@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - Prompt Library</title>
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ baseUrl }}/">Home</a>
+            <a href="{{ baseUrl }}/prompts">Prompts</a>
+            <a href="{{ baseUrl }}/cursor-rules">Cursor Rules</a>
+            <a href="{{ baseUrl }}/project-configs">Project Configs</a>
+            <a href="{{ baseUrl }}/workflow-states">Workflow States</a>
+        </nav>
+    </header>
+
+    <main>
+        {{ content | safe }}
+    </main>
+
+    <footer>
+        <p>&copy; {{ "now" | date("yyyy") }} Prompt Library</p>
+    </footer>
+
+    <script src="{{ baseUrl }}/assets/js/main.js"></script>
+</body>
+</html> 
