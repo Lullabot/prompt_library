@@ -79,7 +79,8 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add base URL for GitHub Pages
-  eleventyConfig.addGlobalData("baseUrl", process.env.GITHUB_ACTIONS ? "/prompt_library" : "");
+  const baseUrl = process.env.GITHUB_ACTIONS ? "/prompt_library" : "";
+  eleventyConfig.addGlobalData("baseUrl", baseUrl);
 
   return {
     dir: {
@@ -93,6 +94,6 @@ module.exports = function(eleventyConfig) {
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
-    pathPrefix: process.env.GITHUB_ACTIONS ? "/prompt_library/" : "/"
+    pathPrefix: baseUrl
   };
 }; 
