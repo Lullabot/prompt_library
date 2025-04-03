@@ -7,7 +7,7 @@ tags: ["drupal", "setup", "configuration", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+`````
 # Drupal 11 Project Configuration
 
 ## Project Structure
@@ -77,3 +77,4 @@ discipline: "development"
 3. PHP settings
 4. Development tools
 5. Debugging configuration 
+`````

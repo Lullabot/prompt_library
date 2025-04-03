@@ -7,7 +7,7 @@ tags: ["11ty", "setup", "configuration", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+`````
 # 11ty Project Configuration
 
 ## Project Structure
@@ -74,3 +74,4 @@ module.exports = function(eleventyConfig) {
 2. Configure repository settings
 3. Set up GitHub Pages source
 4. Monitor deployment status 
+`````
