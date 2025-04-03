@@ -5,7 +5,7 @@ layout: "base.njk"
 ---
 
 <div class="disciplines">
-  <h1 class="page-title">Prompt Library</h1>
+  <h1 class="page-title"><i class="fas fa-book-open"></i> Prompt Library</h1>
   <p class="page-description">Explore AI resources organized by discipline and content type.</p>
 
   <div class="discipline-grid">
@@ -134,6 +134,14 @@ layout: "base.njk"
     color: #2d3748;
     margin-bottom: 0.5rem;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .page-title i {
+    color: var(--primary-color);
   }
 
   .page-description {
