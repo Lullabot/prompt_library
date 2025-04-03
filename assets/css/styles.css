@@ -5,6 +5,7 @@
     --background-color: #ffffff;
     --card-background: #f3f4f6;
     --tag-background: #e5e7eb;
+    --border-color: #e5e7eb;
 }
 
 * {
@@ -54,46 +55,85 @@ nav a:hover {
     margin-bottom: 1rem;
 }
 
-.content-grid {
+.content-type-header {
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: var(--card-background);
+    margin-bottom: 2rem;
+}
+
+.content-type-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.content-type-header .description {
+    max-width: 800px;
+    margin: 0 auto;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.content-list {
     max-width: 1200px;
-    margin: 2rem auto;
+    margin: 0 auto;
     padding: 0 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
-.content-card {
+.content-item {
     background-color: var(--card-background);
-    padding: 2rem;
+    border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.content-card h2 {
-    margin-bottom: 1rem;
+.content-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.content-item h2 a {
     color: var(--primary-color);
-}
-
-.button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
     text-decoration: none;
-    margin-top: 1rem;
 }
 
-.button:hover {
-    background-color: var(--secondary-color);
+.content-item h2 a:hover {
+    text-decoration: underline;
+}
+
+.content-item p {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.content-item .metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.content-item .date {
+    font-size: 0.875rem;
+    color: var(--text-color);
+    opacity: 0.6;
 }
 
 .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 1rem 0;
+    margin-top: 0.5rem;
 }
 
 .tag {
@@ -101,22 +141,32 @@ nav a:hover {
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
     font-size: 0.875rem;
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
 footer {
     text-align: center;
     padding: 2rem;
     background-color: var(--card-background);
-    margin-top: 2rem;
+    margin-top: 4rem;
 }
 
 @media (max-width: 768px) {
-    .content-grid {
+    .content-list {
         grid-template-columns: 1fr;
     }
     
     nav {
         flex-direction: column;
         align-items: center;
+    }
+
+    .content-type-header {
+        padding: 2rem 1rem;
+    }
+
+    .content-type-header h1 {
+        font-size: 2rem;
     }
 } 

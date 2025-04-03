@@ -4,6 +4,7 @@ description: "A prompt for AI to perform thorough Drupal 11 code reviews, focusi
 category: "Drupal"
 tags: ["drupal", "code review", "best practices", "security", "maintainability"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 Please review the following Drupal 11 code with a focus on:

@@ -1,6 +1,8 @@
 # Prompt Library
 
-A collection of AI prompts, cursor rules, project configurations, and workflow states. Built with 11ty and hosted on GitHub Pages.
+A collection of AI prompts, cursor rules, project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages.
+
+![Screenshot of the Prompt Library showing the Development AI Prompts page](assets/images/prompt_library.png)
 
 ## Features
 
@@ -8,7 +10,7 @@ A collection of AI prompts, cursor rules, project configurations, and workflow s
 - Responsive layout
 - Easy navigation
 - Search functionality
-- Content categorization
+- Content categorization by discipline
 - Markdown support
 
 ## Getting Started
@@ -46,22 +48,66 @@ npm run build
 
 ```
 ├── _data/              # Global data files
-├── _includes/          # Layouts and partials
+├── _includes/          # Includes and partials
 ├── _layouts/           # Page templates
+│   ├── base.njk        # Base layout
+│   ├── discipline.njk  # Discipline-specific layout
+│   └── content-type.njk # Content type layout
 ├── assets/             # Static assets
-│   ├── css/
-│   ├── js/
-│   └── images/
-├── content/            # Content files
+│   ├── css/           # Stylesheets
+│   ├── js/            # JavaScript files
+│   └── images/        # Image assets
+├── development/        # Development discipline content
+│   ├── prompts/       # Development prompts
+│   ├── cursor-rules/  # Development cursor rules
+│   ├── project-configs/ # Development project configs
+│   └── workflow-states/ # Development workflow states
+├── project-management/ # Project Management discipline content
 │   ├── prompts/
 │   ├── cursor-rules/
 │   ├── project-configs/
 │   └── workflow-states/
-├── .eleventy.js        # 11ty configuration
+├── sales-marketing/    # Sales & Marketing discipline content
+│   ├── prompts/
+│   ├── cursor-rules/
+│   ├── project-configs/
+│   └── workflow-states/
+├── content-strategy/   # Content Strategy discipline content
+│   ├── prompts/
+│   ├── cursor-rules/
+│   ├── project-configs/
+│   └── workflow-states/
+├── design/            # Design discipline content
+│   ├── prompts/
+│   ├── cursor-rules/
+│   ├── project-configs/
+│   └── workflow-states/
+├── .github/           # GitHub configuration
+│   └── workflows/     # GitHub Actions workflows
+├── .eleventy.js       # 11ty configuration
 ├── .gitignore
 ├── package.json
 └── README.md
 ```
+
+## Content Organization
+
+The library is organized by disciplines and content types:
+
+### Disciplines
+- Development
+- Project Management
+- Sales & Marketing
+- Content Strategy
+- Design
+
+### Content Types
+- Prompts: AI prompts for various use cases
+- Cursor Rules: Guidelines for development environments
+- Project Configs: Project configuration templates
+- Workflow States: Process and workflow documentation
+
+Each discipline contains all content types, allowing for specialized content within each field.
 
 ## Contributing
 

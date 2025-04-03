@@ -1,9 +1,10 @@
 ---
-title: "Development Workflow State"
-description: "Current state and progress of the development workflow."
+title: "General Development Workflow"
+description: "Workflow states and processes for general software development projects."
 category: "Development"
-tags: ["workflow", "development", "progress", "state"]
+tags: ["workflow", "development", "process", "best practices"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # Development Workflow State

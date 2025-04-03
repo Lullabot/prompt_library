@@ -1,0 +1,12 @@
+---
+layout: base.njk
+---
+
+<nav class="discipline-nav">
+    <a href="{{ baseUrl }}/{{ discipline }}/prompts">Prompts</a>
+    <a href="{{ baseUrl }}/{{ discipline }}/cursor-rules">Cursor Rules</a>
+    <a href="{{ baseUrl }}/{{ discipline }}/project-configs">Project Configs</a>
+    <a href="{{ baseUrl }}/{{ discipline }}/workflow-states">Workflow States</a>
+</nav>
+
+{{ content | safe }} 

@@ -4,6 +4,7 @@ description: "Configuration for a modern 11ty static site project with GitHub Pa
 category: "Static Sites"
 tags: ["11ty", "static site", "github pages", "configuration"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # 11ty Project Configuration

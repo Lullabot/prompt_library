@@ -3,29 +3,33 @@ layout: base.njk
 title: Workflow States
 ---
 
-<div class="hero">
+<div class="content-type-header">
     <h1>Workflow States</h1>
-    <p>Learn about different workflow states and their implementations.</p>
+    <p class="description">Explore workflow states and processes for different project types.</p>
 </div>
 
-<div class="content-grid">
+<div class="content-list">
     {% if collections.workflowStates.length > 0 %}
         {% for state in collections.workflowStates %}
-            <section class="content-card">
-                <h2>{{ state.data.title }}</h2>
+            <article class="content-item">
+                <h2><a href="{{ baseUrl }}{{ state.url }}">{{ state.data.title }}</a></h2>
                 <p>{{ state.data.description }}</p>
-                <div class="tags">
-                    {% for tag in state.data.tags %}
-                        <span class="tag">{{ tag }}</span>
-                    {% endfor %}
+                <div class="metadata">
+                    <span class="date">{{ state.date | date("yyyy-MM-dd") }}</span>
+                    {% if state.data.tags %}
+                        <div class="tags">
+                            {% for tag in state.data.tags %}
+                                <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <a href="{{ baseUrl }}{{ state.url }}" class="button">View State</a>
-            </section>
+            </article>
         {% endfor %}
     {% else %}
-        <section class="content-card">
-            <h2>No States Yet</h2>
+        <article class="content-item">
+            <h2>No Workflow States Yet</h2>
             <p>Check back soon for our collection of workflow states!</p>
-        </section>
+        </article>
     {% endif %}
 </div> 

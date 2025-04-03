@@ -3,29 +3,33 @@ layout: base.njk
 title: Cursor Rules
 ---
 
-<div class="hero">
+<div class="content-type-header">
     <h1>Cursor Rules</h1>
-    <p>Explore cursor rules for different development environments and workflows.</p>
+    <p class="description">Explore cursor rules for different development environments and workflows.</p>
 </div>
 
-<div class="content-grid">
+<div class="content-list">
     {% if collections.cursorRules.length > 0 %}
         {% for rule in collections.cursorRules %}
-            <section class="content-card">
-                <h2>{{ rule.data.title }}</h2>
+            <article class="content-item">
+                <h2><a href="{{ baseUrl }}{{ rule.url }}">{{ rule.data.title }}</a></h2>
                 <p>{{ rule.data.description }}</p>
-                <div class="tags">
-                    {% for tag in rule.data.tags %}
-                        <span class="tag">{{ tag }}</span>
-                    {% endfor %}
+                <div class="metadata">
+                    <span class="date">{{ rule.date | date("yyyy-MM-dd") }}</span>
+                    {% if rule.data.tags %}
+                        <div class="tags">
+                            {% for tag in rule.data.tags %}
+                                <span class="tag">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
-                <a href="{{ baseUrl }}{{ rule.url }}" class="button">View Rule</a>
-            </section>
+            </article>
         {% endfor %}
     {% else %}
-        <section class="content-card">
-            <h2>No Rules Yet</h2>
+        <article class="content-item">
+            <h2>No Cursor Rules Yet</h2>
             <p>Check back soon for our collection of cursor rules!</p>
-        </section>
+        </article>
     {% endif %}
 </div> 

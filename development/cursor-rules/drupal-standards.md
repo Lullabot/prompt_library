@@ -4,6 +4,7 @@ description: "Rules for maintaining high code quality in Drupal 11 projects."
 category: "Drupal"
 tags: ["drupal", "standards", "best practices", "development"]
 date: "2024-03-20"
+discipline: "development"
 ---
 
 # Drupal 11 Development Standards
