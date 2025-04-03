@@ -1,12 +1,13 @@
 ---
 title: "Drupal 11 Development Standards"
 description: "Rules for maintaining high code quality in Drupal 11 projects."
+layout: "markdown.njk"
 category: "Drupal"
 tags: ["drupal", "standards", "best practices", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+```
 # Drupal 11 Development Standards
 
 ## Drupal Coding Standards
@@ -57,3 +58,4 @@ discipline: "development"
 - Document configuration
 - Maintain README files
 - Document deployment process 
+```

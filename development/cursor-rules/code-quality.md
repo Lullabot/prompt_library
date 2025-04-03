@@ -1,12 +1,13 @@
 ---
 title: "Code Quality Standards"
 description: "Rules for maintaining high code quality across all projects."
-category: "Code Quality"
+layout: "markdown.njk"
+category: "Development"
 tags: ["standards", "best practices", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+```
 # Code Quality Standards
 
 ## General Principles
@@ -43,3 +44,4 @@ discipline: "development"
 - Minimize database queries
 - Implement caching where appropriate
 - Monitor and profile performance 
+```

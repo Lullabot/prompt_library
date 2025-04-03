@@ -1,12 +1,13 @@
 ---
 title: "AI Code Review Assistant"
-description: "A prompt for AI to perform thorough code reviews, focusing on best practices, security, and maintainability."
+description: "AI prompts for performing thorough code reviews and ensuring best practices."
+layout: "markdown.njk"
 category: "Code Review"
-tags: ["code review", "best practices", "security", "maintainability"]
+tags: ["code review", "best practices", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+```
 Please review the following code with a focus on:
 
 1. Code Quality and Best Practices
@@ -39,3 +40,4 @@ Provide specific recommendations for improvements, including:
 - References to relevant documentation
 - Security best practices
 - Performance optimization techniques 
+```

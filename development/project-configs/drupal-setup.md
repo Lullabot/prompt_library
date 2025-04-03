@@ -1,6 +1,7 @@
 ---
 title: "Drupal 11 Project Setup"
-description: "Configuration and setup guide for Drupal 11 projects."
+description: "Configuration and setup instructions for Drupal 11 projects."
+layout: "markdown.njk"
 category: "Drupal"
 tags: ["drupal", "setup", "configuration", "development"]
 date: "2024-03-20"

@@ -1,8 +1,9 @@
 ---
 title: "11ty Project Configuration"
-description: "Configuration for a modern 11ty static site project with GitHub Pages deployment."
+description: "Configuration and setup instructions for 11ty static site projects."
+layout: "markdown.njk"
 category: "Static Sites"
-tags: ["11ty", "static site", "github pages", "configuration"]
+tags: ["11ty", "setup", "configuration", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---

@@ -1,12 +1,13 @@
 ---
 title: "Drupal Development Workflow"
 description: "Workflow states and processes for Drupal development projects."
+layout: "markdown.njk"
 category: "Drupal"
 tags: ["drupal", "workflow", "development", "process"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+```
 # Drupal 11 Development Workflow
 
 ## Development States
@@ -79,3 +80,4 @@ discipline: "development"
 - Database queries optimized
 - Asset delivery optimized
 - Resource usage monitored 
+```

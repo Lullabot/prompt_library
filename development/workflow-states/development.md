@@ -1,6 +1,7 @@
 ---
 title: "General Development Workflow"
 description: "Workflow states and processes for general software development projects."
+layout: "markdown.njk"
 category: "Development"
 tags: ["workflow", "development", "process", "best practices"]
 date: "2024-03-20"

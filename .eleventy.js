@@ -47,7 +47,13 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addCollection(type, function(collection) {
       return collection.getFilteredByGlob(
         disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
-      );
+      ).map(item => {
+        // Ensure URLs have the correct base URL
+        if (process.env.GITHUB_ACTIONS) {
+          item.url = `/prompt_library${item.url}`;
+        }
+        return item;
+      });
     });
   });
 
@@ -62,7 +68,7 @@ module.exports = function(eleventyConfig) {
         title: item.data.title || '',
         description: item.data.description || '',
         content: content || '',
-        url: item.url,
+        url: process.env.GITHUB_ACTIONS ? `/prompt_library${item.url}` : item.url,
         discipline: item.data.discipline || '',
         contentType: item.data.contentType || '',
         tags: item.data.tags || [],
@@ -81,6 +87,14 @@ module.exports = function(eleventyConfig) {
   // Add base URL for GitHub Pages
   const baseUrl = process.env.GITHUB_ACTIONS ? "/prompt_library" : "";
   eleventyConfig.addGlobalData("baseUrl", baseUrl);
+
+  // Add URL filter that includes base URL
+  eleventyConfig.addFilter("fullUrl", function(url) {
+    if (url.startsWith(baseUrl)) {
+      return url;
+    }
+    return `${baseUrl}${url}`;
+  });
 
   return {
     dir: {

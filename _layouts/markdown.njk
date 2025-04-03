@@ -1,0 +1,166 @@
+---
+layout: base.njk
+---
+
+<div class="markdown-content">
+  <h1>{{ title }}</h1>
+  <p class="description">{{ description }}</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      {% for tag in tags %}
+        <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    <time datetime="{{ date }}">{{ date | date }}</time>
+  </div>
+
+  <div class="content">
+    {{ content | safe }}
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 

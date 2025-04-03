@@ -10,7 +10,7 @@ layout: base.njk
     {% for item in collections[contentType] %}
       {% if item.data.discipline == discipline %}
         <article class="content-item">
-          <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
+          <h2><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h2>
           <p class="item-description">{{ item.data.description }}</p>
           <div class="item-meta">
             <span class="item-category">{{ item.data.category }}</span>

@@ -1,12 +1,13 @@
 ---
 title: "Drupal 11 Code Review Assistant"
-description: "A prompt for AI to perform thorough Drupal 11 code reviews, focusing on Drupal best practices, security, and maintainability."
-category: "Drupal"
-tags: ["drupal", "code review", "best practices", "security", "maintainability"]
+description: "AI prompts for reviewing Drupal 11 code and ensuring best practices."
+layout: "markdown.njk"
+category: "Code Review"
+tags: ["drupal", "code review", "best practices", "development"]
 date: "2024-03-20"
 discipline: "development"
 ---
-
+```
 Please review the following Drupal 11 code with a focus on:
 
 1. Drupal Coding Standards
@@ -42,3 +43,4 @@ Provide specific recommendations for improvements, including:
 - References to Drupal documentation
 - Security best practices for Drupal
 - Performance optimization techniques for Drupal 
+```

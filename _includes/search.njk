@@ -32,7 +32,7 @@
     let searchIndex = [];
 
     // Fetch search index
-    fetch('/search-index.json')
+    fetch('{{ baseUrl }}/search-index.json')
       .then(response => response.json())
       .then(data => {
         searchIndex = data;
@@ -61,7 +61,7 @@
 
       const html = results.map(result => `
         <article class="search-result">
-          <h3><a href="${result.url}">${result.title}</a></h3>
+          <h3><a href="{{ baseUrl }}${result.url}">${result.title}</a></h3>
           <p class="result-description">${result.description}</p>
           <div class="result-meta">
             <span class="result-category">${result.category}</span>
