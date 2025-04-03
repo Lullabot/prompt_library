@@ -27,8 +27,6 @@ module.exports = function(eleventyConfig) {
     switch (format) {
       case "yyyy":
         return year.toString();
-      case "yyyy-MM-dd":
-        return `${year}-${month}-${day}`;
       default:
         return `${year}-${month}-${day}`;
     }
@@ -53,59 +51,35 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  // Generate search index
+  eleventyConfig.addCollection("searchIndex", async function(collection) {
+    const items = collection.getAll().filter(item => item.template.inputPath.endsWith('.md'));
+    const searchIndex = [];
+
+    for (const item of items) {
+      const content = await item.template.read();
+      searchIndex.push({
+        title: item.data.title || '',
+        description: item.data.description || '',
+        content: content || '',
+        url: item.url,
+        discipline: item.data.discipline || '',
+        contentType: item.data.contentType || '',
+        tags: item.data.tags || [],
+        date: item.data.date || new Date().toISOString()
+      });
+    }
+
+    // Write search index to JSON file
+    const outputPath = path.join(__dirname, '_site', 'search-index.json');
+    fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+    fs.writeFileSync(outputPath, JSON.stringify(searchIndex));
+
+    return searchIndex;
+  });
+
   // Add base URL for GitHub Pages
   eleventyConfig.addGlobalData("baseUrl", process.env.GITHUB_ACTIONS ? "/prompt_library" : "");
-
-  // Generate search index
-  eleventyConfig.on('afterBuild', () => {
-    const searchIndex = [];
-    const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design'];
-    const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
-
-    disciplines.forEach(discipline => {
-      contentTypes.forEach(type => {
-        const dir = path.join(discipline, type);
-        if (fs.existsSync(dir)) {
-          const files = fs.readdirSync(dir);
-          files.forEach(file => {
-            if (file.endsWith('.md')) {
-              const content = fs.readFileSync(path.join(dir, file), 'utf8');
-              const frontMatter = content.match(/^---\n([\s\S]*?)\n---/);
-              if (frontMatter) {
-                const metadata = frontMatter[1].split('\n').reduce((acc, line) => {
-                  const [key, ...value] = line.split(':');
-                  if (key && value) {
-                    acc[key.trim()] = value.join(':').trim();
-                  }
-                  return acc;
-                }, {});
-
-                // Clean up content by removing front matter
-                const cleanContent = content.replace(/^---\n[\s\S]*?\n---/, '').trim();
-
-                searchIndex.push({
-                  title: metadata.title || '',
-                  description: metadata.description || '',
-                  category: metadata.category || '',
-                  tags: metadata.tags ? metadata.tags.split(',').map(tag => tag.trim()) : [],
-                  date: metadata.date || '',
-                  discipline: discipline,
-                  content: cleanContent,
-                  url: `/${discipline}/${type}/${file.replace('.md', '')}/`
-                });
-              }
-            }
-          });
-        }
-      });
-    });
-
-    // Write search index to file
-    fs.writeFileSync(
-      path.join('_site', 'search-index.json'),
-      JSON.stringify(searchIndex, null, 2)
-    );
-  });
 
   return {
     dir: {

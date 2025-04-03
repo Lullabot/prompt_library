@@ -6,11 +6,28 @@
     <title>{{ title }} - Prompt Library</title>
     <link rel="stylesheet" href="{{ baseUrl }}/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <header>
         <nav>
-            <a href="{{ baseUrl }}/"><i class="fas fa-book-open"></i> Home</a>
+            <a href="{{ baseUrl }}/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
         </nav>
     </header>
 
@@ -21,6 +38,13 @@
     <footer>
         <p>&copy; {{ "now" | date("yyyy") }} Prompt Library</p>
     </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
 
     <script src="{{ baseUrl }}/assets/js/main.js"></script>
 </body>
