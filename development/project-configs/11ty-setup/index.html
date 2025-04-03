@@ -53,9 +53,11 @@
   </div>
 
   <div class="content">
-    <h1>11ty Project Configuration</h1>
-<h2>Project Structure</h2>
-<pre><code>├── _data/              # Global data files
+    <pre><code># 11ty Project Configuration
+
+## Project Structure
+```
+├── _data/              # Global data files
 ├── _includes/          # Layouts and partials
 ├── _layouts/           # Page templates
 ├── assets/             # Static assets
@@ -67,9 +69,11 @@
 ├── .gitignore
 ├── package.json
 └── README.md
-</code></pre>
-<h2>.eleventy.js Configuration</h2>
-<pre><code class="language-javascript">module.exports = function(eleventyConfig) {
+```
+
+## .eleventy.js Configuration
+```javascript
+module.exports = function(eleventyConfig) {
   // Copy static assets
   eleventyConfig.addPassthroughCopy(&quot;assets&quot;);
   
@@ -97,23 +101,25 @@
     dataTemplateEngine: &quot;njk&quot;
   };
 };
-</code></pre>
-<h2>package.json Scripts</h2>
-<pre><code class="language-json">{
+```
+
+## package.json Scripts
+```json
+{
   &quot;scripts&quot;: {
     &quot;start&quot;: &quot;eleventy --serve&quot;,
     &quot;build&quot;: &quot;eleventy&quot;,
     &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
   }
 }
+```
+
+## GitHub Pages Deployment
+1. Create `.github/workflows/deploy.yml`
+2. Configure repository settings
+3. Set up GitHub Pages source
+4. Monitor deployment status 
 </code></pre>
-<h2>GitHub Pages Deployment</h2>
-<ol>
-<li>Create <code>.github/workflows/deploy.yml</code></li>
-<li>Configure repository settings</li>
-<li>Set up GitHub Pages source</li>
-<li>Monitor deployment status</li>
-</ol>
 
   </div>
 </div>

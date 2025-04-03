@@ -53,9 +53,11 @@
   </div>
 
   <div class="content">
-    <h1>Drupal 11 Project Configuration</h1>
-<h2>Project Structure</h2>
-<pre><code>├── docroot/              # Drupal installation
+    <pre><code># Drupal 11 Project Configuration
+
+## Project Structure
+```
+├── docroot/              # Drupal installation
 │   ├── core/            # Drupal core
 │   ├── modules/         # Custom modules
 │   ├── profiles/        # Installation profiles
@@ -72,9 +74,11 @@
 ├── composer.json
 ├── composer.lock
 └── README.md
-</code></pre>
-<h2>composer.json Configuration</h2>
-<pre><code class="language-json">{
+```
+
+## composer.json Configuration
+```json
+{
     &quot;name&quot;: &quot;organization/project&quot;,
     &quot;description&quot;: &quot;Drupal 11 project&quot;,
     &quot;type&quot;: &quot;project&quot;,
@@ -104,22 +108,21 @@
         &quot;post-update-cmd&quot;: &quot;Drupal\\Core\\Composer\\Composer::scaffoldFiles&quot;
     }
 }
+```
+
+## CI/CD Configuration
+1. Set up GitHub Actions
+2. Configure automated testing
+3. Set up deployment pipeline
+4. Configure environment variables
+
+## Development Environment
+1. Local development setup
+2. Database configuration
+3. PHP settings
+4. Development tools
+5. Debugging configuration 
 </code></pre>
-<h2>CI/CD Configuration</h2>
-<ol>
-<li>Set up GitHub Actions</li>
-<li>Configure automated testing</li>
-<li>Set up deployment pipeline</li>
-<li>Configure environment variables</li>
-</ol>
-<h2>Development Environment</h2>
-<ol>
-<li>Local development setup</li>
-<li>Database configuration</li>
-<li>PHP settings</li>
-<li>Development tools</li>
-<li>Debugging configuration</li>
-</ol>
 
   </div>
 </div>
