@@ -1,0 +1,95 @@
+---
+description: Adding a new prompt to this repository.
+globs: 
+alwaysApply: false
+---
+# Prompt Library Content Requirements
+
+When adding new content to the Prompt Library, you must follow these requirements to ensure proper display and functionality.
+
+## File Structure
+
+1. Content must be placed in the correct discipline and type directories:
+   ```
+   <discipline>/<content-type>/<filename>.md
+   ```
+   Example: `project-management/prompts/readable-zoom-transcripts.md`
+
+2. Filenames:
+   - Use kebab-case
+   - All lowercase
+   - End with .md extension
+
+## Required Frontmatter
+
+Every content file must include this frontmatter structure:
+
+```yaml
+---
+title: "Your Title Here"
+description: "A clear description of what this content does"
+date: "YYYY-MM-DD"
+layout: "markdown.njk"
+discipline: "<discipline-name>"
+contentType: "<content-type>"
+tags:
+  - relevant
+  - tags
+  - here
+---
+```
+
+### Frontmatter Rules
+
+1. String values must use double quotes
+2. Required fields:
+   - title: quoted string
+   - description: quoted string
+   - date: quoted YYYY-MM-DD format
+   - layout: must be "markdown.njk"
+   - discipline: must match parent directory name
+   - contentType: must match immediate parent directory name
+   - tags: array of relevant keywords
+
+## Content Rules
+
+1. Code blocks must specify a language:
+   ```text
+   ```language-name
+   your code here
+   ```
+   ```
+
+2. Headers must follow proper hierarchy:
+   - Start with h1 (#)
+   - Use h2 (##) for major sections
+   - Use h3 (###) for subsections
+
+3. Lists must:
+   - Use proper markdown syntax
+   - Have consistent indentation
+   - Include blank lines before and after
+
+## Pre-commit Validation
+
+✓ File location matches discipline/content-type structure
+✓ Filename uses kebab-case and .md extension
+✓ All required frontmatter fields present
+✓ String values properly quoted
+✓ discipline and contentType match directories
+✓ Code blocks specify language
+✓ Headers follow proper hierarchy
+✓ Lists properly formatted
+✓ Content renders correctly locally
+
+## Testing
+
+Before committing:
+
+1. Start dev server: `npm start`
+2. Visit: `http://localhost:8080/<discipline>/<content-type>/<filename>/`
+3. Verify:
+   - Content displays correctly
+   - Code blocks show copy buttons
+   - Metadata and tags appear
+   - Navigation works 
