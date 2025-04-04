@@ -49,7 +49,7 @@ module.exports = function(eleventyConfig) {
         disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
       ).map(item => {
         // Ensure URLs have the correct base URL
-        if (process.env.GITHUB_ACTIONS) {
+        if (process.env.GITHUB_ACTIONS && !item.url.startsWith('/prompt_library')) {
           item.url = `/prompt_library${item.url}`;
         }
         return item;
@@ -64,11 +64,15 @@ module.exports = function(eleventyConfig) {
 
     for (const item of items) {
       const content = await item.template.read();
+      const url = process.env.GITHUB_ACTIONS && !item.url.startsWith('/prompt_library') 
+        ? `/prompt_library${item.url}` 
+        : item.url;
+        
       searchIndex.push({
         title: item.data.title || '',
         description: item.data.description || '',
         content: content || '',
-        url: process.env.GITHUB_ACTIONS ? `/prompt_library${item.url}` : item.url,
+        url: url,
         discipline: item.data.discipline || '',
         contentType: item.data.contentType || '',
         tags: item.data.tags || [],

@@ -609,31 +609,37 @@ footer {
 
 /* Code block styles */
 pre {
-    background-color: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 1rem;
     margin: 1rem 0;
     overflow-x: auto;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 0.9rem;
-    line-height: 1.5;
+    white-space: pre-wrap;       /* CSS 3 */
+    white-space: -moz-pre-wrap;  /* Mozilla */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Modern browsers */
 }
 
 code {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 0.9em;
-    padding: 0.2em 0.4em;
-    background-color: #f1f5f9;
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
     border-radius: 0.25rem;
-    color: #1e293b;
+    font-size: 0.9em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 pre code {
     background-color: transparent;
+    color: inherit;
     padding: 0;
     border-radius: 0;
-    color: inherit;
+    font-size: 1em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 /* Dark mode code block styles */
