@@ -36,7 +36,9 @@ function initializeTheme() {
 
     // Watch for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {
-        setTheme(matches ? 'dark' : 'light');
+        if (!localStorage.getItem(STORAGE_KEY)) {
+            setTheme(matches ? 'dark' : 'light');
+        }
     });
 }
 
