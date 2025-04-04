@@ -28,20 +28,37 @@ document.addEventListener('DOMContentLoaded', function() {
     const markdownModal = document.querySelector('.markdown-modal');
     let debounceTimeout;
 
+    // Get base URL from meta tag or default to empty string
+    const baseUrl = document.querySelector('meta[name="base-url"]')?.getAttribute('content') || '';
+
+    // Function to ensure URL has correct base
+    function getFullUrl(url) {
+        if (!url) return url;
+        // Remove any leading slashes
+        url = url.replace(/^\/+/, '');
+        return `${baseUrl}/${url}`;
+    }
+
     // Fetch search index
-    fetch('/search-index.json')
-        .then(response => response.json())
+    fetch(getFullUrl('search-index.json'))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             searchIndex = data;
+            console.log('Search index loaded successfully');
         })
         .catch(error => {
             console.error('Error loading search index:', error);
+            searchResults.innerHTML = '<div class="no-results">Search is currently unavailable</div>';
         });
 
     function performSearch(query) {
         if (!query || query.length < 2) {
-            searchResults.innerHTML = '';
-            searchResults.style.display = 'none';
+            searchResults.hidden = true;
             return;
         }
 
@@ -74,15 +91,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function displayResults(results) {
+        searchResults.hidden = false;
+        
         if (results.length === 0) {
             searchResults.innerHTML = '<div class="no-results">No results found</div>';
-            searchResults.style.display = 'block';
             return;
         }
 
         const html = results.map(result => `
             <div class="search-result">
-                <a href="${result.url}" class="result-link">
+                <a href="${getFullUrl(result.url)}" class="result-link">
                     <h3 class="result-title">${result.title || ''}</h3>
                     <div class="result-meta">
                         <span class="result-discipline">${result.discipline || ''}</span>
@@ -99,7 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `).join('');
 
         searchResults.innerHTML = html;
-        searchResults.style.display = 'block';
     }
 
     // Event listeners
@@ -118,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close results when clicking outside
     document.addEventListener('click', function(e) {
         if (!searchForm.contains(e.target) && !searchResults.contains(e.target)) {
-            searchResults.style.display = 'none';
+            searchResults.hidden = true;
         }
     });
 
