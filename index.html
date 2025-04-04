@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
 </head>
 <body>
     <header>
@@ -28,6 +29,9 @@
                 </form>
                 <div id="search-results" class="search-results" hidden></div>
             </div>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
         </nav>
     </header>
 
@@ -160,7 +164,7 @@
   .page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2d3748;
+    color: var(--text-color);
     margin-bottom: 0.5rem;
     text-align: center;
     display: flex;
@@ -175,7 +179,8 @@
 
   .page-description {
     font-size: 1.25rem;
-    color: #4a5568;
+    color: var(--text-color);
+    opacity: 0.8;
     text-align: center;
     margin-bottom: 3rem;
   }
@@ -187,24 +192,25 @@
   }
 
   .discipline-card {
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
+    border: 1px solid var(--border-color);
   }
 
   .discipline-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--card-hover-shadow);
   }
 
   .discipline-card h2 {
     font-size: 1.5rem;
-    color: #2d3748;
+    color: var(--text-color);
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid var(--border-color);
   }
 
   .content-types {
@@ -218,15 +224,15 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    background-color: #f7fafc;
+    background-color: var(--tag-background);
     border-radius: 0.375rem;
-    color: #4a5568;
+    color: var(--text-color);
     text-decoration: none;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, var(--theme-transition);
   }
 
   .content-type-link:hover {
-    background-color: #edf2f7;
+    background-color: var(--background-color);
   }
 
   .content-type-icon {
@@ -236,6 +242,7 @@
   .content-type-label {
     font-size: 0.875rem;
     font-weight: 500;
+    color: var(--text-color);
   }
 
   @media (max-width: 640px) {
