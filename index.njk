@@ -132,7 +132,7 @@ hideSearch: false
   .page-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #2d3748;
+    color: var(--text-color);
     margin-bottom: 0.5rem;
     text-align: center;
     display: flex;
@@ -147,7 +147,8 @@ hideSearch: false
 
   .page-description {
     font-size: 1.25rem;
-    color: #4a5568;
+    color: var(--text-color);
+    opacity: 0.8;
     text-align: center;
     margin-bottom: 3rem;
   }
@@ -159,24 +160,25 @@ hideSearch: false
   }
 
   .discipline-card {
-    background-color: white;
+    background-color: var(--card-background);
     border-radius: 0.5rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
+    border: 1px solid var(--border-color);
   }
 
   .discipline-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px var(--card-hover-shadow);
   }
 
   .discipline-card h2 {
     font-size: 1.5rem;
-    color: #2d3748;
+    color: var(--text-color);
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid var(--border-color);
   }
 
   .content-types {
@@ -190,15 +192,15 @@ hideSearch: false
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    background-color: #f7fafc;
+    background-color: var(--tag-background);
     border-radius: 0.375rem;
-    color: #4a5568;
+    color: var(--text-color);
     text-decoration: none;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, var(--theme-transition);
   }
 
   .content-type-link:hover {
-    background-color: #edf2f7;
+    background-color: var(--background-color);
   }
 
   .content-type-icon {
@@ -208,6 +210,7 @@ hideSearch: false
   .content-type-label {
     font-size: 0.875rem;
     font-weight: 500;
+    color: var(--text-color);
   }
 
   @media (max-width: 640px) {

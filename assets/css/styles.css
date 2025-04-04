@@ -1,4 +1,5 @@
 :root {
+    /* Light theme variables */
     --primary-color: #2563eb;
     --secondary-color: #1e40af;
     --text-color: #1f2937;
@@ -6,6 +7,35 @@
     --card-background: #f3f4f6;
     --tag-background: #e5e7eb;
     --border-color: #e5e7eb;
+    --search-bg: rgba(255, 255, 255, 0.15);
+    --search-bg-focus: rgba(255, 255, 255, 0.25);
+    --search-text: white;
+    --search-placeholder: rgba(255, 255, 255, 0.7);
+    --header-text: white;
+    --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark theme variables */
+:root.dark-theme {
+    --primary-color: #60a5fa;
+    --secondary-color: #93c5fd;
+    --text-color: #f3f4f6;
+    --background-color: #0f172a;
+    --card-background: #1e293b;
+    --tag-background: #334155;
+    --border-color: #334155;
+    --search-bg: rgba(0, 0, 0, 0.2);
+    --search-bg-focus: rgba(0, 0, 0, 0.3);
+    --search-text: #f3f4f6;
+    --search-placeholder: rgba(243, 244, 246, 0.7);
+    --header-text: #f3f4f6;
+    --code-background: #1a2234;
+    --code-text: #e2e8f0;
+    --code-border: #2d3748;
+    --inline-code-background: #2d3748;
+    --inline-code-text: #e2e8f0;
+    --card-text: #f3f4f6;
+    --card-hover-shadow: rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -19,12 +49,14 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--background-color);
+    transition: var(--theme-transition);
 }
 
 header {
     background-color: var(--primary-color);
     padding: 1rem 0;
-    color: white;
+    color: var(--header-text);
+    transition: var(--theme-transition);
 }
 
 nav {
@@ -33,17 +65,24 @@ nav {
     padding: 0 1rem;
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
 }
 
 .home-link {
-    color: white;
+    color: var(--header-text);
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-weight: 500;
     white-space: nowrap;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.home-link:hover {
+    background-color: var(--secondary-color);
 }
 
 nav a {
@@ -131,22 +170,59 @@ nav a:hover {
     gap: 2rem;
 }
 
+/* Homepage cards */
+.content-list > div {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
+}
+
+.content-list > div:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--card-hover-shadow);
+}
+
+.content-list > div h2 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.content-list > div a {
+    color: var(--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s ease;
+}
+
+.content-list > div a:hover {
+    background-color: var(--tag-background);
+}
+
+.content-list > div i {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* Update existing card styles to ensure they don't override homepage cards */
 .content-item {
     background-color: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.content-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
+    color: var(--text-color);
 }
 
 .content-item h2 {
     font-size: 1.5rem;
     margin-bottom: 0.75rem;
+    color: var(--text-color);
 }
 
 .content-item h2 a {
@@ -160,20 +236,20 @@ nav a:hover {
 
 .content-item p {
     color: var(--text-color);
-    opacity: 0.8;
-    margin-bottom: 1rem;
+    opacity: 0.9;
 }
 
 .content-item .metadata {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    color: var(--text-color);
 }
 
 .content-item .date {
     font-size: 0.875rem;
     color: var(--text-color);
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .tags {
@@ -189,7 +265,7 @@ nav a:hover {
     border-radius: 1rem;
     font-size: 0.875rem;
     color: var(--text-color);
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 footer {
@@ -201,13 +277,16 @@ footer {
 
 /* Search Component */
 .search-container {
+    flex: 1;
+    max-width: 600px;
     position: relative;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .search-form {
+    flex: 1;
     display: flex;
     align-items: center;
     width: 100%;
@@ -219,18 +298,18 @@ footer {
     border: none;
     border-radius: 4px;
     font-size: 0.9rem;
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
-    transition: background-color 0.2s ease;
+    background-color: var(--search-bg);
+    color: var(--search-text);
+    transition: var(--theme-transition);
 }
 
 .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--search-placeholder);
 }
 
 .search-input:focus {
     outline: none;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: var(--search-bg-focus);
 }
 
 .search-button {
@@ -418,8 +497,9 @@ footer {
     }
 
     .search-container {
+        width: 100%;
         max-width: 100%;
-        margin: 0.5rem 1rem;
+        margin: 0;
     }
 
     .search-results {
@@ -442,4 +522,193 @@ footer {
         margin: 1rem auto;
         padding: 1rem;
     }
+}
+
+/* Add theme toggle button styles */
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--header-text);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+    border-radius: 0.25rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+}
+
+.theme-toggle:hover {
+    background-color: var(--secondary-color);
+}
+
+.theme-toggle i {
+    font-size: 1.1em;
+}
+
+/* Update search results for dark mode */
+:root.dark-theme .search-results {
+    background-color: var(--card-background);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+:root.dark-theme .search-result {
+    border-bottom: 1px solid var(--border-color);
+}
+
+:root.dark-theme .result-link:hover,
+:root.dark-theme .result-link:focus {
+    background-color: var(--background-color);
+}
+
+:root.dark-theme .result-title {
+    color: var(--primary-color);
+}
+
+:root.dark-theme .result-meta {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+:root.dark-theme .result-discipline,
+:root.dark-theme .result-type,
+:root.dark-theme .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+}
+
+:root.dark-theme .result-description {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* Update markdown modal for dark mode */
+:root.dark-theme .markdown-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+}
+
+:root.dark-theme .close-button {
+    color: var(--text-color);
+}
+
+/* Code block styles */
+pre {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9em;
+    padding: 0.2em 0.4em;
+    background-color: #f1f5f9;
+    border-radius: 0.25rem;
+    color: #1e293b;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+}
+
+/* Dark mode code block styles */
+:root.dark-theme pre {
+    background-color: var(--code-background);
+    border-color: var(--code-border);
+    color: var(--code-text);
+}
+
+:root.dark-theme code {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+}
+
+:root.dark-theme pre code {
+    background-color: transparent;
+    color: inherit;
+}
+
+/* Syntax highlighting for dark mode */
+:root.dark-theme .hljs-keyword,
+:root.dark-theme .hljs-built_in {
+    color: #93c5fd;
+}
+
+:root.dark-theme .hljs-string,
+:root.dark-theme .hljs-regexp {
+    color: #86efac;
+}
+
+:root.dark-theme .hljs-number,
+:root.dark-theme .hljs-literal {
+    color: #fca5a5;
+}
+
+:root.dark-theme .hljs-comment {
+    color: #94a3b8;
+}
+
+:root.dark-theme .hljs-function,
+:root.dark-theme .hljs-class {
+    color: #c4b5fd;
+}
+
+:root.dark-theme .hljs-variable,
+:root.dark-theme .hljs-params {
+    color: #e2e8f0;
+}
+
+:root.dark-theme .hljs-attr,
+:root.dark-theme .hljs-property {
+    color: #fcd34d;
+}
+
+/* Add a subtle scrollbar for code blocks in dark mode */
+:root.dark-theme pre::-webkit-scrollbar {
+    height: 8px;
+    background-color: var(--code-background);
+}
+
+:root.dark-theme pre::-webkit-scrollbar-thumb {
+    background-color: var(--code-border);
+    border-radius: 4px;
+}
+
+:root.dark-theme pre::-webkit-scrollbar-thumb:hover {
+    background-color: #4a5568;
+}
+
+/* Update icon colors in dark mode */
+:root.dark-theme .content-item i {
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+/* Dark mode specific overrides for homepage cards */
+:root.dark-theme .content-list > div {
+    background-color: var(--card-background);
+    border-color: var(--border-color);
+}
+
+:root.dark-theme .content-list > div h2,
+:root.dark-theme .content-list > div a,
+:root.dark-theme .content-list > div i {
+    color: var(--text-color);
+}
+
+:root.dark-theme .content-list > div a:hover {
+    background-color: var(--tag-background);
 } 
