@@ -34,8 +34,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to ensure URL has correct base
     function getFullUrl(url) {
         if (!url) return url;
+        
+        // Remove the baseUrl if it's already in the url (to prevent duplication)
+        if (baseUrl) {
+            // Remove any number of occurrences of baseUrl from the start
+            const baseUrlPattern = new RegExp(`^(?:${baseUrl}/?)+`);
+            url = url.replace(baseUrlPattern, '');
+        }
+        
         // Remove any leading slashes
         url = url.replace(/^\/+/, '');
+        
+        // If baseUrl is empty, just return the cleaned url
+        if (!baseUrl) return '/' + url;
+        
+        // Otherwise, properly join baseUrl with the cleaned url
         return `${baseUrl}/${url}`;
     }
 
