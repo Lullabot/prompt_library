@@ -1,0 +1,33 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# GitHub Issue Creation Guidelines
+
+When creating GitHub issues through the GitHub API, always use the current repository context:
+
+- Owner: Lullabot
+- Repository: prompt_library
+
+This ensures that issues are created in the correct repository without requiring explicit specification each time.
+
+## Example Usage
+
+```typescript
+// The repository context is automatically set
+await createIssue({
+  title: "Issue Title",
+  body: "Issue description"
+});
+```
+
+## Benefits
+
+- Maintains consistency across issue creation
+- Reduces potential for errors in repository targeting
+- Streamlines the issue creation process
+
+## Implementation Notes
+
+The repository context should be automatically inferred from the workspace environment rather than hardcoded in individual commands. 
