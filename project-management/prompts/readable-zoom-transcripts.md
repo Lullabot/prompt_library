@@ -2,6 +2,8 @@
 title: Readable Zoom Transcripts
 description: A prompt for cleaning and formatting meeting transcripts to improve readability while maintaining content integrity.
 date: 2024-04-04
+discipline: "project-management"
+contentType: "prompts"
 tags: 
   - transcription
   - meetings
