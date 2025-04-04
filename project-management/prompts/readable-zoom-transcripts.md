@@ -11,7 +11,7 @@ tags:
   - documentation
   - communication
 ---
-```
+`````
 You will be given a transcript of a conversation. Your task is to clean up this transcript to make it more readable while maintaining the original content and meaning.
 
 ## Instructions
@@ -44,4 +44,4 @@ Follow these steps to clean up the transcript:
 6. Ensure that the cleaned transcript remains true to the original content, preserving the flow of the conversation and all important information.
 
 Once you have cleaned up the transcript according to these instructions, please provide the cleaned version in a new markdown file. Process the entire transcript and verify once complete. 
-```
+`````
