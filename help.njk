@@ -1,0 +1,284 @@
+---
+title: "Artifact Types"
+description: "Overview of different artifact types in the prompt library."
+layout: "base.njk"
+---
+
+<div class="help-container">
+  <h1 class="help-title">Artifact Types in the Prompt Library</h1>
+
+  <div class="artifact-section">
+    <h2>AI Prompts</h2>
+    <p>AI prompts are predefined inputs used to guide AI models in generating responses. They are essential for ensuring that AI outputs are relevant and useful.</p>
+    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/user-story-generator.mdc</code></p>
+    <div class="example-block">
+      <div class="example-label">Example: Project Management User Story Generator</div>
+      <code># User Story Generator Prompt
+
+## Format Template
+As a [type of user]
+I want to [perform some action]
+So that [achieve some goal]
+
+## Key Considerations
+- User's role and context
+- Specific action or functionality
+- Clear business value or benefit
+- Acceptance criteria
+- Technical constraints
+
+## Instructions
+Please write 3-5 user stories following this format for: [feature description]
+
+## Example Output
+As a content editor
+I want to preview content in different screen sizes
+So that I can ensure responsive design works correctly
+
+Acceptance Criteria:
+- Support desktop, tablet, and mobile views
+- Allow custom viewport dimensions
+- Show responsive breakpoints
+- Real-time preview updates</code>
+    </div>
+  </div>
+
+  <div class="artifact-section">
+    <h2>Cursor Rules</h2>
+    <p>Cursor rules define specific behaviors and configurations for the Cursor IDE, enhancing productivity and workflow efficiency.</p>
+    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/code-review.mdc</code></p>
+    <div class="example-block">
+      <div class="example-label">Example: Code Review Guidelines</div>
+      <code># Code Review Guidelines
+
+## Scope
+Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
+
+## Review Checklist
+### Code Quality
+- [ ] Error handling and edge cases covered
+- [ ] Consistent naming conventions followed
+- [ ] Test coverage for new functionality
+- [ ] No security vulnerabilities present
+- [ ] Performance considerations addressed
+- [ ] Accessibility standards met
+
+### Automation Settings
+- Auto-format on save enabled
+- Import organization automated
+- Warning level severity
+
+## Additional Notes
+- Run linter before submitting
+- Update documentation if needed
+- Consider backwards compatibility</code>
+    </div>
+  </div>
+
+  <div class="artifact-section">
+    <h2>Project Configs</h2>
+    <p>Project configurations are settings and parameters that define how a project is built and run. They are crucial for maintaining consistency across development environments.</p>
+    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/nextjs.mdc</code></p>
+    <div class="example-block">
+      <div class="example-label">Example: Next.js Project Configuration</div>
+      <code># Next.js Configuration Guide
+
+## Image Optimization
+- Supported domains: assets.example.com
+- Formats: AVIF, WebP
+- Quality settings optimized for web
+
+## Internationalization
+- Supported languages: English, Spanish, French
+- Default: English
+- Automatic language detection enabled
+
+## Environment Variables
+Required variables:
+- API_ENDPOINT: Backend API URL
+- ANALYTICS_ID: Web analytics identifier
+
+## Experimental Features
+Enabled features:
+- Server Actions
+- Typed Routes
+
+## URL Management
+### Redirects
+Old Path | New Path | Type
+---------|----------|------
+/old-blog/:slug | /blog/:slug | Permanent
+
+## Development Notes
+- Update env variables per environment
+- Test redirects after deployment
+- Monitor experimental features</code>
+    </div>
+  </div>
+
+  <div class="artifact-section">
+    <h2>Workflow States</h2>
+    <p>Workflow states represent the different stages of a project or task within a workflow. They help in tracking progress and managing tasks efficiently.</p>
+    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/content-publishing.mdc</code></p>
+    <div class="example-block">
+      <div class="example-label">Example: Content Publishing Workflow</div>
+      <code># Content Publishing Workflow
+
+## Draft
+**Owner**: Content Writer
+**Required**: title, body, category
+Initial content creation phase
+
+## Technical Review
+**Owner**: Technical Editor
+**Required**: technical_accuracy, code_review
+Code snippets and technical accuracy check
+
+## Editorial Review
+**Owner**: Editor
+**Required**: grammar_check, style_guide_compliance
+Grammar, style, and tone review
+
+## Final Approval
+**Owner**: Content Manager
+**Required**: seo_check, accessibility_check
+Final review before publishing
+
+## Published
+**Required**: publish_date, author, meta_data
+Content is live on the website
+
+## Workflow Transitions
+1. Draft → Technical Review
+2. Technical Review → Draft or Editorial Review
+3. Editorial Review → Technical Review or Final Approval
+4. Final Approval → Editorial Review or Published
+
+## Notes
+- All required fields must be completed
+- Each state requires sign-off
+- Published content needs archive strategy</code>
+    </div>
+  </div>
+</div>
+
+<style>
+  .help-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .help-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .artifact-section {
+    background-color: var(--card-background);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .artifact-section h2 {
+    font-size: 1.75rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .artifact-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+  }
+
+  .help-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--tag-background);
+    border-radius: 0.375rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .help-link:hover {
+    background-color: var(--background-color);
+    transform: translateY(-1px);
+  }
+
+  .link-icon {
+    font-size: 1.25rem;
+  }
+
+  .example-block {
+    background-color: var(--background-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  .example-label {
+    font-weight: 500;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+
+  .example-block code {
+    display: block;
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .use-cases {
+    font-style: italic;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 640px) {
+    .help-container {
+      padding: 1rem;
+    }
+
+    .help-title {
+      font-size: 2rem;
+    }
+
+    .artifact-section h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .file-location {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: var(--tag-background);
+    border-radius: 0.375rem;
+  }
+
+  .file-location code {
+    background-color: var(--background-color);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+  }
+</style> 
