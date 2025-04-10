@@ -97,6 +97,18 @@
         gap: 1rem;
       }
     }
+    
+    .footer-links {
+      margin-top: 0.5rem;
+    }
+    .footer-links a {
+      color: #718096;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -110,6 +122,8 @@
           <li><a href="{{ baseUrl }}/sales-marketing">Sales & Marketing</a></li>
           <li><a href="{{ baseUrl }}/content-strategy">Content Strategy</a></li>
           <li><a href="{{ baseUrl }}/design">Design</a></li>
+          <li><a href="{{ baseUrl }}/help">Help</a></li>
+          <li><a href="{{ baseUrl }}/contributing">Contributing</a></li>
         </ul>
       </nav>
     </div>
@@ -123,6 +137,11 @@
   <footer class="site-footer">
     <div class="container">
       <p>&copy; {{ "now" | date: "%Y" }} Prompt Library. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="{{ baseUrl }}/contributing">Contribute</a> |
+        <a href="{{ baseUrl }}/help">Help</a> |
+        <a href="https://github.com/Lullabot/prompt_library">GitHub</a>
+      </div>
     </div>
   </footer>
 </body>
