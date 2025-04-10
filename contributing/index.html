@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>How to Contribute Content - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="container">
+  <h1 class="page-title">How to Contribute Content</h1>
+  
+  <p class="intro-text">
+    The Prompt Library thrives on community contributions. This guide explains various ways to add your own prompts, cursor rules, project configurations, or workflow states to the library.
+  </p>
+
+  <div class="accordion-container">
+    <div class="accordion">
+      <button class="accordion-btn active">
+        <h2>1. GitHub Direct Contribution</h2>
+        <span class="accordion-icon">▼</span>
+      </button>
+      <div class="accordion-content show">
+        <div class="method-content">
+          <h3>Step-by-Step Process</h3>
+          <ol>
+            <li>
+              <strong>Fork the repository</strong>
+              <p>Start by <a href="https://github.com/Lullabot/prompt_library/fork" target="_blank">forking the Prompt Library repository</a> to your own GitHub account.</p>
+            </li>
+            <li>
+              <strong>Clone your fork locally</strong>
+              <pre><code>git clone https://github.com/your-username/prompt_library.git
+cd prompt_library</code></pre>
+            </li>
+            <li>
+              <strong>Create a branch for your contribution</strong>
+              <pre><code>git checkout -b add-new-content</code></pre>
+            </li>
+            <li>
+              <strong>Add your content</strong>
+              <p>Create a new Markdown file in the appropriate category folder:</p>
+              <pre><code># Example: Adding a development prompt
+touch development/prompts/your-prompt-name.md</code></pre>
+            </li>
+            <li>
+              <strong>Submit a pull request</strong>
+              <p>Push your changes and create a pull request from your fork to the main repository.</p>
+              <pre><code>git add .
+git commit -m "Add new prompt for [purpose]"
+git push origin add-new-content</code></pre>
+              <p>Then go to GitHub and create a pull request from your branch.</p>
+            </li>
+          </ol>
+        </div>
+
+        <div class="method-content">
+          <h3>File Structure Requirements</h3>
+          <p>Each content file should include the following frontmatter:</p>
+          <pre><code>---
+title: "Your Content Title"
+description: "Brief description of your content"
+date: 2023-04-05
+tags:
+  - tag1
+  - tag2
+---
+
+# Main Content Title
+
+Your content goes here...</code></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-btn">
+        <h2>2. Using Cursor</h2>
+        <span class="accordion-icon">▲</span>
+      </button>
+      <div class="accordion-content">
+        <div class="method-content">
+          <p>
+            <a href="https://cursor.sh/" target="_blank">Cursor</a> is an AI-powered code editor that can help you create content for the Prompt Library with built-in rules for formatting and structure.
+          </p>
+          
+          <h3>Setting Up Cursor</h3>
+          <ol>
+            <li>
+              <strong>Install Cursor</strong>
+              <p>Download and install Cursor from their <a href="https://cursor.sh/" target="_blank">official website</a>.</p>
+            </li>
+            <li>
+              <strong>Clone the repository</strong>
+              <pre><code>git clone https://github.com/your-username/prompt_library.git</code></pre>
+            </li>
+            <li>
+              <strong>Open the project in Cursor</strong>
+              <p>Open the prompt_library folder in Cursor.</p>
+            </li>
+          </ol>
+          
+          <h3>Using Cursor's AI Assistance</h3>
+          <ol>
+            <li>
+              <strong>Create a new file</strong> in the appropriate directory based on your content type and discipline.
+            </li>
+            <li>
+              <strong>Leverage the prompt-library-requirements rule</strong>
+              <p>Cursor has built-in rules to help with content creation. You can ask the AI:</p>
+              <blockquote>"I want to create a new prompt for [your purpose]. Can you help me follow the prompt-library-requirements?"</blockquote>
+            </li>
+            <li>
+              <strong>Review and refine</strong> the generated content with the AI's help.
+            </li>
+            <li>
+              <strong>Submit your changes</strong> following the GitHub contribution workflow above.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion">
+      <button class="accordion-btn">
+        <h2>3. GitHub Issues</h2>
+        <span class="accordion-icon">▲</span>
+      </button>
+      <div class="accordion-content">
+        <div class="method-content">
+          <p>
+            If you have a content idea but don't want to create the files yourself, you can submit a content suggestion via GitHub Issues.
+          </p>
+          
+          <h3>Submitting a Content Suggestion</h3>
+          <ol>
+            <li>
+              <strong>Go to the <a href="https://github.com/Lullabot/prompt_library/issues/new" target="_blank">Issues page</a></strong> of the repository.
+            </li>
+            <li>
+              <strong>Create a new issue</strong> with the title beginning with "Content Suggestion:".
+            </li>
+            <li>
+              <strong>Include the following information:</strong>
+              <ul>
+                <li>Content type (Prompt, Cursor Rule, Project Config, or Workflow State)</li>
+                <li>Discipline category (Development, Project Management, etc.)</li>
+                <li>Content title and description</li>
+                <li>Detailed content or a rough draft</li>
+                <li>Any reference materials or examples</li>
+              </ul>
+            </li>
+          </ol>
+          
+          <h3>What Happens Next</h3>
+          <p>
+            Maintainers will review your suggestion and may:
+          </p>
+          <ul>
+            <li>Create the content based on your suggestion</li>
+            <li>Request more information or clarification</li>
+            <li>Suggest modifications to fit the library's format</li>
+            <li>Invite you to contribute the content directly</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion">
+    <button class="accordion-btn">
+      <h2>Content Requirements & Standards</h2>
+      <span class="accordion-icon">▲</span>
+    </button>
+    <div class="accordion-content">
+      <div class="requirements-section">
+        <h3>Required Metadata Fields</h3>
+        <ul>
+          <li><strong>title:</strong> Clear, descriptive title</li>
+          <li><strong>description:</strong> Brief summary (1-2 sentences)</li>
+          <li><strong>date:</strong> Creation or last update date</li>
+          <li><strong>tags:</strong> Relevant keywords (minimum 2)</li>
+        </ul>
+      </div>
+      
+      <div class="requirements-section">
+        <h3>Content Formatting Guidelines</h3>
+        <ul>
+          <li>Use Markdown syntax for formatting</li>
+          <li>Include clear section headings (H2, H3, etc.)</li>
+          <li>Use code blocks for examples with language specification</li>
+          <li>Keep line length reasonable (under 100 characters)</li>
+          <li>Use bullet points and numbered lists for clarity</li>
+        </ul>
+      </div>
+
+      <div class="requirements-section">
+        <h3>Testing/Validation Steps</h3>
+        <p>Before submitting your contribution:</p>
+        <ol>
+          <li>Verify all required metadata is present</li>
+          <li>Check that your content renders correctly locally (run <code>npm start</code> to preview)</li>
+          <li>Validate links and code examples</li>
+          <li>Ensure your content follows the established style and formatting</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="help-resources">
+    <h2>Additional Resources</h2>
+    <ul>
+      <li><a href="/prompt_library/help">Artifact Types Guide</a> - Overview of different content types</li>
+      <li><a href="https://github.com/Lullabot/prompt_library/blob/main/README.md">README</a> - Project overview and structure</li>
+      <li><a href="https://github.com/Lullabot/prompt_library/issues">Issues</a> - See current content requests</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const accordionBtns = document.querySelectorAll('.accordion-btn');
+    
+    accordionBtns.forEach(button => {
+      button.addEventListener('click', function() {
+        this.classList.toggle('active');
+        const icon = this.querySelector('.accordion-icon');
+        icon.textContent = this.classList.contains('active') ? '▼' : '▲';
+        
+        const content = this.nextElementSibling;
+        content.classList.toggle('show');
+      });
+    });
+  });
+</script>
+
+<style>
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .intro-text {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* Accordion Styles */
+  .accordion-container {
+    margin-bottom: 2rem;
+  }
+
+  .accordion {
+    background-color: var(--card-background);
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+
+  .accordion-btn {
+    width: 100%;
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    text-align: left;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+
+  .accordion-btn:hover {
+    background-color: var(--background-color);
+  }
+
+  .accordion-btn h2 {
+    font-size: 1.75rem;
+    color: var(--text-color);
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .accordion-icon {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    transition: transform 0.3s;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 1.5rem;
+  }
+
+  .accordion-content.show {
+    max-height: 2000px;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+
+  /* Content section styles */
+  .method-content {
+    margin-bottom: 2rem;
+  }
+
+  .method-content h3 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .method-content ol,
+  .method-content ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .method-content li {
+    margin-bottom: 1rem;
+  }
+
+  .method-content li strong {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  pre {
+    background-color: var(--background-color);
+    border-radius: 0.375rem;
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+
+  code {
+    font-family: monospace;
+    font-size: 0.95rem;
+  }
+
+  blockquote {
+    border-left: 4px solid var(--border-color);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+  }
+
+  .requirements-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .requirements-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+
+  .help-resources {
+    background-color: var(--card-background);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .help-resources h2 {
+    font-size: 1.75rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+
+  .help-resources ul {
+    margin-left: 1.5rem;
+  }
+
+  .help-resources li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Link styles */
+  a {
+    color: #2b6cb0;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  a:hover {
+    color: #1d4e89;
+    text-decoration: underline;
+  }
+
+  /* External links */
+  a[target="_blank"]::after {
+    content: " ↗";
+    font-size: 0.8em;
+    vertical-align: super;
+  }
+</style>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
