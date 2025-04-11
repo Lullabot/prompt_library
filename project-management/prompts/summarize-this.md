@@ -33,6 +33,3 @@ IF request contains "medium" THEN use 300-500 words  to summarize
 IF request contains "long" OR "large" THEN use 500-750 words to summarize 
 IF no size preference is detected THEN ask for clarification
 `````
-
-
-
