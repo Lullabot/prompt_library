@@ -10,115 +10,34 @@ hideSearch: false
   <p class="page-description">Explore AI resources organized by discipline and content type.</p>
 
   <div class="discipline-grid">
-    <div class="discipline-card">
-      <h2>Project Management</h2>
-      <div class="content-types">
-        <a href="{{ baseUrl }}/project-management/prompts" class="content-type-link">
-          <span class="content-type-icon">💡</span>
-          <span class="content-type-label">AI Prompts</span>
-        </a>
-        <a href="{{ baseUrl }}/project-management/cursor-rules" class="content-type-link">
-          <span class="content-type-icon">📋</span>
-          <span class="content-type-label">Cursor Rules</span>
-        </a>
-        <a href="{{ baseUrl }}/project-management/project-configs" class="content-type-link">
-          <span class="content-type-icon">⚙️</span>
-          <span class="content-type-label">Project Configs</span>
-        </a>
-        <a href="{{ baseUrl }}/project-management/workflow-states" class="content-type-link">
-          <span class="content-type-icon">🔄</span>
-          <span class="content-type-label">Workflow States</span>
-        </a>
-      </div>
-    </div>
+    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design'] %}
+      {% set hasAnyDisciplineContent = false %}
+      {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+        {% if discipline | hasContent(type) %}
+          {% set hasAnyDisciplineContent = true %}
+        {% endif %}
+      {% endfor %}
 
-    <div class="discipline-card">
-      <h2>Development</h2>
-      <div class="content-types">
-        <a href="{{ baseUrl }}/development/prompts" class="content-type-link">
-          <span class="content-type-icon">💡</span>
-          <span class="content-type-label">AI Prompts</span>
-        </a>
-        <a href="{{ baseUrl }}/development/cursor-rules" class="content-type-link">
-          <span class="content-type-icon">📋</span>
-          <span class="content-type-label">Cursor Rules</span>
-        </a>
-        <a href="{{ baseUrl }}/development/project-configs" class="content-type-link">
-          <span class="content-type-icon">⚙️</span>
-          <span class="content-type-label">Project Configs</span>
-        </a>
-        <a href="{{ baseUrl }}/development/workflow-states" class="content-type-link">
-          <span class="content-type-icon">🔄</span>
-          <span class="content-type-label">Workflow States</span>
-        </a>
+      <div class="discipline-card {% if not hasAnyDisciplineContent %}discipline-empty{% endif %}">
+        <h2>{{ discipline | replace('-', ' ') | title }}</h2>
+        <div class="content-types">
+          {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+            {% set hasTypeContent = discipline | hasContent(type) %}
+            <a href="{{ baseUrl }}/{{ discipline }}/{{ type }}" class="content-type-link {% if not hasTypeContent %}empty{% endif %}">
+              <span class="content-type-icon">
+                {% if type === 'prompts' %}💡
+                {% elif type === 'cursor-rules' %}📋
+                {% elif type === 'project-configs' %}⚙️
+                {% elif type === 'workflow-states' %}🔄
+                {% endif %}
+              </span>
+              <span class="content-type-label">{{ type | replace('-', ' ') | title }}</span>
+              <span class="content-indicator" aria-label="{% if hasTypeContent %}Contains content{% else %}No content{% endif %}"></span>
+            </a>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-
-    <div class="discipline-card">
-      <h2>Sales & Marketing</h2>
-      <div class="content-types">
-        <a href="{{ baseUrl }}/sales-marketing/prompts" class="content-type-link">
-          <span class="content-type-icon">💡</span>
-          <span class="content-type-label">AI Prompts</span>
-        </a>
-        <a href="{{ baseUrl }}/sales-marketing/cursor-rules" class="content-type-link">
-          <span class="content-type-icon">📋</span>
-          <span class="content-type-label">Cursor Rules</span>
-        </a>
-        <a href="{{ baseUrl }}/sales-marketing/project-configs" class="content-type-link">
-          <span class="content-type-icon">⚙️</span>
-          <span class="content-type-label">Project Configs</span>
-        </a>
-        <a href="{{ baseUrl }}/sales-marketing/workflow-states" class="content-type-link">
-          <span class="content-type-icon">🔄</span>
-          <span class="content-type-label">Workflow States</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="discipline-card">
-      <h2>Content Strategy</h2>
-      <div class="content-types">
-        <a href="{{ baseUrl }}/content-strategy/prompts" class="content-type-link">
-          <span class="content-type-icon">💡</span>
-          <span class="content-type-label">AI Prompts</span>
-        </a>
-        <a href="{{ baseUrl }}/content-strategy/cursor-rules" class="content-type-link">
-          <span class="content-type-icon">📋</span>
-          <span class="content-type-label">Cursor Rules</span>
-        </a>
-        <a href="{{ baseUrl }}/content-strategy/project-configs" class="content-type-link">
-          <span class="content-type-icon">⚙️</span>
-          <span class="content-type-label">Project Configs</span>
-        </a>
-        <a href="{{ baseUrl }}/content-strategy/workflow-states" class="content-type-link">
-          <span class="content-type-icon">🔄</span>
-          <span class="content-type-label">Workflow States</span>
-        </a>
-      </div>
-    </div>
-
-    <div class="discipline-card">
-      <h2>Design</h2>
-      <div class="content-types">
-        <a href="{{ baseUrl }}/design/prompts" class="content-type-link">
-          <span class="content-type-icon">💡</span>
-          <span class="content-type-label">AI Prompts</span>
-        </a>
-        <a href="{{ baseUrl }}/design/cursor-rules" class="content-type-link">
-          <span class="content-type-icon">📋</span>
-          <span class="content-type-label">Cursor Rules</span>
-        </a>
-        <a href="{{ baseUrl }}/design/project-configs" class="content-type-link">
-          <span class="content-type-icon">⚙️</span>
-          <span class="content-type-label">Project Configs</span>
-        </a>
-        <a href="{{ baseUrl }}/design/workflow-states" class="content-type-link">
-          <span class="content-type-icon">🔄</span>
-          <span class="content-type-label">Workflow States</span>
-        </a>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 
   <div class="contribute-cta">

@@ -100,6 +100,36 @@ module.exports = function(eleventyConfig) {
     return `${baseUrl}${url}`;
   });
 
+  // Add Nunjucks filter to check if a section has content
+  eleventyConfig.addNunjucksFilter("hasContent", function(discipline, contentType) {
+    // Access collections via this.ctx
+    const collections = this.ctx.collections;
+
+    const logPrefix = "[HAS_CONTENT_NJK_DEBUG]"; // Changed prefix for clarity
+    console.log(`${logPrefix} Checking filter for: discipline='${discipline}', contentType='${contentType}'`);
+
+    const collectionName = contentType.toLowerCase().replace(/\s+/g, '-');
+    
+    if (!collections || !collections[collectionName]) {
+      console.log(`${logPrefix} Collection not found for '${collectionName}'. Returning false.`);
+      return false;
+    }
+    
+    const collectionItems = collections[collectionName];
+    console.log(`${logPrefix} Found collection '${collectionName}' with ${collectionItems.length} items.`);
+
+    const hasContent = collectionItems.some(item => {
+      const itemDiscipline = item.data.discipline;
+      // Ensure case-insensitive comparison just in case
+      const match = typeof itemDiscipline === 'string' && typeof discipline === 'string' && itemDiscipline.toLowerCase() === discipline.toLowerCase();
+      console.log(`${logPrefix} Comparing item discipline '${itemDiscipline}' === filter discipline '${discipline}': ${match}`);
+      return match;
+    });
+
+    console.log(`${logPrefix} Final result for ${discipline}/${contentType}: ${hasContent}`);
+    return hasContent;
+  });
+
   return {
     dir: {
       input: ".",

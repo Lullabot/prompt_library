@@ -15,101 +15,6 @@
       mangle: false
     });
   </script>
-  <style>
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 1rem;
-    }
-    
-    .site-header {
-      background-color: #f8fafc;
-      padding: 1rem 0;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #e2e8f0;
-    }
-    
-    .main-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #2d3748;
-      text-decoration: none;
-    }
-    
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-    
-    .nav-links a {
-      color: #4a5568;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 0;
-      position: relative;
-    }
-    
-    .nav-links a:hover {
-      color: #2b6cb0;
-    }
-    
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background-color: #2b6cb0;
-      transition: width 0.2s;
-    }
-    
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-    
-    .site-footer {
-      margin-top: 4rem;
-      padding: 2rem 0;
-      border-top: 1px solid #e2e8f0;
-      text-align: center;
-      color: #718096;
-    }
-
-    @media (max-width: 768px) {
-      .main-nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .nav-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-      }
-    }
-    
-    .footer-links {
-      margin-top: 0.5rem;
-    }
-    .footer-links a {
-      color: #718096;
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    .footer-links a:hover {
-      text-decoration: underline;
-    }
-  </style>
 </head>
 <body>
   <header class="site-header">
@@ -117,11 +22,23 @@
       <nav class="main-nav">
         <a href="{{ baseUrl }}/" class="logo">Prompt Library</a>
         <ul class="nav-links">
-          <li><a href="{{ baseUrl }}/project-management">Project Management</a></li>
-          <li><a href="{{ baseUrl }}/development">Development</a></li>
-          <li><a href="{{ baseUrl }}/sales-marketing">Sales & Marketing</a></li>
-          <li><a href="{{ baseUrl }}/content-strategy">Content Strategy</a></li>
-          <li><a href="{{ baseUrl }}/design">Design</a></li>
+          {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design'] %}
+            <!-- DEBUG: Nav loop discipline: {{ discipline }} -->
+            <li>
+              {% set hasAnyContent = false %}
+              {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+                <!-- DEBUG: Nav check: {{ discipline }} | {{ type }} -->
+                {% if discipline | hasContent(type) %}
+                  {% set hasAnyContent = true %}
+                {% endif %}
+              {% endfor %}
+              <!-- DEBUG: Nav hasAnyContent for {{ discipline }}: {{ hasAnyContent }} -->
+              <a href="{{ baseUrl }}/{{ discipline }}" class="nav-item {% if not hasAnyContent %}nav-empty{% endif %}">
+                {{ discipline | replace('-', ' ') | title }}
+                <span class="content-indicator" aria-label="{% if hasAnyContent %}Contains content{% else %}No content{% endif %}"></span>
+              </a>
+            </li>
+          {% endfor %}
           <li><a href="{{ baseUrl }}/help">Help</a></li>
           <li><a href="{{ baseUrl }}/contributing">Contributing</a></li>
         </ul>
@@ -136,11 +53,11 @@
 
   <footer class="site-footer">
     <div class="container">
-      <p>&copy; {{ "now" | date: "%Y" }} Prompt Library. All rights reserved.</p>
+      <p>&copy; {{ "now" | date("yyyy") }} Prompt Library</p>
       <div class="footer-links">
-        <a href="{{ baseUrl }}/contributing">Contribute</a> |
-        <a href="{{ baseUrl }}/help">Help</a> |
-        <a href="https://github.com/Lullabot/prompt_library">GitHub</a>
+        <a href="{{ baseUrl }}/about">About</a>
+        <a href="{{ baseUrl }}/contributing">Contributing</a>
+        <a href="{{ baseUrl }}/help">Help</a>
       </div>
     </div>
   </footer>

@@ -729,4 +729,384 @@ pre code {
 
 :root.dark-theme .content-list > div a:hover {
     background-color: var(--tag-background);
+}
+
+/* Base Template Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.site-header {
+    background-color: #f8fafc;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: #4a5568;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #2b6cb0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #2b6cb0;
+    transition: width 0.2s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-item.nav-empty {
+    color: #94a3b8;
+    opacity: 0.6;
+}
+
+.site-footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+    color: #718096;
+}
+
+.footer-links {
+    margin-top: 0.5rem;
+}
+
+.footer-links a {
+    color: #718096;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.home-header {
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.home-header h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.home-header p {
+    font-size: 1.25rem;
+    color: #4a5568;
+}
+
+.discipline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.discipline-card {
+    background-color: #1a2234;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+}
+
+.discipline-card h2 {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.content-type-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.content-type-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background-color: #2a3447;
+    border-radius: 0.5rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.content-type-link:hover {
+    background-color: #3a4559;
+}
+
+.content-type-link.empty {
+    opacity: 0.6;
+    background-color: #1a2234;
+    pointer-events: none;
+}
+
+.content-type-icon {
+    font-size: 1.25rem;
+}
+
+.content-type-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.share-section {
+    text-align: center;
+    background-color: #1a2234;
+    border-radius: 0.75rem;
+    padding: 3rem 2rem;
+    margin: 4rem 0;
+}
+
+.share-section h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.share-section p {
+    color: #94a3b8;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Discipline Template Styles */
+.discipline-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.page-description {
+    font-size: 1.25rem;
+    color: #4a5568;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.content-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.content-card.content-empty {
+    background-color: #f8fafc;
+    border: 1px dashed #e2e8f0;
+    opacity: 0.6;
+}
+
+.content-card.content-empty h2,
+.content-card.content-empty p {
+    color: #94a3b8;
+}
+
+.content-card.content-empty .button {
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.content-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.content-card h2 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.content-card p {
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Content indicator styles */
+.content-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #22c55e;
+    margin-left: 0.5rem;
+}
+
+.nav-empty .content-indicator,
+.empty .content-indicator,
+.content-empty .content-indicator {
+    background-color: #e2e8f0;
+}
+
+/* Empty state styles */
+.nav-empty {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-empty:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+.content-type-link.empty {
+    opacity: 0.5;
+    background-color: var(--card-background);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.content-type-link.empty .content-type-icon {
+    opacity: 0.5;
+}
+
+.content-type-link.empty .content-type-text {
+    color: var(--text-color);
+}
+
+.content-card.content-empty {
+    opacity: 0.5;
+    background-color: var(--card-background);
+    border: 1px dashed var(--border-color);
+}
+
+.content-card.content-empty h2,
+.content-card.content-empty p {
+    color: var(--text-color);
+}
+
+.content-card.content-empty .button {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* Dark theme adjustments for empty states */
+:root.dark-theme .nav-empty .content-indicator,
+:root.dark-theme .empty .content-indicator,
+:root.dark-theme .content-empty .content-indicator {
+    background-color: #334155;
+}
+
+:root.dark-theme .content-type-link.empty {
+    background-color: var(--card-background);
+}
+
+:root.dark-theme .content-card.content-empty {
+    background-color: var(--card-background);
+    border-color: var(--border-color);
+}
+
+:root.dark-theme .content-card.content-empty .button {
+    background-color: var(--card-background);
+}
+
+/* Style for the entire discipline card when it's empty */
+.discipline-card.discipline-empty {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    border-style: dashed;
+}
+
+.discipline-card.discipline-empty h2 {
+    /* Optionally style the title differently */
+    opacity: 0.7;
 } 
