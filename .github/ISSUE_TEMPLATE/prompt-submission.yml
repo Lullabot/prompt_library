@@ -1,0 +1,72 @@
+name: Submit a New Prompt
+description: Contribute a new AI prompt to the library.
+# The issue title itself will serve as the initial title.
+title: "[Prompt Contribution]: Title for your prompt"
+labels: ["new-contribution", "prompt", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your prompt below.
+        The issue title you set above will be used as the prompt's title.
+
+  - type: textarea
+    id: prompt-description
+    attributes:
+      label: Description
+      description: "Explain what the prompt does, its purpose, and intended use cases. This appears below the title."
+      placeholder: "e.g., This prompt takes code as input and generates a concise explanation..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt-content
+    attributes:
+      label: Prompt Content
+      description: "Paste the full text of the prompt itself here."
+      placeholder: "Enter the complete prompt text..."
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this prompt is most relevant to."
+      # TODO: Finalize the definitive list of disciplines
+      options:
+        - Development
+        - Design
+        - Marketing
+        - Project Management
+        - Content Strategy
+        - Research
+        - Support
+        - Operations
+    validations:
+      required: true
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Primary Content Type
+      description: "Select the primary type of output this prompt is designed for."
+       # TODO: Finalize the definitive list of content types
+      options:
+        - Code
+        - Text (General)
+        - Documentation
+        - Marketing Copy
+        - Email
+        - Report
+        - Image Description
+        - Data Analysis
+        - Strategy/Plan
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you! 
