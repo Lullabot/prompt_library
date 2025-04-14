@@ -1,0 +1,1 @@
+A collection of AI prompts, cursor rules, project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages. 
