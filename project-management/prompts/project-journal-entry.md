@@ -1,7 +1,7 @@
 ---
 title: "Weekly Project Journal Entry"
 description: "AI prompt for formatting a transcript into our weekly project journal entry format."
-date: "2025-04-10"
+date: "2025-04-17"
 layout: "markdown.njk"
 discipline: "project-management"
 contentType: "prompts"
@@ -40,21 +40,14 @@ The format is as follows:
 [anything else that seems worth noting that doesn't fall into the above categories.]
 
 ### Things to Share With the Group
-[Items outside of standard work updates that should be shared with other PMs or account managers that may be of use on their projects or would affect business outside of day-to-day operations on this project.]
+[A sentence or two summarizing the project health, and a list of any items outside of standard work updates that should be shared with other PMs or account managers that may be of use on their projects or would affect business outside of day-to-day operations on this project.]
 
 ### Quote of the Week
-[lookup a funny or inspiration quote around project management or software development, with it's attribution.]
+[lookup a funny or inspirational quote around project management or software development, with it's attribution.]
 </format>
 
 <glossary>
 # Glossary of terms I may use to describe these projects:
-- Nerdery: Another development agency we're working with who is assisting with translations.
-- Stop HIV: stophiviowa.org is one of the sites we launched on the Marketing Platform (MP)
-- Stop HT: Stands for Stop Human Trafficking.  This is one of the sites we're launching at www.stophtiowa.org
-- Your Life Iowa: Often abbreviated as YLI, this is the fourth and final site we're replatforming and launching at www.yourlifeiowa.org.
-- Pantheon: This is the hosting platform on which we launch the sites.  Pantheon.io.
-- Okta:  The SSO system the State of Iowa uses.
-- OCIO: The state of Iowa's cyber security department.
-- DoM DoIT: The state of Iowa's Department of Management, Division of Information Technology
+- 
 </glossary>
 `````
