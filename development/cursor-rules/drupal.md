@@ -19,11 +19,12 @@ discipline: "development"
 ```mdc
 ---
 description: >
-  Drupal 10 core coding standards & patterns. Ensures generated PHP follows
-  DI, hook structure, and Composer best practices.
+  Drupal 10 core standards & your team’s personal preferences. Ensures strict
+  typing, DI, visibility, final classes, and hook patterns.
 globs:
   - "**/*.php"
   - "**/*.module"
+  - "**/*.install"
   - "**/*.services.yml"
 alwaysApply: true
 ---
@@ -35,49 +36,51 @@ alwaysApply: true
    declare(strict_types=1);
    ~~~
 
-2. **Dependency Injection**  
-   * Never call `\Drupal::service()` or `\Drupal::config()` inside classes.  
-   * Controllers, Plugins, EventSubscribers use `create()` + constructor for DI.  
+2. **Final Classes & Visibility**  
+   - Declare every class `final` unless you explicitly intend it to be extended.  
+   - Make all properties `private readonly` when possible; otherwise `private`.  
+   - Methods default to `private`; use `protected`/`public` only as needed.
 
-3. **Service Definition Template**  
-   ~~~yml
+3. **Dependency Injection**  
+   - Never call `\Drupal::service()` or `\Drupal::config()` in classes.  
+   - Use constructor injection with promoted properties:  
+     ~~~php
+     public function __construct(
+         private readonly ConfigFactoryInterface $config,
+         private readonly LoggerChannelInterface $logger,
+     ) {}
+     ~~~
+
+4. **Hook Implementations**  
+   - Thin wrapper: delegate to an invokable class with the `@Hook` attribute.  
+     See OOP hooks: https://api.drupal.org/api/drupal/core%21lib%21Drupal%21Core%21Hook%21Attribute%21Hook.php/class/Hook/11.x  
+   - Provide a `LegacyHook` bridge for procedural modules:  
+     https://www.drupal.org/node/3442349
+
+5. **Service Definitions**  
+   ~~~yaml
    services:
      my_module.foo:
        class: Drupal\my_module\Foo
        arguments: ['@config.factory', '@logger.channel.my_module']
-   ~~~
-   Example usage in PHP:
-   ~~~php
-   public function __construct(ConfigFactoryInterface $config, LoggerChannelInterface $logger) { ... }
-   public static function create(ContainerInterface $c): self {
-     return new static(
-       $c->get('config.factory'),
-       $c->get('logger.channel.my_module'),
-     );
-   }
+       tags: ['event_subscriber']
    ~~~
 
-4. **Hook Implementations**  
-   * Hook names: `my_module_hook_name()`.  
-   * Return **render arrays** rather than markup strings; keep templates in Twig.
+6. **Composer & Vendor**  
+   - Add third‑party libraries via `composer require`.  
+   - Never commit `vendor/`.
 
-5. **Configuration & Schema**  
-   * If a config file is introduced, provide a matching `config/schema/*.schema.yml`.  
-   * Validate default values in an install hook.
+7. **Coding Standards & Checks**  
+   - 2‑space indent, 80–120 col soft limit.  
+   - Run `phpcbf --standard=Drupal,DrupalPractice` on staged files.
 
-6. **Composer**  
-   * Add 3rd‑party libs with `composer require`.  
-   * Never commit vendor code.
-
-7. **Coding Standard**  
-   * 2‑space indent; 80‑120 col soft‑limit.  
-   * Run `phpcbf --standard=Drupal,DrupalPractice`.
-
-8. **Verification checklist (AI must self‑check)**  
-   - [ ] Does every new class have namespace + PSR‑4 path?  
-   - [ ] Are all services injected, not globally fetched?  
-   - [ ] Are routes defined in `<module>.routing.yml` with `_controller` classes?  
-   - [ ] Is there a schema file for any new config?  
+8. **Self‑Verification Checklist**  
+   - [ ] Class is `final` and marked `strict_types`.  
+   - [ ] All dependencies injected via constructor.  
+   - [ ] No static calls to `\Drupal::`.  
+   - [ ] Hooks use OOP attribute + LegacyHook.  
+   - [ ] Services listed in `<module>.services.yml`.  
+   - [ ] Visibility of properties/methods minimized.  
 ```
 
 ---
