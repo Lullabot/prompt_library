@@ -10,6 +10,7 @@
 
 ## Supporting Technologies / Formats
 - **GitHub Issue Templates:** YAML format used for creating structured issue forms (`.github/ISSUE_TEMPLATE/*.yml`).
+- **GitHub Actions (`repository_dispatch`):** Used to receive external events (like Slack prompt submissions) and trigger workflows. Requires a shared secret (`SLACK_SHARED_SECRET`) configured in repository secrets.
 
 ## Development Setup
 1.  Clone the repository.

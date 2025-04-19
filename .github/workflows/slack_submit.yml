@@ -1,0 +1,66 @@
+# .github/workflows/slack_submit.yml
+name: Slack Prompt Submission
+
+on:
+  repository_dispatch:
+    types: [slack-prompt-submission]
+
+permissions:
+  issues: write # Required to create issues
+
+jobs:
+  create_issue_from_slack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Shared Secret
+        if: github.event.client_payload.secret != secrets.SLACK_SHARED_SECRET
+        run: |
+          echo "::error::Invalid shared secret provided."
+          exit 1
+
+      - name: Validate Payload Content
+        id: validate
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const payload = context.payload.client_payload;
+            if (!payload) {
+              core.setFailed('Missing client_payload in event.');
+              return;
+            }
+            const required = ['content', 'author', 'invoker', 'permalink', 'secret']; // Also check secret presence before validation step
+            const missing = required.filter(field => !(field in payload) || !payload[field]);
+            if (missing.length > 0) {
+              core.setFailed(`Missing required fields in payload: ${missing.join(', ')}`);
+              return;
+            }
+            // Make payload data easily accessible for later steps
+            core.setOutput('content', payload.content);
+            core.setOutput('author', payload.author);
+            core.setOutput('invoker', payload.invoker);
+            core.setOutput('permalink', payload.permalink);
+
+      - name: Create GitHub Issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAYLOAD_CONTENT: ${{ steps.validate.outputs.content }}
+          PAYLOAD_AUTHOR: ${{ steps.validate.outputs.author }}
+          PAYLOAD_INVOKER: ${{ steps.validate.outputs.invoker }}
+          PAYLOAD_PERMALINK: ${{ steps.validate.outputs.permalink }}
+          # Ensure labels exist in the repo or creation will fail. Default labels:
+          ISSUE_LABELS: "new-prompt,from-slack"
+        run: |
+          ISSUE_TITLE="New Prompt Submission from Slack: @${PAYLOAD_AUTHOR}"
+          # Using heredoc for multi-line body ensures proper formatting
+          ISSUE_BODY=$(cat <<-EOF
+          ${PAYLOAD_CONTENT}
+
+          ---
+          *Metadata:*
+          *   Submitted via \`/add-prompt\` by: @${PAYLOAD_INVOKER}
+          *   Original Author: @${PAYLOAD_AUTHOR}
+          *   Original Slack Message: ${PAYLOAD_PERMALINK}
+          EOF
+          )
+          # Use gh cli to create issue.
+          gh issue create --title "$ISSUE_TITLE" --body "$ISSUE_BODY" --label "$ISSUE_LABELS" --repo "$GITHUB_REPOSITORY" 

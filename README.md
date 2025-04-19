@@ -111,6 +111,8 @@ Each discipline contains all content types, allowing for specialized content wit
 
 ## Contributing
 
+Content suggestions can also be submitted programmatically via GitHub Actions. This involves sending a `repository_dispatch` event with the type `slack-prompt-submission` to the GitHub API endpoint for this repository (`/repos/Lullabot/prompt_library/dispatches`). The event's `client_payload` must include the content, necessary metadata (author, invoker, permalink), and a pre-configured shared secret for validation. Successful dispatch triggers a workflow that creates a GitHub issue with the submitted content for review. See the workflow file `.github/workflows/slack_submit.yml` and the associated pull request (#40) for payload details and setup instructions.
+
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
