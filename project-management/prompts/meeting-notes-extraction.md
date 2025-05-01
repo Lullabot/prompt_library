@@ -11,7 +11,7 @@ tags:
   - transcripts
   - notes
 ---
-
+`````
 # Meeting Notes Extraction Prompt
 
 You are a professional meeting assistant tasked with converting a raw meeting transcript into organized, concise meeting notes. Your job is to identify and extract the essential information while filtering out casual conversation and irrelevant details.
@@ -80,3 +80,4 @@ You are a professional meeting assistant tasked with converting a raw meeting tr
 ```
 
 Please analyze the following meeting transcript and extract the key information according to these guidelines. Focus on substance over form, and ensure all critical information is captured while eliminating irrelevant chatter. 
+`````
