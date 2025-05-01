@@ -3,12 +3,16 @@
 <ul>
 <li>Implementing and testing GitHub Issue Templates as a primary method for content contribution, aligning with an &quot;invite and curate&quot; strategy.</li>
 <li>Refining the contribution workflow based on discussions in Issue #34.</li>
+<li>Ensuring all discipline/content-type folders (including QA) are properly initialized with customized <code>index.njk</code> files containing relevant metadata and placeholder content, replacing any <code>.gitkeep</code> files.</li>
+<li><strong>FIXED:</strong> Quality Assurance discipline was missing from Eleventy's config. It has now been added to the <code>disciplines</code> array, so QA content is visible and highlighted on the homepage and navigation.</li>
+<li><strong>Next:</strong> Rebuild the site and verify that the homepage and navigation now correctly highlight Quality Assurance when content exists.</li>
 </ul>
 <h2>Recent Activity</h2>
 <ul>
 <li>Discussed various approaches to simplifying contribution and frontmatter generation (GitHub Issue #34).</li>
 <li>Explored GitHub Issue Templates/Forms as a user-friendly option.</li>
 <li>Drafted and created the initial <code>prompt-submission.yml</code> template in <code>.github/ISSUE_TEMPLATE/</code>.</li>
+<li>Replaced <code>.gitkeep</code> files in all <code>quality-assurance/</code> subfolders with Quality Assurance-specific <code>index.njk</code> files, each including tailored metadata and a section description.</li>
 </ul>
 <h2>Next Steps</h2>
 <ul>
@@ -17,4 +21,5 @@
 <li><strong>Finalize Template Fields:</strong> Review and finalize the dropdown options for <code>discipline</code> and <code>content-type</code> in <code>prompt-submission.yml</code>.</li>
 <li><strong>Create More Templates:</strong> Draft and create similar issue templates for other content types (workflows, rules, configs) as needed.</li>
 <li><strong>Update Contribution Docs:</strong> Update <code>contributing.njk</code> to reflect the primary use of issue templates.</li>
+<li><strong>Verify Section Initialization:</strong> Ensure all discipline/content-type folders are initialized with appropriate <code>index.njk</code> files and metadata.</li>
 </ul>
