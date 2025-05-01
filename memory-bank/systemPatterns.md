@@ -6,11 +6,12 @@
 - Hosted directly via GitHub Pages.
 
 ## Content Organization
-- **Top-level:** Disciplines (e.g., `development/`, `project-management/`, `sales-marketing/`, `content-strategy/`, `design/`)
+- **Top-level:** Disciplines (e.g., `development/`, `project-management/`, `sales-marketing/`, `content-strategy/`, `design`, `quality-assurance`)
 - **Second-level:** Content Types (`prompts/`, `cursor-rules/`, `project-configs/`, `workflow-states/`)
 - Specific content items are individual Markdown files within these directories, typically using `kebab-case.md` naming.
 - An `index.njk` file often exists within discipline directories (e.g., `development/index.njk`) and content-type directories (e.g., `development/prompts/index.njk`) likely serving as landing/listing pages.
 - 11ty collections are automatically generated for each content type, aggregating across disciplines.
+- **IMPORTANT:** The list of disciplines in `.eleventy.js` (`const disciplines = [...]`) must always include all actual discipline folders. If a discipline is missing from this array, its content will not appear in collections, the homepage, or navigation. This caused the Quality Assurance section to be invisible until fixed.
 
 ## Templating
 - Nunjucks (.njk) is used as the primary templating engine (for md, html, data files).

@@ -15,6 +15,7 @@
 - Content file structure verified (discipline folders, content-type subfolders, `kebab-case.md` file naming, presence of `index.njk` at both levels).
 - **GitHub Issue Template:** Created initial template (`prompt-submission.yml`) for submitting prompts via issues.
 - **Quality Assurance Section Initialization:** All `quality-assurance/` subfolders now have customized `index.njk` files with Quality Assurance-specific metadata and placeholder content, replacing `.gitkeep` files.
+- **Quality Assurance Config Fix:** The Eleventy config now includes 'quality-assurance' in the disciplines array, so QA content is visible and highlighted on the homepage and navigation.
 
 ## What's Left to Build / Document
 - Verification of the *actual* file structure and content existence within all discipline/content-type folders.

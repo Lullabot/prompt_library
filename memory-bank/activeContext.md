@@ -4,6 +4,8 @@
 - Implementing and testing GitHub Issue Templates as a primary method for content contribution, aligning with an "invite and curate" strategy.
 - Refining the contribution workflow based on discussions in Issue #34.
 - Ensuring all discipline/content-type folders (including QA) are properly initialized with customized `index.njk` files containing relevant metadata and placeholder content, replacing any `.gitkeep` files.
+- **FIXED:** Quality Assurance discipline was missing from Eleventy's config. It has now been added to the `disciplines` array, so QA content is visible and highlighted on the homepage and navigation.
+- **Next:** Rebuild the site and verify that the homepage and navigation now correctly highlight Quality Assurance when content exists.
 
 ## Recent Activity
 - Discussed various approaches to simplifying contribution and frontmatter generation (GitHub Issue #34).
