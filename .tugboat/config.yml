@@ -1,19 +1,26 @@
 # Tugboat configuration for PR preview environments, visual diffs, and Lighthouse audits
 
 services:
-  web:
-    image: node:20
+  apache:
+    image: tugboatqa/httpd:latest
     commands:
       init:
+        # Install Node.js 18
+        - apt-get update
+        - apt-get install -yq ca-certificates curl gnupg
+        - mkdir -p /etc/apt/keyrings
+        - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+        - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+        - apt-get update
+        - apt-get install -yq nodejs
+        # Set the webroot to the Gatsby public folder
+        - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"
+      update:
+        # Install dependencies
         - npm install
       build:
+        # Build the static Gatsby site
         - npm run build
-      start:
-        - npm start
-    default: true
-    http:
-      ports:
-        - 8080
 
     urls:
       - /
