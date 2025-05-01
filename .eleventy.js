@@ -39,7 +39,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add collections for all content types
-  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design'];
+  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
   const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
 
   // Add collections for each content type
