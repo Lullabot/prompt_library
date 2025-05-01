@@ -5,19 +5,19 @@ services:
     image: node:20
     commands:
       init:
-        - npm ci
+        - npm install
       build:
         - npm run build
       start:
-        - npx serve _site -l 8080
+        - npm start
     default: true
     http:
       ports:
         - 8080
 
-urls:
-  - /
-  - /development/prompts/ai-code-review/
-  - /project-management/prompts/agile-sprint-planning/
-  - /help/
-  - /contributing/
+  urls:
+    - /
+    - /development/prompts/ai-code-review/
+    - /project-management/prompts/agile-sprint-planning/
+    - /help/
+    - /contributing/
