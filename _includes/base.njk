@@ -22,7 +22,7 @@
       <nav class="main-nav">
         <a href="{{ baseUrl }}/" class="logo">Prompt Library</a>
         <ul class="nav-links">
-          {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design'] %}
+          {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
             <!-- DEBUG: Nav loop discipline: {{ discipline }} -->
             <li>
               {% set hasAnyContent = false %}
@@ -34,7 +34,7 @@
               {% endfor %}
               <!-- DEBUG: Nav hasAnyContent for {{ discipline }}: {{ hasAnyContent }} -->
               <a href="{{ baseUrl }}/{{ discipline }}" class="nav-item {% if not hasAnyContent %}nav-empty{% endif %}">
-                {{ discipline | replace('-', ' ') | title }}
+                {% if discipline == 'quality-assurance' %}Quality Assurance{% else %}{{ discipline | replace('-', ' ') | title }}{% endif %}
                 <span class="content-indicator" aria-label="{% if hasAnyContent %}Contains content{% else %}No content{% endif %}"></span>
               </a>
             </li>
