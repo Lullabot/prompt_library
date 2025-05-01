@@ -9,7 +9,7 @@
 - Discussed various approaches to simplifying contribution and frontmatter generation (GitHub Issue #34).
 - Explored GitHub Issue Templates/Forms as a user-friendly option.
 - Drafted and created the initial `prompt-submission.yml` template in `.github/ISSUE_TEMPLATE/`.
-- Replaced `.gitkeep` files in all `qa/` subfolders with QA-specific `index.njk` files, each including tailored metadata and a section description.
+- Replaced `.gitkeep` files in all `quality-assurance/` subfolders with Quality Assurance-specific `index.njk` files, each including tailored metadata and a section description.
 
 ## Next Steps
 - **Test Issue Template:** Submit test content using the new prompt submission template on GitHub.

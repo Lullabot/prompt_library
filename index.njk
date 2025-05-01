@@ -10,7 +10,7 @@ hideSearch: false
   <p class="page-description">Explore AI resources organized by discipline and content type.</p>
 
   <div class="discipline-grid">
-    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'qa'] %}
+    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
       {% set hasAnyDisciplineContent = false %}
       {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
         {% if discipline | hasContent(type) %}

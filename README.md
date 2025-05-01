@@ -82,11 +82,11 @@ npm run build
 │   ├── cursor-rules/
 │   ├── project-configs/
 │   └── workflow-states/
-├── qa/                 # Quality Assurance discipline content
-│   ├── prompts/        # QA prompts and checklists
-│   ├── cursor-rules/   # QA-specific rules and guidelines
-│   ├── project-configs/ # QA tool or process configurations
-│   └── workflow-states/ # QA workflow documentation
+├── quality-assurance/        # Quality Assurance discipline content
+│   ├── prompts/        # Quality Assurance prompts and checklists
+│   ├── cursor-rules/   # Quality Assurance-specific rules and guidelines
+│   ├── project-configs/ # Quality Assurance tool or process configurations
+│   └── workflow-states/ # Quality Assurance workflow documentation
 ├── .github/           # GitHub configuration
 │   └── workflows/     # GitHub Actions workflows
 ├── .eleventy.js       # 11ty configuration
@@ -105,7 +105,7 @@ The library is organized by disciplines and content types:
 - Sales & Marketing
 - Content Strategy
 - Design
-- QA (Quality Assurance)
+- Quality Assurance
 
 ### Content Types
 - Prompts: AI prompts for various use cases

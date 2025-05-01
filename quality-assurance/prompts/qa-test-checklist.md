@@ -1,4 +1,4 @@
-# QA Test Checklist
+# Quality Assurance Test Checklist
 
 Use this checklist to ensure quality and consistency before releasing any feature or update:
 
