@@ -1,7 +1,10 @@
 ---
-title: Meeting Notes Extraction
-description: Converts raw meeting transcripts into organized, concise meeting notes by extracting essential information
-date: 2025-04-19
+title: "Meeting Notes Extraction"
+description: "Converts raw meeting transcripts into organized, concise meeting notes by extracting essential information"
+date: "2025-04-19"
+layout: "markdown.njk"
+discipline: "project-management"
+contentType: "prompts"
 tags:
   - meetings
   - documentation
