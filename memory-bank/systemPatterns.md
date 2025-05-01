@@ -68,4 +68,9 @@
 - **Submission:** A GitHub Issue is created with structured data and specific labels (e.g., `new-contribution`, `needs-review`).
 - **Curation:** Maintainer reviews the issue, verifies the content, and potentially refines the data (e.g., adds tags).
 - **Conversion:** Maintainer manually creates the corresponding Markdown file in the correct location, populating the frontmatter and content from the issue data.
-- **Integration:** Maintainer commits the new file, typically via a PR, for final review and merge. 
+- **Integration:** Maintainer commits the new file, typically via a PR, for final review and merge.
+
+## Section Initialization Pattern
+- All discipline/content-type folders (e.g., `qa/prompts/`, `qa/cursor-rules/`, etc.) should be initialized with a customized `index.njk` file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.
+- This replaces the use of `.gitkeep` files for empty folder tracking, ensuring each section is ready for content and discoverable in the UI.
+- This pattern was applied to the QA section, with each subfolder now containing a QA-specific `index.njk` file. 

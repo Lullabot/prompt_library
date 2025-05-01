@@ -14,6 +14,7 @@
 - Contribution process details (GitHub, Cursor w/ rules, Issues methods; metadata/formatting requirements) understood and documented.
 - Content file structure verified (discipline folders, content-type subfolders, `kebab-case.md` file naming, presence of `index.njk` at both levels).
 - **GitHub Issue Template:** Created initial template (`prompt-submission.yml`) for submitting prompts via issues.
+- **QA Section Initialization:** All `qa/` subfolders now have customized `index.njk` files with QA-specific metadata and placeholder content, replacing `.gitkeep` files.
 
 ## What's Left to Build / Document
 - Verification of the *actual* file structure and content existence within all discipline/content-type folders.
