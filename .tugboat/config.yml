@@ -1,0 +1,23 @@
+# Tugboat configuration for PR preview environments, visual diffs, and Lighthouse audits
+
+services:
+  web:
+    image: node:20
+    commands:
+      init:
+        - npm ci
+      build:
+        - npm run build
+      start:
+        - npx serve _site -l 8080
+    default: true
+    http:
+      ports:
+        - 8080
+
+urls:
+  - /
+  - /development/prompts/ai-code-review/
+  - /project-management/prompts/agile-sprint-planning/
+  - /help/
+  - /contributing/
