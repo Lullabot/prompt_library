@@ -13,8 +13,8 @@ services:
         - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
         - apt-get update
         - apt-get install -yq nodejs
-        # Set the webroot to the Gatsby public folder
-        - ln -snf "${TUGBOAT_ROOT}/public" "${DOCROOT}"
+        # Set the webroot to the Eleventy output directory (_site)
+        - ln -snf "${TUGBOAT_ROOT}/_site" "${DOCROOT}"
       update:
         # Install dependencies
         - npm install
