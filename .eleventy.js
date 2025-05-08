@@ -130,6 +130,18 @@ module.exports = function(eleventyConfig) {
     return hasContent;
   });
 
+  // Add a collection for recently added content (all types, sorted by date desc)
+  eleventyConfig.addCollection('recentlyAdded', function(collection) {
+    const types = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+    let all = [];
+    types.forEach(type => {
+      all = all.concat(collection.getFilteredByGlob(
+        disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
+      ));
+    });
+    return all.sort((a, b) => new Date(b.date) - new Date(a.date));
+  });
+
   return {
     dir: {
       input: ".",
