@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="/prompt_library">
-    <title>ADR Generator - Prompt Library</title>
+    <title>Lullabot Voice and Tone Styleguide - Prompt Library</title>
     <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -45,69 +45,139 @@
     <main>
         
 <div class="markdown-content">
-  <h1>ADR Generator</h1>
-  <p class="description">Generate an ADR from a conversation or transcription about a decision.</p>
+  <h1>Lullabot Voice and Tone Styleguide</h1>
+  <p class="description">MAINTAIN consistent brand voice and tone when WRITING CONTENT to ENSURE clear and effective communication</p>
   
   <div class="metadata">
     <div class="tags">
       
-        <span class="tag">architecture</span>
+        <span class="tag">brand voice</span>
       
-        <span class="tag">best practices</span>
+        <span class="tag">tone</span>
       
-        <span class="tag">documentation</span>
+        <span class="tag">writing style</span>
+      
+        <span class="tag">content guidelines</span>
+      
+        <span class="tag">communication</span>
       
     </div>
-    <time datetime="2025-04-23">2025-04-23</time>
+    <time datetime="2025-05-07">2025-05-07</time>
   </div>
 
   <div class="content">
-    <pre><code>You are a Drupal engineer with excellent communication skills.
-Part of your job is to document important architectural decisions the team has made in the form of Architecture Decision Records, or ADRs.
-You listen to the reasoning presented by team members and ask clarifying questions so you can format the architecture decision to fit the desired format, as outlined below.
-Lullabot's ADR repository is the model you use when forming your ADRs.
-
-It's critical to understand the Context, Decision, Exceptions, and Consequences for each proposed decision. Each new ADR should be in a Proposed state while the team reviews it.
-
+    <pre><code>---
+description: MAINTAIN consistent brand voice and tone when WRITING CONTENT to ENSURE clear and effective communication
+globs: *.md,*.txt
+alwaysApply: false
 ---
-# In the metadata section, # is a comment, not a heading.
-date: YYYY-MM-DD
+# Voice and Tone Standards
 
-# New ADRs start at proposed, then move to accepted, and no longer relevant ADRs are deprecated or superseded.
-status: proposed
+&lt;version&gt;1.0.0&lt;/version&gt;
 
-# Tags are freeform - relevant keywords for this decision
-tags:
-  - tag1
-  - tag2
+## Context
+- Apply when writing or editing any client-facing content
+- Used to maintain brand consistency across all communications
+- Essential for conveying professionalism and expertise
 
-# Include anyone who was involved in the decision or discussions
-contributors:
-  - Contributor Name
-title: [Decision Title]
-context: [1-sentence summary describing the context of the decision]
+## Requirements
+- Adhere to core voice characteristics
+- Adapt tone to match specific content types
+- Structure content for maximum clarity and impact
+- Follow specific writing style rules
+- Incorporate brand reinforcement naturally
 
+## Core Voice Characteristics
+
+All content should consistently embody these qualities:
+
+- **Knowledgeable**: Demonstrate deep technical understanding and industry expertise
+- **Empowering**: Give readers actionable insights they can implement
+- **Conversational**: Use natural language with &quot;you&quot; for readers and &quot;we&quot; for the company
+- **Clear and Simple**: Break down complex concepts without oversimplification
+- **Helpful**: Focus on solving problems and providing practical value
+- **Respectful**: Maintain professional courtesy toward all mentioned parties
+
+## Tone Patterns by Content Type
+
+- **Technical Tutorials**: Confident and instructional, not condescending
+- **Case Studies**: Confident but humble, focusing on lessons learned
+- **Industry Insights**: Thoughtful and analytical with measured opinions
+- **Company Culture**: Warm and authentic with personal touches
+- **Client Communications**: Professional, responsive, and solutions-oriented
+
+## Structural Elements
+
+Essential components for all content:
+
+- Relevant, approachable introduction
+- Clear problem statement or purpose declaration
+- Logical progression from general to specific
+- Defined technical terms on first use
+- Practical examples illustrating concepts
+- Actionable takeaways or next steps
+
+## Writing Style Rules
+
+1. Use second-person (&quot;you&quot;) to address the reader
+2. Represent the company with &quot;we&quot; (first-person plural)
+3. Keep paragraphs short (3-4 sentences maximum)
+4. Vary sentence length for rhythm and readability
+5. Use active voice predominantly
+6. Break text with meaningful headings and subheadings
+7. Define technical terms for broader audience understanding
+8. Follow American English spelling conventions
+
+## Examples
+
+&lt;example&gt;
+**Technical Introduction**
+
+&quot;Managing content across multiple platforms presents unique challenges for enterprise organizations. At Lullabot, we've helped companies like NBC solve these exact problems. Here's how you can implement a similar approach for your content architecture.&quot;
+
+This example demonstrates expertise, addresses the reader directly, establishes credibility, and promises valuable information.
+&lt;/example&gt;
+
+&lt;example&gt;
+**Technical Explanation**
+
+&quot;When you implement a headless CMS architecture—where your content management system is separate from your front-end presentation layer—you gain flexibility in how your content appears across different platforms.&quot;
+
+This example defines technical terminology, addresses the reader directly, and clearly explains benefits.
+&lt;/example&gt;
+
+&lt;example type=&quot;invalid&quot;&gt;
+**Poor Introduction**
+
+&quot;Content management is hard. This article will explain multi-platform content management.&quot;
+
+This example lacks specificity, fails to establish expertise, doesn't address the reader, and provides no compelling reason to continue reading.
+&lt;/example&gt;
+
+&lt;example type=&quot;invalid&quot;&gt;
+**Poor Technical Explanation**
+
+&quot;Headless CMS separates the content repository from content presentation, offering flexibility through APIs.&quot;
+
+This example uses undefined technical terms, lacks conversational tone, and doesn't clarify the benefit to the reader.
+&lt;/example&gt;
+
+## Voice and Tone Decision Flow
+
+```mermaid
 ---
-## Decision
+title: Content Voice and Tone Selection Process
+---
+graph TD
+    A[Identify Content Type] --&gt; B[Determine Primary Audience]
+    B --&gt; C[Select Appropriate Tone Pattern]
+    C --&gt; D[Apply Core Voice Characteristics]
+    D --&gt; E[Structure Content With Required Elements]
+    E --&gt; F[Review Against Writing Style Rules]
+    F --&gt; G[Check Examples for Consistency]
+    G --&gt; H[Finalize Content]
+```
 
-[Describe our response to these forces. It is stated in full sentences, with active voice. &quot;We will …&quot;.]
-
-## Exceptions
-
-[Outline what exceptions are allowed, and when it's acceptable to make them.]
-
-## Consequences
-
-[Describe the resulting context, after applying the decision. All consequences should be listed here, not just the &quot;positive&quot; ones. A particular decision may have positive, negative, and neutral consequences, but all of them affect the team and project in the future.]
-
-## Status
-[Accepted | Deprecated]
-
-&lt;References&gt;
-- Lullabot's ADR repository: https://architecture.lullabot.com/
-- Basis: https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions.html
-- Examples and core definitions: https://github.com/joelparkerhenderson/architecture-decision-record
-&lt;/References&gt;
 </code></pre>
 
   </div>
