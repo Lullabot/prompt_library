@@ -9,8 +9,40 @@ hideSearch: false
   <h1 class="page-title"><i class="fas fa-book-open"></i> Prompt Library</h1>
   <p class="page-description">Explore AI resources organized by discipline and content type.</p>
 
+  <div class="recently-added">
+    <h2 class="recently-added-title">Recently Added</h2>
+    <!-- Swiper -->
+    <div class="swiper-container recently-added-swiper">
+      <div class="swiper-wrapper">
+        {% for item in collections.recentlyAdded %}
+          <div class="swiper-slide">
+            <article class="recent-item">
+              <h3><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h3>
+              <div class="recent-meta">
+                {% if item.data.contentType %}
+                  <span class="recent-type">{{ item.data.contentType | replace('-', ' ') | title }}</span>
+                {% endif %}
+                {% if item.data.discipline %}
+                  <span class="recent-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>
+                {% endif %}
+              </div>
+              <p class="recent-desc">{{ item.data.description }}</p>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+  
+  <h2 class="recently-added-title">By Discipline</h2>
   <div class="discipline-grid">
-    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design'] %}
+    
+    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
       {% set hasAnyDisciplineContent = false %}
       {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
         {% if discipline | hasContent(type) %}
@@ -187,4 +219,175 @@ hideSearch: false
       grid-template-columns: 1fr;
     }
   }
-</style> 
+
+  .recently-added {
+    max-width: 1200px;
+    margin: 0 auto 2rem auto;
+    padding: 2rem 1rem 0 1rem;
+  }
+  .recently-added-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .recently-added-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .recent-item {
+    background-color: var(--card-background);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 1.25rem 1rem;
+    border: 1px solid var(--border-color);
+    transition: box-shadow 0.2s;
+  }
+  .recent-item h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  .recent-item h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .recent-item h3 a:hover {
+    color: var(--primary-color);
+  }
+  .recent-meta {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .recent-type, .recent-discipline, .recent-date {
+    background: var(--tag-background);
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.5rem;
+    margin-right: 0.25rem;
+    font-weight: 500;
+  }
+  .recent-desc {
+    color: var(--text-color);
+    opacity: 0.85;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  /* Swiper Styles */
+  .recently-added-swiper {
+    width: 100%;
+    position: relative; /* Ensure positioning context for arrows */
+    padding-top: 20px; /* Space for pagination */
+    padding-bottom: 50px; /* Space for pagination and nav buttons */
+  }
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Make slides same height */
+    height: auto; /* Allow slides to determine height based on content */
+    transition: opacity 0.3s ease; /* For smooth fading */
+  }
+  .swiper-slide .recent-item {
+    width: 100%; /* Make recent-item fill the slide */
+    display: flex;
+    flex-direction: column; /* Ensure content within card stacks vertically */
+    justify-content: space-between; /* Pushes meta/desc down if title is short */
+  }
+  .swiper-pagination-bullet-active {
+    background-color: var(--primary-color);
+  }
+  .swiper-button-next, .swiper-button-prev {
+    color: var(--primary-color);
+    --swiper-navigation-size: 30px; /* Adjust size of nav arrows */
+    top: 42%; /* Adjust vertical position - try 40-45% range */
+  }
+  .swiper-button-prev {
+    left: -15px; /* Adjust to move further left */
+  }
+  .swiper-button-next {
+    right: -15px; /* Adjust to move further right */
+  }
+  .swiper-button-next:after, .swiper-button-prev:after {
+    font-size: var(--swiper-navigation-size);
+  }
+</style>
+
+<script>
+  function initRecentlyAddedSwiper() {
+    var swiper = new Swiper('.recently-added-swiper', {
+      watchSlidesProgress: true, // Needed for progress-based effects
+      slidesPerView: 1, // Base: 1 slide for small screens
+      spaceBetween: 20,
+      centeredSlides: true, // Center single slide on small screens
+      loop: true, // Optional: enable continuous loop
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+          centeredSlides: false 
+        },
+        960: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+          centeredSlides: true 
+        }
+      },
+      on: {
+        progress: function (swiperInstance) {
+          const slides = swiperInstance.slides;
+          const slidesPerView = swiperInstance.params.slidesPerView;
+          // Threshold for fading: beyond half the number of visible slides from the center
+          // For 3 slides, center is 0, edges are approx +/-1. Anything beyond +/-1.5 (approx) should fade.
+          // A simpler way for centered slides: progress absolute value > (slidesPerView -1) / 2 roughly
+          // Let's use a threshold like 1.2 for 3 slides, 0.7 for 2 slides, 0.2 for 1 slide
+          let fadeThreshold = 0.2; // For 1 slide view
+          if (slidesPerView === 2) fadeThreshold = 0.7;
+          if (slidesPerView >= 3) fadeThreshold = 1.2; 
+
+          for (let i = 0; i < slides.length; i++) {
+            const slideProgress = slides[i].progress;
+            const absProgress = Math.abs(slideProgress);
+            if (absProgress > fadeThreshold) {
+              slides[i].style.opacity = 0.3; // Faded
+            } else {
+              slides[i].style.opacity = 1; // Fully visible
+            }
+          }
+        },
+        transitionEnd: function(swiperInstance){
+          // Trigger progress update to re-apply opacities after transition
+          swiperInstance.emit('progress', swiperInstance.progress);
+        },
+        // Also call on init to set initial opacities
+        init: function(swiperInstance){
+            swiperInstance.emit('progress', swiperInstance.progress);
+        }
+      }
+    });
+  }
+
+  function checkSwiperAndInit() {
+    if (typeof Swiper !== 'undefined') {
+      initRecentlyAddedSwiper();
+    } else {
+      requestAnimationFrame(checkSwiperAndInit);
+    }
+  }
+  requestAnimationFrame(checkSwiperAndInit);
+</script> 

@@ -6,11 +6,12 @@
 - Hosted directly via GitHub Pages.
 
 ## Content Organization
-- **Top-level:** Disciplines (e.g., `development/`, `project-management/`, `sales-marketing/`, `content-strategy/`, `design/`)
+- **Top-level:** Disciplines (e.g., `development/`, `project-management/`, `sales-marketing/`, `content-strategy/`, `design`, `quality-assurance`)
 - **Second-level:** Content Types (`prompts/`, `cursor-rules/`, `project-configs/`, `workflow-states/`)
 - Specific content items are individual Markdown files within these directories, typically using `kebab-case.md` naming.
 - An `index.njk` file often exists within discipline directories (e.g., `development/index.njk`) and content-type directories (e.g., `development/prompts/index.njk`) likely serving as landing/listing pages.
 - 11ty collections are automatically generated for each content type, aggregating across disciplines.
+- **IMPORTANT:** The list of disciplines in `.eleventy.js` (`const disciplines = [...]`) must always include all actual discipline folders. If a discipline is missing from this array, its content will not appear in collections, the homepage, or navigation. This caused the Quality Assurance section to be invisible until fixed.
 
 ## Templating
 - Nunjucks (.njk) is used as the primary templating engine (for md, html, data files).
@@ -79,3 +80,8 @@
 - **Labels:** The issue is automatically labeled (e.g., `new-prompt`, `from-slack`).
 - **Response Limitation:** The workflow trigger (`repository_dispatch`) does not return a custom response body to the caller (Slack bot). The bot only receives confirmation that the event was dispatched (HTTP 204), not that the issue was successfully created.
 - **Maintainer Action:** This issue follows the same curation and conversion process as issues created via templates. 
+
+## Section Initialization Pattern
+- All discipline/content-type folders (e.g., `quality-assurance/prompts/`, `quality-assurance/cursor-rules/`, etc.) should be initialized with a customized `index.njk` file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.
+- This replaces the use of `.gitkeep` files for empty folder tracking, ensuring each section is ready for content and discoverable in the UI.
+- This pattern was applied to the Quality Assurance section, with each subfolder now containing a Quality Assurance-specific `index.njk` file. 
