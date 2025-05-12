@@ -1,6 +1,6 @@
 # Prompt Library
 
-A collection of AI prompts, rules, project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages.
+A collection of AI prompts, rules (guidelines for development environments), project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages.
 
 ![Screenshot of the Prompt Library showing the Development AI Prompts page](assets/images/prompt_library.png)
 
