@@ -1,6 +1,6 @@
 ---
 title: "Prompt Library"
-description: "A collection of AI prompts, cursor rules, project configurations, and workflow states organized by discipline."
+description: "A collection of AI prompts, rules, project configurations, and workflow states organized by discipline."
 layout: "base.njk"
 hideSearch: false
 ---
@@ -44,7 +44,7 @@ hideSearch: false
     
     {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
       {% set hasAnyDisciplineContent = false %}
-      {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+      {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
         {% if discipline | hasContent(type) %}
           {% set hasAnyDisciplineContent = true %}
         {% endif %}
@@ -53,12 +53,12 @@ hideSearch: false
       <div class="discipline-card {% if not hasAnyDisciplineContent %}discipline-empty{% endif %}">
         <h2>{{ discipline | replace('-', ' ') | title }}</h2>
         <div class="content-types">
-          {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+          {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
             {% set hasTypeContent = discipline | hasContent(type) %}
             <a href="{{ baseUrl }}/{{ discipline }}/{{ type }}" class="content-type-link {% if not hasTypeContent %}empty{% endif %}">
               <span class="content-type-icon">
                 {% if type === 'prompts' %}💡
-                {% elif type === 'cursor-rules' %}📋
+                {% elif type === 'rules' %}📋
                 {% elif type === 'project-configs' %}⚙️
                 {% elif type === 'workflow-states' %}🔄
                 {% endif %}

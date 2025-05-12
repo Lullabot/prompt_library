@@ -1,7 +1,7 @@
 {
   "name": "prompt_library",
   "version": "1.0.0",
-  "description": "A collection of AI prompts, cursor rules, project configurations, and workflow states",
+  "description": "A collection of AI prompts, rules, project configurations, and workflow states",
   "main": "index.js",
   "scripts": {
     "start": "eleventy --serve",

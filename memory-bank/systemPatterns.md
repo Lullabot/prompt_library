@@ -7,7 +7,7 @@
 
 ## Content Organization
 - **Top-level:** Disciplines (e.g., `development/`, `project-management/`, `sales-marketing/`, `content-strategy/`, `design`, `quality-assurance`)
-- **Second-level:** Content Types (`prompts/`, `cursor-rules/`, `project-configs/`, `workflow-states/`)
+- **Second-level:** Content Types (`prompts/`, `rules/`, `project-configs/`, `workflow-states/`)
 - Specific content items are individual Markdown files within these directories, typically using `kebab-case.md` naming.
 - An `index.njk` file often exists within discipline directories (e.g., `development/index.njk`) and content-type directories (e.g., `development/prompts/index.njk`) likely serving as landing/listing pages.
 - 11ty collections are automatically generated for each content type, aggregating across disciplines.
@@ -72,6 +72,6 @@
 - **Integration:** Maintainer commits the new file, typically via a PR, for final review and merge.
 
 ## Section Initialization Pattern
-- All discipline/content-type folders (e.g., `quality-assurance/prompts/`, `quality-assurance/cursor-rules/`, etc.) should be initialized with a customized `index.njk` file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.
+- All discipline/content-type folders (e.g., `quality-assurance/prompts/`, `quality-assurance/rules/`, etc.) should be initialized with a customized `index.njk` file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.
 - This replaces the use of `.gitkeep` files for empty folder tracking, ensuring each section is ready for content and discoverable in the UI.
 - This pattern was applied to the Quality Assurance section, with each subfolder now containing a Quality Assurance-specific `index.njk` file. 

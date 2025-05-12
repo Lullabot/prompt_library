@@ -1,7 +1,7 @@
 # 11ty Prompt Library Project Configuration
 
 ## Project Overview
-This project is a static site built with 11ty that organizes and presents AI prompts, cursor rules, project configurations, and workflow state examples across different disciplines. The site is hosted on GitHub Pages and features a clean, modern design with discipline-based content organization.
+This project is a static site built with 11ty that organizes and presents AI prompts, rules, project configurations, and workflow state examples across different disciplines. The site is hosted on GitHub Pages and features a clean, modern design with discipline-based content organization.
 
 ## Prerequisites
 - Node.js (v16 or higher)
@@ -45,7 +45,7 @@ This project is a static site built with 11ty that organizes and presents AI pro
    │   └── images/        # Image assets
    ├── development/        # Development discipline content
    │   ├── prompts/       # Development prompts
-   │   ├── cursor-rules/  # Development cursor rules
+   │   ├── rules/  # Development rules
    │   ├── project-configs/ # Development project configs
    │   └── workflow-states/ # Development workflow states
    ├── project-management/ # Project Management discipline
@@ -101,7 +101,7 @@ module.exports = function(eleventyConfig) {
 
   // Add collections for content types
   const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design'];
-  const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+  const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states'];
 
   contentTypes.forEach(type => {
     eleventyConfig.addCollection(type, function(collection) {
@@ -177,7 +177,7 @@ Base template with common elements:
         <nav>
             <a href="{{ baseUrl }}/">Home</a>
             <a href="{{ baseUrl }}/prompts">Prompts</a>
-            <a href="{{ baseUrl }}/cursor-rules">Cursor Rules</a>
+            <a href="{{ baseUrl }}/rules">Rules</a>
             <a href="{{ baseUrl }}/project-configs">Project Configs</a>
             <a href="{{ baseUrl }}/workflow-states">Workflow States</a>
         </nav>
@@ -203,7 +203,7 @@ layout: base.njk
 
 <nav class="discipline-nav">
     <a href="{{ baseUrl }}/{{ discipline }}/prompts">Prompts</a>
-    <a href="{{ baseUrl }}/{{ discipline }}/cursor-rules">Cursor Rules</a>
+    <a href="{{ baseUrl }}/{{ discipline }}/rules">Rules</a>
     <a href="{{ baseUrl }}/{{ discipline }}/project-configs">Project Configs</a>
     <a href="{{ baseUrl }}/{{ discipline }}/workflow-states">Workflow States</a>
 </nav>
