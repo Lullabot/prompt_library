@@ -84,7 +84,7 @@ npm run build
 │   └── workflow-states/
 ├── quality-assurance/        # Quality Assurance discipline content
 │   ├── prompts/        # Quality Assurance prompts and checklists
-│   ├── rules/   # Quality Assurance-specific rules and guidelines
+│   ├── rules/   # Quality Assurance-specific rules and guidelines for maintaining consistency
 │   ├── project-configs/ # Quality Assurance tool or process configurations
 │   └── workflow-states/ # Quality Assurance workflow documentation
 ├── .github/           # GitHub configuration
