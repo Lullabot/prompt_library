@@ -18,7 +18,7 @@ Describe what this PR changes, adds, or fixes. Include context and reasoning for
 Add screenshots or GIFs to help reviewers understand the changes.
 
 ## Checklist for Reviewers
-- [ ] Code follows project and Drupal best practices
+- [ ] Code follows project best practices
 - [ ] All tests pass locally
 - [ ] Documentation is updated as needed
 - [ ] Configuration changes (if any) are exported and committed
