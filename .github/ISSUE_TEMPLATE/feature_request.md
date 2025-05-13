@@ -19,7 +19,7 @@ Have you considered any alternative solutions or features?
 
 ## Acceptance Criteria
 - [ ] Feature solves the stated problem
-- [ ] Implementation follows Drupal and project best practices
+- [ ] Implementation follows project best practices
 - [ ] Tests and documentation are updated
 
 ## Additional Context

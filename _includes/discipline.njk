@@ -7,7 +7,7 @@ layout: base.njk
   <p class="page-description">{{ description }}</p>
 
   <div class="content-grid">
-    {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+    {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
       {% set hasContent = discipline | hasContent(type) %}
       <section class="content-card {% if not hasContent %}content-empty{% endif %}">
         <div class="card-header">
@@ -15,7 +15,7 @@ layout: base.njk
           <span class="content-indicator" aria-label="{% if hasContent %}Contains content{% else %}No content{% endif %}"></span>
         </div>
         <p>{% if type === 'prompts' %}Browse and search through our collection of AI prompts
-        {% elif type === 'cursor-rules' %}Explore cursor rules for workflows and environments
+        {% elif type === 'rules' %}Explore rules for various workflows and development environments
         {% elif type === 'project-configs' %}Find project configuration examples and templates
         {% elif type === 'workflow-states' %}Learn about different workflow states and their implementations
         {% endif %} in {{ title }}.</p>

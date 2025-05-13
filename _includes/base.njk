@@ -26,7 +26,7 @@
             <!-- DEBUG: Nav loop discipline: {{ discipline }} -->
             <li>
               {% set hasAnyContent = false %}
-              {% for type in ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'] %}
+              {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
                 <!-- DEBUG: Nav check: {{ discipline }} | {{ type }} -->
                 {% if discipline | hasContent(type) %}
                   {% set hasAnyContent = true %}

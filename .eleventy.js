@@ -40,7 +40,7 @@ module.exports = function(eleventyConfig) {
 
   // Add collections for all content types
   const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
-  const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+  const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states'];
 
   // Add collections for each content type
   contentTypes.forEach(type => {
@@ -132,7 +132,7 @@ module.exports = function(eleventyConfig) {
 
   // Add a collection for recently added content (all types, sorted by date desc)
   eleventyConfig.addCollection('recentlyAdded', function(collection) {
-    const types = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+    const types = ['prompts', 'rules', 'project-configs', 'workflow-states'];
     let all = [];
     types.forEach(type => {
       all = all.concat(collection.getFilteredByGlob(

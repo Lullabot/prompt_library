@@ -1,7 +1,7 @@
 # Product Context
 
 ## Why This Project Exists
-To provide a central, organized repository for AI prompts, cursor rules, project configurations, and workflow states.
+To provide a central, organized repository for AI prompts, rules, project configurations, and workflow states.
 
 ## Problems It Solves
 Addresses the issue of scattered resources, making it difficult for individuals to find and share relevant prompts, rules, configurations, and workflows efficiently. It eliminates the need to search across disparate locations or rely on ad-hoc sharing methods.

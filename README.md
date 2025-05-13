@@ -1,6 +1,6 @@
 # Prompt Library
 
-A collection of AI prompts, cursor rules, project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages.
+A collection of AI prompts, rules (guidelines for development environments), project configurations, and workflow states across different disciplines. Built with 11ty and hosted on GitHub Pages.
 
 ![Screenshot of the Prompt Library showing the Development AI Prompts page](assets/images/prompt_library.png)
 
@@ -59,32 +59,32 @@ npm run build
 │   └── images/        # Image assets
 ├── development/        # Development discipline content
 │   ├── prompts/       # Development prompts
-│   ├── cursor-rules/  # Development cursor rules
+│   ├── rules/  # Development rules
 │   ├── project-configs/ # Development project configs
 │   └── workflow-states/ # Development workflow states
 ├── project-management/ # Project Management discipline content
 │   ├── prompts/
-│   ├── cursor-rules/
+│   ├── rules/
 │   ├── project-configs/
 │   └── workflow-states/
 ├── sales-marketing/    # Sales & Marketing discipline content
 │   ├── prompts/
-│   ├── cursor-rules/
+│   ├── rules/
 │   ├── project-configs/
 │   └── workflow-states/
 ├── content-strategy/   # Content Strategy discipline content
 │   ├── prompts/
-│   ├── cursor-rules/
+│   ├── rules/
 │   ├── project-configs/
 │   └── workflow-states/
 ├── design/            # Design discipline content
 │   ├── prompts/
-│   ├── cursor-rules/
+│   ├── rules/
 │   ├── project-configs/
 │   └── workflow-states/
 ├── quality-assurance/        # Quality Assurance discipline content
 │   ├── prompts/        # Quality Assurance prompts and checklists
-│   ├── cursor-rules/   # Quality Assurance-specific rules and guidelines
+│   ├── rules/   # Quality Assurance-specific rules and guidelines for maintaining consistency
 │   ├── project-configs/ # Quality Assurance tool or process configurations
 │   └── workflow-states/ # Quality Assurance workflow documentation
 ├── .github/           # GitHub configuration
@@ -109,7 +109,7 @@ The library is organized by disciplines and content types:
 
 ### Content Types
 - Prompts: AI prompts for various use cases
-- Cursor Rules: Guidelines for development environments
+- Rules: Guidelines for development environments
 - Project Configs: Project configuration templates
 - Workflow States: Process and workflow documentation
 
