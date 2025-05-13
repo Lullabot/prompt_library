@@ -51,6 +51,17 @@
     The Prompt Library thrives on community contributions. This guide explains various ways to add your own prompts, rules, project configurations, or workflow states to the library.
   </p>
 
+  <div class="quick-submit">
+    <h2>Quick Submit</h2>
+    <p>If you want to quickly submit new content, use one of the forms below. No need to fork or make a pull request!</p>
+    <div class="submit-links">
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
+    </div>
+  </div>
+
   <div class="accordion-container">
     <div class="accordion">
       <button class="accordion-btn active">
@@ -168,6 +179,13 @@ Your content goes here...</code></pre>
           <p>
             If you have a content idea but don't want to create the files yourself, you can submit a content suggestion via GitHub Issues.
           </p>
+          
+          <div class="submit-links">
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
+          </div>
           
           <h3>Submitting a Content Suggestion</h3>
           <ol>
@@ -485,6 +503,39 @@ Your content goes here...</code></pre>
     content: " ↗";
     font-size: 0.8em;
     vertical-align: super;
+  }
+
+  .quick-submit {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  .quick-submit h2 {
+    margin-bottom: 0.5rem;
+  }
+  .submit-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  .cta-button {
+    display: inline-block;
+    background-color: #2b6cb0;
+    color: #fff;
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.2s;
+    border: none;
+  }
+  .cta-button:hover {
+    background-color: #1d4e89;
   }
 </style>
     </main>
