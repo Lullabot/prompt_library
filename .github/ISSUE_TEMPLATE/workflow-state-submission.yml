@@ -1,0 +1,51 @@
+name: Submit a New Workflow State
+description: Contribute a new workflow state (process step, status, or stage) to the library.
+title: "[Workflow State Contribution]: Title for your workflow state"
+labels: ["new-contribution", "workflow-state", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your workflow state below.
+        The issue title you set above will be used as the workflow state's title.
+
+  - type: textarea
+    id: workflow-state-description
+    attributes:
+      label: Description
+      description: "Explain what the workflow state is, its purpose, and intended use cases. This appears below the title."
+      placeholder: "e.g., This workflow state represents the QA review phase in the publishing process..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: workflow-state-content
+    attributes:
+      label: Workflow State Content
+      description: "Paste the full text or checklist of the workflow state here."
+      placeholder: "Enter the complete workflow state details or checklist..."
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this workflow state is most relevant to."
+      options:
+        - Development
+        - Design
+        - Marketing
+        - Project Management
+        - Content Strategy
+        - Research
+        - Support
+        - Operations
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you! 

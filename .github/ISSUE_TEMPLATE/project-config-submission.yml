@@ -1,0 +1,51 @@
+name: Submit a New Project Config
+description: Contribute a new project configuration (settings, templates, or environment configs) to the library.
+title: "[Project Config Contribution]: Title for your project config"
+labels: ["new-contribution", "project-config", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your project config below.
+        The issue title you set above will be used as the config's title.
+
+  - type: textarea
+    id: config-description
+    attributes:
+      label: Description
+      description: "Explain what the project config does, its purpose, and intended use cases. This appears below the title."
+      placeholder: "e.g., This configuration sets up a standard ESLint environment for React projects..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: config-content
+    attributes:
+      label: Project Config Content
+      description: "Paste the full text or code of the project config here."
+      placeholder: "Enter the complete configuration or template..."
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this project config is most relevant to."
+      options:
+        - Development
+        - Design
+        - Marketing
+        - Project Management
+        - Content Strategy
+        - Research
+        - Support
+        - Operations
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you! 
