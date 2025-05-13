@@ -1,0 +1,87 @@
+name: "Resource Submission"
+description: "Suggest a new external resource (guide, documentation, prompt list, etc.) for the library."
+title: "[Resource] <title>"
+labels: ["new-resource", "needs-review"]
+body:
+  - type: input
+    id: title
+    attributes:
+      label: "Resource Title"
+      description: "Name of the resource."
+      placeholder: "e.g., Awesome ChatGPT Prompts Collection"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Brief summary of what the resource covers."
+      placeholder: "A curated list of useful ChatGPT prompts for various use cases."
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: "Resource URL"
+      description: "Link to the external resource."
+      placeholder: "https://github.com/f/awesome-chatgpt-prompts"
+    validations:
+      required: true
+  - type: dropdown
+    id: resource_type
+    attributes:
+      label: "Resource Type"
+      description: "What kind of resource is this?"
+      options:
+        - Article
+        - Video
+        - Documentation
+        - Prompt List
+        - Tool
+        - Course
+        - Tutorial
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: skill_level
+    attributes:
+      label: "Skill Level (optional)"
+      description: "Intended audience skill level."
+      options:
+        - Beginner
+        - Intermediate
+        - Advanced
+        - Not specified
+    validations:
+      required: false
+  - type: input
+    id: topics
+    attributes:
+      label: "Topics/Tags"
+      description: "Comma-separated list of topics or tags."
+      placeholder: "prompt engineering, AI, development"
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Additional Notes (optional)"
+      description: "Any extra context or recommendations."
+      placeholder: "Regularly updated. Highly recommended for new users."
+    validations:
+      required: false
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: "Discipline"
+      description: "Which discipline does this resource belong to?"
+      options:
+        - Development
+        - Project Management
+        - Quality Assurance
+        - Content Strategy
+        - Design
+        - Sales & Marketing
+    validations:
+      required: true 

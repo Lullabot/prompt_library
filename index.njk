@@ -44,7 +44,7 @@ hideSearch: false
     
     {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
       {% set hasAnyDisciplineContent = false %}
-      {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
+      {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources'] %}
         {% if discipline | hasContent(type) %}
           {% set hasAnyDisciplineContent = true %}
         {% endif %}
@@ -53,7 +53,7 @@ hideSearch: false
       <div class="discipline-card {% if not hasAnyDisciplineContent %}discipline-empty{% endif %}">
         <h2>{{ discipline | replace('-', ' ') | title }}</h2>
         <div class="content-types">
-          {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
+          {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources'] %}
             {% set hasTypeContent = discipline | hasContent(type) %}
             <a href="{{ baseUrl }}/{{ discipline }}/{{ type }}" class="content-type-link {% if not hasTypeContent %}empty{% endif %}">
               <span class="content-type-icon">
@@ -61,6 +61,7 @@ hideSearch: false
                 {% elif type === 'rules' %}📋
                 {% elif type === 'project-configs' %}⚙️
                 {% elif type === 'workflow-states' %}🔄
+                {% elif type === 'resources' %}🔗
                 {% endif %}
               </span>
               <span class="content-type-label">{{ type | replace('-', ' ') | title }}</span>
