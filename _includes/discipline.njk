@@ -7,7 +7,7 @@ layout: base.njk
   <p class="page-description">{{ description }}</p>
 
   <div class="content-grid">
-    {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states'] %}
+    {% for type in ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources'] %}
       {% set hasContent = discipline | hasContent(type) %}
       <section class="content-card {% if not hasContent %}content-empty{% endif %}">
         <div class="card-header">
@@ -18,6 +18,7 @@ layout: base.njk
         {% elif type === 'rules' %}Explore rules for various workflows and development environments
         {% elif type === 'project-configs' %}Find project configuration examples and templates
         {% elif type === 'workflow-states' %}Learn about different workflow states and their implementations
+        {% elif type === 'resources' %}Curated external resources, guides, and documentation for this discipline
         {% endif %} in {{ title }}.</p>
         <a href="{{ baseUrl }}/{{ discipline | lower }}/{{ type }}" class="button">View {{ type | replace('-', ' ') | title }}</a>
       </section>

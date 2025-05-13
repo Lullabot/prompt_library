@@ -1,0 +1,22 @@
+---
+title: "Development Resources"
+description: "Curated external resources, guides, and documentation for development."
+layout: content-type.njk
+discipline: development
+contentType: resources
+category: resources
+---
+
+<section>
+  <h2>Development Resources</h2>
+  <p>Browse curated links to documentation, guides, prompt lists, and other valuable resources for development.</p>
+  <ul>
+    {% for resource in collections.resources | filterByDiscipline('development') %}
+      <li>
+        <a href="{{ resource.data.url }}" target="_blank">{{ resource.data.title }}</a> - {{ resource.data.description }}
+        {% if resource.data.resource_type %}<span>({{ resource.data.resource_type }})</span>{% endif %}
+        {% if resource.data.skill_level %}<span> - {{ resource.data.skill_level }}</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</section> 
