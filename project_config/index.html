@@ -1,6 +1,6 @@
 <h1>11ty Prompt Library Project Configuration</h1>
 <h2>Project Overview</h2>
-<p>This project is a static site built with 11ty that organizes and presents AI prompts, cursor rules, project configurations, and workflow state examples across different disciplines. The site is hosted on GitHub Pages and features a clean, modern design with discipline-based content organization.</p>
+<p>This project is a static site built with 11ty that organizes and presents AI prompts, rules, project configurations, and workflow state examples across different disciplines. The site is hosted on GitHub Pages and features a clean, modern design with discipline-based content organization.</p>
 <h2>Prerequisites</h2>
 <ul>
 <li>Node.js (v16 or higher)</li>
@@ -44,7 +44,7 @@ npm install --save-dev @11ty/eleventy
 │   └── images/        # Image assets
 ├── development/        # Development discipline content
 │   ├── prompts/       # Development prompts
-│   ├── cursor-rules/  # Development cursor rules
+│   ├── rules/  # Development rules
 │   ├── project-configs/ # Development project configs
 │   └── workflow-states/ # Development workflow states
 ├── project-management/ # Project Management discipline
@@ -99,7 +99,7 @@ module.exports = function(eleventyConfig) {
 
   // Add collections for content types
   const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design'];
-  const contentTypes = ['prompts', 'cursor-rules', 'project-configs', 'workflow-states'];
+  const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states'];
 
   contentTypes.forEach(type =&gt; {
     eleventyConfig.addCollection(type, function(collection) {
@@ -167,7 +167,7 @@ Content goes here...
         &lt;nav&gt;
             &lt;a href=&quot;/prompt_library/&quot;&gt;Home&lt;/a&gt;
             &lt;a href=&quot;/prompt_library/prompts&quot;&gt;Prompts&lt;/a&gt;
-            &lt;a href=&quot;/prompt_library/cursor-rules&quot;&gt;Cursor Rules&lt;/a&gt;
+            &lt;a href=&quot;/prompt_library/rules&quot;&gt;Rules&lt;/a&gt;
             &lt;a href=&quot;/prompt_library/project-configs&quot;&gt;Project Configs&lt;/a&gt;
             &lt;a href=&quot;/prompt_library/workflow-states&quot;&gt;Workflow States&lt;/a&gt;
         &lt;/nav&gt;
@@ -191,7 +191,7 @@ layout: base.njk
 
 &lt;nav class=&quot;discipline-nav&quot;&gt;
     &lt;a href=&quot;/prompt_library//prompts&quot;&gt;Prompts&lt;/a&gt;
-    &lt;a href=&quot;/prompt_library//cursor-rules&quot;&gt;Cursor Rules&lt;/a&gt;
+    &lt;a href=&quot;/prompt_library//rules&quot;&gt;Rules&lt;/a&gt;
     &lt;a href=&quot;/prompt_library//project-configs&quot;&gt;Project Configs&lt;/a&gt;
     &lt;a href=&quot;/prompt_library//workflow-states&quot;&gt;Workflow States&lt;/a&gt;
 &lt;/nav&gt;

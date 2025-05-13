@@ -8,7 +8,7 @@
 <h2>Content Organization</h2>
 <ul>
 <li><strong>Top-level:</strong> Disciplines (e.g., <code>development/</code>, <code>project-management/</code>, <code>sales-marketing/</code>, <code>content-strategy/</code>, <code>design</code>, <code>quality-assurance</code>)</li>
-<li><strong>Second-level:</strong> Content Types (<code>prompts/</code>, <code>cursor-rules/</code>, <code>project-configs/</code>, <code>workflow-states/</code>)</li>
+<li><strong>Second-level:</strong> Content Types (<code>prompts/</code>, <code>rules/</code>, <code>project-configs/</code>, <code>workflow-states/</code>)</li>
 <li>Specific content items are individual Markdown files within these directories, typically using <code>kebab-case.md</code> naming.</li>
 <li>An <code>index.njk</code> file often exists within discipline directories (e.g., <code>development/index.njk</code>) and content-type directories (e.g., <code>development/prompts/index.njk</code>) likely serving as landing/listing pages.</li>
 <li>11ty collections are automatically generated for each content type, aggregating across disciplines.</li>
@@ -98,7 +98,7 @@
 </ul>
 <h2>Section Initialization Pattern</h2>
 <ul>
-<li>All discipline/content-type folders (e.g., <code>quality-assurance/prompts/</code>, <code>quality-assurance/cursor-rules/</code>, etc.) should be initialized with a customized <code>index.njk</code> file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.</li>
+<li>All discipline/content-type folders (e.g., <code>quality-assurance/prompts/</code>, <code>quality-assurance/rules/</code>, etc.) should be initialized with a customized <code>index.njk</code> file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.</li>
 <li>This replaces the use of <code>.gitkeep</code> files for empty folder tracking, ensuring each section is ready for content and discoverable in the UI.</li>
 <li>This pattern was applied to the Quality Assurance section, with each subfolder now containing a Quality Assurance-specific <code>index.njk</code> file.</li>
 </ul>
