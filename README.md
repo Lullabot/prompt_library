@@ -123,6 +123,12 @@ Each discipline contains all content types, allowing for specialized content wit
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+**Or, submit new content via GitHub Issue:**
+- [Submit a Prompt](https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml)
+- [Submit a Rule](https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml)
+- [Submit a Project Config](https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml)
+- [Submit a Workflow State](https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml)
+
 ## License
 
 This project is licensed under the ISC License.

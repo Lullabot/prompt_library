@@ -1,0 +1,51 @@
+name: Submit a New Rule
+description: Contribute a new rule (guideline, standard, or best practice) to the library.
+title: "[Rule Contribution]: Title for your rule"
+labels: ["new-contribution", "rule", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your rule below.
+        The issue title you set above will be used as the rule's title.
+
+  - type: textarea
+    id: rule-description
+    attributes:
+      label: Description
+      description: "Explain what the rule does, its purpose, and intended use cases. This appears below the title."
+      placeholder: "e.g., This rule enforces code style consistency across the team..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: rule-content
+    attributes:
+      label: Rule Content
+      description: "Paste the full text or checklist of the rule itself here."
+      placeholder: "Enter the complete rule text or checklist..."
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this rule is most relevant to."
+      options:
+        - Development
+        - Design
+        - Marketing
+        - Project Management
+        - Content Strategy
+        - Research
+        - Support
+        - Operations
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you! 

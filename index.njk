@@ -75,7 +75,13 @@ hideSearch: false
   <div class="contribute-cta">
     <h2>Share Your Knowledge</h2>
     <p>Have a great prompt, cursor rule, or workflow configuration to share? The Prompt Library thrives on community contributions.</p>
-    <a href="{{ baseUrl }}/contributing" class="cta-button">Learn How to Contribute</a>
+    <div class="submit-links">
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
+    </div>
+    <a href="{{ baseUrl }}/contributing" class="cta-button secondary">Learn How to Contribute</a>
   </div>
 </div>
 
@@ -195,6 +201,14 @@ hideSearch: false
     margin-right: auto;
   }
 
+  .submit-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
   .cta-button {
     display: inline-block;
     background-color: #2b6cb0;
@@ -208,6 +222,12 @@ hideSearch: false
 
   .cta-button:hover {
     background-color: #1d4e89;
+  }
+
+  .cta-button.secondary {
+    background: none;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
   }
 
   @media (max-width: 640px) {
