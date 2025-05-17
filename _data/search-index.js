@@ -28,7 +28,8 @@ function createSearchIndex() {
     'project-management',
     'sales-marketing',
     'content-strategy',
-    'design'
+    'design',
+    'quality-assurance'
   ];
 
   const searchIndex = [];
@@ -42,7 +43,7 @@ function createSearchIndex() {
       const content = fs.readFileSync(file, 'utf8');
       const { data, content: markdown } = matter(content);
       const relativePath = path.relative(process.cwd(), file);
-      const url = '/' + relativePath.replace(/\.md$/, '/');
+      const url = '/' + relativePath.replace(/\\/g, '/').replace(/\.md$/, '/');
 
       searchIndex.push({
         title: data.title || '',
