@@ -1109,4 +1109,17 @@ pre code {
 .discipline-card.discipline-empty h2 {
     /* Optionally style the title differently */
     opacity: 0.7;
+}
+
+:root.dark-theme h2,
+:root.dark-theme .content-list > div h2,
+:root.dark-theme .content-item h2,
+:root.dark-theme .content-card h2 {
+    color: #ffffff;
+}
+
+:root.dark-theme .description,
+:root.dark-theme .content-type-header .description {
+    color: #e0e7ef;
+    opacity: 1;
 } 
