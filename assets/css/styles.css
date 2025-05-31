@@ -1269,8 +1269,8 @@ pre code {
 }
 .cta-button {
   display: inline-block;
-  background-color: #2b6cb0; 
-  color: #fff; 
+  background-color: var(--primary-color);
+  color: var(--header-text); 
   padding: 0.4rem 1.1rem;
   border-radius: 0.375rem;
   text-decoration: none;
