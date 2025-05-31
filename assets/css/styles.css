@@ -1203,6 +1203,11 @@ pre code {
   margin-bottom: 0;
 }
 
+.accordion-content ul {
+  padding-left: 20px;
+  list-style-position: outside;
+}
+
 .accordion-content .example-block {
     margin-top: 0.5rem;
 }
