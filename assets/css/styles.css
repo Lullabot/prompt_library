@@ -1306,4 +1306,14 @@ pre code {
 :root.dark-theme .accordion-content a:hover {
     color: var(--secondary-color); /* Optional: slightly brighter on hover */
     text-decoration: underline;
+}
+
+/* Ensure CTA buttons have good contrast in dark mode */
+:root.dark-theme .cta-button {
+    background-color: #2b6cb0; /* Darker blue for background */
+    color: #ffffff;             /* White text for high contrast */
+}
+
+:root.dark-theme .cta-button:hover {
+    background-color: #1d4e89; /* Even darker blue for hover */
 } 
