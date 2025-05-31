@@ -51,7 +51,25 @@ tags:
    - contentType: must match immediate parent directory name
    - tags: array of relevant keywords
 
-## Content Rules
+## Content Formatting Rules
+
+### For Prompt Content Type
+
+When adding content to any `prompts/` directory, follow these specific formatting rules:
+
+1. **No duplicate title**: Do NOT include an H1 header that duplicates the frontmatter title
+2. **Five backticks wrapper**: Wrap the entire prompt content in five backticks immediately after the frontmatter:
+
+```text
+---
+frontmatter here
+---
+`````
+Your prompt content goes here...
+`````
+```
+
+### General Content Rules
 
 1. Code blocks must specify a language:
    ```text
@@ -61,7 +79,7 @@ tags:
    ```
 
 2. Headers must follow proper hierarchy:
-   - Start with h1 (#)
+   - Start with h1 (#) for non-prompt content
    - Use h2 (##) for major sections
    - Use h3 (###) for subsections
 
@@ -77,6 +95,7 @@ tags:
 ✓ All required frontmatter fields present
 ✓ String values properly quoted
 ✓ discipline and contentType match directories
+✓ For prompts: content wrapped in five backticks, no duplicate title
 ✓ Code blocks specify language
 ✓ Headers follow proper hierarchy
 ✓ Lists properly formatted
