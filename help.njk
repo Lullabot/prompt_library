@@ -8,7 +8,7 @@ layout: "base.njk"
   <h1 class="help-title">Help & Guidance</h1>
 
   <details class="accordion-section">
-    <summary class="accordion-title"><h2>Prompting Best Practices</h2></summary>
+    <summary class="accordion-title">Prompting Best Practices</summary>
     <div class="accordion-content">
       <p>Here are some excellent resources for learning how to write effective prompts:</p>
       <ul>
@@ -25,7 +25,7 @@ layout: "base.njk"
   <p>The Prompt Library organizes reusable assets into several artifact types. Each type serves a distinct purpose in AI-assisted development and project management.</p>
 
   <details class="artifact-section accordion-section">
-    <summary class="accordion-title"><h3>AI Prompts</h3></summary>
+    <summary class="accordion-title">AI Prompts</summary>
     <div class="accordion-content">
       <p>AI prompts are predefined inputs used to guide AI models in generating responses. They are essential for ensuring that AI outputs are relevant and useful.</p>
       <p class="file-location"><strong>Usage:</strong> Copy and paste the prompt directly into your AI assistant's chat window.</p>
@@ -64,7 +64,7 @@ Acceptance Criteria:
   </details>
 
   <details class="artifact-section accordion-section">
-    <summary class="accordion-title"><h3>Rules (.cursor/rules)</h3></summary>
+    <summary class="accordion-title">Rules (.cursor/rules)</summary>
     <div class="accordion-content">
       <p>Cursor Rules define specific behaviors, guidelines, and configurations for your development environment and AI interactions within the Cursor editor. They help maintain consistency, enforce standards, and streamline workflows.</p>
       <p class="file-location"><strong>File Location Examples:</strong> <code>.cursor/rules/code-review.mdc</code>, <code>.cursor/rules/project-guidelines.md</code></p>
@@ -100,7 +100,7 @@ Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
   </details>
 
   <details class="artifact-section accordion-section">
-    <summary class="accordion-title"><h3>Project Configs</h3></summary>
+    <summary class="accordion-title">Project Configs</summary>
     <div class="accordion-content">
       <p>Project configurations are settings and parameters that define how a project is built, run, or how specific tools related to the project should behave. They are crucial for maintaining consistency and sharing setup information.</p>
       <p class="file-location"><strong>File Location Example:</strong> <code>[category]/project-configs/[config-name].md</code> (e.g., <code>development/project-configs/11ty-setup.md</code>)</p>
@@ -144,7 +144,7 @@ Old Path | New Path | Type
   </details>
 
   <details class="artifact-section accordion-section">
-    <summary class="accordion-title"><h3>Workflow States</h3></summary>
+    <summary class="accordion-title">Workflow States</summary>
     <div class="accordion-content">
       <p>Workflow states represent the different stages of a project, task, or content lifecycle. They help in tracking progress, defining processes, and managing tasks efficiently.</p>
       <p class="file-location"><strong>File Location Example:</strong> <code>[category]/workflow-states/[workflow-name].md</code> (e.g., <code>content-strategy/workflow-states/editorial-workflow.md</code>)</p>
@@ -194,7 +194,7 @@ Content is live on the website
   <h2 class="section-heading">Core Concepts</h2>
 
   <details class="accordion-section">
-    <summary class="accordion-title"><h3>Memory Bank</h3></summary>
+    <summary class="accordion-title">Memory Bank</summary>
     <div class="accordion-content">
       <p>The Memory Bank is a structured collection of Markdown files designed to provide persistent context and project knowledge. Since AI assistants like Cursor may have their memory reset between sessions, the Memory Bank ensures that critical information about the project's goals, technical details, current progress, and active context is always available.</p>
       <p>Key components typically include:</p>
@@ -206,8 +206,8 @@ Content is live on the website
         <li><code>activeContext.md</code>: Current work focus.</li>
         <li><code>progress.md</code>: Status and known issues.</li>
       </ul>
-      <p>Maintaining the Memory Bank is crucial for effective collaboration with AI assistants. These files are typically located in the <code>memory-bank/</code> directory, often with subdirectories for each component e.g. <code>memory-bank/projectbrief/projectbrief.md</code></p>
-      <p><a href="{{ '/memory-bank/' | url }}">Browse the Memory Bank documentation</a> (This link assumes your 11ty setup will correctly resolve it to the directory or a generated index page for the memory bank).</p>
+      <p>Maintaining the Memory Bank is crucial for effective collaboration with AI assistants. These files are typically located in the <code>memory-bank/</code> directory, often with subdirectories for each component e.g. <code>memory-bank/projectbrief.md</code></p>
+      <p><a href="https://github.com/tacticlaunch/cursor-bank">Browse the Memory Bank documentation</a> 
     </div>
   </details>
 
