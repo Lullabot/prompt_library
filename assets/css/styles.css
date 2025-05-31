@@ -1280,7 +1280,7 @@ pre code {
   margin-left: 0.5rem;
 }
 .cta-button:hover {
-  background-color: #1d4e89; 
+  background-color: var(--secondary-color); 
 }
 /* End Help Page and Accordion Styles */
 
