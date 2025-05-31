@@ -71,6 +71,16 @@
 - **Conversion:** Maintainer manually creates the corresponding Markdown file in the correct location, populating the frontmatter and content from the issue data.
 - **Integration:** Maintainer commits the new file, typically via a PR, for final review and merge.
 
+### Slack Prompt Submission Workflow (via GitHub Actions)
+- **Initiation:** A Slack bot sends a `repository_dispatch` event (`type: slack-prompt-submission`) to the GitHub API for this repository.
+- **Payload:** The event's `client_payload` contains the prompt content, author, invoker, permalink, and a shared secret.
+- **Trigger:** The dispatch event triggers the `.github/workflows/slack_submit.yml` workflow.
+- **Validation:** The workflow validates the shared secret against a repository secret (`secrets.SLACK_SHARED_SECRET`) and checks for required fields in the payload.
+- **Issue Creation:** If validation passes, the workflow uses the GitHub API (via `gh` CLI with `GITHUB_TOKEN`) to create a new issue in this repository, formatted with the content and metadata from the payload.
+- **Labels:** The issue is automatically labeled (e.g., `new-prompt`, `from-slack`).
+- **Response Limitation:** The workflow trigger (`repository_dispatch`) does not return a custom response body to the caller (Slack bot). The bot only receives confirmation that the event was dispatched (HTTP 204), not that the issue was successfully created.
+- **Maintainer Action:** This issue follows the same curation and conversion process as issues created via templates. 
+
 ## Section Initialization Pattern
 - All discipline/content-type folders (e.g., `quality-assurance/prompts/`, `quality-assurance/rules/`, etc.) should be initialized with a customized `index.njk` file containing relevant metadata (title, description, layout, discipline, contentType, category) and placeholder content describing the section's purpose.
 - This replaces the use of `.gitkeep` files for empty folder tracking, ensuring each section is ready for content and discoverable in the UI.
