@@ -1297,4 +1297,13 @@ pre code {
 :root.dark-theme .content-type-header .description {
     color: #e0e7ef;
     opacity: 1;
+}
+
+:root.dark-theme .accordion-content a {
+    color: var(--primary-color); /* Ensure links in accordions are readable in dark mode */
+}
+
+:root.dark-theme .accordion-content a:hover {
+    color: var(--secondary-color); /* Optional: slightly brighter on hover */
+    text-decoration: underline;
 } 
