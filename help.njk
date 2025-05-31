@@ -1,19 +1,36 @@
 ---
-title: "Artifact Types"
-description: "Overview of different artifact types in the prompt library."
+title: "Help & Guidance"
+description: "Helpful resources and explanations for using the Prompt Library."
 layout: "base.njk"
 ---
 
 <div class="help-container">
-  <h1 class="help-title">Artifact Types in the Prompt Library</h1>
+  <h1 class="help-title">Help & Guidance</h1>
 
-  <div class="artifact-section">
-    <h2>AI Prompts</h2>
-    <p>AI prompts are predefined inputs used to guide AI models in generating responses. They are essential for ensuring that AI outputs are relevant and useful.</p>
-    <p class="file-location"><strong>Usage:</strong> Copy and paste the prompt directly into your AI assistant's chat window.</p>
-    <div class="example-block">
-      <div class="example-label">Example: Project Management User Story Generator</div>
-      <code># User Story Generator Prompt
+  <details class="accordion-section">
+    <summary class="accordion-title"><h2>Prompting Best Practices</h2></summary>
+    <div class="accordion-content">
+      <p>Here are some excellent resources for learning how to write effective prompts:</p>
+      <ul>
+        <li><a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer">Prompting Guide by DAIR.AI</a></li>
+        <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer">Anthropic's Introduction to Prompt Engineering</a></li>
+        <li><a href="https://aurachat.io/learn/tips-for-prompting" target="_blank" rel="noopener noreferrer">AuraChat Prompting Tips</a></li>
+        <li><a href="https://platform.openai.com/docs/guides/prompt-engineering/six-strategies-for-getting-better-results" target="_blank" rel="noopener noreferrer">OpenAI's Prompt Engineering Strategies</a></li>
+      </ul>
+    </div>
+  </details>
+
+  <h2 class="section-heading">Artifact Types</h2>
+  <p>The Prompt Library organizes reusable assets into several artifact types. Each type serves a distinct purpose in AI-assisted development and project management.</p>
+
+  <details class="artifact-section accordion-section">
+    <summary class="accordion-title"><h3>AI Prompts</h3></summary>
+    <div class="accordion-content">
+      <p>AI prompts are predefined inputs used to guide AI models in generating responses. They are essential for ensuring that AI outputs are relevant and useful.</p>
+      <p class="file-location"><strong>Usage:</strong> Copy and paste the prompt directly into your AI assistant's chat window.</p>
+      <div class="example-block">
+        <div class="example-label">Example: Project Management User Story Generator</div>
+        <code># User Story Generator Prompt
 
 ## Format Template
 As a [type of user]
@@ -40,17 +57,20 @@ Acceptance Criteria:
 - Allow custom viewport dimensions
 - Show responsive breakpoints
 - Real-time preview updates</code>
+      </div>
+      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a new Prompt</a></div>
     </div>
-    <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a new Prompt</a></div>
-  </div>
+  </details>
 
-  <div class="artifact-section">
-    <h2>Rules</h2>
-    <p>Rules define specific behaviors and configurations for development environments, enhancing productivity and workflow efficiency.</p>
-    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/code-review.mdc</code></p>
-    <div class="example-block">
-      <div class="example-label">Example: Code Review Guidelines</div>
-      <code># Code Review Guidelines
+  <details class="artifact-section accordion-section">
+    <summary class="accordion-title"><h3>Rules (.cursor/rules)</h3></summary>
+    <div class="accordion-content">
+      <p>Cursor Rules define specific behaviors, guidelines, and configurations for your development environment and AI interactions within the Cursor editor. They help maintain consistency, enforce standards, and streamline workflows.</p>
+      <p class="file-location"><strong>File Location Examples:</strong> <code>.cursor/rules/code-review.mdc</code>, <code>.cursor/rules/project-guidelines.md</code></p>
+      <p>These rules can cover a wide range of topics, including coding standards, commit message formats, documentation requirements, and even persona definitions for the AI.</p>
+      <div class="example-block">
+        <div class="example-label">Example: Code Review Guidelines</div>
+        <code># Code Review Guidelines
 
 ## Scope
 Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
@@ -73,17 +93,19 @@ Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
 - Run linter before submitting
 - Update documentation if needed
 - Consider backwards compatibility</code>
+      </div>
+      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a new Rule</a></div>
     </div>
-    <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a new Rule</a></div>
-  </div>
+  </details>
 
-  <div class="artifact-section">
-    <h2>Project Configs</h2>
-    <p>Project configurations are settings and parameters that define how a project is built and run. They are crucial for maintaining consistency across development environments.</p>
-    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/nextjs.mdc</code></p>
-    <div class="example-block">
-      <div class="example-label">Example: Next.js Project Configuration</div>
-      <code># Next.js Configuration Guide
+  <details class="artifact-section accordion-section">
+    <summary class="accordion-title"><h3>Project Configs</h3></summary>
+    <div class="accordion-content">
+      <p>Project configurations are settings and parameters that define how a project is built, run, or how specific tools related to the project should behave. They are crucial for maintaining consistency and sharing setup information.</p>
+      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/project-configs/[config-name].md</code> (e.g., <code>development/project-configs/11ty-setup.md</code>)</p>
+      <div class="example-block">
+        <div class="example-label">Example: Next.js Project Configuration</div>
+        <code># Next.js Configuration Guide
 
 ## Image Optimization
 - Supported domains: assets.example.com
@@ -115,17 +137,19 @@ Old Path | New Path | Type
 - Update env variables per environment
 - Test redirects after deployment
 - Monitor experimental features</code>
+      </div>
+      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a new Project Config</a></div>
     </div>
-    <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a new Project Config</a></div>
-  </div>
+  </details>
 
-  <div class="artifact-section">
-    <h2>Workflow States</h2>
-    <p>Workflow states represent the different stages of a project or task within a workflow. They help in tracking progress and managing tasks efficiently.</p>
-    <p class="file-location"><strong>File Location:</strong> <code>.cursor/rules/content-publishing.mdc</code></p>
-    <div class="example-block">
-      <div class="example-label">Example: Content Publishing Workflow</div>
-      <code># Content Publishing Workflow
+  <details class="artifact-section accordion-section">
+    <summary class="accordion-title"><h3>Workflow States</h3></summary>
+    <div class="accordion-content">
+      <p>Workflow states represent the different stages of a project, task, or content lifecycle. They help in tracking progress, defining processes, and managing tasks efficiently.</p>
+      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/workflow-states/[workflow-name].md</code> (e.g., <code>content-strategy/workflow-states/editorial-workflow.md</code>)</p>
+      <div class="example-block">
+        <div class="example-label">Example: Content Publishing Workflow</div>
+        <code># Content Publishing Workflow
 
 ## Draft
 **Owner**: Content Writer
@@ -161,9 +185,31 @@ Content is live on the website
 - All required fields must be completed
 - Each state requires sign-off
 - Published content needs archive strategy</code>
+      </div>
+      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a new Workflow State</a></div>
     </div>
-    <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a new Workflow State</a></div>
-  </div>
+  </details>
+
+  <h2 class="section-heading">Core Concepts</h2>
+
+  <details class="accordion-section">
+    <summary class="accordion-title"><h3>Memory Bank</h3></summary>
+    <div class="accordion-content">
+      <p>The Memory Bank is a structured collection of Markdown files designed to provide persistent context and project knowledge. Since AI assistants like Cursor may have their memory reset between sessions, the Memory Bank ensures that critical information about the project's goals, technical details, current progress, and active context is always available.</p>
+      <p>Key components typically include:</p>
+      <ul>
+        <li><code>projectbrief.md</code>: Core requirements and goals.</li>
+        <li><code>productContext.md</code>: The 'why' behind the project.</li>
+        <li><code>systemPatterns.md</code>: Architecture and technical decisions.</li>
+        <li><code>techContext.md</code>: Technologies and setup.</li>
+        <li><code>activeContext.md</code>: Current work focus.</li>
+        <li><code>progress.md</code>: Status and known issues.</li>
+      </ul>
+      <p>Maintaining the Memory Bank is crucial for effective collaboration with AI assistants. These files are typically located in the <code>memory-bank/</code> directory, often with subdirectories for each component e.g. <code>memory-bank/projectbrief/projectbrief.md</code></p>
+      <p><a href="{{ '/memory-bank/' | url }}">Browse the Memory Bank documentation</a> (This link assumes your 11ty setup will correctly resolve it to the directory or a generated index page for the memory bank).</p>
+    </div>
+  </details>
+
 </div>
 
 <style>
@@ -181,28 +227,71 @@ Content is live on the website
     text-align: center;
   }
 
-  .artifact-section {
+  .section-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+  }
+  
+  .accordion-section {
     background-color: var(--card-background);
     border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     border: 1px solid var(--border-color);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
-  .artifact-section h2 {
+  .accordion-section summary {
     font-size: 1.75rem;
+    font-weight: 600;
     color: var(--text-color);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid transparent;
+  }
+  
+  .accordion-section[open] summary {
+    border-bottom-color: var(--border-color);
   }
 
-  .artifact-section p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--text-color);
+  .accordion-section summary::after {
+    content: '\25BC';
+    font-size: 1rem;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .accordion-section[open] summary::after {
+    transform: rotate(180deg);
+  }
+
+  .accordion-content {
+    padding: 1.5rem;
+  }
+
+  .accordion-content p,
+  .accordion-content ul,
+  .accordion-content .example-block,
+  .accordion-content .submit-link {
     margin-bottom: 1rem;
+  }
+  
+  .accordion-content p:last-child,
+  .accordion-content ul:last-child,
+  .accordion-content .example-block:last-child,
+  .accordion-content .submit-link:last-child {
+    margin-bottom: 0;
+  }
+
+  .accordion-content .example-block {
+      margin-top: 0.5rem;
   }
 
   .help-link {
@@ -265,7 +354,7 @@ Content is live on the website
       font-size: 2rem;
     }
 
-    .artifact-section h2 {
+    .section-heading {
       font-size: 1.5rem;
     }
   }
