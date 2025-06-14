@@ -46,7 +46,7 @@ jobs:
 
       - name: Create GitHub Issue
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           PAYLOAD_CONTENT: ${{ steps.validate.outputs.content }}
           PAYLOAD_AUTHOR: ${{ steps.validate.outputs.author }}
           PAYLOAD_INVOKER: ${{ steps.validate.outputs.invoker }}
