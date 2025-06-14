@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validate Shared Secret
-        if: github.event.client_payload.secret != secrets.SLACK_SHARED_SECRET
+        if: ${{ github.event.client_payload.secret != secrets.SLACK_SHARED_SECRET }}
         run: |
           echo "::error::Invalid shared secret provided."
           exit 1
