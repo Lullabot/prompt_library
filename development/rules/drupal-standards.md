@@ -24,6 +24,7 @@ discipline: "development"
 - Use configuration management
 - Follow Drupal's plugin system
 - Implement proper update hooks
+- Always use `\GuzzleHttp\Utils::jsonDecode` and `\GuzzleHttp\Utils::jsonEncode` instead of PHP's `json_encode` and `json_decode` methods.
 
 ## Theme Development
 - Use proper theme structure
