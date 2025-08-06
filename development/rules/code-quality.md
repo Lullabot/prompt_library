@@ -16,6 +16,7 @@ discipline: "development"
 3. Keep functions and methods small and focused
 4. Use meaningful variable and function names
 5. Document complex logic and decisions
+6. Use data objects instead of arrays. Arrays should be converted to objects as soon as possible. This does not apply to Drupal's render or form APIs.
 
 ## Error handling
 1. Use exceptions for error conditions instead of NULL or FALSE returns.
