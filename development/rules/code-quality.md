@@ -31,6 +31,7 @@ discipline: "development"
 - Use proper spacing around operators
 - Limit line length to 80-100 characters
 - Use descriptive comments where necessary
+- Always leave an empty new line at the end of a file
 
 ## Testing
 - Write tests for all new functionality
