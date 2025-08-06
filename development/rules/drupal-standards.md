@@ -16,6 +16,7 @@ discipline: "development"
 - Implement proper dependency injection
 - Use Drupal's service container
 - Follow PSR-4 autoloading standards
+- Avoid creating classes in a "Service" namespace, such as Drupal\my_module\Service. Instead, create classes in names spaces that logically group with existing classes. If no such group is possible, create classes in the root of the module namespace instead.
 
 ## Module Development
 - Use proper module structure
