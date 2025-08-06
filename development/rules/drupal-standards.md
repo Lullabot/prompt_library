@@ -57,5 +57,8 @@ discipline: "development"
 - Use proper docblocks
 - Document configuration
 - Maintain README files
-- Document deployment process 
+- Document deployment process
+
+## Logging
+- Do not create separate "debug" flags for debug logging. Instead, properly log each message using the relevant LoggerInterface method such as info(), debug(), and so on.
 ```
