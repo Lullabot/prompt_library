@@ -62,5 +62,5 @@ discipline: "development"
 - Document deployment process
 
 ## Logging
-- Do not create separate "debug" flags for debug logging. Instead, properly log each message using the relevant LoggerInterface method such as info(), debug(), and so on.
+- Do not create separate "debug" flags for debug logging. Instead, log each message using the appropriate LoggerInterface method, such as debug(), info(), warning(), or error().
 ```
