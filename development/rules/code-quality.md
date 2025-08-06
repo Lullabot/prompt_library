@@ -17,6 +17,12 @@ discipline: "development"
 4. Use meaningful variable and function names
 5. Document complex logic and decisions
 
+## Error handling
+1. Use exceptions for error conditions instead of NULL or FALSE returns.
+2. Do not catch \Exception. Only catch exceptions that can be handled by a new code path.
+3. When catching exceptions, always catch the narrowest exception possible. For example, if a function throws \RuntimeException, catch that instead of \Exception.
+4. Do not catch exceptions simply to log them, unless the code is specifically trying to declare that the error state does not affect the caller of the method.
+
 ## Code Style
 - Use consistent indentation (2 or 4 spaces)
 - Follow language-specific style guides
