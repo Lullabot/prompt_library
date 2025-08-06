@@ -22,6 +22,7 @@ discipline: "development"
 2. Do not catch \Exception. Only catch exceptions that can be handled by a new code path.
 3. When catching exceptions, always catch the narrowest exception possible. For example, if a function throws \RuntimeException, catch that instead of \Exception.
 4. Do not catch exceptions simply to log them, unless the code is specifically trying to declare that the error state does not affect the caller of the method.
+5. New exceptions should inherit from existing exception classes where possible.
 
 ## Code Style
 - Use consistent indentation (2 or 4 spaces)
