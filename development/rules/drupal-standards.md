@@ -16,6 +16,7 @@ discipline: "development"
 - Implement proper dependency injection
 - Use Drupal's service container
 - Follow PSR-4 autoloading standards
+- Avoid creating classes in a "Service" namespace, such as Drupal\my_module\Service. Instead, create classes in names spaces that logically group with existing classes. If no such group is possible, create classes in the root of the module namespace instead.
 
 ## Module Development
 - Use proper module structure
@@ -23,6 +24,7 @@ discipline: "development"
 - Use configuration management
 - Follow Drupal's plugin system
 - Implement proper update hooks
+- Always use `\GuzzleHttp\Utils::jsonDecode` and `\GuzzleHttp\Utils::jsonEncode` instead of PHP's `json_encode` and `json_decode` methods.
 
 ## Theme Development
 - Use proper theme structure
@@ -57,5 +59,8 @@ discipline: "development"
 - Use proper docblocks
 - Document configuration
 - Maintain README files
-- Document deployment process 
+- Document deployment process
+
+## Logging
+- Do not create separate "debug" flags for debug logging. Instead, log each message using the appropriate LoggerInterface method, such as debug(), info(), warning(), or error().
 ```
