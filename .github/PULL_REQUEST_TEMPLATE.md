@@ -1,6 +1,6 @@
 ---
 name: "Pull Request"
-about: "Submit a pull request to Noko-LSM"
+about: "Submit a pull request to the prompt library"
 ---
 
 ## Issue Reference

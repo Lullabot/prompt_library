@@ -1,6 +1,6 @@
 ---
 name: "🐛 Bug report"
-about: "Report a bug to help us improve Noko-LSM"
+about: "Report a bug to help us improve the prompt library"
 title: "[Bug] <short description>"
 labels: [bug]
 ---
@@ -23,7 +23,7 @@ What actually happened?
 ## Environment
 - OS:
 - Browser:
-- Noko-LSM version:
+- Prompt library version:
 - Any relevant configuration (e.g., custom modules, config changes):
 
 ## Screenshots

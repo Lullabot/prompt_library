@@ -4357,7 +4357,7 @@ size: 961 bytes
 <markdown>
 ---
 name: "Pull Request"
-about: "Submit a pull request to Noko-LSM"
+about: "Submit a pull request to the prompt library"
 ---
 
 ## Issue Reference
@@ -4735,7 +4735,7 @@ size: 757 bytes
 <markdown>
 ---
 name: "✨ Feature request"
-about: "Suggest a new feature or enhancement for Noko-LSM"
+about: "Suggest a new feature or enhancement for the prompt library"
 title: "[Feature] <short description>"
 labels: [enhancement]
 ---
@@ -4771,7 +4771,7 @@ size: 849 bytes
 <markdown>
 ---
 name: "🐛 Bug report"
-about: "Report a bug to help us improve Noko-LSM"
+about: "Report a bug to help us improve the prompt library"
 title: "[Bug] <short description>"
 labels: [bug]
 ---
@@ -4794,7 +4794,7 @@ What actually happened?
 ## Environment
 - OS:
 - Browser:
-- Noko-LSM version:
+- Prompt library version:
 - Any relevant configuration (e.g., custom modules, config changes):
 
 ## Screenshots
@@ -4917,7 +4917,7 @@ size: 1072 bytes
 <markdown>
 ---
 name: "🚀 Performance issue"
-about: "Report a performance problem or bottleneck in Noko-LSM"
+about: "Report a performance problem or bottleneck in the prompt library"
 title: "[Performance] <short description>"
 labels: [performance]
 ---
@@ -4942,7 +4942,7 @@ Describe what actually happened, including any metrics or measurements if availa
 ## Environment
 - OS:
 - Browser:
-- Noko-LSM version:
+- Prompt library version:
 - Data size (if relevant):
 
 ## Proposed Solution
@@ -4969,7 +4969,7 @@ size: 181 bytes
 blank_issues_enabled: false
 contact_links:
   - name: 💬 General Question
-    url: https://github.com/lullabot/noko-lsm/discussions
+    url: https://github.com/Lullabot/prompt_library/discussions
     about: Ask a question or start a discussion 
 </content>
 
