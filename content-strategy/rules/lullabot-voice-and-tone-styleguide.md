@@ -176,5 +176,3 @@ graph TD
     F --> G[Check Examples for Consistency]
     G --> H[Finalize Content]
 ```
-
-```text
