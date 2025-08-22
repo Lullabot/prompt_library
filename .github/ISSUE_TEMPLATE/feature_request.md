@@ -1,6 +1,6 @@
 ---
 name: "✨ Feature request"
-about: "Suggest a new feature or enhancement for Noko-LSM"
+about: "Suggest a new feature or enhancement for the prompt library"
 title: "[Feature] <short description>"
 labels: [enhancement]
 ---

@@ -1,6 +1,6 @@
 ---
 name: "🚀 Performance issue"
-about: "Report a performance problem or bottleneck in Noko-LSM"
+about: "Report a performance problem or bottleneck in the prompt library"
 title: "[Performance] <short description>"
 labels: [performance]
 ---
@@ -25,7 +25,7 @@ Describe what actually happened, including any metrics or measurements if availa
 ## Environment
 - OS:
 - Browser:
-- Noko-LSM version:
+- Prompt library version:
 - Data size (if relevant):
 
 ## Proposed Solution
