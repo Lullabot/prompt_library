@@ -14,6 +14,7 @@ tags:
   - "global accessibility"
   - "idioms"
   - "clarity"
+source: "https://docs.google.com/document/d/1YkZEA_CIFkJP5cjMRRI6MXK0Rf15ZYZJtygy-uFzZwY/edit?tab=t.0#heading=h.9bp0wj4zjw7d"
 ---
 ```text
 ---
