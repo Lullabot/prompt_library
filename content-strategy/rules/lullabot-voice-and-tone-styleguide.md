@@ -1,7 +1,7 @@
 ---
 title: "Lullabot Voice and Tone Styleguide"
 description: "MAINTAIN consistent brand voice and tone when WRITING CONTENT to ENSURE clear and effective communication"
-date: "2025-05-07"
+date: "2025-08-22"
 layout: "markdown.njk"
 discipline: "content-strategy"
 contentType: "rules"
@@ -11,8 +11,12 @@ tags:
   - "writing style"
   - "content guidelines"
   - "communication"
+  - "global accessibility"
+  - "idioms"
+  - "clarity"
+source: "https://docs.google.com/document/d/1YkZEA_CIFkJP5cjMRRI6MXK0Rf15ZYZJtygy-uFzZwY/edit?tab=t.0#heading=h.9bp0wj4zjw7d"
 ---
-`````
+```text
 ---
 description: MAINTAIN consistent brand voice and tone when WRITING CONTENT to ENSURE clear and effective communication
 globs: *.md,*.txt
@@ -74,6 +78,54 @@ Essential components for all content:
 6. Break text with meaningful headings and subheadings
 7. Define technical terms for broader audience understanding
 8. Follow American English spelling conventions
+9. Avoid idioms and unnecessary metaphors for global accessibility
+
+## Avoid Idioms and Unnecessary Metaphors
+
+While colorful language can add personality to writing, idioms and metaphors often create barriers for our global audience and can make content sound artificial or overly casual. As a general rule, choose clear, direct language over idiomatic expressions.
+
+### Why Avoid Idioms?
+
+- **Accessibility for Non-Native Speakers**: Our audience includes developers, strategists, and business stakeholders worldwide. Idioms don't translate well and can confuse readers whose first language isn't English.
+- **Professional Clarity**: Technical content requires precision. Idioms can muddy meaning and distract from your core message.
+- **Avoiding "AI-Generated" Sound**: Overuse of idioms and clichéd metaphors can make content sound generic or artificially generated.
+- **Better SEO Performance**: Search engines and readers alike prefer clear, descriptive language over figurative expressions.
+- **Inclusive Communication**: Direct language ensures all readers, regardless of cultural background or reading level, can understand your content.
+
+### Examples: Do and Don't
+
+#### ❌ DON'T Use These Idioms
+
+- Instead of: "This API integration was a piece of cake." Write: "This API integration was straightforward to implement."
+- Instead of: "This legacy code is a can of worms." Write: "This legacy code presents multiple interconnected challenges."
+
+#### ✅ DO Use Clear, Direct Language
+
+- Good: "The database optimization reduced page load times by 40%." Better than: "The database optimization was a game-changer for page speed."
+- Good: "We identified three critical security vulnerabilities." Better than: "We found some real red flags in the security audit."
+
+### When Metaphors Work
+
+Metaphors can be effective when they:
+
+- Clarify complex technical concepts
+- Are widely understood across cultures
+- Add genuine value to comprehension
+
+**Effective metaphor**: "Database indexes work like a book's table of contents—they help you find information quickly without scanning every page."
+
+**Ineffective metaphor**: "Our development workflow is smoother than butter on a hot skillet."
+
+### Quick Self-Check
+
+Before publishing, scan your content for:
+
+- Phrases that don't translate literally
+- Expressions your international colleagues might not understand
+- Overused business clichés
+- Metaphors that don't enhance understanding
+
+**Remember**: When in doubt, choose clarity over cleverness.
 
 ## Examples
 
@@ -124,5 +176,3 @@ graph TD
     F --> G[Check Examples for Consistency]
     G --> H[Finalize Content]
 ```
-
-`````
