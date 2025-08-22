@@ -1,4 +1,4 @@
-# Tugboat configuration for PR preview environments, visual diffs, and Lighthouse audits
+# Tugboat configuration for PR preview environments and visual diffs
 
 services:
   apache:
