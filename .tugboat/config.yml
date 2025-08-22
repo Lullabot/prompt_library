@@ -23,8 +23,18 @@ services:
         - npm run build
 
     urls:
-      - /
-      - /development/prompts/ai-code-review/
-      - /project-management/prompts/agile-sprint-planning/
-      - /help/
-      - /contributing/
+      - url: /
+        lighthouse:
+          enabled: false
+      - url: /development/prompts/ai-code-review/
+        lighthouse:
+          enabled: false
+      - url: /project-management/prompts/agile-sprint-planning/
+        lighthouse:
+          enabled: false
+      - url: /help/
+        lighthouse:
+          enabled: false
+      - url: /contributing/
+        lighthouse:
+          enabled: false
