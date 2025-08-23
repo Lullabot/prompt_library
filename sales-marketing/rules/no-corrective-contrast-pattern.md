@@ -1,11 +1,15 @@
 ---
-description: AVOID corrective contrast patterns that create defensive, AI-sounding prose
-globs: "*.md,*.txt,*.mdx"
-alwaysApply: true
+title: "No Corrective Contrast Pattern"
+description: "Avoid corrective contrast patterns that create defensive, AI-sounding prose"
+layout: "markdown.njk"
+category: "Writing Style"
+tags: ["writing", "style", "ai-detection", "clarity", "marketing"]
+date: "2024-08-22"
+discipline: "sales-marketing"
+contentType: "rules"
 ---
+```
 # No Corrective Contrast Pattern
-
-<version>1.0.0</version>
 
 ## Context
 The "not just X; it's Y" pattern is overused in AI-generated content and creates unnecessarily defensive, inflated prose. This rule ensures more natural, confident writing.
@@ -32,29 +36,23 @@ This pattern:
 
 ## Better Alternatives
 
-<example type="invalid">
+### Invalid Example 1
 "This isn't just a code review tool; it's a collaborative development platform."
-</example>
 
-<example>
+### Better
 "This code review tool enables collaborative development."
-</example>
 
-<example type="invalid">
+### Invalid Example 2
 "Gemini doesn't just catch bugs; it suggests fixes you can commit immediately."
-</example>
 
-<example>
+### Better
 "Gemini suggests fixes you can commit immediately."
-</example>
 
-<example type="invalid">
+### Invalid Example 3
 "The real value isn't just in time savings; it's in catching issues early."
-</example>
 
-<example>
+### Better
 "Catching issues early creates value beyond time savings."
-</example>
 
 ## General Rule
 
@@ -68,10 +66,9 @@ Lead with capabilities and benefits directly. If you need to show progression or
 
 ## Detection Regex
 
-```regex
-(isn't|is not|doesn't|does not|not)\s+(just|merely|simply|only).*(;|—|--).*it's
-```
+`(isn't|is not|doesn't|does not|not)\s+(just|merely|simply|only).*(;|—|--).*it's`
 
 ## Exception
 
 Historical quotes or direct citations where changing the pattern would alter the original meaning.
+```
