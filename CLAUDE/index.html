@@ -1,0 +1,65 @@
+<h1>CLAUDE.md</h1>
+<p>This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.</p>
+<h2>Project Overview</h2>
+<p>This is a Prompt Library built with 11ty (Eleventy) static site generator and hosted on GitHub Pages. It organizes AI prompts, rules, project configurations, and workflow states across different disciplines (Development, Project Management, Sales &amp; Marketing, Content Strategy, Design, Quality Assurance).</p>
+<h2>Essential Commands</h2>
+<pre><code class="language-bash"># Development
+npm start          # Start development server at http://localhost:8080
+npm run build      # Build static site to _site directory
+
+# Git workflow for contributing
+git checkout -b &lt;issue-number&gt;--&lt;issue-title&gt;  # Create feature branch
+git push -u origin &lt;branch-name&gt;               # Push branch
+gh pr create                                    # Create pull request
+</code></pre>
+<h2>Architecture &amp; Content Structure</h2>
+<h3>Content Organization</h3>
+<p>Content is organized by discipline and type:</p>
+<pre><code>&lt;discipline&gt;/&lt;content-type&gt;/&lt;filename&gt;.md
+
+Disciplines: development, project-management, sales-marketing, content-strategy, design, quality-assurance
+Content Types: prompts, rules, project-configs, workflow-states, resources
+</code></pre>
+<h3>Required Frontmatter</h3>
+<p>All content files require this structure:</p>
+<pre><code class="language-yaml">---
+title: &quot;Title Here&quot;
+description: &quot;Clear description&quot;
+date: &quot;YYYY-MM-DD&quot;
+layout: &quot;markdown.njk&quot;
+discipline: &quot;&lt;matching-parent-directory&gt;&quot;
+contentType: &quot;&lt;matching-immediate-parent&gt;&quot;
+tags:
+  - relevant
+  - tags
+---
+</code></pre>
+<h3>Special Formatting for Prompts</h3>
+<p>Prompt files in <code>*/prompts/</code> directories must wrap content in five backticks:</p>
+<pre><code>---
+frontmatter...
+---
+</code></pre>
+<p>Prompt content here</p>
+<pre><code>```
+
+## Key Configuration Files
+
+- `.eleventy.js`: Main 11ty configuration, defines collections, filters, and build settings
+- `.github/workflows/deploy.yml`: GitHub Actions deployment to gh-pages branch
+- `.tugboat/config.yml`: PR preview environments configuration
+- `.cursor/rules/prompt-library-requirements.mdc`: Detailed content requirements
+
+## Deployment
+
+The site automatically deploys to GitHub Pages when changes are pushed to the main branch. PR preview environments are created via Tugboat for visual testing.
+
+## Content Submission
+
+GitHub issue templates are available for submitting new content:
+- Prompts: `.github/ISSUE_TEMPLATE/prompt-submission.yml`
+- Rules: `.github/ISSUE_TEMPLATE/rule-submission.yml`
+- Project Configs: `.github/ISSUE_TEMPLATE/project-config-submission.yml`
+- Workflow States: `.github/ISSUE_TEMPLATE/workflow-state-submission.yml`
+
+Programmatic submissions can be made via repository_dispatch events (see `.github/workflows/slack_submit.yml`).</code></pre>
