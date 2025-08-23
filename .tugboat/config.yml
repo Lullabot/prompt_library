@@ -22,6 +22,7 @@ services:
         # Build the static Gatsby site
         - npm run build
 
+
     urls:
       - url: /
         lighthouse:
