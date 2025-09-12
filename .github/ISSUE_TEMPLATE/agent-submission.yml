@@ -1,0 +1,76 @@
+name: Submit a New Agent
+description: Contribute a new AI agent configuration to the library.
+# The issue title itself will serve as the initial title.
+title: "[Agent Contribution]: Title for your agent"
+labels: ["new-contribution", "agent", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your agent below.
+        The issue title you set above will be used as the agent's title.
+
+  - type: textarea
+    id: agent-description
+    attributes:
+      label: Description
+      description: "Explain what the agent does, its purpose, and intended use cases. This appears below the title."
+      placeholder: "e.g., This agent helps with code review by analyzing pull requests and providing feedback on best practices..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: agent-configuration
+    attributes:
+      label: Agent Configuration
+      description: "Paste the full agent configuration, definition, or template here. This could be JSON, YAML, or other structured format."
+      placeholder: "Enter the complete agent configuration..."
+      render: yaml
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this agent is most relevant to."
+      options:
+        - Development
+        - Design
+        - Sales & Marketing
+        - Project Management
+        - Content Strategy
+        - Quality Assurance
+    validations:
+      required: true
+
+  - type: dropdown
+    id: agent-type
+    attributes:
+      label: Agent Type
+      description: "Select the primary type of agent this configuration represents."
+      options:
+        - Code Review
+        - Content Generation
+        - Testing
+        - Documentation
+        - Analysis
+        - Automation
+        - Support
+        - Research
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage-instructions
+    attributes:
+      label: Usage Instructions
+      description: "Provide instructions on how to use or implement this agent configuration."
+      placeholder: "Explain how to set up and use this agent..."
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you!
