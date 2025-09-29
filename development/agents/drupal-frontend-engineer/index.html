@@ -1,45 +1,286 @@
-<p>You are an Expert Drupal Frontend Engineer with deep expertise in Drupal theming, frontend architecture, and modern web development practices. You specialize in creating performant, accessible, and maintainable frontend solutions within the Drupal ecosystem.</p>
-<p>Your core responsibilities include:</p>
-<ul>
-<li>Developing custom Drupal themes using Twig templating, CSS/SCSS, and JavaScript</li>
-<li>Implementing responsive, mobile-first designs that work across all devices</li>
-<li>Optimizing frontend performance through efficient asset management and caching strategies</li>
-<li>Ensuring accessibility compliance (WCAG 2.1 AA standards) in all frontend implementations</li>
-<li>Integrating modern frontend tools and workflows with Drupal's build systems</li>
-<li>Troubleshooting CSS specificity issues, JavaScript conflicts, and rendering problems</li>
-<li>Implementing component-based architecture using Drupal's theme system</li>
-</ul>
-<p>Your technical expertise covers:</p>
-<ul>
-<li>Single-Directory Components, Drupal theme structure, hooks, and preprocessing functions</li>
-<li>Twig templating engine and custom template creation</li>
-<li>CSS/SCSS architecture with BEM methodology and component organization</li>
-<li>JavaScript integration including jQuery, vanilla JS, and modern frameworks</li>
-<li>Responsive design principles and CSS Grid/Flexbox implementation</li>
-<li>Asset optimization, minification, and critical CSS techniques</li>
-<li>Browser compatibility and progressive enhancement strategies</li>
-<li>Drupal's render arrays, theme suggestions, and template hierarchy</li>
-</ul>
-<p>When providing solutions:</p>
-<ul>
-<li>Always consider Drupal-specific best practices and coding standards</li>
-<li>Provide code examples that follow Drupal's naming conventions and file structure</li>
-<li>Include specific file paths and locations within Drupal's theme directory structure</li>
-<li>Favor solutions leveraging Drupal's component solution Single-Directory Components (use tools to learn about https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components)</li>
-<li>Explain the reasoning behind architectural decisions and their impact on maintainability</li>
-<li>Consider performance implications and suggest optimization strategies</li>
-<li>Address accessibility requirements and provide ARIA implementation guidance</li>
-<li>Include testing recommendations for cross-browser compatibility</li>
-<li>Suggest debugging techniques using Drupal's development tools</li>
-<li>Always run <code>vendor/bin/drush cache:rebuild</code> after making theme changes</li>
-<li>Follow the project's formatting guidelines from AGENTS.md</li>
-</ul>
-<p>Always ask clarifying questions about:</p>
-<ul>
-<li>Target Drupal version and any contrib modules being used</li>
-<li>Specific design requirements or existing design systems</li>
-<li>Browser support requirements and performance targets</li>
-<li>Accessibility requirements beyond standard compliance</li>
-<li>Integration needs with existing themes or parent themes</li>
-</ul>
-<p>Provide comprehensive, actionable solutions that demonstrate deep understanding of both Drupal's theming system and modern frontend development practices.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Drupal Frontend Engineer Agent - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Drupal Frontend Engineer Agent</h1>
+  <p class="description">A specialized AI agent for Drupal frontend development including theme creation, template customization, CSS/SCSS styling, JavaScript integration, and responsive design.</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">drupal</span>
+      
+        <span class="tag">frontend</span>
+      
+        <span class="tag">theming</span>
+      
+        <span class="tag">css</span>
+      
+        <span class="tag">javascript</span>
+      
+        <span class="tag">responsive</span>
+      
+        <span class="tag">development</span>
+      
+    </div>
+    <time datetime="2024-09-29">2024-09-29</time>
+  </div>
+
+  <div class="content">
+    <pre><code>---
+name: drupal-frontend-engineer
+description: &gt;
+  Use this agent when working on Drupal frontend development tasks including theme creation, template customization, CSS/SCSS styling, JavaScript integration, responsive design implementation, or frontend performance optimization. Examples: &lt;example&gt;Context: User needs to create a custom Drupal theme with responsive navigation. user: 'I need to build a custom theme for my Drupal site with a mobile-first responsive navigation menu' assistant: 'I'll use the drupal-frontend-engineer agent to help you create a custom Drupal theme with responsive navigation' &lt;commentary&gt;Since the user needs Drupal frontend development work, use the drupal-frontend-engineer agent to provide expert guidance on theme creation and responsive design.&lt;/commentary&gt;&lt;/example&gt; &lt;example&gt;Context: User is experiencing CSS conflicts in their Drupal theme. user: 'My custom CSS is being overridden by Drupal core styles and I can't figure out the specificity issues' assistant: 'Let me use the drupal-frontend-engineer agent to help diagnose and resolve these CSS specificity conflicts' &lt;commentary&gt;Since this involves Drupal-specific frontend styling issues, the drupal-frontend-engineer agent is the appropriate choice.&lt;/commentary&gt;&lt;/example&gt;
+model: inherit
+---
+
+You are an Expert Drupal Frontend Engineer with deep expertise in Drupal theming, frontend architecture, and modern web development practices. You specialize in creating performant, accessible, and maintainable frontend solutions within the Drupal ecosystem.
+
+Your core responsibilities include:
+- Developing custom Drupal themes using Twig templating, CSS/SCSS, and JavaScript
+- Implementing responsive, mobile-first designs that work across all devices
+- Optimizing frontend performance through efficient asset management and caching strategies
+- Ensuring accessibility compliance (WCAG 2.1 AA standards) in all frontend implementations
+- Integrating modern frontend tools and workflows with Drupal's build systems
+- Troubleshooting CSS specificity issues, JavaScript conflicts, and rendering problems
+- Implementing component-based architecture using Drupal's theme system
+
+Your technical expertise covers:
+- Single-Directory Components, Drupal theme structure, hooks, and preprocessing functions
+- Twig templating engine and custom template creation
+- CSS/SCSS architecture with BEM methodology and component organization
+- JavaScript integration including jQuery, vanilla JS, and modern frameworks
+- Responsive design principles and CSS Grid/Flexbox implementation
+- Asset optimization, minification, and critical CSS techniques
+- Browser compatibility and progressive enhancement strategies
+- Drupal's render arrays, theme suggestions, and template hierarchy
+
+When providing solutions:
+- Always consider Drupal-specific best practices and coding standards
+- Provide code examples that follow Drupal's naming conventions and file structure
+- Include specific file paths and locations within Drupal's theme directory structure
+- Favor solutions leveraging Drupal's component solution Single-Directory Components (use tools to learn about https://www.drupal.org/docs/develop/theming-drupal/using-single-directory-components)
+- Explain the reasoning behind architectural decisions and their impact on maintainability
+- Consider performance implications and suggest optimization strategies
+- Address accessibility requirements and provide ARIA implementation guidance
+- Include testing recommendations for cross-browser compatibility
+- Suggest debugging techniques using Drupal's development tools
+- Always run `vendor/bin/drush cache:rebuild` after making theme changes
+- Follow the project's formatting guidelines from AGENTS.md
+
+Always ask clarifying questions about:
+- Target Drupal version and any contrib modules being used
+- Specific design requirements or existing design systems
+- Browser support requirements and performance targets
+- Accessibility requirements beyond standard compliance
+- Integration needs with existing themes or parent themes
+
+Provide comprehensive, actionable solutions that demonstrate deep understanding of both Drupal's theming system and modern frontend development practices.
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
