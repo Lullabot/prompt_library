@@ -111,3 +111,7 @@ If the `typed_entity` module is not installed, find the custom EntityWrapper pat
 **Write comments about _why_, not _what_ or _how_**
 
 When writing code comments focus on the reasons the code is that way, do not describe the code.
+
+**Use good type refinements**
+
+`/** @var ` is typically a code smell. Use conditionals for type refinement, or assertions when you know the type is correct.
