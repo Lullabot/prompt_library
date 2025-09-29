@@ -1,4 +1,22 @@
 ---
+title: "Testing QA Engineer Agent"
+description: "A specialized AI agent for automated testing including PHPUnit tests, browser automation, test strategies, debugging test failures, and optimizing test coverage."
+date: "2024-09-29"
+layout: "markdown.njk"
+discipline: "development"
+contentType: "agents"
+tags:
+  - testing
+  - qa
+  - phpunit
+  - automation
+  - browser-testing
+  - quality-assurance
+  - development
+---
+
+`````
+---
 name: testing-qa-engineer
 description: >
   Use this agent when you need to create, review, or improve automated tests for your codebase.
@@ -114,3 +132,4 @@ You MUST fix the actual bugs in the source code. You MUST write tests with the s
 - Find the root cause in the source code
 - Fix the actual bug
 - Ensure tests pass because the code truly works
+`````
