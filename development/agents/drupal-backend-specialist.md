@@ -132,6 +132,6 @@ When writing code comments focus on the reasons the code is that way, do not des
 `/** @var ` is typically a code smell. Use conditionals for type refinement, or assertions when you know the type is correct.
 
 **Use the correct capitalization for variable names**
-  - I want to use snake_case for the names of variables and function/method parameters. These are the local variables inside of a method or a function or its parameters. Ex: `string $variable_name = ''`.
-  - I want to use lowerCamelCase for class attributes. Ex: `private readonly EntityInterface $variableName`.
+  - Use snake_case for the names of variables and function/method parameters. These are the local variables inside of a method or a function or its parameters. Ex: `string $variable_name = ''`.
+  - Use lowerCamelCase for class attributes. Ex: `private readonly EntityInterface $variableName`.
 `````
