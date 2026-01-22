@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Prompt Library built with 11ty (Eleventy) static site generator and hosted on GitHub Pages. It organizes AI prompts, rules, project configurations, and workflow states across different disciplines (Development, Project Management, Sales & Marketing, Content Strategy, Design, Quality Assurance).
+This is a Prompt Library built with 11ty (Eleventy) static site generator and hosted on GitHub Pages. It organizes AI prompts, rules, project configurations, workflow states, agents, and skills across different disciplines (Development, Project Management, Sales & Marketing, Content Strategy, Design, Quality Assurance).
 
 ## Essential Commands
 
@@ -27,7 +27,7 @@ Content is organized by discipline and type:
 <discipline>/<content-type>/<filename>.md
 
 Disciplines: development, project-management, sales-marketing, content-strategy, design, quality-assurance
-Content Types: prompts, rules, project-configs, workflow-states, resources
+Content Types: prompts, rules, project-configs, workflow-states, resources, agents, skills
 ```
 
 ### Required Frontmatter
@@ -76,6 +76,8 @@ GitHub issue templates are available for submitting new content:
 - Rules: `.github/ISSUE_TEMPLATE/rule-submission.yml`
 - Project Configs: `.github/ISSUE_TEMPLATE/project-config-submission.yml`
 - Workflow States: `.github/ISSUE_TEMPLATE/workflow-state-submission.yml`
+- Agents: `.github/ISSUE_TEMPLATE/agent-submission.yml`
+- Skills: `.github/ISSUE_TEMPLATE/skill-submission.yml`
 
 Programmatic submissions can be made via repository_dispatch events (see `.github/workflows/slack_submit.yml`).
 
