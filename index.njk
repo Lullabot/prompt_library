@@ -44,7 +44,7 @@ hideSearch: false
     
     {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
       {% set hasAnyDisciplineContent = false %}
-      {% for type in ['prompts', 'rules', 'project-configs', 'resources', 'agents'] %}
+      {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
         {% if discipline | hasContent(type) %}
           {% set hasAnyDisciplineContent = true %}
         {% endif %}
@@ -53,15 +53,15 @@ hideSearch: false
       <div class="discipline-card {% if not hasAnyDisciplineContent %}discipline-empty{% endif %}">
         <h2>{{ discipline | replace('-', ' ') | title }}</h2>
         <div class="content-types">
-          {% for type in ['prompts', 'rules', 'project-configs', 'resources', 'agents'] %}
+          {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
             {% set hasTypeContent = discipline | hasContent(type) %}
             <a href="{{ baseUrl }}/{{ discipline }}/{{ type }}" class="content-type-link {% if not hasTypeContent %}empty{% endif %}">
               <span class="content-type-icon">
                 {% if type === 'prompts' %}💡
                 {% elif type === 'rules' %}📋
-                {% elif type === 'project-configs' %}⚙️
-                {% elif type === 'resources' %}🔗
                 {% elif type === 'agents' %}🤖
+                {% elif type === 'skills' %}🛠️
+                {% elif type === 'resources' %}🔗
                 {% endif %}
               </span>
               <span class="content-type-label">{{ type | replace('-', ' ') | title }}</span>
@@ -79,8 +79,8 @@ hideSearch: false
     <div class="submit-links">
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=agent-submission.yml" class="cta-button">Submit an Agent</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=skill-submission.yml" class="cta-button">Submit a Skill</a>
     </div>
     <a href="{{ baseUrl }}/contributing" class="cta-button secondary">Learn How to Contribute</a>
   </div>
