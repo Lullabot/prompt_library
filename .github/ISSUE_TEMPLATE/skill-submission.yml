@@ -1,0 +1,86 @@
+name: Submit a New Skill
+description: Contribute a new Claude Code skill to the library.
+# The issue title itself will serve as the initial title.
+title: "[Skill Contribution]: Title for your skill"
+labels: ["new-contribution", "skill", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for contributing! Please provide the core details for your Claude Code skill below.
+        The issue title you set above will be used as the skill's title.
+
+  - type: textarea
+    id: skill-description
+    attributes:
+      label: Description
+      description: "Explain what the skill does, its purpose, and when it should be used. This appears below the title."
+      placeholder: "e.g., This skill helps with SEO audits by analyzing website content and providing optimization recommendations..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: skill-content
+    attributes:
+      label: Skill Content
+      description: "Paste the full skill definition here. This includes the skill prompt/instructions that define its behavior."
+      placeholder: "Enter the complete skill content..."
+      render: markdown
+    validations:
+      required: true
+
+  - type: dropdown
+    id: discipline
+    attributes:
+      label: Primary Discipline
+      description: "Select the main area this skill is most relevant to."
+      options:
+        - Development
+        - Design
+        - Sales & Marketing
+        - Project Management
+        - Content Strategy
+        - Quality Assurance
+    validations:
+      required: true
+
+  - type: dropdown
+    id: skill-type
+    attributes:
+      label: Skill Type
+      description: "Select the primary type of task this skill handles."
+      options:
+        - Code Generation
+        - Code Review
+        - Documentation
+        - Testing
+        - Analysis
+        - Content Creation
+        - Workflow Automation
+        - Research
+        - Formatting
+    validations:
+      required: true
+
+  - type: textarea
+    id: usage-instructions
+    attributes:
+      label: Usage Instructions
+      description: "Provide instructions on how to invoke and use this skill effectively."
+      placeholder: "Explain how to use this skill, including any arguments or options it accepts..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: example-usage
+    attributes:
+      label: Example Usage
+      description: "Provide an example of how to invoke the skill and what output to expect."
+      placeholder: "e.g., User: /my-skill analyze this code\nClaude: [expected response]"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        A maintainer will review your submission, add relevant tags, and convert it into the library format. Thank you!
