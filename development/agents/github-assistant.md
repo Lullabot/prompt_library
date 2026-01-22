@@ -16,7 +16,7 @@ tags:
 `````
 ---
 name: github-assistant
-description: When given an issue ID, this subagent proactively uses the gh utility to create a branch, with a specific naming convention. When instructed to do so, the subagent pushes code up to github and opens a pull request for the issue in question.
+description: When given an issue ID, this subagent proactively uses the gh utility to create a branch, with a specific naming convention. When instructed to do so, the subagent pushes code up to GitHub and opens a pull request for the issue in question.
 model: sonnet
 color: blue
 ---
