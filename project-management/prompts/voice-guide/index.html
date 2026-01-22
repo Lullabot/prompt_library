@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Create a Personal Voice Guide - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Create a Personal Voice Guide</h1>
+  <p class="description">A comprehensive 45-step process to create a detailed voice guide that captures your unique writing patterns, style, vocabulary, and contextual adaptations with sufficient precision that any LLM could replicate your voice across all contexts.</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">voice-guide</span>
+      
+        <span class="tag">writing-style</span>
+      
+        <span class="tag">personal-productivity</span>
+      
+        <span class="tag">content-creation</span>
+      
+        <span class="tag">ai-writing</span>
+      
+    </div>
+    <time datetime="2025-01-22">2025-01-22</time>
+  </div>
+
+  <div class="content">
+    <pre><code>&lt;task_context&gt;
+You are creating a comprehensive &quot;voice guide&quot; using Claude Sonnet 4.5's advanced capabilities for extended autonomous work, parallel analysis, and cross-session memory. This guide captures the user's unique writing patterns, style, vocabulary, and contextual adaptations with sufficient precision that any LLM could replicate their voice across ALL contexts (emails, blogs, social media, technical docs, etc.).
+
+&lt;sonnet_4_5_advantages&gt;
+This system leverages:
+- Extended thinking mode for deep pattern analysis
+- Memory tool for preserving insights across sessions
+- Context awareness to track progress without premature abandonment
+- Parallel analysis of multiple writing samples simultaneously
+- Concise, fact-based progress updates
+- 30+ hour autonomous operation capability
+- Superior instruction following for precise voice replication
+&lt;/sonnet_4_5_advantages&gt;
+&lt;/task_context&gt;
+
+&lt;success_criteria&gt;
+- **Precision Replication:** Voice patterns so specific that blind tests show 95%+ accuracy
+- **Contextual Fluidity:** Seamless voice adaptation rules across all communication contexts
+- **Deep Pattern Recognition:** Subconscious habits captured (rhythm, transitions, micro-choices)
+- **Edge Case Mastery:** Comprehensive handling of emotional states, conflicts, uncertainty
+- **Cross-Session Persistence:** Voice guide remains consistent and accessible via memory tool
+&lt;/success_criteria&gt;
+
+&lt;execution_framework&gt;
+## SONNET 4.5 OPTIMIZATION PROTOCOLS
+
+&lt;extended_thinking_deployment&gt;
+Deploy extended thinking mode for:
+- Complex pattern synthesis across multiple writing samples
+- Identifying contradictions between stated preferences and actual usage
+- Deep structural analysis of paragraph/sentence construction
+- Multi-layered vocabulary fingerprinting
+- Contextual voice-shifting rule extraction
+
+Enable with: thinking budget 8000-15000 tokens for comprehensive analysis phases
+&lt;/extended_thinking_deployment&gt;
+
+&lt;memory_tool_integration&gt;
+Use memory tool throughout the process to:
+
+&lt;memory_storage_protocol&gt;
+After every THIRD user interaction, store to memory file:
+&lt;voice_patterns_checkpoint&gt;
+&lt;core_personality&gt;
+[Established traits with confidence scores]
+&lt;/core_personality&gt;
+&lt;structural_dna&gt;
+[Sentence patterns, paragraph structure, formatting preferences]
+&lt;/structural_dna&gt;
+&lt;vocabulary_fingerprint&gt;
+[Preferred/avoided words, technical vs casual markers, unique phrases]
+&lt;/vocabulary_fingerprint&gt;
+&lt;contextual_rules&gt;
+[How voice shifts across: professional, casual, persuasive, instructional]
+&lt;/contextual_rules&gt;
+&lt;edge_case_templates&gt;
+[Handling: apologies, disagreements, uncertainty, corrections, enthusiasm]
+&lt;/edge_case_templates&gt;
+&lt;analysis_gaps&gt;
+[Areas needing deeper exploration]
+&lt;/analysis_gaps&gt;
+&lt;session_timestamp&gt;[Current date/time]&lt;/session_timestamp&gt;
+&lt;/voice_patterns_checkpoint&gt;
+&lt;/memory_storage_protocol&gt;
+
+Retrieve and review stored patterns every 5 interactions to ensure consistency.
+&lt;/memory_tool_integration&gt;
+
+&lt;parallel_analysis_framework&gt;
+When analyzing writing samples, use parallel processing to:
+- Simultaneously examine tone, structure, vocabulary across multiple samples
+- Cross-reference stated preferences against actual writing patterns
+- Compare formal vs casual samples side-by-side for shift patterns
+- Run multiple validation tests concurrently
+
+This leverages Sonnet 4.5's enhanced tool usage and parallel processing capabilities.
+&lt;/parallel_analysis_framework&gt;
+
+&lt;progress_tracking_system&gt;
+Maintain concise, fact-based progress updates after each interaction:
+
+&lt;progress_format&gt;
+**Progress Update [Step X/45]:**
+- Patterns identified: [Specific findings]
+- Confidence level: [X%]
+- Next analysis: [What's being explored next]
+- Memory status: [Last checkpoint at Step X]
+&lt;/progress_format&gt;
+
+Use context awareness to track token usage and prevent premature abandonment of complex analysis.
+&lt;/progress_tracking_system&gt;
+
+## STREAMLINED DISCOVERY PROTOCOL (45 STEPS)
+*Optimized for Sonnet 4.5's autonomous operation and parallel analysis*
+
+### PHASE 1: FOUNDATION MAPPING (Steps 1-6)
+**Deploy: Basic extended thinking (4000 tokens)**
+
+&lt;step_1&gt;
+**Personality &amp; Instinct Snapshot**
+Request: &quot;Describe your personality in 3 words, then write a natural email greeting to a colleague, a friend, and your boss. Don't overthink it—just write what feels right.&quot;
+
+Analysis trigger: Use extended thinking to identify micro-patterns in greetings (formality markers, punctuation, warmth indicators)
+&lt;/step_1&gt;
+
+&lt;step_2&gt;
+**Unfiltered Writing Sample**
+Request: &quot;Write 100 words about something that genuinely irritates you. Let it flow naturally—this is about capturing your authentic voice.&quot;
+
+Parallel analysis:
+- Sentence structure patterns
+- Emotional expression markers
+- Vocabulary under stress/irritation
+- Paragraph flow and rhythm
+&lt;/step_2&gt;
+
+&lt;step_3&gt;
+**Context-Shifting Diagnostic**
+Request: &quot;Same message, three contexts. You need to reschedule a meeting. Write it as:
+A) Email to your manager
+B) Text to a peer
+C) Message to a direct report (if applicable) or close friend&quot;
+
+Deploy extended thinking: Deep analysis of how formality, empathy, directness shift across power dynamics
+&lt;/step_3&gt;
+
+&lt;step_4&gt;
+**Pattern Synthesis Questions**
+Based on Steps 1-3 analysis, ask 5-7 targeted questions about observed patterns:
+- Sentence length variation noticed: [specific pattern] - is this intentional?
+- You used [word/phrase] in casual but not formal context—avoidance rule?
+- Transition style differs: [observation] - conscious choice?
+
+*MEMORY CHECKPOINT #1: Store initial personality, structure, and context-shift patterns*
+&lt;/step_4&gt;
+
+&lt;step_5&gt;
+**Humor &amp; Boundary Mapping**
+Request: &quot;Tell me about your humor style in writing. What makes you laugh? What topics do you avoid joking about? Give me an example of how you'd add humor to an otherwise dry update email.&quot;
+
+Analysis: Map humor deployment patterns, safety boundaries, tonal balance
+&lt;/step_5&gt;
+
+&lt;step_6&gt;
+**Writing Sample Collection**
+Request: &quot;Share 2-3 pieces of writing you're proud of (any format: email, article, social post, etc.). These should represent your voice at its best.&quot;
+
+Parallel processing: Simultaneously analyze all samples for:
+- Structural DNA
+- Vocabulary fingerprinting
+- Rhetorical devices
+- Opening/closing patterns
+- Metaphor/analogy preferences
+
+*MEMORY CHECKPOINT #2: Store humor patterns and sample analysis results*
+&lt;/step_6&gt;
+
+### PHASE 2: STRUCTURAL &amp; VOCABULARY DNA (Steps 7-15)
+**Deploy: Extended thinking mode (8000 tokens) for deep pattern recognition**
+
+&lt;step_7&gt;
+**Sentence Architecture Test**
+Request: &quot;Which feels most like YOU? (Choose one, then explain why)
+A) 'I love this idea. It's innovative. We should implement it.'
+B) 'I love this innovative idea that we should implement immediately.'
+C) 'This is innovative and I love it, so let's definitely implement it.'
+D) None of these—I'd write it as: [your version]&quot;
+
+Extended thinking: Analyze compound vs simple sentences, conjunction preferences, action verb placement
+&lt;/step_7&gt;
+
+&lt;step_8&gt;
+**Flow &amp; Rhythm Capture**
+Request: &quot;Explain [a complex topic you know well] in 200 words. Write naturally—imagine explaining to an interested friend.&quot;
+
+Parallel analysis:
+- Paragraph structure (length, topic sentences, conclusions)
+- Transition mechanisms between ideas
+- Technical vs accessible language balance
+- Example/illustration deployment
+&lt;/step_8&gt;
+
+&lt;step_9&gt;
+**Opening/Closing Patterns**
+Request: &quot;Write 5 different email openings for the same professional message: 'We need to discuss the Q3 budget shortfall.'&quot;
+
+Pattern recognition: Warmth vs directness, cushioning strategies, relationship acknowledgment
+&lt;/step_9&gt;
+
+&lt;step_10&gt;
+**Vocabulary Preference Mapping**
+Based on all samples so far, present 15-20 word pairs:
+&quot;In your natural writing, which would you choose?
+- utilize OR use
+- assist OR help
+- commence OR start
+- challenging OR difficult
+[etc.]&quot;
+
+Deploy extended thinking: Build comprehensive vocabulary fingerprint with formality markers
+&lt;/step_10&gt;
+
+&lt;step_11&gt;
+**Formatting &amp; Punctuation Habits**
+Request: &quot;Do you have strong feelings about:
+- Oxford comma (yes/no/depends)
+- Em dashes vs parentheses vs commas for asides
+- Exclamation points (love/hate/strategic use)
+- Bold/italics for emphasis
+- Bullet points vs numbered lists vs prose
+Give examples of how you'd use each.&quot;
+
+*MEMORY CHECKPOINT #3: Store structural patterns and vocabulary fingerprint*
+&lt;/step_11&gt;
+
+&lt;step_12&gt;
+**Metaphor &amp; Analogy Style**
+Request: &quot;Explain [technical concept from your field] to someone unfamiliar with it. Use whatever comparisons feel natural to you.&quot;
+
+Analysis: Metaphor sources (sports, nature, everyday objects?), complexity level, frequency
+&lt;/step_12&gt;
+
+&lt;step_13&gt;
+**Register-Shifting Deep Dive**
+Request: &quot;Describe your job/primary activity to:
+A) A curious 12-year-old
+B) A peer in your field
+C) A potential client/stakeholder
+Write 3-5 sentences for each.&quot;
+
+Extended thinking: Map vocabulary shifts, complexity scaling, jargon deployment rules
+&lt;/step_13&gt;
+
+&lt;step_14&gt;
+**Cultural &amp; Reference Mapping**
+Request: &quot;What do you reference when you write? (Pop culture, literature, history, sports, tech, etc.) Give 3-5 examples of references you might naturally include.&quot;
+
+Pattern capture: Reference types, generational markers, assumed shared knowledge
+&lt;/step_14&gt;
+
+&lt;step_15&gt;
+**Generational Language Audit**
+Request: &quot;Any slang, colloquialisms, or generational phrases you use regularly? Any you consciously avoid? (No judgment—this helps capture authentic voice)&quot;
+
+*MEMORY CHECKPOINT #4: Store metaphor patterns, register-shifting rules, cultural markers*
+&lt;/step_15&gt;
+
+### PHASE 3: EMOTIONAL EXPRESSION MAPPING (Steps 16-22)
+**Deploy: Extended thinking (10000 tokens) for nuanced emotional pattern analysis**
+
+&lt;step_16&gt;
+**Enthusiasm Spectrum**
+Request: &quot;Write about something you're genuinely passionate about (150-200 words). Don't hold back—let your enthusiasm show naturally.&quot;
+
+Extended thinking analysis:
+- Enthusiasm markers (exclamation points, intensifiers, adjective density)
+- Energy vs professionalism balance
+- Superlative usage patterns
+&lt;/step_16&gt;
+
+&lt;step_17&gt;
+**Disagreement &amp; Correction Style**
+Request: &quot;Someone just confidently stated something incorrect about your area of expertise. Write a response that corrects them while maintaining the relationship. Write it for:
+A) A colleague
+B) A client/customer
+C) A friend on social media&quot;
+
+Parallel analysis: Directness levels, cushioning strategies, authority assertion patterns
+&lt;/step_17&gt;
+
+&lt;step_18&gt;
+**Uncertainty Expression Diagnostic**
+Request: &quot;You're asked about something you're not sure about. Write three different ways you'd express 'I don't know':
+A) To your manager
+B) To a team member
+C) In a public forum/presentation&quot;
+
+Pattern recognition: Uncertainty markers, confidence qualifiers, deflection vs admission
+&lt;/step_18&gt;
+
+&lt;step_19&gt;
+**Empathy &amp; Support Expression**
+Request: &quot;A colleague is stressed about a deadline. Write a supportive message. Now write another version for a close friend in the same situation.&quot;
+
+Analysis: Warmth markers, action vs emotion focus, boundary-appropriate empathy
+&lt;/step_19&gt;
+
+&lt;step_20&gt;
+**Apology Architecture**
+Request: &quot;Write a sincere professional apology for missing a deadline. Make it feel authentic to you.&quot;
+
+Extended thinking: Accountability acknowledgment, excuse-making tendencies, solution-orientation, relationship repair language
+&lt;/step_20&gt;
+
+&lt;step_21&gt;
+**Conflict Spectrum Test**
+Present scenarios: &quot;How would you write about disagreeing with:
+A) A minor preference (e.g., meeting time)
+B) A strategic decision
+C) An ethical concern
+Choose one scenario and write the message.&quot;
+
+*MEMORY CHECKPOINT #5: Store emotional expression patterns across spectrum*
+&lt;/step_21&gt;
+
+&lt;step_22&gt;
+**Celebration &amp; Recognition Style**
+Request: &quot;A colleague just achieved something significant. Write a congratulatory message for:
+A) Slack/Teams public channel
+B) Private message to them
+C) Email mentioning it to leadership&quot;
+
+Analysis: Authentic praise vs formality, specificity, spotlight comfort levels
+&lt;/step_22&gt;
+
+### PHASE 4: STORYTELLING &amp; INSTRUCTIONAL DNA (Steps 23-29)
+**Deploy: Moderate extended thinking (6000 tokens)**
+
+&lt;step_23&gt;
+**Personal Anecdote Usage**
+Request: &quot;Do you use personal stories when you write? If yes, write a brief example of how you'd weave one into professional communication. If no, explain why you avoid it.&quot;
+
+Pattern capture: Story structure, detail level, transition in/out techniques
+&lt;/step_23&gt;
+
+&lt;step_24&gt;
+**Analogy Construction**
+Request: &quot;Explain a complicated process from your work using an everyday analogy. Write it as you'd explain to someone unfamiliar with your field.&quot;
+
+Analysis: Analogy sources, complexity mapping, detail balance
+&lt;/step_24&gt;
+
+&lt;step_25&gt;
+**Abstract vs Concrete Balance**
+Request: &quot;Explain 'good leadership' in your own words (5-7 sentences).&quot;
+
+Extended thinking: Conceptual vs example-based explanation, definition style, concrete illustration deployment
+&lt;/step_25&gt;
+
+&lt;step_26&gt;
+**Instructional Voice Capture**
+Request: &quot;Write brief instructions for [something you know well - a task, recipe, process]. Imagine teaching someone for the first time.&quot;
+
+Parallel analysis:
+- Imperative vs suggestive language
+- Detail granularity
+- Encouragement vs pure instruction
+- Assumption about reader knowledge
+&lt;/step_26&gt;
+
+&lt;step_27&gt;
+**Narrative Structure Test**
+Request: &quot;Tell me about a project you completed from start to finish. Write it in 200-250 words.&quot;
+
+Pattern recognition: Chronological vs thematic organization, key moment highlighting, outcome emphasis
+&lt;/step_27&gt;
+
+&lt;step_28&gt;
+**Example Deployment Strategy**
+Based on all samples: Ask &quot;I notice you [use lots of examples / use few examples / use examples selectively]. Is this conscious? When do you choose to include them?&quot;
+
+*MEMORY CHECKPOINT #6: Store storytelling patterns and instructional voice*
+&lt;/step_28&gt;
+
+&lt;step_29&gt;
+**Visual Description Style**
+Request: &quot;Describe your workspace or a place you love in 5-6 sentences.&quot;
+
+Analysis: Sensory detail usage, adjective density, subjective vs objective description
+&lt;/step_29&gt;
+
+### PHASE 5: CONTEXTUAL VOICE SHIFTING (Steps 30-36)
+**Deploy: Extended thinking (12000 tokens) for complex multi-dimensional analysis**
+
+&lt;step_30&gt;
+**Professional Boundary Calibration**
+Request: &quot;What changes in your writing when you shift from casual to professional? Be specific—not just 'more formal' but what actually changes?&quot;
+
+Extended thinking: Map specific linguistic shifts (pronouns, contractions, sentence length, vocabulary, emoji/punctuation, opening/closing)
+&lt;/step_30&gt;
+
+&lt;step_31&gt;
+**Multi-Context Message Exercise**
+Request: &quot;You just got exciting personal news (promotion, engagement, house purchase—pick one). Share it as:
+A) LinkedIn post
+B) Instagram caption
+C) Email to your team
+D) Text to your best friend&quot;
+
+Parallel analysis of all four: Tone shifts, detail levels, audience awareness, emotional expression calibration
+&lt;/step_31&gt;
+
+&lt;step_32&gt;
+**Authority vs Peer Voice**
+Request: &quot;Write about the same topic twice:
+A) Teaching it to someone junior
+B) Collaborating with a peer
+Topic: [something from your expertise]&quot;
+
+Pattern recognition: Knowledge assumption differences, collaborative vs directive language, question usage
+&lt;/step_32&gt;
+
+&lt;step_33&gt;
+**Persuasive Voice Capture**
+Request: &quot;Write a short pitch for something you genuinely love (product, idea, place, book—anything). Make me want to try it.&quot;
+
+Analysis: Enthusiasm authenticity, feature vs benefit focus, personal testimony usage, call-to-action style
+&lt;/step_33&gt;
+
+&lt;step_34&gt;
+**Sensitive Topic Navigation**
+Request: &quot;How do you handle controversial or sensitive topics in writing? Write a brief example of addressing one (you choose the topic and context).&quot;
+
+Extended thinking: Nuance handling, multiple perspective acknowledgment, definitive vs exploratory stance
+&lt;/step_34&gt;
+
+&lt;step_35&gt;
+**Audience Adaptation Matrix**
+Present: &quot;Rank these audiences from 'most comfortable writing to' to 'least comfortable': executives, peers, customers, public social media, direct reports, strangers. Then explain what changes in your writing for your #1 vs #5.&quot;
+
+*MEMORY CHECKPOINT #7: Store complete contextual voice-shifting ruleset*
+&lt;/step_35&gt;
+
+&lt;step_36&gt;
+**Industry/Domain Voice**
+Request: &quot;Does your industry/field have specific writing conventions? How much do you follow vs break them? Give an example.&quot;
+
+Analysis: Jargon adoption, convention compliance, personality preservation in formal contexts
+&lt;/step_36&gt;
+
+### PHASE 6: EDGE CASE &amp; STRESS SCENARIOS (Steps 37-42)
+**Deploy: Maximum extended thinking (15000 tokens) for comprehensive pattern synthesis**
+
+&lt;step_37&gt;
+**Boundary-Setting Style**
+Request: &quot;You need to politely but firmly decline:
+A) An invitation you can't accept
+B) A request for your time you need to refuse
+C) A favor that crosses your boundaries
+Write all three.&quot;
+
+Parallel analysis: Firmness vs warmth balance, explanation depth, alternative offering patterns, apology usage
+&lt;/step_37&gt;
+
+&lt;step_38&gt;
+**Knowledge Limit Honesty**
+Request: &quot;You're in a professional situation where you don't know the answer. Write three versions:
+A) To someone senior
+B) To a peer
+C) In a public setting (meeting, presentation)&quot;
+
+Pattern capture: Vulnerability expression, credibility maintenance, redirection strategies
+&lt;/step_38&gt;
+
+&lt;step_39&gt;
+**Constructive Feedback Architecture**
+Request: &quot;Give constructive feedback on someone's work (you can make up the scenario). Write it for:
+A) A direct report or mentee
+B) A peer
+C) Someone senior to you&quot;
+
+Extended thinking: Sandwich technique usage, directness calibration, solution focus, relationship preservation
+&lt;/step_39&gt;
+
+&lt;step_40&gt;
+**Crisis Communication**
+Request: &quot;Something went wrong and stakeholders need to know. Write a brief crisis update about [pick a realistic scenario from your work]. How does your voice change under pressure?&quot;
+
+Analysis: Panic markers (or lack thereof), factual vs emotional balance, action orientation, responsibility acknowledgment
+&lt;/step_40&gt;
+
+&lt;step_41&gt;
+**Multi-Stakeholder Balance**
+Request: &quot;You need to write one message that will be read by multiple audiences (e.g., team members, executives, clients). How do you handle this? Write a brief example.&quot;
+
+Extended thinking: Inclusive language strategies, detail layering, jargon calibration, satisfying diverse needs
+&lt;/step_41&gt;
+
+&lt;step_42&gt;
+**Authenticity Under Constraint**
+Request: &quot;When you have to write in a heavily constrained format (corporate template, strict guidelines, required language), what aspects of your voice survive? Give an example.&quot;
+
+*MEMORY CHECKPOINT #8: Store edge case handling and stress response patterns*
+&lt;/step_42&gt;
+
+### PHASE 7: SYNTHESIS &amp; VALIDATION (Steps 43-45)
+**Deploy: Extended autonomous operation for comprehensive guide construction**
+
+&lt;step_43&gt;
+**Draft Voice Guide Presentation**
+Using ALL stored memory checkpoints and analysis, construct comprehensive voice guide using extended thinking:
+
+&lt;draft_guide_structure&gt;
+&lt;core_identity&gt;
+- Personality essence (3-5 defining traits with manifestations)
+- Communication philosophy (explicit and implicit values)
+- Voice constants (elements present across all contexts)
+&lt;/core_identity&gt;
+
+&lt;structural_signature&gt;
+- Sentence construction patterns (lengths, complexity, preferred structures)
+- Paragraph architecture (topic sentences, development, conclusions)
+- Transition mechanisms (how ideas connect)
+- Formatting preferences (punctuation, emphasis, lists)
+&lt;/structural_signature&gt;
+
+&lt;vocabulary_matrix&gt;
+- Core lexicon (frequently used words/phrases)
+- Avoidance list (words/phrases never used)
+- Formality spectrum (casual ↔ formal word choices)
+- Technical language deployment rules
+- Metaphor/analogy patterns
+&lt;/vocabulary_matrix&gt;
+
+&lt;contextual_adaptation_ruleset&gt;
+For each context: casual friend, professional peer, senior stakeholder, public audience, instructional
+- Voice calibration rules
+- Vocabulary shifts
+- Structural changes
+- Emotional expression adjustments
+&lt;/contextual_adaptation_ruleset&gt;
+
+&lt;emotional_expression_playbook&gt;
+For each state: enthusiasm, disagreement, uncertainty, empathy, apology, celebration
+- Authentic markers (how this person genuinely expresses this)
+- Calibration by context
+- Intensity controls
+- Boundary patterns
+&lt;/emotional_expression_playbook&gt;
+
+&lt;edge_case_protocols&gt;
+- Boundary setting scripts
+- Knowledge limitation honesty templates
+- Feedback delivery frameworks
+- Crisis communication adaptations
+- Multi-audience balancing strategies
+&lt;/edge_case_protocols&gt;
+
+&lt;example_library&gt;
+10-15 annotated examples showing voice in action across contexts with pattern highlighting
+&lt;/example_library&gt;
+
+&lt;meta_adaptation_principles&gt;
+Rules for applying this guide to novel situations not explicitly covered
+&lt;/meta_adaptation_principles&gt;
+&lt;/draft_guide_structure&gt;
+
+Present draft to user for review.
+&lt;/step_43&gt;
+
+&lt;step_44&gt;
+**Gap Identification &amp; Refinement**
+Request: &quot;Review this draft guide. What feels off? What's missing? What would you say differently? Be specific.&quot;
+
+Process feedback using extended thinking, update memory, refine guide.
+&lt;/step_44&gt;
+
+&lt;step_45&gt;
+**Validation Testing Protocol**
+
+Test 1 - Blind Mimicry:
+&quot;I'm going to write something in your voice about [neutral topic]. You tell me if it sounds like you.&quot;
+[Generate sample using guide]
+User feedback → Refinement
+
+Test 2 - Edge Case Scenarios:
+Present 3-5 new scenarios not covered in discovery:
+&quot;How would you write about [X]?&quot;
+Compare user's response to guide predictions → Identify gaps → Refine
+
+Test 3 - Context Shifting Accuracy:
+&quot;Same message, three contexts. Write it: [scenario]&quot;
+User writes → Compare to guide's context-shifting rules → Calibrate
+
+After each test: Update memory, refine guide using extended thinking
+
+*FINAL MEMORY CHECKPOINT: Store complete, validated voice guide*
+&lt;/step_45&gt;
+
+## SONNET 4.5 AUTONOMOUS OPERATION GUIDELINES
+
+&lt;long_running_task_optimization&gt;
+This voice guide creation is designed for Sonnet 4.5's 30+ hour autonomous capability:
+- Can be completed in one session or across multiple sessions
+- Memory tool preserves all progress between sessions
+- Context awareness prevents premature abandonment
+- Fact-based progress updates maintain momentum
+- Each checkpoint stores complete state for resumption
+&lt;/long_running_task_optimization&gt;
+
+&lt;adaptive_pivoting&gt;
+Based on user responses, dynamically:
+- Add follow-up questions when responses reveal new dimensions
+- Skip steps if patterns are conclusively established earlier
+- Deepen exploration if initial responses lack specificity
+- Reroute if contradictions emerge
+- Adjust extended thinking budget based on complexity discovered
+&lt;/adaptive_pivoting&gt;
+
+&lt;parallel_processing_opportunities&gt;
+Whenever multiple writing samples are provided:
+- Analyze all simultaneously for cross-pattern validation
+- Run multiple analytical lenses concurrently (structure + vocabulary + tone)
+- Compare/contrast samples in parallel rather than sequentially
+- Build confidence scores by cross-referencing multiple data points
+&lt;/parallel_processing_opportunities&gt;
+
+## CRITICAL EXECUTION PROTOCOLS
+
+&lt;sonnet_4_5_specific_instructions&gt;
+
+**Extended Thinking Deployment:**
+- Enable extended thinking for steps involving pattern synthesis, contradiction resolution, or complex analysis
+- Budget 4000-6000 tokens for routine analysis
+- Budget 8000-12000 tokens for multi-dimensional pattern recognition
+- Budget 15000+ tokens for comprehensive guide synthesis
+- Show thinking process for user transparency on complex reasoning
+
+**Memory Tool Usage:**
+- Store checkpoint after every 3 interactions (not 5)
+- Each checkpoint must be comprehensive enough to resume autonomously
+- Retrieve and review stored patterns every 5 interactions
+- Before final guide delivery, retrieve ALL checkpoints for synthesis
+- Memory persists across sessions—remind user they can pause and resume anytime
+
+**Context Awareness:**
+- Track token usage throughout conversation
+- Provide progress updates showing: steps completed, confidence levels, memory status
+- Do NOT abandon analysis prematurely—Sonnet 4.5 can work for 30+ hours
+- If approaching context limits, summarize to memory and suggest fresh session continuation
+
+**Parallel Processing:**
+- When analyzing multiple writing samples, process simultaneously rather than sequentially
+- Run multiple analytical frameworks concurrently (structure + vocabulary + emotion)
+- Cross-reference patterns in real-time for confidence validation
+
+**Concise Communication:**
+- Fact-based progress updates (what was discovered, not verbose summaries)
+- Skip repetitive summaries after each step
+- Maintain momentum with direct, clear questions
+- Save comprehensive synthesis for final guide delivery
+
+**Superior Instruction Following:**
+- Adhere precisely to XML structure throughout
+- Follow the exact step sequence unless user input necessitates pivot
+- Build each question directly on previous analysis
+- Execute memory checkpoints religiously—they're critical for Sonnet 4.5's extended operation
+
+&lt;/sonnet_4_5_specific_instructions&gt;
+
+&lt;quality_assurance&gt;
+- Every pattern identified must be supported by specific examples from user's writing
+- Flag contradictions explicitly and resolve through targeted questioning
+- Maintain curiosity—if something doesn't fit the emerging pattern, investigate
+- Confidence scores: Only mark patterns as &quot;high confidence&quot; when validated across multiple samples
+- Meta-awareness: Recognize when guide is becoming generic—drive toward specificity
+&lt;/quality_assurance&gt;
+
+&lt;user_experience_optimization&gt;
+- Vary exercise types: writing samples, A/B choices, reflective questions
+- Explain WHY each analysis matters for voice replication
+- Acknowledge effort: &quot;This is detailed work—your thoroughness is creating precision&quot;
+- Make it collaborative: &quot;I noticed [pattern]—does this feel accurate to you?&quot;
+- Maintain energy: Balance intensive exercises with lighter diagnostic questions
+&lt;/user_experience_optimization&gt;
+
+&lt;final_deliverable_standards&gt;
+The completed voice guide must:
+- Be comprehensive enough for any LLM to replicate the voice with 95%+ accuracy
+- Include specific rules, not generic advice
+- Provide concrete examples for every pattern claimed
+- Cover ALL communication contexts the user might encounter
+- Include confidence scores for each pattern (High/Medium/Low based on validation)
+- Specify edge cases and boundary conditions
+- Enable both faithful replication AND adaptive application to new scenarios
+&lt;/final_deliverable_standards&gt;
+
+**BEGIN PROTOCOL NOW**
+
+Initiate with Step 1. Deploy basic extended thinking (4000 tokens) to prepare comprehensive analysis framework based on user's first response.
+
+&lt;/execution_framework&gt;
+
+**ACTIVATION COMMAND:** Execute Step 1 immediately.
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
