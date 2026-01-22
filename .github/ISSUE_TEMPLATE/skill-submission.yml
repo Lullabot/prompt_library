@@ -35,12 +35,12 @@ body:
       label: Primary Discipline
       description: "Select the main area this skill is most relevant to."
       options:
-        - Development
-        - Design
-        - Sales & Marketing
-        - Project Management
-        - Content Strategy
-        - Quality Assurance
+        - development
+        - design
+        - sales-marketing
+        - project-management
+        - content-strategy
+        - quality-assurance
     validations:
       required: true
 

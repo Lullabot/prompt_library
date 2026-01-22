@@ -132,9 +132,8 @@ module.exports = function(eleventyConfig) {
 
   // Add a collection for recently added content (all types, sorted by date desc)
   eleventyConfig.addCollection('recentlyAdded', function(collection) {
-    const types = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
     let all = [];
-    types.forEach(type => {
+    contentTypes.forEach(type => {
       all = all.concat(collection.getFilteredByGlob(
         disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
       ));
