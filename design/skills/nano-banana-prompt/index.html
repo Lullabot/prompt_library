@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Nano Banana Prompt Generator - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Nano Banana Prompt Generator</h1>
+  <p class="description">Generate optimized prompts for Gemini Nano Banana (Nano Banana Pro) image generation. Leverages structured formatting, markdown syntax, and prestige anchoring for strong prompt adherence, character consistency, and nuanced visual control. Ideal for book illustrations, concept art, character designs, and creative visual projects.</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">image-generation</span>
+      
+        <span class="tag">ai-art</span>
+      
+        <span class="tag">prompt-engineering</span>
+      
+        <span class="tag">visual-design</span>
+      
+        <span class="tag">gemini</span>
+      
+    </div>
+    <time datetime="2025-01-22">2025-01-22</time>
+  </div>
+
+  <div class="content">
+    <pre><code>---
+name: nano-banana-prompt
+description: This skill should be used when users need to create detailed, effective prompts for Gemini Nano Banana (or Nano Banana Pro) image generation. Use when users ask for &quot;image prompts&quot;, &quot;create a prompt for&quot;, &quot;visualize this scene&quot;, &quot;generate art of&quot;, or need help crafting prompts for AI image generation. Ideal for book illustrations, concept art, character designs, scene visualization, and creative projects requiring precise visual output.
+---
+
+# Nano Banana Prompt Generator
+
+## Overview
+
+Nano Banana is Google's autoregressive image generation model (also known as Gemini 2.5 Flash Image, and the Pro version as Gemini 3 Pro Image). This skill generates optimized prompts that leverage Nano Banana's unique capabilities: strong prompt adherence, character consistency, and nuanced control through structured formatting.
+
+## Core Prompting Formula
+
+Every Nano Banana prompt follows this structure:
+
+**Subject + Action + Environment + Art Style + Lighting + Details**
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| Subject | Main character or object | &quot;A three-meter tall corrupted construct&quot; |
+| Action | What the subject is doing | &quot;stalking through ruins&quot; |
+| Environment | Location/background | &quot;ancient forge facility&quot; |
+| Art Style | Visual aesthetic | &quot;dark fantasy concept art&quot; |
+| Lighting | Light sources and quality | &quot;bioluminescent inner glow&quot; |
+| Details | Specific requirements | &quot;crystalline growths, pulsing core&quot; |
+
+## Key Techniques
+
+### 1. Use Markdown Formatting
+
+Structure prompts with headers, bullet points, and sections. Nano Banana's text encoder parses markdown effectively.
+
+```markdown
+# Subject
+[Main focus description]
+
+## Core Design
+- Detail 1
+- Detail 2
+
+## Environment
+[Background/setting]
+```
+
+### 2. Capitalize Enforcement Keywords
+
+Use ALL CAPS for critical requirements:
+- **MUST** - Mandatory elements
+- **DO NOT** - Forbidden elements
+- **ONLY** - Exclusive requirements
+
+Example: &quot;The composition MUST use portrait orientation&quot;
+
+### 3. Specify Technical Parameters
+
+Include camera and composition specifications:
+
+| Parameter | Options |
+|-----------|---------|
+| Aspect Ratio | 16:9, 9:16, 1:1, 4:3, 3:2 |
+| Camera | Canon EOS 90D, 24mm wide angle, 85mm portrait |
+| Composition | Rule of thirds, golden ratio, centered |
+| Perspective | Eye level, low angle, bird's eye, Dutch angle |
+| Depth of Field | Shallow, deep, selective focus |
+
+### 4. Layer Lighting Sources
+
+Specify multiple light sources for depth:
+
+```markdown
+## Lighting
+- Primary: [Main light source and direction]
+- Secondary: [Fill light or ambient]
+- Accent: [Rim light, highlights, glows]
+```
+
+### 5. Use Prestige Anchoring
+
+Reference acclaimed artists or prestigious descriptors to improve quality:
+
+| Category | Effective Anchors |
+|----------|-------------------|
+| Dark Fantasy | &quot;Beksinski meets industrial horror&quot; |
+| Illustration | &quot;Bernie Wrightson, Gustave Doré&quot; |
+| Photo Quality | &quot;Pulitzer Prize winning photograph&quot; |
+| Concept Art | &quot;Art station trending, Weta Workshop&quot; |
+| Portrait | &quot;Annie Leibovitz lighting&quot; |
+
+### 6. Include Negative Constraints
+
+Always add a &quot;Do NOT Include&quot; section:
+
+```markdown
+## Do NOT Include
+- Text, watermarks, or logos
+- Modern anachronistic elements
+- [Style-specific exclusions]
+```
+
+## Prompt Template
+
+Use this template structure for all Nano Banana prompts:
+
+```markdown
+# [Title/Subject Name]
+
+## Format Specifications
+- **Orientation**: [Portrait/Landscape/Square] ([aspect ratio])
+- **Color**: [Full color / Black and white / Limited palette]
+- **Purpose**: [Book illustration / Concept art / Character design]
+
+## Subject
+[Detailed description of the main focus]
+
+## Core Design
+- [Key visual element 1]
+- [Key visual element 2]
+- [Key visual element 3]
+
+## Critical Details (MUST include)
+- [Non-negotiable element 1]
+- [Non-negotiable element 2]
+
+## Environment
+[Setting, background, atmospheric details]
+
+## Art Style
+[Specific aesthetic, artist references, medium]
+
+## Lighting
+- Primary: [Main light]
+- Secondary: [Fill/ambient]
+- Accent: [Highlights/glows]
+
+## Composition
+[Rule of thirds, framing, focal points, camera specs]
+
+## Atmosphere/Mood
+[Emotional tone, narrative context]
+
+## Technical Specifications
+[Print quality, detail density, rendering style]
+
+## Do NOT Include
+- [Exclusion 1]
+- [Exclusion 2]
+- [Exclusion 3]
+```
+
+## Workflow
+
+### Step 1: Gather Parameters
+
+Collect from user or determine from context:
+
+| Parameter | Question |
+|-----------|----------|
+| Subject | What is the main focus of the image? |
+| Purpose | Book illustration, concept art, character sheet, scene? |
+| Style | Realistic, stylized, illustrated, photographic? |
+| Format | Portrait, landscape, square? Color or B&amp;W? |
+| Mood | What emotion or atmosphere? |
+| References | Any existing art style or artist to match? |
+
+### Step 2: Analyze Source Material
+
+When generating prompts from written descriptions (scenes, chapters, etc.):
+
+1. Identify the most visually dynamic moment
+2. Extract specific physical details (colors, materials, scale)
+3. Note environmental context
+4. Capture emotional/atmospheric tone
+5. Identify any unique or fantastical elements requiring special attention
+
+### Step 3: Structure the Prompt
+
+Build the prompt using the template, ensuring:
+
+1. **Subject section** clearly establishes the main focus
+2. **Core Design** breaks down visual components systematically
+3. **MUST/DO NOT** sections enforce critical requirements
+4. **Art Style** anchors to recognizable aesthetics
+5. **Lighting** creates depth with multiple sources
+6. **Composition** specifies camera and framing
+
+### Step 4: Validate and Refine
+
+Check the prompt against these criteria:
+
+| Criterion | Check |
+|-----------|-------|
+| Specificity | Are measurements, colors, materials explicit? |
+| Enforcement | Are critical elements marked with MUST/ONLY? |
+| Exclusions | Is there a DO NOT section? |
+| Style Anchor | Is there a prestige reference? |
+| Technical Specs | Are format, camera, lighting specified? |
+| Clarity | Could another AI parse this unambiguously? |
+
+## Special Formats
+
+### Black and White Illustration
+
+Add these specifications:
+```markdown
+## Format Specifications
+- **Color**: BLACK AND WHITE ONLY—high contrast monochromatic, no color
+
+## Art Style
+- High contrast black and white ink illustration
+- Style: [Artist reference] (e.g., Bernie Wrightson, Frank Miller)
+- Heavy blacks for shadows
+- Pure whites for highlights
+- Crosshatching for texture and gradation
+```
+
+### Character Design Sheet
+
+Add these specifications:
+```markdown
+## Format Specifications
+- **Purpose**: Character design reference sheet
+- **Views**: Front, 3/4, profile (or specify which)
+
+## Character Details
+- Height/build reference
+- Distinctive features
+- Costume/clothing breakdown
+- Color callouts (if color)
+- Expression range (if multiple expressions)
+```
+
+### Action Scenes
+
+Add motion indicators:
+```markdown
+## Motion and Energy
+- Speed lines style: [Classic illustration / manga / subtle blur]
+- Motion direction: [Left-to-right / diagonal / toward camera]
+- Dynamic elements: [Hair, clothing, debris, particles]
+- Frozen moment: [Describe the exact instant captured]
+```
+
+## Quality Standards
+
+Every generated prompt must:
+
+1. **Use Markdown Structure** - Headers, bullets, clear sections
+2. **Include Format Specs** - Orientation, color mode, purpose
+3. **Specify Subject Clearly** - Main focus with physical details
+4. **Enforce Critical Elements** - MUST/DO NOT sections present
+5. **Anchor Style** - Artist reference or prestige descriptor
+6. **Layer Lighting** - At least 2 light sources described
+7. **Define Composition** - Camera, framing, focal point
+8. **Exclude Unwanted Elements** - Clear DO NOT section
+
+## Example Usage
+
+User: &quot;Create a prompt for a dragon attacking a castle at sunset&quot;
+
+Response approach:
+1. Determine format (likely landscape for epic scene)
+2. Establish subject (dragon as focus, castle as environment)
+3. Select style anchors (fantasy art references)
+4. Specify dramatic sunset lighting (golden hour + fire)
+5. Add motion for attack (wings, fire breath, debris)
+6. Exclude common unwanted elements (text, watermarks)
+7. Structure using full template
+
+## References
+
+For additional guidance on Nano Banana capabilities, consult:
+- [Max Woolf's Nano Banana Prompting Guide](https://minimaxir.com/2025/11/nano-banana-prompts/)
+- [Google's Nano Banana Pro Prompting Tips](https://blog.google/products/gemini/prompting-tips-nano-banana-pro/)
+
+## Editing Images (Nano Banana Pro)
+
+When editing existing images rather than generating new ones, use these five action words:
+
+| Action | Use Case | Example |
+|--------|----------|---------|
+| **Add** | Insert new elements | &quot;Add a dragon flying in the background&quot; |
+| **Change** | Modify existing elements | &quot;Change the sky to sunset colors&quot; |
+| **Make** | Transform qualities | &quot;Make the character look older&quot; |
+| **Remove** | Delete elements | &quot;Remove the text in the corner&quot; |
+| **Replace** | Substitute elements | &quot;Replace the sword with an axe&quot; |
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
