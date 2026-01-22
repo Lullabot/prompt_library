@@ -95,7 +95,7 @@ This leverages Sonnet 4.5's enhanced tool usage and parallel processing capabili
 Maintain concise, fact-based progress updates after each interaction:
 
 <progress_format>
-**Progress Update [Step X/65]:**
+**Progress Update [Step X/45]:**
 - Patterns identified: [Specific findings]
 - Confidence level: [X%]
 - Next analysis: [What's being explored next]
