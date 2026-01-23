@@ -233,6 +233,61 @@ Content is live on the website
     </div>
   </details>
 
+  <details class="artifact-section accordion-section">
+    <summary class="accordion-title">Skills</summary>
+    <div class="accordion-content">
+      <p>Skills are specialized capabilities that extend AI assistants like Claude Code with domain-specific knowledge, workflows, and behaviors. They define how the assistant should respond to specific types of tasks, including what tools it can use and what process it should follow.</p>
+      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/skills/[skill-name].md</code> (e.g., <code>content-strategy/skills/humanizer.md</code>)</p>
+      <p>Skills are invoked using slash commands (e.g., <code>/humanizer</code>) and can include:</p>
+      <ul>
+        <li><strong>Name and description:</strong> How to invoke the skill and when to use it</li>
+        <li><strong>Allowed tools:</strong> Which tools the skill can access (Read, Write, Edit, etc.)</li>
+        <li><strong>Process steps:</strong> The workflow the AI should follow</li>
+        <li><strong>Pattern recognition:</strong> Specific items to look for or transform</li>
+        <li><strong>Output format:</strong> How results should be presented</li>
+      </ul>
+      <div class="example-block">
+        <div class="example-label">Example: Code Review Skill</div>
+        <code>---
+name: code-review
+description: |
+  Review code for quality, security, and best practices.
+  Use when asked to review pull requests or code changes.
+allowed-tools:
+  - Read
+  - Grep
+  - Glob
+---
+
+# Code Review Skill
+
+You are a code reviewer focused on quality, security, and maintainability.
+
+## Your Task
+
+When given code to review:
+1. **Read the code** - Understand the changes and context
+2. **Check for issues** - Security vulnerabilities, bugs, edge cases
+3. **Evaluate quality** - Naming, structure, readability
+4. **Suggest improvements** - Offer actionable recommendations
+
+## Review Checklist
+- [ ] No hardcoded secrets or credentials
+- [ ] Error handling covers edge cases
+- [ ] Functions have clear, single responsibilities
+- [ ] Variable names are descriptive
+- [ ] No commented-out code left behind
+
+## Output Format
+Provide:
+1. Summary of what the code does
+2. List of issues found (if any)
+3. Specific suggestions for improvement</code>
+      </div>
+      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=skill-submission.yml" class="cta-button">Submit a new Skill</a></div>
+    </div>
+  </details>
+
   <h2 class="section-heading">Core Concepts</h2>
 
   <details class="accordion-section">
