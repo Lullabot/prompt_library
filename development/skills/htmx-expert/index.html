@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>htmx Expert - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>htmx Expert</h1>
+  <p class="description">Expert guidance for htmx development, including AJAX interactions, htmx attributes (hx-get, hx-post, hx-swap, hx-target, hx-trigger), debugging htmx behavior, building hypermedia-driven applications, and htmx best practices.</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">htmx</span>
+      
+        <span class="tag">html</span>
+      
+        <span class="tag">hypermedia</span>
+      
+        <span class="tag">ajax</span>
+      
+        <span class="tag">frontend</span>
+      
+    </div>
+    <time datetime="2026-03-17">2026-03-17</time>
+  </div>
+
+  <div class="content">
+    <pre><code>---
+name: htmx-expert
+description: &quot;This skill should be used when users need help with htmx development, including implementing AJAX interactions, understanding htmx attributes (hx-get, hx-post, hx-swap, hx-target, hx-trigger), debugging htmx behavior, building hypermedia-driven applications, or following htmx best practices. Use when users ask about htmx patterns, server-side HTML responses, or transitioning from SPA frameworks to htmx. (user)&quot;
+---
+
+# htmx Expert
+
+This skill provides comprehensive guidance for htmx development, the library that extends HTML to access modern browser features directly without JavaScript.
+
+## Core Philosophy
+
+htmx represents a paradigm shift toward hypermedia-first web development. Instead of treating HTML as a presentation layer with JSON APIs, htmx extends HTML to handle AJAX requests, CSS transitions, WebSockets, and Server-Sent Events directly. Servers respond with HTML fragments, not JSON.
+
+## When to Use This Skill
+
+- Implementing htmx attributes and interactions
+- Building hypermedia-driven applications
+- Debugging htmx request/response cycles
+- Converting SPA patterns to htmx approaches
+- Understanding htmx events and lifecycle
+- Configuring htmx extensions
+- Implementing proper security measures
+
+## Core Attributes Reference
+
+### HTTP Verb Attributes
+
+| Attribute | Purpose | Default Trigger |
+|-----------|---------|-----------------|
+| `hx-get` | Issue GET request | click |
+| `hx-post` | Issue POST request | click (form: submit) |
+| `hx-put` | Issue PUT request | click |
+| `hx-patch` | Issue PATCH request | click |
+| `hx-delete` | Issue DELETE request | click |
+
+### Request Control
+
+- **hx-trigger**: Customize when requests fire
+  - Modifiers: `changed`, `delay:Xms`, `throttle:Xms`, `once`
+  - Special triggers: `load`, `revealed`, `every Xs`
+  - Extended: `from:&lt;selector&gt;`, `target:&lt;selector&gt;`
+
+- **hx-include**: Include additional element values in request
+- **hx-params**: Filter which parameters to send (`*`, `none`, `not &lt;param&gt;`, `&lt;param&gt;`)
+- **hx-headers**: Add custom headers (JSON format)
+- **hx-vals**: Add values to request (JSON format)
+- **hx-encoding**: Set encoding (`multipart/form-data` for file uploads)
+
+### Response Handling
+
+- **hx-target**: Where to place response content
+  - Extended selectors: `this`, `closest &lt;sel&gt;`, `next &lt;sel&gt;`, `previous &lt;sel&gt;`, `find &lt;sel&gt;`
+
+- **hx-swap**: How to insert content
+  - `innerHTML` (default), `outerHTML`, `beforebegin`, `afterbegin`, `beforeend`, `afterend`, `delete`, `none`
+  - Modifiers: `swap:Xms`, `settle:Xms`, `scroll:top`, `show:top`
+
+- **hx-select**: Select subset of response to swap
+- **hx-select-oob**: Select elements for out-of-band swaps
+
+### State Management
+
+- **hx-push-url**: Push URL to browser history
+- **hx-replace-url**: Replace current URL in history
+- **hx-history**: Control history snapshot behavior
+- **hx-history-elt**: Specify element to snapshot
+
+### UI Indicators
+
+- **hx-indicator**: Element to show during request (add `htmx-indicator` class)
+- **hx-disabled-elt**: Elements to disable during request
+
+### Security &amp; Control
+
+- **hx-confirm**: Show confirmation dialog before request
+- **hx-validate**: Enable HTML5 validation on non-form elements
+- **hx-disable**: Disable htmx processing on element and descendants
+- **hx-sync**: Coordinate requests between elements
+
+## Implementation Patterns
+
+### Basic AJAX Pattern
+
+```html
+&lt;button hx-get=&quot;/api/data&quot;
+        hx-target=&quot;#result&quot;
+        hx-swap=&quot;innerHTML&quot;&gt;
+  Load Data
+&lt;/button&gt;
+&lt;div id=&quot;result&quot;&gt;&lt;/div&gt;
+```
+
+### Active Search
+
+```html
+&lt;input type=&quot;search&quot;
+       name=&quot;q&quot;
+       hx-get=&quot;/search&quot;
+       hx-trigger=&quot;keyup changed delay:300ms&quot;
+       hx-target=&quot;#search-results&quot;&gt;
+&lt;div id=&quot;search-results&quot;&gt;&lt;/div&gt;
+```
+
+### Infinite Scroll
+
+```html
+&lt;div hx-get=&quot;/items?page=2&quot;
+     hx-trigger=&quot;revealed&quot;
+     hx-swap=&quot;afterend&quot;&gt;
+  Loading more...
+&lt;/div&gt;
+```
+
+### Polling
+
+```html
+&lt;div hx-get=&quot;/status&quot;
+     hx-trigger=&quot;every 5s&quot;
+     hx-swap=&quot;innerHTML&quot;&gt;
+  Status: Unknown
+&lt;/div&gt;
+```
+
+### Form Submission
+
+```html
+&lt;form hx-post=&quot;/submit&quot;
+      hx-target=&quot;#response&quot;
+      hx-swap=&quot;outerHTML&quot;&gt;
+  &lt;input name=&quot;email&quot; type=&quot;email&quot; required&gt;
+  &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+```
+
+### Out-of-Band Updates
+
+Server response can update multiple elements:
+
+```html
+&lt;!-- Main response --&gt;
+&lt;div id=&quot;main-content&quot;&gt;Updated content&lt;/div&gt;
+
+&lt;!-- OOB updates --&gt;
+&lt;div id=&quot;notification&quot; hx-swap-oob=&quot;true&quot;&gt;New notification!&lt;/div&gt;
+&lt;span id=&quot;counter&quot; hx-swap-oob=&quot;true&quot;&gt;42&lt;/span&gt;
+```
+
+### Loading Indicators
+
+```html
+&lt;button hx-get=&quot;/slow-endpoint&quot;
+        hx-indicator=&quot;#spinner&quot;&gt;
+  Load
+&lt;/button&gt;
+&lt;img id=&quot;spinner&quot; class=&quot;htmx-indicator&quot; src=&quot;/spinner.gif&quot;&gt;
+```
+
+CSS for indicators:
+```css
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+.htmx-request .htmx-indicator {
+  opacity: 1;
+}
+```
+
+## Server Response Patterns
+
+### Return HTML Fragments
+
+Server endpoints return HTML, not JSON:
+
+```python
+# Flask example
+@app.route('/search')
+def search():
+    q = request.args.get('q', '')
+    results = search_database(q)
+    return render_template('_search_results.html', results=results)
+```
+
+### Response Headers
+
+htmx recognizes special headers:
+
+| Header | Purpose |
+|--------|---------|
+| `HX-Location` | Client-side redirect (with context) |
+| `HX-Push-Url` | Push URL to history |
+| `HX-Redirect` | Full page redirect |
+| `HX-Refresh` | Refresh the page |
+| `HX-Reswap` | Override hx-swap value |
+| `HX-Retarget` | Override hx-target value |
+| `HX-Trigger` | Trigger client-side events |
+| `HX-Trigger-After-Settle` | Trigger after settle |
+| `HX-Trigger-After-Swap` | Trigger after swap |
+
+### Detect htmx Requests
+
+Check `HX-Request` header to differentiate htmx from regular requests:
+
+```python
+if request.headers.get('HX-Request'):
+    return render_template('_partial.html')
+else:
+    return render_template('full_page.html')
+```
+
+## Events
+
+### Key Events
+
+| Event | When Fired |
+|-------|------------|
+| `htmx:load` | Element loaded into DOM |
+| `htmx:configRequest` | Before request sent (modify params/headers) |
+| `htmx:beforeRequest` | Before AJAX request |
+| `htmx:afterRequest` | After AJAX request completes |
+| `htmx:beforeSwap` | Before content swap |
+| `htmx:afterSwap` | After content swap |
+| `htmx:afterSettle` | After DOM settles |
+| `htmx:confirm` | Before confirmation dialog |
+| `htmx:validation:validate` | Custom validation hook |
+
+### Event Handling
+
+Using `hx-on*`:
+```html
+&lt;button hx-get=&quot;/data&quot;
+        hx-on:htmx:before-request=&quot;console.log('Starting...')&quot;
+        hx-on:htmx:after-swap=&quot;console.log('Done!')&quot;&gt;
+  Load
+&lt;/button&gt;
+```
+
+Using JavaScript:
+```javascript
+document.body.addEventListener('htmx:configRequest', function(evt) {
+  evt.detail.headers['X-Custom-Header'] = 'value';
+});
+```
+
+## Security Best Practices
+
+1. **Escape All User Content**: Prevent XSS through server-side template escaping
+2. **Use hx-disable**: Prevent htmx processing on untrusted content
+3. **Restrict Request Origins**:
+   ```javascript
+   htmx.config.selfRequestsOnly = true;
+   ```
+4. **Disable Script Processing**:
+   ```javascript
+   htmx.config.allowScriptTags = false;
+   ```
+5. **Include CSRF Tokens**:
+   ```html
+   &lt;body hx-headers='{&quot;X-CSRF-Token&quot;: &quot;&quot;}'&gt;
+   ```
+6. **Content Security Policy**: Layer browser-level protections
+
+## Configuration
+
+Key `htmx.config` options:
+
+```javascript
+htmx.config.defaultSwapStyle = 'innerHTML';
+htmx.config.timeout = 0; // Request timeout (0 = none)
+htmx.config.historyCacheSize = 10;
+htmx.config.globalViewTransitions = false;
+htmx.config.scrollBehavior = 'instant'; // or 'smooth', 'auto'
+htmx.config.selfRequestsOnly = false;
+htmx.config.allowScriptTags = true;
+htmx.config.allowEval = true;
+```
+
+Or via meta tag:
+```html
+&lt;meta name=&quot;htmx-config&quot; content='{&quot;selfRequestsOnly&quot;:true}'&gt;
+```
+
+## Extensions
+
+### Loading Extensions
+
+```html
+&lt;script src=&quot;https://unpkg.com/htmx-ext-&lt;name&gt;@&lt;version&gt;/&lt;name&gt;.js&quot;&gt;&lt;/script&gt;
+&lt;body hx-ext=&quot;extension-name&quot;&gt;
+```
+
+### Common Extensions
+
+- **head-support**: Merge head tag information across requests
+- **idiomorph**: Morphing swaps (preserves element state)
+- **sse**: Server-Sent Events support
+- **ws**: WebSocket support
+- **preload**: Content preloading
+- **response-targets**: HTTP status-based targeting
+
+## Debugging
+
+Enable logging:
+```javascript
+htmx.logAll();
+```
+
+Check request headers in Network tab:
+- `HX-Request: true`
+- `HX-Target: &lt;target-id&gt;`
+- `HX-Trigger: &lt;trigger-id&gt;`
+- `HX-Current-URL: &lt;page-url&gt;`
+
+## Progressive Enhancement
+
+Structure for graceful degradation:
+
+```html
+&lt;form action=&quot;/search&quot; method=&quot;POST&quot;&gt;
+  &lt;input name=&quot;q&quot;
+         hx-get=&quot;/search&quot;
+         hx-trigger=&quot;keyup changed delay:300ms&quot;
+         hx-target=&quot;#results&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+&lt;div id=&quot;results&quot;&gt;&lt;/div&gt;
+```
+
+Non-JavaScript users get form submission; JavaScript users get AJAX.
+
+## Third-Party Integration
+
+Initialize libraries on htmx-loaded content:
+
+```javascript
+htmx.onLoad(function(content) {
+  content.querySelectorAll('.datepicker').forEach(el =&gt; {
+    new Datepicker(el);
+  });
+});
+```
+
+For programmatically added htmx content:
+```javascript
+htmx.process(document.getElementById('new-content'));
+```
+
+## Common Gotchas
+
+1. **ID Stability**: Keep element IDs stable for CSS transitions
+2. **Swap Timing**: Default 0ms swap delay; use `swap:100ms` for transitions
+3. **Event Bubbling**: htmx events bubble; use `event.detail` for data
+4. **Form Data**: Only named inputs are included in requests
+5. **History**: History snapshots store innerHTML, not full DOM state
+
+## Development Environment Requirements
+
+### htmx Requires HTTP (Not file://)
+
+htmx will NOT work when opening HTML files directly from the filesystem (`file://` URLs). This causes `htmx:invalidPath` errors because:
+- Browsers block cross-origin requests from `file://` URLs
+- htmx needs to make HTTP requests to endpoints
+
+**Solution**: Always serve htmx applications via HTTP server:
+
+```bash
+# Simple Python server (recommended for development)
+python3 -m http.server 8000
+
+# Or create a custom server with API endpoints
+python3 server.py
+```
+
+### Minimal Development Server Pattern
+
+For htmx examples and prototypes, create a simple Python server that:
+1. Serves static files (HTML, CSS, JS)
+2. Provides API endpoints that return HTML fragments
+
+```python
+from http.server import HTTPServer, SimpleHTTPRequestHandler
+from urllib.parse import urlparse, parse_qs
+
+class HtmxHandler(SimpleHTTPRequestHandler):
+    def do_GET(self):
+        path = urlparse(self.path).path
+
+        if path.startswith(&quot;/api/&quot;):
+            # Return HTML fragment
+            self.send_response(200)
+            self.send_header(&quot;Content-Type&quot;, &quot;text/html&quot;)
+            self.end_headers()
+            self.wfile.write(b&quot;&lt;div&gt;Response HTML&lt;/div&gt;&quot;)
+        else:
+            # Serve static files
+            super().do_GET()
+
+HTTPServer((&quot;&quot;, 8000), HtmxHandler).serve_forever()
+```
+
+## Practical Implementation Lessons
+
+### Loading Indicators with CSS Spinner
+
+Use CSS-only spinners instead of image files for better performance:
+
+```html
+&lt;button hx-get=&quot;/api/slow&quot;
+        hx-indicator=&quot;#spinner&quot;&gt;
+    Load
+    &lt;span id=&quot;spinner&quot; class=&quot;spinner htmx-indicator&quot;&gt;&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;style&gt;
+.htmx-indicator { display: none; }
+.htmx-request .htmx-indicator { display: inline-block; }
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3d72d7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+&lt;/style&gt;
+```
+
+### Input Search with Proper Trigger
+
+Use `input changed` instead of `keyup changed` for better UX (catches paste, autofill):
+
+```html
+&lt;input type=&quot;search&quot;
+       name=&quot;q&quot;
+       hx-get=&quot;/api/search&quot;
+       hx-trigger=&quot;input changed delay:300ms, search&quot;
+       hx-target=&quot;#results&quot;&gt;
+```
+
+The `search` trigger handles the search input's clear button (X).
+
+### Self-Targeting with Polling
+
+For elements that replace themselves (polling), use `hx-target=&quot;this&quot;`:
+
+```html
+&lt;div hx-get=&quot;/api/time&quot;
+     hx-trigger=&quot;load, every 2s&quot;
+     hx-target=&quot;this&quot;
+     hx-swap=&quot;innerHTML&quot;&gt;
+    Loading...
+&lt;/div&gt;
+```
+
+### Row Updates with closest
+
+For list items where each row has its own update button:
+
+```html
+&lt;li id=&quot;item-1&quot;&gt;
+    &lt;span&gt;Item 1&lt;/span&gt;
+    &lt;button hx-get=&quot;/api/update-item/1&quot;
+            hx-target=&quot;closest li&quot;
+            hx-swap=&quot;outerHTML&quot;&gt;
+        Update
+    &lt;/button&gt;
+&lt;/li&gt;
+```
+
+Server returns complete `&lt;li&gt;` element with new htmx attributes intact.
+
+### Event Attribute Syntax
+
+The `hx-on::` syntax uses double colons for htmx events:
+
+```html
+&lt;!-- Correct --&gt;
+&lt;button hx-on::before-request=&quot;console.log('starting')&quot;&gt;
+
+&lt;!-- Also correct (older syntax) --&gt;
+&lt;button hx-on:htmx:before-request=&quot;console.log('starting')&quot;&gt;
+```
+
+### Combining Multiple Triggers
+
+Separate triggers with commas:
+
+```html
+&lt;div hx-get=&quot;/api/data&quot;
+     hx-trigger=&quot;load, every 5s, click from:#refresh-btn&quot;&gt;
+```
+
+### Form POST with Loading State
+
+Combine `hx-indicator` and `hx-disabled-elt` for complete UX:
+
+```html
+&lt;form hx-post=&quot;/api/submit&quot;
+      hx-target=&quot;#result&quot;
+      hx-indicator=&quot;#spinner&quot;
+      hx-disabled-elt=&quot;find button&quot;&gt;
+    &lt;input name=&quot;email&quot; required&gt;
+    &lt;button type=&quot;submit&quot;&gt;
+        Submit
+        &lt;span id=&quot;spinner&quot; class=&quot;spinner htmx-indicator&quot;&gt;&lt;/span&gt;
+    &lt;/button&gt;
+&lt;/form&gt;
+```
+
+## Additional Resources
+
+For detailed reference, consult:
+- Official docs: https://htmx.org/docs/
+- Attributes reference: https://htmx.org/reference/
+- Examples: https://htmx.org/examples/
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
