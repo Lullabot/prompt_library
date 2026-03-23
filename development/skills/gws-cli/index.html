@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Google Workspace CLI (gws) - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Google Workspace CLI (gws)</h1>
+  <p class="description">Comprehensive skill for interacting with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, and more) via the gws command-line tool. Covers helper commands for common tasks, raw API access for advanced operations, cross-service workflows, schema discovery, and output formatting.</p>
+  
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">google-workspace</span>
+      
+        <span class="tag">gmail</span>
+      
+        <span class="tag">google-calendar</span>
+      
+        <span class="tag">google-drive</span>
+      
+        <span class="tag">google-sheets</span>
+      
+        <span class="tag">cli</span>
+      
+        <span class="tag">productivity</span>
+      
+        <span class="tag">automation</span>
+      
+    </div>
+    <time datetime="2026-03-23">2026-03-23</time>
+  </div>
+
+  <div class="content">
+    <pre><code>---
+name: gws-cli
+description: &quot;This skill should be used when users need to interact with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, etc.) from the command line. Use when users ask to send/read email, check calendar, upload files, read spreadsheets, manage tasks, or perform any Google Workspace operation. Triggers on 'check my email', 'send email', 'calendar', 'agenda', 'upload to drive', 'read spreadsheet', 'google workspace', 'gws', or any request involving Gmail, Google Calendar, Google Drive, Google Sheets, Google Docs, or Google Tasks.&quot;
+---
+
+# Google Workspace CLI (gws)
+
+Use the `gws` CLI for ALL Google Workspace operations. Do NOT use MCP tools for Gmail, Calendar, Drive, or Sheets -- always prefer `gws`.
+
+## Command Structure
+
+```
+gws &lt;service&gt; &lt;resource&gt; [sub-resource] &lt;method&gt; [flags]
+```
+
+Helper commands use `+` prefix for common operations:
+```
+gws &lt;service&gt; +&lt;helper&gt; [flags]
+```
+
+## Services
+
+| Service | Description |
+|---------|-------------|
+| `gmail` | Send, read, and manage email |
+| `calendar` | Manage calendars and events |
+| `drive` | Manage files, folders, and shared drives |
+| `sheets` | Read and write spreadsheets |
+| `docs` | Read and write Google Docs |
+| `slides` | Read and write presentations |
+| `tasks` | Manage task lists and tasks |
+| `chat` | Manage Chat spaces and messages |
+| `people` | Manage contacts and profiles |
+| `forms` | Read and write Google Forms |
+| `keep` | Manage Google Keep notes |
+| `meet` | Manage Google Meet conferences |
+| `workflow` | Cross-service productivity workflows (alias: `wf`) |
+
+## Global Flags
+
+| Flag | Description |
+|------|-------------|
+| `--params &lt;JSON&gt;` | URL/Query parameters as JSON |
+| `--json &lt;JSON&gt;` | Request body as JSON (POST/PATCH/PUT) |
+| `--upload &lt;PATH&gt;` | Local file to upload as media content |
+| `--output &lt;PATH&gt;` | Output file path for binary responses |
+| `--format &lt;FMT&gt;` | Output format: `json` (default), `table`, `yaml`, `csv` |
+| `--page-all` | Auto-paginate (NDJSON output) |
+| `--page-limit &lt;N&gt;` | Max pages with --page-all (default: 10) |
+| `--dry-run` | Validate without sending to API |
+
+## Gmail
+
+### Helpers (preferred for common tasks)
+
+**Send email:**
+```bash
+gws gmail +send --to alice@example.com --subject 'Hello' --body 'Hi Alice!'
+gws gmail +send --to alice@example.com --subject 'Report' --body 'See attached' -a report.pdf
+gws gmail +send --to alice@example.com --subject 'Hello' --body '&lt;b&gt;Bold&lt;/b&gt;' --html
+gws gmail +send --to a@ex.com --subject 'Hi' --cc b@ex.com --bcc c@ex.com --body 'Hello'
+```
+
+**Triage inbox (read-only):**
+```bash
+gws gmail +triage                              # Unread inbox summary (table)
+gws gmail +triage --max 5 --query 'from:boss'  # Filtered
+gws gmail +triage --format json                # JSON output
+gws gmail +triage --labels                     # Include label names
+```
+
+**Read a message:**
+```bash
+gws gmail +read --id &lt;MESSAGE_ID&gt;
+gws gmail +read --id &lt;MESSAGE_ID&gt; --headers    # Include From, To, Subject, Date
+gws gmail +read --id &lt;MESSAGE_ID&gt; --format json
+```
+
+**Reply to a message:**
+```bash
+gws gmail +reply --message-id &lt;ID&gt; --body 'Thanks!'
+gws gmail +reply --message-id &lt;ID&gt; --body 'Looping in Carol' --cc carol@ex.com
+gws gmail +reply --message-id &lt;ID&gt; --body '&lt;b&gt;Bold&lt;/b&gt;' --html
+```
+
+**Reply-all:**
+```bash
+gws gmail +reply-all --message-id &lt;ID&gt; --body 'Sounds good!'
+```
+
+**Forward a message:**
+```bash
+gws gmail +forward --message-id &lt;ID&gt; --to dave@example.com
+gws gmail +forward --message-id &lt;ID&gt; --to dave@example.com --body 'FYI see below'
+```
+
+### Raw API
+
+**Search/list messages:**
+```bash
+gws gmail users messages list --params '{&quot;userId&quot;: &quot;me&quot;, &quot;q&quot;: &quot;subject:invoice after:2026/01/01&quot;}'
+gws gmail users messages list --params '{&quot;userId&quot;: &quot;me&quot;, &quot;labelIds&quot;: [&quot;INBOX&quot;], &quot;maxResults&quot;: 10}'
+```
+
+**Get message details:**
+```bash
+gws gmail users messages get --params '{&quot;userId&quot;: &quot;me&quot;, &quot;id&quot;: &quot;&lt;MESSAGE_ID&gt;&quot;}'
+```
+
+**Manage labels:**
+```bash
+gws gmail users labels list --params '{&quot;userId&quot;: &quot;me&quot;}'
+gws gmail users labels create --params '{&quot;userId&quot;: &quot;me&quot;}' --json '{&quot;name&quot;: &quot;MyLabel&quot;}'
+```
+
+**Modify message labels:**
+```bash
+gws gmail users messages modify --params '{&quot;userId&quot;: &quot;me&quot;, &quot;id&quot;: &quot;&lt;ID&gt;&quot;}' \
+  --json '{&quot;addLabelIds&quot;: [&quot;STARRED&quot;], &quot;removeLabelIds&quot;: [&quot;UNREAD&quot;]}'
+```
+
+**Trash/untrash:**
+```bash
+gws gmail users messages trash --params '{&quot;userId&quot;: &quot;me&quot;, &quot;id&quot;: &quot;&lt;ID&gt;&quot;}'
+gws gmail users messages untrash --params '{&quot;userId&quot;: &quot;me&quot;, &quot;id&quot;: &quot;&lt;ID&gt;&quot;}'
+```
+
+## Calendar
+
+### Helpers
+
+**View agenda:**
+```bash
+gws calendar +agenda                           # Upcoming events
+gws calendar +agenda --today                   # Today only
+gws calendar +agenda --tomorrow                # Tomorrow
+gws calendar +agenda --week --format table     # This week as table
+gws calendar +agenda --days 3 --calendar 'Work'
+gws calendar +agenda --today --timezone America/New_York
+```
+
+**Create event:**
+```bash
+gws calendar +insert --summary 'Standup' \
+  --start '2026-06-17T09:00:00-07:00' \
+  --end '2026-06-17T09:30:00-07:00'
+
+gws calendar +insert --summary 'Review' \
+  --start '2026-06-17T14:00:00-07:00' \
+  --end '2026-06-17T15:00:00-07:00' \
+  --attendee alice@example.com --meet
+```
+
+### Raw API
+
+**List events:**
+```bash
+gws calendar events list --params '{&quot;calendarId&quot;: &quot;primary&quot;, &quot;timeMin&quot;: &quot;2026-03-01T00:00:00Z&quot;, &quot;timeMax&quot;: &quot;2026-03-31T23:59:59Z&quot;, &quot;singleEvents&quot;: true, &quot;orderBy&quot;: &quot;startTime&quot;}'
+```
+
+**Update event:**
+```bash
+gws calendar events patch --params '{&quot;calendarId&quot;: &quot;primary&quot;, &quot;eventId&quot;: &quot;&lt;EVENT_ID&gt;&quot;}' \
+  --json '{&quot;summary&quot;: &quot;Updated Title&quot;}'
+```
+
+**Delete event:**
+```bash
+gws calendar events delete --params '{&quot;calendarId&quot;: &quot;primary&quot;, &quot;eventId&quot;: &quot;&lt;EVENT_ID&gt;&quot;}'
+```
+
+**Check free/busy:**
+```bash
+gws calendar freebusy query --json '{
+  &quot;timeMin&quot;: &quot;2026-03-23T00:00:00Z&quot;,
+  &quot;timeMax&quot;: &quot;2026-03-23T23:59:59Z&quot;,
+  &quot;items&quot;: [{&quot;id&quot;: &quot;primary&quot;}]
+}'
+```
+
+## Drive
+
+### Helpers
+
+**Upload a file:**
+```bash
+gws drive +upload ./report.pdf
+gws drive +upload ./report.pdf --parent FOLDER_ID
+gws drive +upload ./data.csv --name 'Sales Data.csv'
+```
+
+### Raw API
+
+**List files:**
+```bash
+gws drive files list --params '{&quot;pageSize&quot;: 10}'
+gws drive files list --params '{&quot;q&quot;: &quot;mimeType=\&quot;application/pdf\&quot;&quot;, &quot;pageSize&quot;: 20}'
+gws drive files list --params '{&quot;q&quot;: &quot;name contains \&quot;report\&quot;&quot;, &quot;fields&quot;: &quot;files(id,name,modifiedTime)&quot;}'
+```
+
+**Get file metadata:**
+```bash
+gws drive files get --params '{&quot;fileId&quot;: &quot;&lt;FILE_ID&gt;&quot;, &quot;fields&quot;: &quot;id,name,mimeType,size,webViewLink&quot;}'
+```
+
+**Download file:**
+```bash
+gws drive files get --params '{&quot;fileId&quot;: &quot;&lt;FILE_ID&gt;&quot;, &quot;alt&quot;: &quot;media&quot;}' --output ./downloaded-file.pdf
+```
+
+**Create folder:**
+```bash
+gws drive files create --json '{&quot;name&quot;: &quot;My Folder&quot;, &quot;mimeType&quot;: &quot;application/vnd.google-apps.folder&quot;}'
+```
+
+**Move file to folder:**
+```bash
+gws drive files update --params '{&quot;fileId&quot;: &quot;&lt;FILE_ID&gt;&quot;, &quot;addParents&quot;: &quot;&lt;FOLDER_ID&gt;&quot;, &quot;removeParents&quot;: &quot;&lt;OLD_PARENT_ID&gt;&quot;}'
+```
+
+**Share file:**
+```bash
+gws drive permissions create --params '{&quot;fileId&quot;: &quot;&lt;FILE_ID&gt;&quot;}' \
+  --json '{&quot;role&quot;: &quot;reader&quot;, &quot;type&quot;: &quot;user&quot;, &quot;emailAddress&quot;: &quot;alice@example.com&quot;}'
+```
+
+## Sheets
+
+### Helpers
+
+**Read spreadsheet:**
+```bash
+gws sheets +read --spreadsheet &lt;ID&gt; --range &quot;Sheet1!A1:D10&quot;
+gws sheets +read --spreadsheet &lt;ID&gt; --range &quot;Sheet1&quot; --format table
+```
+
+**Append rows:**
+```bash
+gws sheets +append --spreadsheet &lt;ID&gt; --values 'Alice,100,true'
+gws sheets +append --spreadsheet &lt;ID&gt; --json-values '[[&quot;a&quot;,&quot;b&quot;],[&quot;c&quot;,&quot;d&quot;]]'
+```
+
+### Raw API
+
+**Get spreadsheet metadata:**
+```bash
+gws sheets spreadsheets get --params '{&quot;spreadsheetId&quot;: &quot;&lt;ID&gt;&quot;}'
+```
+
+**Update cell values:**
+```bash
+gws sheets spreadsheets values update \
+  --params '{&quot;spreadsheetId&quot;: &quot;&lt;ID&gt;&quot;, &quot;range&quot;: &quot;Sheet1!A1&quot;, &quot;valueInputOption&quot;: &quot;USER_ENTERED&quot;}' \
+  --json '{&quot;values&quot;: [[&quot;Hello&quot;, &quot;World&quot;]]}'
+```
+
+## Workflows (Cross-Service)
+
+**Standup report** (today's meetings + open tasks):
+```bash
+gws workflow +standup-report
+```
+
+**Meeting prep** (agenda, attendees, linked docs):
+```bash
+gws workflow +meeting-prep
+```
+
+**Email to task** (convert Gmail message to Google Tasks):
+```bash
+gws workflow +email-to-task
+```
+
+**Weekly digest** (meetings + unread count):
+```bash
+gws workflow +weekly-digest
+```
+
+**Announce Drive file in Chat:**
+```bash
+gws workflow +file-announce
+```
+
+## Schema Discovery
+
+Explore any API method's parameters:
+```bash
+gws schema gmail.users.messages.list
+gws schema drive.files.list --resolve-refs
+gws schema calendar.events.insert
+```
+
+## Output Formats
+
+- `--format json` (default) -- JSON output, pipe to `jq` for filtering
+- `--format table` -- Human-readable table
+- `--format yaml` -- YAML output
+- `--format csv` -- CSV output
+
+## Pagination
+
+For large result sets:
+```bash
+gws gmail users messages list --params '{&quot;userId&quot;: &quot;me&quot;}' --page-all --page-limit 5
+```
+
+## Important Notes
+
+1. **Always use `gws` over MCP tools** for Google Workspace operations
+2. **userId is always &quot;me&quot;** for Gmail operations on the authenticated user
+3. **Use helpers (`+command`) for common tasks** -- they handle encoding, threading, MIME, etc.
+4. **Use raw API for advanced operations** not covered by helpers
+5. **Use `--dry-run`** to validate commands before executing destructive operations
+6. **Use `--format table`** when output is for human reading
+7. **Pipe JSON to `jq`** for filtering: `gws gmail +triage --format json | jq '.[].subject'`
+8. **Times must be RFC 3339/ISO 8601** for calendar operations (e.g., `2026-06-17T09:00:00-07:00`)
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: #4a5568;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: #718096;
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: #edf2f7;
+    color: #4a5568;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: #2d3748;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: #edf2f7;
+    border-color: #cbd5e0;
+  }
+
+  .copy-button.copied {
+    background-color: #48bb78;
+    border-color: #48bb78;
+    color: white;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+        
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+        
+        pre.appendChild(button);
+      }
+    });
+  });
+</script> 
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
