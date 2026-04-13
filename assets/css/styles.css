@@ -1,68 +1,68 @@
 /* ===========================
    Google Fonts Import
    =========================== */
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ===========================
    CSS Custom Properties
    =========================== */
 :root {
-    /* Light theme variables */
-    --primary-color: #1a56db;
-    --secondary-color: #1e40af;
-    --accent-color: #059669;
-    --text-color: #1c1917;
-    --text-muted: #57534e;
-    --background-color: #fafaf9;
-    --surface-color: #f5f5f4;
+    /* Light theme — Lullabot brand-aligned */
+    --primary-color: #cf1900;
+    --secondary-color: #a51400;
+    --accent-color: #1481b8;
+    --text-color: #171d21;
+    --text-muted: #5d686f;
+    --background-color: #f9fafb;
+    --surface-color: #f4f5f6;
     --card-background: #ffffff;
-    --tag-background: #e7e5e4;
-    --border-color: #d6d3d1;
-    --search-bg: rgba(28, 25, 23, 0.06);
-    --search-bg-focus: rgba(28, 25, 23, 0.1);
-    --search-text: #1c1917;
-    --search-placeholder: rgba(28, 25, 23, 0.4);
+    --tag-background: #edf0f2;
+    --border-color: #d6d9dc;
+    --search-bg: rgba(23, 29, 33, 0.06);
+    --search-bg-focus: rgba(23, 29, 33, 0.1);
+    --search-text: #171d21;
+    --search-placeholder: rgba(23, 29, 33, 0.4);
     --header-bg: #ffffff;
-    --header-text: #1c1917;
-    --code-background: #f5f5f4;
-    --code-text: #1c1917;
-    --code-border: #d6d3d1;
-    --inline-code-background: #e7e5e4;
-    --inline-code-text: #1c1917;
-    --card-hover-shadow: rgba(28, 25, 23, 0.08);
+    --header-text: #171d21;
+    --code-background: #f4f5f6;
+    --code-text: #171d21;
+    --code-border: #d6d9dc;
+    --inline-code-background: #edf0f2;
+    --inline-code-text: #171d21;
+    --card-hover-shadow: rgba(23, 29, 33, 0.08);
     --theme-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
-    /* Typography */
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    --font-heading: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+    /* Typography — Inter matches Circular's geometric style; IBM Plex Mono from lullabot.com */
+    --font-sans: 'Inter', verdana, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Consolas', 'Liberation Mono', monospace;
+    --font-heading: 'Inter', verdana, sans-serif;
 }
 
-/* Dark theme variables */
+/* Dark theme — Lullabot primary-dark palette */
 :root.dark-theme {
-    --primary-color: #60a5fa;
-    --secondary-color: #93c5fd;
-    --accent-color: #a8f06a;
-    --text-color: #e8e6e1;
-    --text-muted: #94a3b8;
-    --background-color: #0c0c0b;
-    --surface-color: #161615;
-    --card-background: #1a1a18;
-    --tag-background: #2a2a26;
-    --border-color: #2a2a26;
+    --primary-color: #fa6955;
+    --secondary-color: #f9442b;
+    --accent-color: #6bc3ef;
+    --text-color: #edf0f2;
+    --text-muted: #909ba2;
+    --background-color: #12212b;
+    --surface-color: #1b303f;
+    --card-background: #20394b;
+    --tag-background: #445a6a;
+    --border-color: #445a6a;
     --search-bg: rgba(0, 0, 0, 0.3);
     --search-bg-focus: rgba(0, 0, 0, 0.5);
-    --search-text: #e8e6e1;
-    --search-placeholder: rgba(232, 230, 225, 0.5);
-    --header-bg: #0c0c0b;
-    --header-text: #e8e6e1;
-    --code-background: #111110;
-    --code-text: #e2e8f0;
-    --code-border: #2a2a26;
-    --inline-code-background: #2a2a26;
-    --inline-code-text: #e2e8f0;
-    --card-hover-shadow: rgba(0, 0, 0, 0.5);
-    --card-text: #e8e6e1;
+    --search-text: #edf0f2;
+    --search-placeholder: rgba(237, 240, 242, 0.5);
+    --header-bg: #12212b;
+    --header-text: #edf0f2;
+    --code-background: #1b303f;
+    --code-text: #e0e6eb;
+    --code-border: #445a6a;
+    --inline-code-background: #445a6a;
+    --inline-code-text: #e0e6eb;
+    --card-hover-shadow: rgba(0, 0, 0, 0.4);
+    --card-text: #edf0f2;
 }
 
 /* ===========================
@@ -141,7 +141,7 @@ header {
 }
 
 :root.dark-theme header {
-    background-color: rgba(12, 12, 11, 0.85);
+    background-color: rgba(18, 33, 43, 0.85);
 }
 
 nav {
@@ -680,7 +680,7 @@ pre code {
 
 :root.dark-theme .hljs-string,
 :root.dark-theme .hljs-regexp {
-    color: #a8f06a;
+    color: #6bc3ef;
 }
 
 :root.dark-theme .hljs-number,
@@ -861,7 +861,7 @@ pre code {
 
 :root.dark-theme .discipline-card:hover {
     border-color: var(--accent-color);
-    box-shadow: 0 0 20px rgba(168, 240, 106, 0.08);
+    box-shadow: 0 0 20px rgba(107, 195, 239, 0.12);
 }
 
 .discipline-card h2 {
@@ -1348,12 +1348,12 @@ pre code {
 }
 
 :root.dark-theme .cta-button {
-    background-color: var(--accent-color);
-    color: #0c0c0b;
+    background-color: var(--primary-color);
+    color: #ffffff;
 }
 
 :root.dark-theme .cta-button:hover {
-    background-color: #8dd85a;
+    background-color: var(--secondary-color);
 }
 
 :root.dark-theme .cta-button.secondary {
@@ -1364,7 +1364,7 @@ pre code {
 
 :root.dark-theme .cta-button.secondary:hover {
     background-color: var(--accent-color);
-    color: #0c0c0b;
+    color: #12212b;
 }
 
 /* ===========================
