@@ -43,8 +43,12 @@ hideSearch: false
   <div class="by-type-nav">
     {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
       {% set typeCount = collections[type] | length %}
-      <a href="#type-{{ type }}" class="by-type-link {% if typeCount == 0 %}empty{% endif %}" data-type="{{ type }}">
-        <span class="content-type-icon">
+      {% if typeCount > 0 %}
+      <a href="{{ baseUrl }}/{{ type }}/" class="by-type-link">
+      {% else %}
+      <span class="by-type-link empty" aria-disabled="true">
+      {% endif %}
+        <span class="content-type-icon" aria-hidden="true">
           {% if type === 'prompts' %}💡
           {% elif type === 'rules' %}📋
           {% elif type === 'agents' %}🤖
@@ -54,7 +58,11 @@ hideSearch: false
         </span>
         <span class="by-type-label">{{ type | replace('-', ' ') | title }}</span>
         <span class="by-type-count">{{ typeCount }}</span>
+      {% if typeCount > 0 %}
       </a>
+      {% else %}
+      </span>
+      {% endif %}
     {% endfor %}
   </div>
 
@@ -158,15 +166,20 @@ hideSearch: false
     transition: all 0.2s;
   }
 
-  .by-type-link:hover {
+  a.by-type-link:hover,
+  a.by-type-link:focus-visible {
     border-color: var(--primary-color);
     background-color: var(--surface-color);
     transform: translateY(-1px);
   }
 
+  a.by-type-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
   .by-type-link.empty {
     opacity: 0.5;
-    pointer-events: none;
   }
 
   .by-type-count {

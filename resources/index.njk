@@ -1,0 +1,30 @@
+---
+title: "All Resources"
+description: "Browse all resources across every discipline."
+layout: "base.njk"
+---
+
+<div class="content-type-page">
+  <h1 class="page-title">🔗 All Resources</h1>
+  <p class="page-description">{{ description }}</p>
+
+  <div class="content-list">
+    {% for item in collections.resources %}
+      <article class="content-item fade-up">
+        <h2><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h2>
+        <p class="item-description">{{ item.data.description }}</p>
+        <div class="item-meta">
+          <span class="item-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>
+          <span class="item-date">{{ item.date | date }}</span>
+        </div>
+        <div class="item-tags">
+          {% for tag in item.data.tags %}
+            <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+{% include "content-type-styles.njk" %}
