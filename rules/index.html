@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>All Rules - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="content-type-page">
+  <h1 class="page-title">📋 All Rules</h1>
+  <p class="page-description">Browse all rules across every discipline.</p>
+
+  <div class="content-list">
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/rules/code-quality/">Code Quality Standards</a></h2>
+        <p class="item-description">Rules for maintaining high code quality across all projects.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-03-20</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">standards</span>
+          
+            <span class="tag">best practices</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/rules/drupal-standards/">Drupal 11 Development Standards</a></h2>
+        <p class="item-description">Rules for maintaining high code quality in Drupal 11 projects.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-03-20</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">drupal</span>
+          
+            <span class="tag">standards</span>
+          
+            <span class="tag">best practices</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/rules/drupal/">Drupal Development</a></h2>
+        <p class="item-description">Rules for maintaining high code quality in Drupal projects.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-04-17</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">drupal</span>
+          
+            <span class="tag">standards</span>
+          
+            <span class="tag">best practices</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/sales-marketing/rules/no-corrective-contrast-pattern/">No Corrective Contrast Pattern</a></h2>
+        <p class="item-description">Avoid corrective contrast patterns that create defensive, AI-sounding prose</p>
+        <div class="item-meta">
+          <span class="item-discipline">Sales Marketing</span>
+          <span class="item-date">2024-08-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">writing</span>
+          
+            <span class="tag">style</span>
+          
+            <span class="tag">ai-detection</span>
+          
+            <span class="tag">clarity</span>
+          
+            <span class="tag">marketing</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/content-strategy/rules/lullabot-voice-and-tone-styleguide/">Lullabot Voice and Tone Styleguide</a></h2>
+        <p class="item-description">MAINTAIN consistent brand voice and tone when WRITING CONTENT to ENSURE clear and effective communication</p>
+        <div class="item-meta">
+          <span class="item-discipline">Content Strategy</span>
+          <span class="item-date">2025-08-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">brand voice</span>
+          
+            <span class="tag">tone</span>
+          
+            <span class="tag">writing style</span>
+          
+            <span class="tag">content guidelines</span>
+          
+            <span class="tag">communication</span>
+          
+            <span class="tag">global accessibility</span>
+          
+            <span class="tag">idioms</span>
+          
+            <span class="tag">clarity</span>
+          
+        </div>
+      </article>
+    
+  </div>
+</div>
+
+<style>
+  .content-type-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .content-type-page .page-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .content-type-page .page-description {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .content-type-page .content-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .content-type-page .content-item {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .content-type-page .content-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--card-hover-shadow);
+  }
+
+  :root.dark-theme .content-type-page .content-item:hover {
+    border-color: var(--accent-color);
+  }
+
+  .content-type-page .content-item h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .content-type-page .content-item h2 a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .content-type-page .content-item h2 a:hover {
+    text-decoration: underline;
+  }
+
+  .item-description {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-discipline {
+    background-color: var(--tag-background);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+  }
+
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .item-tags .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .content-type-page .content-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 

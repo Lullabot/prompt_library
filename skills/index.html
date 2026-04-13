@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>All Skills - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="content-type-page">
+  <h1 class="page-title">🛠️ All Skills</h1>
+  <p class="page-description">Browse all skills across every discipline.</p>
+
+  <div class="content-list">
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/content-strategy/skills/humanizer/">Humanizer</a></h2>
+        <p class="item-description">Remove signs of AI-generated writing from text. Detects and fixes 24 patterns including inflated symbolism, promotional language, superficial analyses, vague attributions, em dash overuse, AI vocabulary words, negative parallelisms, and excessive conjunctive phrases. Based on Wikipedia&#39;s comprehensive &#39;Signs of AI writing&#39; guide.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Content Strategy</span>
+          <span class="item-date">2025-01-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">content-editing</span>
+          
+            <span class="tag">writing-quality</span>
+          
+            <span class="tag">ai-detection</span>
+          
+            <span class="tag">content-cleanup</span>
+          
+            <span class="tag">editorial</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/design/skills/nano-banana-prompt/">Nano Banana Prompt Generator</a></h2>
+        <p class="item-description">Generate optimized prompts for Gemini Nano Banana (Nano Banana Pro) image generation. Leverages structured formatting, markdown syntax, and prestige anchoring for strong prompt adherence, character consistency, and nuanced visual control. Ideal for book illustrations, concept art, character designs, and creative visual projects.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Design</span>
+          <span class="item-date">2025-01-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">image-generation</span>
+          
+            <span class="tag">ai-art</span>
+          
+            <span class="tag">prompt-engineering</span>
+          
+            <span class="tag">visual-design</span>
+          
+            <span class="tag">gemini</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/skills/cloudflare-tunnel/">Cloudflare Tunnel</a></h2>
+        <p class="item-description">Expose local development web services to the internet using Cloudflare Tunnel. Supports quick tunnels (zero config, temporary URL) and named tunnels (persistent, reusable). Includes installation, authentication, common patterns for popular frameworks, and troubleshooting guidance.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2025-01-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">cloudflare</span>
+          
+            <span class="tag">tunnels</span>
+          
+            <span class="tag">local-development</span>
+          
+            <span class="tag">networking</span>
+          
+            <span class="tag">devops</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/skills/resolve-composer-conflicts/">Resolve Composer Conflicts</a></h2>
+        <p class="item-description">Resolve Composer lockfile conflicts handling updates and removals</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2026-03-13</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">local-development</span>
+          
+            <span class="tag">composer</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/skills/htmx-expert/">htmx Expert</a></h2>
+        <p class="item-description">Expert guidance for htmx development, including AJAX interactions, htmx attributes (hx-get, hx-post, hx-swap, hx-target, hx-trigger), debugging htmx behavior, building hypermedia-driven applications, and htmx best practices.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2026-03-17</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">htmx</span>
+          
+            <span class="tag">html</span>
+          
+            <span class="tag">hypermedia</span>
+          
+            <span class="tag">ajax</span>
+          
+            <span class="tag">frontend</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/skills/gws-cli/">Google Workspace CLI (gws)</a></h2>
+        <p class="item-description">Comprehensive skill for interacting with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, and more) via the gws command-line tool. Covers helper commands for common tasks, raw API access for advanced operations, cross-service workflows, schema discovery, and output formatting.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2026-03-23</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">google-workspace</span>
+          
+            <span class="tag">gmail</span>
+          
+            <span class="tag">google-calendar</span>
+          
+            <span class="tag">google-drive</span>
+          
+            <span class="tag">google-sheets</span>
+          
+            <span class="tag">cli</span>
+          
+            <span class="tag">productivity</span>
+          
+            <span class="tag">automation</span>
+          
+        </div>
+      </article>
+    
+  </div>
+</div>
+
+<style>
+  .content-type-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .content-type-page .page-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .content-type-page .page-description {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .content-type-page .content-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .content-type-page .content-item {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .content-type-page .content-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--card-hover-shadow);
+  }
+
+  :root.dark-theme .content-type-page .content-item:hover {
+    border-color: var(--accent-color);
+  }
+
+  .content-type-page .content-item h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .content-type-page .content-item h2 a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .content-type-page .content-item h2 a:hover {
+    text-decoration: underline;
+  }
+
+  .item-description {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-discipline {
+    background-color: var(--tag-background);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+  }
+
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .item-tags .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .content-type-page .content-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 

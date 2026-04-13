@@ -574,6 +574,81 @@
     </div>
   </div>
   
+  <h2 class="recently-added-title">By Type</h2>
+  <div class="by-type-nav">
+    
+      
+      
+      <a href="/prompt_library/prompts/" class="by-type-link">
+      
+        <span class="content-type-icon" aria-hidden="true">
+          💡
+          
+        </span>
+        <span class="by-type-label">Prompts</span>
+        <span class="by-type-count">12</span>
+      
+      </a>
+      
+    
+      
+      
+      <a href="/prompt_library/rules/" class="by-type-link">
+      
+        <span class="content-type-icon" aria-hidden="true">
+          📋
+          
+        </span>
+        <span class="by-type-label">Rules</span>
+        <span class="by-type-count">5</span>
+      
+      </a>
+      
+    
+      
+      
+      <a href="/prompt_library/agents/" class="by-type-link">
+      
+        <span class="content-type-icon" aria-hidden="true">
+          🤖
+          
+        </span>
+        <span class="by-type-label">Agents</span>
+        <span class="by-type-count">8</span>
+      
+      </a>
+      
+    
+      
+      
+      <a href="/prompt_library/skills/" class="by-type-link">
+      
+        <span class="content-type-icon" aria-hidden="true">
+          🛠️
+          
+        </span>
+        <span class="by-type-label">Skills</span>
+        <span class="by-type-count">6</span>
+      
+      </a>
+      
+    
+      
+      
+      <a href="/prompt_library/resources/" class="by-type-link">
+      
+        <span class="content-type-icon" aria-hidden="true">
+          🔗
+          
+        </span>
+        <span class="by-type-label">Resources</span>
+        <span class="by-type-count">2</span>
+      
+      </a>
+      
+    
+  </div>
+
   <h2 class="recently-added-title">By Discipline</h2>
   <div class="discipline-grid">
     
@@ -1069,6 +1144,54 @@
     color: var(--text-muted);
     text-align: center;
     margin-bottom: 3rem;
+  }
+
+  .by-type-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .by-type-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+
+  a.by-type-link:hover,
+  a.by-type-link:focus-visible {
+    border-color: var(--primary-color);
+    background-color: var(--surface-color);
+    transform: translateY(-1px);
+  }
+
+  a.by-type-link:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+
+  .by-type-link.empty {
+    opacity: 0.5;
+  }
+
+  .by-type-count {
+    background-color: var(--tag-background);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 600;
   }
 
   .discipline-grid {

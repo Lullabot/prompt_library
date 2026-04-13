@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>All Agents - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="content-type-page">
+  <h1 class="page-title">🤖 All Agents</h1>
+  <p class="page-description">Browse all agents across every discipline.</p>
+
+  <div class="content-list">
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/drupal-backend-specialist/">Drupal Backend Specialist Agent</a></h2>
+        <p class="item-description">A specialized AI agent for Drupal backend development including custom modules, database design, API development, and plugin architecture.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-09-29</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">drupal</span>
+          
+            <span class="tag">backend</span>
+          
+            <span class="tag">modules</span>
+          
+            <span class="tag">api</span>
+          
+            <span class="tag">database</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/drupal-frontend-engineer/">Drupal Frontend Engineer Agent</a></h2>
+        <p class="item-description">A specialized AI agent for Drupal frontend development including theme creation, template customization, CSS/SCSS styling, JavaScript integration, and responsive design.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-09-29</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">drupal</span>
+          
+            <span class="tag">frontend</span>
+          
+            <span class="tag">theming</span>
+          
+            <span class="tag">css</span>
+          
+            <span class="tag">javascript</span>
+          
+            <span class="tag">responsive</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/testing-qa-engineer/">Testing QA Engineer Agent</a></h2>
+        <p class="item-description">A specialized AI agent for automated testing including PHPUnit tests, browser automation, test strategies, debugging test failures, and optimizing test coverage.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-09-29</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">testing</span>
+          
+            <span class="tag">qa</span>
+          
+            <span class="tag">phpunit</span>
+          
+            <span class="tag">automation</span>
+          
+            <span class="tag">browser-testing</span>
+          
+            <span class="tag">quality-assurance</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/content-strategy/agents/content-optimization/">Content Optimization Agent</a></h2>
+        <p class="item-description">An AI agent that analyzes and optimizes content for SEO, readability, and engagement across multiple platforms.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Content Strategy</span>
+          <span class="item-date">2024-12-19</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">content-optimization</span>
+          
+            <span class="tag">seo</span>
+          
+            <span class="tag">readability</span>
+          
+            <span class="tag">engagement</span>
+          
+            <span class="tag">analytics</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/code-review-assistant/">Code Review Assistant Agent</a></h2>
+        <p class="item-description">An AI agent configuration for automated code review that checks for best practices, security issues, and maintainability.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2024-12-19</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">code-review</span>
+          
+            <span class="tag">automation</span>
+          
+            <span class="tag">best-practices</span>
+          
+            <span class="tag">development</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/project-management/agents/meeting-facilitator/">Meeting Facilitator Agent</a></h2>
+        <p class="item-description">An AI agent that helps facilitate meetings by taking notes, tracking action items, and managing follow-ups.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Project Management</span>
+          <span class="item-date">2024-12-19</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">meetings</span>
+          
+            <span class="tag">facilitation</span>
+          
+            <span class="tag">action-items</span>
+          
+            <span class="tag">follow-up</span>
+          
+            <span class="tag">project-management</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/github-assistant/">GitHub Assistant Agent</a></h2>
+        <p class="item-description">A specialized Git workflow assistant that automates GitHub issue-based development workflows using the gh CLI and semantic branch naming conventions. Creates branches, manages pull requests, and streamlines issue-to-PR workflows.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2025-01-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">github</span>
+          
+            <span class="tag">git</span>
+          
+            <span class="tag">workflow-automation</span>
+          
+            <span class="tag">pull-requests</span>
+          
+            <span class="tag">issue-management</span>
+          
+        </div>
+      </article>
+    
+      <article class="content-item fade-up">
+        <h2><a href="/prompt_library/development/agents/module-readme-maintainer/">Module README Maintainer Agent</a></h2>
+        <p class="item-description">A specialized Claude Code sub-agent designed for proactive Drupal module documentation maintenance. Automatically triggers when module code changes are made to ensure README files stay perfectly synchronized with implementation.</p>
+        <div class="item-meta">
+          <span class="item-discipline">Development</span>
+          <span class="item-date">2025-01-22</span>
+        </div>
+        <div class="item-tags">
+          
+            <span class="tag">drupal</span>
+          
+            <span class="tag">documentation</span>
+          
+            <span class="tag">readme</span>
+          
+            <span class="tag">module-development</span>
+          
+            <span class="tag">proactive-agent</span>
+          
+        </div>
+      </article>
+    
+  </div>
+</div>
+
+<style>
+  .content-type-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .content-type-page .page-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+
+  .content-type-page .page-description {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .content-type-page .content-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .content-type-page .content-item {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .content-type-page .content-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--card-hover-shadow);
+  }
+
+  :root.dark-theme .content-type-page .content-item:hover {
+    border-color: var(--accent-color);
+  }
+
+  .content-type-page .content-item h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+  }
+
+  .content-type-page .content-item h2 a {
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+
+  .content-type-page .content-item h2 a:hover {
+    text-decoration: underline;
+  }
+
+  .item-description {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .item-discipline {
+    background-color: var(--tag-background);
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+  }
+
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .item-tags .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .content-type-page .content-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
