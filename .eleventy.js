@@ -66,14 +66,19 @@ module.exports = function(eleventyConfig) {
       return [];
     }
 
-    // Recursively collect all files in the resource directory
+    // Recursively collect files matching the passthrough-copied extensions
+    // This prevents listing files that won't be in the build output
+    const allowedExtensions = new Set(skillResourceExtensions);
     const resources = [];
     const walk = (dir, prefix) => {
       const entries = fs.readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
+        if (entry.name.startsWith('.')) continue; // skip dotfiles
         if (entry.isDirectory()) {
           walk(path.join(dir, entry.name), `${prefix}${entry.name}/`);
         } else {
+          const ext = entry.name.split('.').pop();
+          if (!allowedExtensions.has(ext)) continue;
           resources.push({
             name: entry.name,
             relativePath: `${prefix}${entry.name}`,

@@ -25,7 +25,7 @@ layout: base.njk
         {% for resource in resources %}
         <li class="resource-item">
           <a href="{{ resource.url | fullUrl }}" class="resource-link" download>
-            <span class="resource-icon">📄</span>
+            <span class="resource-icon" aria-hidden="true">📄</span>
             <span class="resource-path">{{ resource.relativePath }}</span>
           </a>
         </li>

@@ -47,8 +47,20 @@ cmd_install() {
     fi
   elif [[ "$OSTYPE" == linux* ]]; then
     if command_exists apt-get; then
+      local codename=""
+      if command_exists lsb_release; then
+        codename="$(lsb_release -cs)"
+      elif [[ -f /etc/os-release ]]; then
+        # shellcheck disable=SC1091
+        . /etc/os-release
+        codename="${VERSION_CODENAME:-}"
+      fi
+      if [[ -z "$codename" ]]; then
+        echo "Error: Could not determine Debian/Ubuntu codename. Install lsb-release or provide /etc/os-release with VERSION_CODENAME."
+        return 1
+      fi
       curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
-      echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
+      echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared $codename main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
       sudo apt-get update && sudo apt-get install -y cloudflared
     elif command_exists yum; then
       sudo yum install -y cloudflared
