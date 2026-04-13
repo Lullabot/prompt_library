@@ -1,0 +1,6 @@
+# Ignore markdown files inside skill companion directories
+# These are reference docs for skills, not pages
+*/skills/*/references/
+*/skills/*/assets/
+*/skills/*/scripts/
+*/skills/*/templates/
