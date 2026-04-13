@@ -39,6 +39,25 @@ hideSearch: false
     </div>
   </div>
   
+  <h2 class="recently-added-title">By Type</h2>
+  <div class="by-type-nav">
+    {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
+      {% set typeCount = collections[type] | length %}
+      <a href="#type-{{ type }}" class="by-type-link {% if typeCount == 0 %}empty{% endif %}" data-type="{{ type }}">
+        <span class="content-type-icon">
+          {% if type === 'prompts' %}💡
+          {% elif type === 'rules' %}📋
+          {% elif type === 'agents' %}🤖
+          {% elif type === 'skills' %}🛠️
+          {% elif type === 'resources' %}🔗
+          {% endif %}
+        </span>
+        <span class="by-type-label">{{ type | replace('-', ' ') | title }}</span>
+        <span class="by-type-count">{{ typeCount }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
   <h2 class="recently-added-title">By Discipline</h2>
   <div class="discipline-grid">
     
@@ -114,6 +133,49 @@ hideSearch: false
     color: var(--text-muted);
     text-align: center;
     margin-bottom: 3rem;
+  }
+
+  .by-type-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .by-type-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 2rem;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+
+  .by-type-link:hover {
+    border-color: var(--primary-color);
+    background-color: var(--surface-color);
+    transform: translateY(-1px);
+  }
+
+  .by-type-link.empty {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .by-type-count {
+    background-color: var(--tag-background);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 600;
   }
 
   .discipline-grid {
