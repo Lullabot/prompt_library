@@ -185,6 +185,36 @@ module.exports = function(eleventyConfig) {
     return all.sort((a, b) => new Date(b.date) - new Date(a.date));
   });
 
+  // After build: copy raw markdown for skill files as SKILL.md
+  // This enables agents to fetch skill definitions programmatically
+  eleventyConfig.on('eleventy.after', async () => {
+    const outputDir = path.join(__dirname, '_site');
+    const glob = require('path');
+
+    for (const discipline of disciplines) {
+      const skillsDir = path.join(__dirname, discipline, 'skills');
+      if (!fs.existsSync(skillsDir)) continue;
+
+      const entries = fs.readdirSync(skillsDir);
+      for (const entry of entries) {
+        if (!entry.endsWith('.md') || entry === 'index.md') continue;
+
+        const slug = entry.replace(/\.md$/, '');
+        const srcFile = path.join(skillsDir, entry);
+        const destDir = path.join(outputDir, discipline, 'skills', slug);
+        const destFile = path.join(destDir, 'SKILL.md');
+
+        // Read the raw markdown and extract the content between five backticks
+        const raw = fs.readFileSync(srcFile, 'utf8');
+        const match = raw.match(/`{5}\n([\s\S]*?)\n`{5}/);
+        const skillContent = match ? match[1] : raw;
+
+        fs.mkdirSync(destDir, { recursive: true });
+        fs.writeFileSync(destFile, skillContent);
+      }
+    }
+  });
+
   return {
     dir: {
       input: ".",

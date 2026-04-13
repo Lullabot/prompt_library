@@ -16,9 +16,16 @@ function setTheme(theme) {
 
 function reflectTheme(theme) {
     document.documentElement.classList.toggle(DARK_CLASS, theme === 'dark');
-    document.querySelector('#theme-toggle')?.setAttribute('aria-label', 
-        theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
-    );
+    const toggle = document.querySelector('#theme-toggle');
+    if (toggle) {
+        toggle.setAttribute('aria-label',
+            theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'
+        );
+        const icon = toggle.querySelector('i');
+        if (icon) {
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+    }
 }
 
 // Theme toggle button click handler
