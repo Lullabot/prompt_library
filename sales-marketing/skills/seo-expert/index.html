@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>SEO Expert - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>SEO Expert</h1>
+  <p class="description">Comprehensive SEO and GEO (Generative Engine Optimization) auditing for websites. Analyzes traditional SEO factors plus AI-readiness including content structure, schema markup, readability, and E-E-A-T signals.</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">seo</span>
+      
+        <span class="tag">geo</span>
+      
+        <span class="tag">audit</span>
+      
+        <span class="tag">performance</span>
+      
+        <span class="tag">accessibility</span>
+      
+        <span class="tag">ai-search</span>
+      
+    </div>
+    <time datetime="2026-04-13">2026-04-13</time>
+  </div>
+
+  
+  
+  <details class="skill-install-section">
+    <summary>Installation &amp; Resources</summary>
+    <div class="skill-install-content">
+      <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+      <ul class="resource-list">
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/analyze_eeat.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/analyze_eeat.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/analyze_headings.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/analyze_headings.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/check_bluf.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/check_bluf.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/check_readability.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/check_readability.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/check_robots.sh" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/check_robots.sh</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/check_sitemap.sh" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/check_sitemap.sh</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/compare_crawls.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/compare_crawls.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/crawl_site.sh" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/crawl_site.sh</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/extract_meta.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/extract_meta.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/generate_crawl_report.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/generate_crawl_report.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/generate_report_pdf.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/generate_report_pdf.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/lighthouse_audit.sh" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/lighthouse_audit.sh</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/test_analyze_eeat.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/test_analyze_eeat.py</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/sales-marketing/skills/seo-expert/scripts/test_generate_report_pdf.py" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/test_generate_report_pdf.py</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+  
+
+  
+  <div class="skill-raw-download">
+    <a href="/prompt_library/sales-marketing/skills/seo-expert/SKILL.md" class="raw-download-link" title="Raw markdown for agent consumption">
+      <i class="fas fa-file-code"></i> Raw SKILL.md
+    </a>
+  </div>
+  
+
+  <div class="content">
+    <pre><code>---
+name: seo-expert
+description: &quot;This skill should be used when users need SEO audits, website optimization recommendations, technical SEO analysis, or competitive research. Use when users request to analyze a website's search engine performance, identify SEO issues, or get prioritized action items to improve rankings. Ideal for tasks like 'audit this website for SEO' or 'what are the top issues affecting this site's SEO performance.'&quot;
+---
+
+# SEO Expert (with GEO Optimization)
+
+## Overview
+
+This skill enables comprehensive SEO and GEO (Generative Engine Optimization) auditing for websites. It analyzes traditional SEO factors plus AI-readiness: content structure for AI citations, schema markup for AI extraction, readability for conversational queries, and question-based formatting.
+
+**Key Insight:** 52% of searches now trigger AI Overviews. 92.36% of AI citations come from Google's top 10 organic results. Strong SEO is prerequisite for GEO success.
+
+## Quick Start
+
+Trigger this skill when users request:
+- &quot;Audit [website] for SEO issues&quot;
+- &quot;Optimize [site] for AI search and citations&quot;
+- &quot;Check if [website] is ready for Google AI Overviews&quot;
+- &quot;Analyze [page] for GEO optimization&quot;
+- &quot;Help me improve [content] for ChatGPT/Perplexity citations&quot;
+
+The skill provides detailed audit reports with 5-15 prioritized recommendations covering both traditional SEO and GEO optimization.
+
+## Website Auditing Workflow
+
+To conduct a comprehensive SEO + GEO audit:
+
+1. **Gather baseline data** using scripts:
+   - Run `scripts/lighthouse_audit.sh [url]` to get performance/SEO metrics
+   - Run `scripts/check_robots.sh [url]` to analyze robots.txt
+   - Run `scripts/check_sitemap.sh [url]` to validate XML sitemap
+
+2. **Analyze page structure and meta data**:
+   - Use WebFetch to retrieve the target page HTML
+   - Run `scripts/extract_meta.py [html_file]` to extract meta tags AND validate GEO-critical schema (FAQ, HowTo, Article)
+   - Run `scripts/analyze_headings.py [html_file]` to check heading hierarchy AND question-based headers for GEO
+
+3. **Analyze GEO content optimization**:
+   - Run `scripts/check_readability.py [html_file]` to ensure 8th-grade reading level
+   - Run `scripts/check_bluf.py [html_file]` to validate Bottom Line Up Front format
+   - Run `scripts/analyze_eeat.py [html_file]` to score E-E-A-T signals (authors, citations, dates, trust)
+   - Review first paragraphs for 50-70 word direct answers
+
+4. **Evaluate against best practices**:
+   - Consult `references/seo_checklist.md` for comprehensive SEO audit criteria
+   - Review `references/geo_best_practices.md` for AI optimization strategies
+   - Check `references/content_structure_guide.md` for BLUF, FAQ, and question-based formatting
+   - Review `references/technical_seo.md` for technical requirements
+   - Check `references/core_web_vitals.md` for performance thresholds
+
+5. **Generate prioritized recommendations**:
+   - Use `assets/audit_report_template.md` as the report structure
+   - Apply `assets/priority_matrix.md` to rank issues by impact/effort
+   - Include both traditional SEO and GEO recommendations
+   - Focus on 5-15 actionable items with clear implementation steps
+
+## GEO (Generative Engine Optimization) Analysis
+
+### Content Structure (CRITICAL)
+- **BLUF Format**: Run `scripts/check_bluf.py [html_file]` to validate 50-70 word direct answers at the top
+- **Readability**: Run `scripts/check_readability.py [html_file]` to ensure 8th-grade reading level (Flesch-Kincaid)
+- **Question Headers**: Enhanced `scripts/analyze_headings.py [html_file]` detects question-based H2/H3 headers (target: 30%+)
+- **Long-tail**: Identify 8+ word headers (7x more likely to trigger AI Overviews)
+
+### E-E-A-T Signals (CRITICAL)
+- **E-E-A-T Analysis**: Run `scripts/analyze_eeat.py [html_file]` for comprehensive trust signal detection
+- Detects author bylines with credentials (PhD, MD, CPA, etc.)
+- Counts external authoritative links (.gov, .edu, established orgs)
+- Verifies publish/modified dates in meta, schema, and visible content
+- Finds blockquotes and expert attributions
+- Checks trust signals (ISO, HIPAA, privacy policy, author bios)
+- Scores each E-E-A-T dimension out of 25 for a 0-100 total
+
+### Schema Markup (CRITICAL)
+- **FAQ Schema**: Validates FAQ Schema (highest priority for GEO)
+- **HowTo Schema**: Check for process/tutorial content structured data
+- **Article Schema**: Verify author information and dates (E-E-A-T signals)
+
+### Key GEO Principles
+1. **Strong SEO First**: 92.36% of AI citations come from top 10 organic results
+2. **Natural Language**: AI mentions exact keywords only 5.4% of the time
+3. **Conversational Tone**: Target 8th-grade readability for AI-friendly content
+4. **Direct Answers**: 50-70 word BLUF format optimal for AI citations
+5. **Structured Data**: FAQ Schema drives 3.2x higher AI citation rates
+
+## Technical SEO Analysis
+
+For technical SEO issues, evaluate:
+
+- **Crawlability**: robots.txt, XML sitemaps, internal linking
+- **Indexability**: canonical tags, noindex directives, duplicate content
+- **Site Architecture**: URL structure, navigation, breadcrumbs
+- **Security**: HTTPS/SSL, mixed content warnings
+- **Mobile**: Responsive design, mobile-first indexing
+- **Performance**: Page speed, Core Web Vitals, lazy loading
+
+## On-Page Optimization
+
+Evaluate:
+
+- **Title Tags**: Uniqueness, keyword placement, length (50-60 chars)
+- **Meta Descriptions**: Compelling copy, keywords, length (150-160 chars)
+- **Header Tags**: Proper H1-H6 hierarchy, keyword usage
+- **Content Quality**: Readability, depth, E-E-A-T signals
+- **Images**: Alt text, file size optimization, modern formats (WebP)
+- **Internal Links**: Relevant anchor text, strategic link placement
+- **Schema Markup**: Appropriate structured data types
+
+## Performance Analysis
+
+Core Web Vitals are critical ranking factors:
+
+- **LCP (Largest Contentful Paint)**: Target &lt; 2.5s
+- **FID (First Input Delay)**: Target &lt; 100ms
+- **CLS (Cumulative Layout Shift)**: Target &lt; 0.1
+
+## Report Generation
+
+Structure audit reports with:
+
+1. **Executive Summary**: 2-3 sentence overview of site health
+2. **Critical Issues**: High-impact problems requiring immediate attention
+3. **Priority Recommendations**: 5-15 actionable items with issue description, current vs. desired state, implementation steps, and priority rating
+4. **Performance Metrics**: Lighthouse scores and Core Web Vitals
+5. **Next Steps**: Sequenced action plan
+
+## Resources
+
+### scripts/
+
+**Full-Site Crawling:**
+- `crawl_site.sh` - LibreCrawl wrapper with tier configs (tier1/2/3)
+- `generate_crawl_report.py` - Transform crawl JSON to client reports
+- `compare_crawls.py` - Month-over-month comparison analysis
+
+**Traditional SEO:**
+- `lighthouse_audit.sh` - Google Lighthouse performance/SEO metrics
+- `check_robots.sh` - Analyze robots.txt configuration
+- `check_sitemap.sh` - Validate XML sitemap structure
+
+**GEO Optimization:**
+- `check_readability.py` - Flesch-Kincaid readability (target: 8th grade)
+- `check_bluf.py` - BLUF (Bottom Line Up Front) validation
+- `analyze_headings.py` - Question-based header detection (target: 30%+)
+- `extract_meta.py` - GEO schema validation (FAQ, HowTo, Article)
+- `analyze_eeat.py` - E-E-A-T signal detection (0-100 score)
+
+### references/
+
+- `seo_checklist.md` - Comprehensive audit checklist
+- `core_web_vitals.md` - Performance thresholds and optimization
+- `technical_seo.md` - Technical requirements and best practices
+- `meta_tags_guide.md` - Essential meta tags and implementation
+- `schema_markup_guide.md` - Common schema.org types with examples
+- `geo_best_practices.md` - 15 essential GEO practices
+- `content_structure_guide.md` - BLUF format, question headers, FAQ sections
+- `readability_standards.md` - Flesch-Kincaid targets and writing techniques
+
+### assets/
+- `audit_report_template.md` - Structured template for audit reports
+- `priority_matrix.md` - Framework for prioritizing issues by impact/effort
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Raw SKILL.md download link */
+  .skill-raw-download {
+    margin-bottom: 1.5rem;
+  }
+
+  .raw-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .raw-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+  });
+</script>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
