@@ -57,6 +57,24 @@ Prompt content here
 `````
 ```
 
+### Skill Resources
+
+Skills can include companion resources (scripts, config files, templates) in a directory alongside the skill markdown file. The directory name must match the skill filename (without `.md`):
+
+```text
+development/skills/cloudflare-tunnel.md        # Skill definition
+development/skills/cloudflare-tunnel/           # Resource directory
+  scripts/tunnel.sh
+  resources/config-template.yml
+```
+
+Resources are automatically:
+- Copied to the build output via 11ty passthrough copy
+- Discovered and displayed on the skill's page with download links
+- Served as static files (no processing)
+
+Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`.
+
 ## Key Configuration Files
 
 - `.eleventy.js`: Main 11ty configuration, defines collections, filters, and build settings

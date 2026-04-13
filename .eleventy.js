@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = function(eleventyConfig) {
   // Copy static assets
   eleventyConfig.addPassthroughCopy("assets");
-  
+
   // Add filters
   eleventyConfig.addFilter("date", function(date, format = "yyyy-MM-dd") {
     if (date === "now") {
@@ -41,6 +41,50 @@ module.exports = function(eleventyConfig) {
   // Add collections for all content types
   const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
+
+  // Copy skill resource directories (scripts, configs, templates)
+  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml'];
+  disciplines.forEach(discipline => {
+    skillResourceExtensions.forEach(ext => {
+      eleventyConfig.addPassthroughCopy(`${discipline}/skills/**/*.${ext}`);
+    });
+  });
+
+  // Filter to discover companion resource files for a skill page
+  eleventyConfig.addNunjucksFilter("getSkillResources", function(page) {
+    if (!page || !page.inputPath) return [];
+    // Only apply to skill pages
+    if (!page.inputPath.includes('/skills/')) return [];
+
+    // Derive companion directory from the skill's markdown file path
+    // e.g., ./development/skills/cloudflare-tunnel.md -> development/skills/cloudflare-tunnel/
+    const inputPath = page.inputPath.replace(/^\.\//, '');
+    const resourceDir = inputPath.replace(/\.md$/, '');
+    const fullResourceDir = path.join(__dirname, resourceDir);
+
+    if (!fs.existsSync(fullResourceDir) || !fs.statSync(fullResourceDir).isDirectory()) {
+      return [];
+    }
+
+    // Recursively collect all files in the resource directory
+    const resources = [];
+    const walk = (dir, prefix) => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.isDirectory()) {
+          walk(path.join(dir, entry.name), `${prefix}${entry.name}/`);
+        } else {
+          resources.push({
+            name: entry.name,
+            relativePath: `${prefix}${entry.name}`,
+            url: `/${resourceDir}/${prefix}${entry.name}`
+          });
+        }
+      }
+    };
+    walk(fullResourceDir, '');
+    return resources;
+  });
 
   // Add collections for each content type
   contentTypes.forEach(type => {
