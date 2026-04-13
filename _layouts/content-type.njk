@@ -9,7 +9,7 @@ layout: discipline.njk
 
 <div class="content-list">
     {% for item in collections[contentType] | filterByDiscipline(discipline) %}
-        <article class="content-item">
+        <article class="content-item fade-up">
             <h2><a href="{{ item.url }}">{{ item.data.title }}</a></h2>
             <p>{{ item.data.description }}</p>
             <div class="metadata">

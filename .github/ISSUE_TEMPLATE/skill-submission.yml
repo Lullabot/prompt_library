@@ -63,6 +63,21 @@ body:
       required: true
 
   - type: textarea
+    id: skill-resources
+    attributes:
+      label: Associated Resources
+      description: "If your skill requires helper scripts, config files, or other resources, describe them here. Include file contents or links to a gist/repo. Resources will be stored alongside the skill definition."
+      placeholder: |
+        e.g., scripts/tunnel.sh — Helper script for managing tunnels
+
+        ```bash
+        #!/bin/bash
+        # script content...
+        ```
+    validations:
+      required: false
+
+  - type: textarea
     id: usage-instructions
     attributes:
       label: Usage Instructions

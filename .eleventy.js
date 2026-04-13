@@ -4,7 +4,7 @@ const path = require('path');
 module.exports = function(eleventyConfig) {
   // Copy static assets
   eleventyConfig.addPassthroughCopy("assets");
-  
+
   // Add filters
   eleventyConfig.addFilter("date", function(date, format = "yyyy-MM-dd") {
     if (date === "now") {
@@ -41,6 +41,55 @@ module.exports = function(eleventyConfig) {
   // Add collections for all content types
   const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
+
+  // Copy skill resource directories (scripts, configs, templates)
+  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml'];
+  disciplines.forEach(discipline => {
+    skillResourceExtensions.forEach(ext => {
+      eleventyConfig.addPassthroughCopy(`${discipline}/skills/**/*.${ext}`);
+    });
+  });
+
+  // Filter to discover companion resource files for a skill page
+  eleventyConfig.addNunjucksFilter("getSkillResources", function(page) {
+    if (!page || !page.inputPath) return [];
+    // Only apply to skill pages
+    if (!page.inputPath.includes('/skills/')) return [];
+
+    // Derive companion directory from the skill's markdown file path
+    // e.g., ./development/skills/cloudflare-tunnel.md -> development/skills/cloudflare-tunnel/
+    const inputPath = page.inputPath.replace(/^\.\//, '');
+    const resourceDir = inputPath.replace(/\.md$/, '');
+    const fullResourceDir = path.join(__dirname, resourceDir);
+
+    if (!fs.existsSync(fullResourceDir) || !fs.statSync(fullResourceDir).isDirectory()) {
+      return [];
+    }
+
+    // Recursively collect files matching the passthrough-copied extensions
+    // This prevents listing files that won't be in the build output
+    const allowedExtensions = new Set(skillResourceExtensions);
+    const resources = [];
+    const walk = (dir, prefix) => {
+      const entries = fs.readdirSync(dir, { withFileTypes: true });
+      for (const entry of entries) {
+        if (entry.name.startsWith('.')) continue; // skip dotfiles
+        if (entry.isDirectory()) {
+          walk(path.join(dir, entry.name), `${prefix}${entry.name}/`);
+        } else {
+          const ext = entry.name.split('.').pop();
+          if (!allowedExtensions.has(ext)) continue;
+          resources.push({
+            name: entry.name,
+            relativePath: `${prefix}${entry.name}`,
+            url: `/${resourceDir}/${prefix}${entry.name}`
+          });
+        }
+      }
+    };
+    walk(fullResourceDir, '');
+    return resources;
+  });
 
   // Add collections for each content type
   contentTypes.forEach(type => {
@@ -139,6 +188,36 @@ module.exports = function(eleventyConfig) {
       ));
     });
     return all.sort((a, b) => new Date(b.date) - new Date(a.date));
+  });
+
+  // After build: copy raw markdown for skill files as SKILL.md
+  // This enables agents to fetch skill definitions programmatically
+  eleventyConfig.on('eleventy.after', async () => {
+    const outputDir = path.join(__dirname, '_site');
+    const glob = require('path');
+
+    for (const discipline of disciplines) {
+      const skillsDir = path.join(__dirname, discipline, 'skills');
+      if (!fs.existsSync(skillsDir)) continue;
+
+      const entries = fs.readdirSync(skillsDir);
+      for (const entry of entries) {
+        if (!entry.endsWith('.md') || entry === 'index.md') continue;
+
+        const slug = entry.replace(/\.md$/, '');
+        const srcFile = path.join(skillsDir, entry);
+        const destDir = path.join(outputDir, discipline, 'skills', slug);
+        const destFile = path.join(destDir, 'SKILL.md');
+
+        // Read the raw markdown and extract the content between five backticks
+        const raw = fs.readFileSync(srcFile, 'utf8');
+        const match = raw.match(/`{5}\n([\s\S]*?)\n`{5}/);
+        const skillContent = match ? match[1] : raw;
+
+        fs.mkdirSync(destDir, { recursive: true });
+        fs.writeFileSync(destFile, skillContent);
+      }
+    }
   });
 
   return {
