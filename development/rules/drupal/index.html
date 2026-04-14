@@ -60,8 +60,15 @@
         <span class="tag">development</span>
       
     </div>
-    <time datetime="2024-04-17">2024-04-17</time>
+    <div class="metadata-right">
+      
+      
+        <time datetime="2024-04-17">2024-04-17</time>
+      
+    </div>
   </div>
+
+  
 
   
   
@@ -210,14 +217,26 @@ alwaysApply: false
   .metadata {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 2rem;
     color: var(--text-muted);
+    flex-wrap: wrap;
   }
 
   .tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
   }
 
   .tag {
@@ -226,6 +245,72 @@ alwaysApply: false
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
   }
 
   .content {

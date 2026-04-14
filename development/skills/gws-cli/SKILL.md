@@ -61,6 +61,11 @@ gws gmail +send --to alice@example.com --subject 'Hello' --body '<b>Bold</b>' --
 gws gmail +send --to a@ex.com --subject 'Hi' --cc b@ex.com --bcc c@ex.com --body 'Hello'
 ```
 
+**Save as draft (instead of sending):**
+```bash
+gws gmail +send --to alice@example.com --subject 'Hello' --body 'Hi Alice!' --draft
+```
+
 **Triage inbox (read-only):**
 ```bash
 gws gmail +triage                              # Unread inbox summary (table)

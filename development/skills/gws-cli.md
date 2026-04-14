@@ -5,6 +5,15 @@ date: "2026-03-23"
 layout: "markdown.njk"
 discipline: "development"
 contentType: "skills"
+version: "1.1.0"
+lastUpdated: "2026-04-14"
+changelog:
+  - version: "1.1.0"
+    date: "2026-04-14"
+    summary: "Add Gmail +send --draft helper for saving messages as drafts instead of sending"
+  - version: "1.0.0"
+    date: "2026-03-23"
+    summary: "Initial version"
 tags:
   - google-workspace
   - gmail
@@ -78,6 +87,11 @@ gws gmail +send --to alice@example.com --subject 'Hello' --body 'Hi Alice!'
 gws gmail +send --to alice@example.com --subject 'Report' --body 'See attached' -a report.pdf
 gws gmail +send --to alice@example.com --subject 'Hello' --body '<b>Bold</b>' --html
 gws gmail +send --to a@ex.com --subject 'Hi' --cc b@ex.com --bcc c@ex.com --body 'Hello'
+```
+
+**Save as draft (instead of sending):**
+```bash
+gws gmail +send --to alice@example.com --subject 'Hello' --body 'Hi Alice!' --draft
 ```
 
 **Triage inbox (read-only):**
