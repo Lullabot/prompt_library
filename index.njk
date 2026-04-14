@@ -25,6 +25,12 @@ hideSearch: false
                 {% if item.data.discipline %}
                   <span class="recent-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>
                 {% endif %}
+                {% if item.data.version %}
+                  <span class="recent-version">v{{ item.data.version }}</span>
+                {% endif %}
+                {% if item | isRecentlyUpdated %}
+                  <span class="recent-updated">Updated</span>
+                {% endif %}
               </div>
               <p class="recent-desc">{{ item.data.description }}</p>
             </article>
@@ -362,12 +368,24 @@ hideSearch: false
     gap: 1rem;
     flex-wrap: wrap;
   }
-  .recent-type, .recent-discipline, .recent-date {
+  .recent-type, .recent-discipline, .recent-date, .recent-version, .recent-updated {
     background: var(--tag-background);
     border-radius: 0.25rem;
     padding: 0.1rem 0.5rem;
     margin-right: 0.25rem;
     font-weight: 500;
+  }
+  .recent-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  .recent-updated {
+    background-color: var(--accent-color);
+    color: #12212b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
   }
   .recent-desc {
     color: var(--text-color);

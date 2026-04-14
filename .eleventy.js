@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
 
 module.exports = function(eleventyConfig) {
   // Copy static assets
@@ -125,7 +126,9 @@ module.exports = function(eleventyConfig) {
         discipline: item.data.discipline || '',
         contentType: item.data.contentType || '',
         tags: item.data.tags || [],
-        date: item.data.date || new Date().toISOString()
+        date: item.data.date || new Date().toISOString(),
+        version: item.data.version || '',
+        lastUpdated: item.data.lastUpdated || ''
       });
     }
 
@@ -188,6 +191,61 @@ module.exports = function(eleventyConfig) {
       ));
     });
     return all.sort((a, b) => new Date(b.date) - new Date(a.date));
+  });
+
+  // Version validation: warn on invalid semver or incomplete version metadata
+  const semverRegex = /^\d+\.\d+\.\d+$/;
+  eleventyConfig.on('eleventy.before', async () => {
+    for (const discipline of disciplines) {
+      for (const type of contentTypes) {
+        const dir = path.join(__dirname, discipline, type);
+        if (!fs.existsSync(dir)) continue;
+        const files = fs.readdirSync(dir).filter(f => f.endsWith('.md') && f !== 'index.md');
+        for (const file of files) {
+          const filePath = path.join(dir, file);
+          const content = fs.readFileSync(filePath, 'utf8');
+          const { data } = matter(content);
+          if (data.version && !semverRegex.test(String(data.version))) {
+            console.warn(`[VERSION] Invalid semver in ${discipline}/${type}/${file}: "${data.version}"`);
+          }
+          if (data.version && !data.lastUpdated) {
+            console.warn(`[VERSION] ${discipline}/${type}/${file} has version but no lastUpdated`);
+          }
+          if (data.changelog && Array.isArray(data.changelog)) {
+            data.changelog.forEach((entry, i) => {
+              if (!entry.version || !entry.date || !entry.summary) {
+                console.warn(`[VERSION] Incomplete changelog entry #${i + 1} in ${discipline}/${type}/${file}`);
+              }
+              if (entry.version && !semverRegex.test(String(entry.version))) {
+                console.warn(`[VERSION] Invalid semver in changelog entry #${i + 1} of ${discipline}/${type}/${file}: "${entry.version}"`);
+              }
+            });
+          }
+        }
+      }
+    }
+  });
+
+  // Add a collection for recently updated content (items with lastUpdated, sorted desc)
+  eleventyConfig.addCollection('recentlyUpdated', function(collection) {
+    let all = [];
+    contentTypes.forEach(type => {
+      all = all.concat(collection.getFilteredByGlob(
+        disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
+      ));
+    });
+    return all
+      .filter(item => item.data.lastUpdated)
+      .sort((a, b) => new Date(b.data.lastUpdated) - new Date(a.data.lastUpdated));
+  });
+
+  // Filter to check if an item was updated within the last 30 days
+  eleventyConfig.addNunjucksFilter("isRecentlyUpdated", function(item) {
+    if (!item || !item.data || !item.data.lastUpdated) return false;
+    const updated = new Date(item.data.lastUpdated);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    return updated > thirtyDaysAgo;
   });
 
   // After build: copy raw markdown for skill files as SKILL.md
