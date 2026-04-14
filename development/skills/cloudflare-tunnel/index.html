@@ -67,10 +67,18 @@
 
   
   
+  
   <details class="skill-install-section">
     <summary>Installation &amp; Resources</summary>
     <div class="skill-install-content">
-      <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        
+        <a href="/prompt_library/development/skills/cloudflare-tunnel/cloudflare-tunnel-resources.zip" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        
+      </div>
       <ul class="resource-list">
         
         <li class="resource-item">
@@ -292,6 +300,39 @@ The helper script at `scripts/tunnel.sh` supports these commands:
 
   .content li {
     margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
   }
 
   /* Resource list inside collapsible */
