@@ -16,11 +16,17 @@ layout: base.njk
   </div>
 
   {% set resources = page | getSkillResources %}
+  {% set zipUrl = page | getSkillZipUrl %}
   {% if resources.length > 0 %}
   <details class="skill-install-section">
     <summary>Installation &amp; Resources</summary>
     <div class="skill-install-content">
       <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+      {% if zipUrl %}
+      <a href="{{ zipUrl | fullUrl }}" class="zip-download-link" download>
+        <i class="fas fa-file-archive"></i> Download All Resources (.zip)
+      </a>
+      {% endif %}
       <ul class="resource-list">
         {% for resource in resources %}
         <li class="resource-item">
@@ -99,6 +105,26 @@ layout: base.njk
 
   .content li {
     margin-bottom: 0.5rem;
+  }
+
+  /* Zip download button */
+  .zip-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--primary-color);
+    color: var(--background-color, #fff);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  .zip-download-link:hover {
+    opacity: 0.85;
   }
 
   /* Resource list inside collapsible */
