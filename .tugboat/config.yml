@@ -19,7 +19,8 @@ services:
         # Install dependencies
         - npm install
       build:
-        # Build the static Gatsby site
+        # Install dependencies and build the static site
+        - npm install
         - npm run build
 
     urls:
