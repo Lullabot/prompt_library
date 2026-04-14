@@ -17,13 +17,13 @@ layout: base.njk
       <span class="version-badge">v{{ version }}</span>
     {% endif %}
     {% if lastUpdated %}
-      <span class="last-updated">Updated {{ lastUpdated | date }}</span>
+      <span class="last-updated">Updated {{ lastUpdated }}</span>
     {% endif %}
   </div>
 
   {% if changelog and changelog.length > 0 %}
   <details class="changelog-section">
-    <summary>Changelog ({{ changelog.length }} {{ "version" if changelog.length === 1 else "versions" }})</summary>
+    <summary>Changelog ({{ changelog.length }} {{ "version" if changelog.length == 1 else "versions" }})</summary>
     <ul class="changelog-list">
       {% for entry in changelog %}
         <li class="changelog-entry">

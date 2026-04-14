@@ -258,12 +258,14 @@ module.exports = function(eleventyConfig) {
   });
 
   // Filter to check if an item was updated within the last 30 days
+  // Uses UTC for both dates to avoid timezone off-by-one issues
   eleventyConfig.addNunjucksFilter("isRecentlyUpdated", function(item) {
     if (!item || !item.data || !item.data.lastUpdated) return false;
-    const updated = new Date(item.data.lastUpdated);
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    return updated > thirtyDaysAgo;
+    const parts = String(item.data.lastUpdated).split('-').map(Number);
+    const updatedUtc = Date.UTC(parts[0], parts[1] - 1, parts[2]);
+    const now = new Date();
+    const thirtyDaysAgoUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 30);
+    return updatedUtc > thirtyDaysAgoUtc;
   });
 
   // After build: copy raw markdown for skill files as SKILL.md
