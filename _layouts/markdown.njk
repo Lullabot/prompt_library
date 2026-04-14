@@ -13,12 +13,13 @@ layout: base.njk
       {% endfor %}
     </div>
     <div class="metadata-right">
-      <time datetime="{{ date }}">{{ date | date }}</time>
       {% if version %}
         <span class="version-badge">v{{ version }}</span>
       {% endif %}
       {% if lastUpdated %}
         <span class="last-updated">Updated {{ lastUpdated }}</span>
+      {% elif not version %}
+        <time datetime="{{ date }}">{{ date | date }}</time>
       {% endif %}
     </div>
   </div>
