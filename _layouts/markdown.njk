@@ -22,11 +22,6 @@ layout: base.njk
     <summary>Installation &amp; Resources</summary>
     <div class="skill-install-content">
       <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
-      {% if zipUrl %}
-      <a href="{{ zipUrl | fullUrl }}" class="zip-download-link" download>
-        <i class="fas fa-file-archive"></i> Download All Resources (.zip)
-      </a>
-      {% endif %}
       <ul class="resource-list">
         {% for resource in resources %}
         <li class="resource-item">
@@ -37,6 +32,13 @@ layout: base.njk
         </li>
         {% endfor %}
       </ul>
+      {% if zipUrl %}
+      <div class="zip-download">
+        <a href="{{ zipUrl | fullUrl }}" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+      </div>
+      {% endif %}
     </div>
   </details>
   {% endif %}
@@ -107,24 +109,30 @@ layout: base.njk
     margin-bottom: 0.5rem;
   }
 
-  /* Zip download button */
+  /* Zip download link */
+  .zip-download {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-color);
+  }
+
   .zip-download-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--primary-color);
-    color: var(--background-color, #fff);
-    border-radius: 0.375rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
     text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    transition: opacity 0.2s;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
   }
 
   .zip-download-link:hover {
-    opacity: 0.85;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
   }
 
   /* Resource list inside collapsible */
