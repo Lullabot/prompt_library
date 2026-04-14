@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const archiver = require('archiver');
 
 module.exports = function(eleventyConfig) {
   // Copy static assets
@@ -43,7 +44,7 @@ module.exports = function(eleventyConfig) {
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
 
   // Copy skill resource directories (scripts, configs, templates)
-  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml', 'md'];
+  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml', 'md', 'zip'];
   disciplines.forEach(discipline => {
     skillResourceExtensions.forEach(ext => {
       eleventyConfig.addPassthroughCopy(`${discipline}/skills/**/*.${ext}`);
@@ -89,6 +90,23 @@ module.exports = function(eleventyConfig) {
     };
     walk(fullResourceDir, '');
     return resources;
+  });
+
+  // Filter to get the zip download URL for a skill's resources
+  eleventyConfig.addNunjucksFilter("getSkillZipUrl", function(page) {
+    if (!page || !page.inputPath) return null;
+    if (!page.inputPath.includes('/skills/')) return null;
+
+    const inputPath = page.inputPath.replace(/^\.\//, '');
+    const resourceDir = inputPath.replace(/\.md$/, '');
+    const fullResourceDir = path.join(__dirname, resourceDir);
+
+    if (!fs.existsSync(fullResourceDir) || !fs.statSync(fullResourceDir).isDirectory()) {
+      return null;
+    }
+
+    const slug = path.basename(resourceDir);
+    return `/${resourceDir}/${slug}-resources.zip`;
   });
 
   // Add collections for each content type
@@ -191,10 +209,9 @@ module.exports = function(eleventyConfig) {
   });
 
   // After build: copy raw markdown for skill files as SKILL.md
-  // This enables agents to fetch skill definitions programmatically
+  // and generate zip archives for skill resource directories
   eleventyConfig.on('eleventy.after', async () => {
     const outputDir = path.join(__dirname, '_site');
-    const glob = require('path');
 
     for (const discipline of disciplines) {
       const skillsDir = path.join(__dirname, discipline, 'skills');
@@ -207,15 +224,55 @@ module.exports = function(eleventyConfig) {
         const slug = entry.replace(/\.md$/, '');
         const srcFile = path.join(skillsDir, entry);
         const destDir = path.join(outputDir, discipline, 'skills', slug);
-        const destFile = path.join(destDir, 'SKILL.md');
 
-        // Read the raw markdown and extract the content between five backticks
+        // Copy raw SKILL.md
         const raw = fs.readFileSync(srcFile, 'utf8');
         const match = raw.match(/`{5}\n([\s\S]*?)\n`{5}/);
         const skillContent = match ? match[1] : raw;
 
         fs.mkdirSync(destDir, { recursive: true });
-        fs.writeFileSync(destFile, skillContent);
+        fs.writeFileSync(path.join(destDir, 'SKILL.md'), skillContent);
+
+        // Generate zip if skill has a companion resource directory
+        const resourceDir = path.join(skillsDir, slug);
+        if (fs.existsSync(resourceDir) && fs.statSync(resourceDir).isDirectory()) {
+          const zipPath = path.join(destDir, `${slug}-resources.zip`);
+          await new Promise((resolve, reject) => {
+            const output = fs.createWriteStream(zipPath);
+            const archive = archiver('zip', { zlib: { level: 9 } });
+
+            output.on('close', resolve);
+            output.on('error', reject);
+            archive.on('warning', (err) => {
+              if (err.code !== 'ENOENT') {
+                reject(err);
+              }
+            });
+            archive.on('error', reject);
+            archive.pipe(output);
+
+            // Add only whitelisted files, matching getSkillResources behavior
+            const allowedExts = new Set(skillResourceExtensions);
+            const addFiltered = (dir, prefix) => {
+              const items = fs.readdirSync(dir, { withFileTypes: true });
+              for (const item of items) {
+                if (item.name.startsWith('.')) continue;
+                const fullPath = path.join(dir, item.name);
+                if (item.isDirectory()) {
+                  addFiltered(fullPath, `${prefix}${item.name}/`);
+                } else {
+                  const ext = item.name.split('.').pop();
+                  if (allowedExts.has(ext)) {
+                    archive.file(fullPath, { name: `${prefix}${item.name}` });
+                  }
+                }
+              }
+            };
+            addFiltered(resourceDir, `${slug}/`);
+
+            archive.finalize();
+          });
+        }
       }
     }
   });
