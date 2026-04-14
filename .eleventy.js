@@ -44,7 +44,7 @@ module.exports = function(eleventyConfig) {
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
 
   // Copy skill resource directories (scripts, configs, templates)
-  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml', 'zip'];
+  const skillResourceExtensions = ['sh', 'yml', 'yaml', 'json', 'py', 'rb', 'js', 'txt', 'cfg', 'conf', 'toml', 'md', 'zip'];
   disciplines.forEach(discipline => {
     skillResourceExtensions.forEach(ext => {
       eleventyConfig.addPassthroughCopy(`${discipline}/skills/**/*.${ext}`);
