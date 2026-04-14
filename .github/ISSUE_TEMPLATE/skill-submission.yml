@@ -66,7 +66,7 @@ body:
     id: skill-resources
     attributes:
       label: Associated Resources
-      description: "If your skill requires helper scripts, config files, or other resources, describe them here. Include file contents or links to a gist/repo. Resources will be stored alongside the skill definition."
+      description: "If your skill requires helper scripts, config files, or other resources, describe them here. Include file contents or links to a gist/repo. You can also attach a .zip file containing all resources. Resources will be stored alongside the skill definition and available for individual or bulk download."
       placeholder: |
         e.g., scripts/tunnel.sh — Helper script for managing tunnels
 
@@ -74,6 +74,8 @@ body:
         #!/bin/bash
         # script content...
         ```
+
+        Or attach a .zip file containing all resource files.
     validations:
       required: false
 

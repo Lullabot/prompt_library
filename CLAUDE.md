@@ -80,7 +80,9 @@ Resources are automatically:
 - Discovered and displayed on the skill's page with download links
 - Served as static files (no processing)
 
-Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`.
+Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`, `.md`, `.zip`.
+
+Skills with resource directories automatically get a "Download All Resources (.zip)" button on their page, generated at build time.
 
 ### Versioning
 
