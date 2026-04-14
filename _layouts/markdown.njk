@@ -12,13 +12,15 @@ layout: base.njk
         <span class="tag">{{ tag }}</span>
       {% endfor %}
     </div>
-    <time datetime="{{ date }}">{{ date | date }}</time>
-    {% if version %}
-      <span class="version-badge">v{{ version }}</span>
-    {% endif %}
-    {% if lastUpdated %}
-      <span class="last-updated">Updated {{ lastUpdated }}</span>
-    {% endif %}
+    <div class="metadata-right">
+      <time datetime="{{ date }}">{{ date | date }}</time>
+      {% if version %}
+        <span class="version-badge">v{{ version }}</span>
+      {% endif %}
+      {% if lastUpdated %}
+        <span class="last-updated">Updated {{ lastUpdated }}</span>
+      {% endif %}
+    </div>
   </div>
 
   {% if changelog and changelog.length > 0 %}
@@ -93,14 +95,25 @@ layout: base.njk
   .metadata {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 1rem;
     margin-bottom: 2rem;
     color: var(--text-muted);
+    flex-wrap: wrap;
   }
 
   .tags {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .tag {
