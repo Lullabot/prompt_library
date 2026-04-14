@@ -401,14 +401,16 @@ hideSearch: false
   }
   .swiper-button-next, .swiper-button-prev {
     color: var(--primary-color);
-    --swiper-navigation-size: 30px; /* Adjust size of nav arrows */
-    top: 42%; /* Adjust vertical position - try 40-45% range */
+    --swiper-navigation-size: 30px;
+    --swiper-navigation-sides-offset: 0px;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .swiper-button-prev {
-    left: -15px; /* Adjust to move further left */
+    left: -20px !important;
   }
   .swiper-button-next {
-    right: -15px; /* Adjust to move further right */
+    right: -20px !important;
   }
   .swiper-button-next:after, .swiper-button-prev:after {
     font-size: var(--swiper-navigation-size);
