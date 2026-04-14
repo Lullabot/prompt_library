@@ -21,7 +21,14 @@ layout: base.njk
   <details class="skill-install-section">
     <summary>Installation &amp; Resources</summary>
     <div class="skill-install-content">
-      <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        {% if zipUrl %}
+        <a href="{{ zipUrl | fullUrl }}" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        {% endif %}
+      </div>
       <ul class="resource-list">
         {% for resource in resources %}
         <li class="resource-item">
@@ -32,13 +39,6 @@ layout: base.njk
         </li>
         {% endfor %}
       </ul>
-      {% if zipUrl %}
-      <div class="zip-download">
-        <a href="{{ zipUrl | fullUrl }}" class="zip-download-link" download>
-          <i class="fas fa-file-archive"></i> Download all as .zip
-        </a>
-      </div>
-      {% endif %}
     </div>
   </details>
   {% endif %}
@@ -109,14 +109,21 @@ layout: base.njk
     margin-bottom: 0.5rem;
   }
 
-  /* Zip download link */
-  .zip-download {
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--border-color);
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
   }
 
   .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
