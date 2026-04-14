@@ -97,6 +97,15 @@ body:
     validations:
       required: false
 
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: "Semantic version for this contribution (e.g., 1.0.0). Leave blank for initial submissions."
+      placeholder: "1.0.0"
+    validations:
+      required: false
+
   - type: markdown
     attributes:
       value: |

@@ -43,6 +43,13 @@ contentType: "<matching-immediate-parent>"
 tags:
   - relevant
   - tags
+# Optional versioning fields:
+version: "1.0.0"           # Semantic version (MAJOR.MINOR.PATCH)
+lastUpdated: "YYYY-MM-DD"  # Date of last substantive change
+changelog:                  # Version history, ordered newest-first
+  - version: "1.0.0"
+    date: "YYYY-MM-DD"
+    summary: "Description of changes"
 ---
 ```
 
@@ -76,6 +83,18 @@ Resources are automatically:
 Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`, `.md`, `.zip`.
 
 Skills with resource directories automatically get a "Download All Resources (.zip)" button on their page, generated at build time.
+
+### Versioning
+
+All content types support optional version tracking via frontmatter fields:
+
+- **`version`**: Semantic version string (`MAJOR.MINOR.PATCH`, e.g., `"1.2.0"`). Build warns if format is invalid.
+- **`lastUpdated`**: Date of the most recent substantive change, distinct from `date` (creation date). Build warns if `version` is set but `lastUpdated` is missing.
+- **`changelog`**: Array of version history entries, each with `version`, `date`, and `summary`. Ordered newest-first by convention.
+
+All fields are optional. Existing content without versioning builds and renders normally. The build emits `console.warn` for validation issues but never fails.
+
+Content pages display a version badge and "Updated" date when present, plus a collapsible changelog section. Collection listings show an "Updated" badge for items with `lastUpdated` within the last 30 days.
 
 ## Key Configuration Files
 

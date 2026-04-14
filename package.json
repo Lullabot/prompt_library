@@ -21,6 +21,7 @@
     "@11ty/eleventy": "^3.0.0"
   },
   "dependencies": {
-    "archiver": "^7.0.1"
+    "archiver": "^7.0.1",
+    "gray-matter": "^4.0.3"
   }
 }

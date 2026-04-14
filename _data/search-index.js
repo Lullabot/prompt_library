@@ -53,7 +53,9 @@ function createSearchIndex() {
         discipline: data.discipline || dir,
         contentType: data.contentType || '',
         tags: data.tags || [],
-        date: data.date || new Date().toISOString()
+        date: data.date || new Date().toISOString(),
+        version: data.version || '',
+        lastUpdated: data.lastUpdated || ''
       });
     }
   }
