@@ -73,7 +73,7 @@ Resources are automatically:
 - Discovered and displayed on the skill's page with download links
 - Served as static files (no processing)
 
-Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`.
+Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.js`, `.txt`, `.cfg`, `.conf`, `.toml`, `.md`.
 
 ## Key Configuration Files
 
