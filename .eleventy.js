@@ -242,11 +242,33 @@ module.exports = function(eleventyConfig) {
             const archive = archiver('zip', { zlib: { level: 9 } });
 
             output.on('close', resolve);
+            output.on('error', reject);
+            archive.on('warning', (err) => {
+              if (err.code !== 'ENOENT') {
+                reject(err);
+              }
+            });
             archive.on('error', reject);
             archive.pipe(output);
 
-            // Add all files from the resource directory
-            archive.directory(resourceDir, slug);
+            // Add only whitelisted files, matching getSkillResources behavior
+            const allowedExts = new Set(skillResourceExtensions);
+            const addFiltered = (dir, prefix) => {
+              const items = fs.readdirSync(dir, { withFileTypes: true });
+              for (const item of items) {
+                if (item.name.startsWith('.')) continue;
+                const fullPath = path.join(dir, item.name);
+                if (item.isDirectory()) {
+                  addFiltered(fullPath, `${prefix}${item.name}/`);
+                } else {
+                  const ext = item.name.split('.').pop();
+                  if (allowedExts.has(ext)) {
+                    archive.file(fullPath, { name: `${prefix}${item.name}` });
+                  }
+                }
+              }
+            };
+            addFiltered(resourceDir, `${slug}/`);
 
             archive.finalize();
           });
