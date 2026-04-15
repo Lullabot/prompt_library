@@ -108,19 +108,24 @@ layout: base.njk
   {% else %}
     {% set agentPrompt = "Fetch the content from " + agentTargetUrl + " and use it." %}
   {% endif %}
-  {% set claudeUrl = "https://claude.ai/new?q=" + agentPrompt | urlencode %}
-  {% set chatgptUrl = "https://chatgpt.com/?q=" + agentPrompt | urlencode %}
   <div class="agent-buttons">
+    {% if effectiveContentType != "skills" %}
+    {% set claudeUrl = "https://claude.ai/new?q=" + agentPrompt | urlencode %}
+    {% set chatgptUrl = "https://chatgpt.com/?q=" + agentPrompt | urlencode %}
     <a href="{{ claudeUrl }}" class="agent-button agent-button--claude" target="_blank" rel="noopener">
       <span class="agent-button-label">Read with Claude</span>
     </a>
     <a href="{{ chatgptUrl }}" class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
       <span class="agent-button-label">Read with ChatGPT</span>
     </a>
+    {% endif %}
     <button class="agent-button agent-button--copy" data-prompt="{{ agentPrompt }}">
       <span class="agent-button-label">Copy for agent</span>
     </button>
   </div>
+  {% if effectiveContentType == "skills" %}
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  {% endif %}
   {% endif %}
 
   <div class="content">
@@ -370,6 +375,12 @@ layout: base.njk
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
   }
 
   /* Code block styling */
