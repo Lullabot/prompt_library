@@ -117,19 +117,15 @@
       
     
   
-  
-  
   <div class="agent-buttons">
-    <a href="https://claude.ai/new?q=Download%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fskills%2Fcloudflare-tunnel%2Fcloudflare-tunnel-resources.zip%20%E2%80%94%20it%20contains%20a%20skill%20definition%20(SKILL.md)%20and%20companion%20resources.%20Extract%20it%20and%20install%20the%20skill%20and%20its%20resources." class="agent-button agent-button--claude" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with Claude</span>
-    </a>
-    <a href="https://chatgpt.com/?q=Download%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fskills%2Fcloudflare-tunnel%2Fcloudflare-tunnel-resources.zip%20%E2%80%94%20it%20contains%20a%20skill%20definition%20(SKILL.md)%20and%20companion%20resources.%20Extract%20it%20and%20install%20the%20skill%20and%20its%20resources." class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with ChatGPT</span>
-    </a>
+    
     <button class="agent-button agent-button--copy" data-prompt="Download https://lullabot.github.io/prompt_library/development/skills/cloudflare-tunnel/cloudflare-tunnel-resources.zip — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources.">
       <span class="agent-button-label">Copy for agent</span>
     </button>
   </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
   
 
   <div class="content">
@@ -522,6 +518,12 @@ The helper script at `scripts/tunnel.sh` supports these commands:
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
   }
 
   /* Code block styling */

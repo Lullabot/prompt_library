@@ -93,19 +93,15 @@
       
     
   
-  
-  
   <div class="agent-buttons">
-    <a href="https://claude.ai/new?q=Fetch%20the%20skill%20definition%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fskills%2Fhtmx-expert%2FSKILL.md%20and%20add%20it%20to%20my%20skills." class="agent-button agent-button--claude" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with Claude</span>
-    </a>
-    <a href="https://chatgpt.com/?q=Fetch%20the%20skill%20definition%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fskills%2Fhtmx-expert%2FSKILL.md%20and%20add%20it%20to%20my%20skills." class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with ChatGPT</span>
-    </a>
+    
     <button class="agent-button agent-button--copy" data-prompt="Fetch the skill definition from https://lullabot.github.io/prompt_library/development/skills/htmx-expert/SKILL.md and add it to my skills.">
       <span class="agent-button-label">Copy for agent</span>
     </button>
   </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
   
 
   <div class="content">
@@ -876,6 +872,12 @@ For detailed reference, consult:
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
   }
 
   /* Code block styling */
