@@ -85,13 +85,23 @@ layout: base.njk
     <summary>Use with your agent</summary>
     <div class="agent-usage-content">
       {% if effectiveContentType == "skills" %}
+        {% if zipUrl %}
+        <p>This skill includes companion resources. Download the complete package:</p>
+        <div class="agent-url-block">
+          <code class="agent-url">{{ zipUrl | fullUrl }}</code>
+          <button class="copy-url-button" data-url="{{ zipUrl | fullUrl }}" title="Copy URL">Copy</button>
+        </div>
+        <p class="agent-usage-hint">Tell your agent:<br>
+        <em>"Download <code>{{ zipUrl | fullUrl }}</code>, extract it, and install the skill and its resources"</em></p>
+        {% else %}
         <p>Point your agent at this URL to install the skill:</p>
         <div class="agent-url-block">
           <code class="agent-url">{{ rawUrl }}</code>
           <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
         </div>
-        <p class="agent-usage-hint">Or tell your agent:<br>
+        <p class="agent-usage-hint">Tell your agent:<br>
         <em>"Fetch the skill definition from <code>{{ rawUrl }}</code> and add it to my skills"</em></p>
+        {% endif %}
       {% elif effectiveContentType == "prompts" %}
         <p>Copy this prompt and paste it into your agent, or point your agent at this URL:</p>
         <div class="agent-url-block">

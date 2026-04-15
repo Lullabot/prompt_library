@@ -357,6 +357,12 @@ module.exports = function(eleventyConfig) {
                 };
                 addFiltered(resourceDir, `${slug}/`);
 
+                // Include the SKILL.md so the zip is self-contained
+                const skillMdPath = path.join(destDir, 'SKILL.md');
+                if (fs.existsSync(skillMdPath)) {
+                  archive.file(skillMdPath, { name: `${slug}/SKILL.md` });
+                }
+
                 archive.finalize();
               });
             }
