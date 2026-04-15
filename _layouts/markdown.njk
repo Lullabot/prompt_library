@@ -81,62 +81,46 @@ layout: base.njk
   {% set rawFile = rawFileMap[effectiveContentType] %}
   {% if rawFile %}
   {% set rawUrl = page.url | fullUrl + rawFile %}
-  <details class="agent-usage-section">
-    <summary>Use with your agent</summary>
-    <div class="agent-usage-content">
-      {% if effectiveContentType == "skills" %}
-        {% if zipUrl %}
-        <p>This skill includes companion resources. Download the complete package:</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ zipUrl | fullUrl }}</code>
-          <button class="copy-url-button" data-url="{{ zipUrl | fullUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Download <code>{{ zipUrl | fullUrl }}</code>, extract it, and install the skill and its resources"</em></p>
-        {% else %}
-        <p>Point your agent at this URL to install the skill:</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ rawUrl }}</code>
-          <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Fetch the skill definition from <code>{{ rawUrl }}</code> and add it to my skills"</em></p>
-        {% endif %}
-      {% elif effectiveContentType == "prompts" %}
-        <p>Copy this prompt and paste it into your agent, or point your agent at this URL:</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ rawUrl }}</code>
-          <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Fetch the prompt from <code>{{ rawUrl }}</code> and use it"</em></p>
-      {% elif effectiveContentType == "rules" %}
-        <p>Add this rule to your project's configuration (e.g. <code>CLAUDE.md</code>, <code>.cursorrules</code>):</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ rawUrl }}</code>
-          <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Fetch the rules from <code>{{ rawUrl }}</code> and apply them to this project"</em></p>
-      {% elif effectiveContentType == "agents" %}
-        <p>Point your agent at this configuration:</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ rawUrl }}</code>
-          <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Fetch the agent configuration from <code>{{ rawUrl }}</code> and use it"</em></p>
-      {% else %}
-        <p>Point your agent at this URL to use this content:</p>
-        <div class="agent-url-block">
-          <code class="agent-url">{{ rawUrl }}</code>
-          <button class="copy-url-button" data-url="{{ rawUrl }}" title="Copy URL">Copy</button>
-        </div>
-        <p class="agent-usage-hint">Tell your agent:<br>
-        <em>"Fetch the content from <code>{{ rawUrl }}</code> and apply it"</em></p>
-      {% endif %}
-    </div>
-  </details>
+  {% set absoluteRawUrl = siteOrigin + rawUrl %}
+  {# For skills with resources, prefer the zip URL #}
+  {% if effectiveContentType == "skills" and zipUrl %}
+    {% set agentTargetUrl = siteOrigin + (zipUrl | fullUrl) %}
+  {% else %}
+    {% set agentTargetUrl = absoluteRawUrl %}
+  {% endif %}
+  {# Build content-type-specific prompt text #}
+  {% if effectiveContentType == "skills" %}
+    {% if zipUrl %}
+      {% set agentPrompt = "Download " + agentTargetUrl + " — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources." %}
+    {% else %}
+      {% set agentPrompt = "Fetch the skill definition from " + agentTargetUrl + " and add it to my skills." %}
+    {% endif %}
+  {% elif effectiveContentType == "prompts" %}
+    {% set agentPrompt = "Fetch the prompt from " + agentTargetUrl + " and use it." %}
+  {% elif effectiveContentType == "rules" %}
+    {% set agentPrompt = "Fetch the rules from " + agentTargetUrl + " and apply them to this project." %}
+  {% elif effectiveContentType == "agents" %}
+    {% set agentPrompt = "Fetch the agent configuration from " + agentTargetUrl + " and use it." %}
+  {% elif effectiveContentType == "project-configs" %}
+    {% set agentPrompt = "Fetch the project configuration from " + agentTargetUrl + " and apply it to this project." %}
+  {% elif effectiveContentType == "workflow-states" %}
+    {% set agentPrompt = "Fetch the workflow definition from " + agentTargetUrl + " and apply it." %}
+  {% else %}
+    {% set agentPrompt = "Fetch the content from " + agentTargetUrl + " and use it." %}
+  {% endif %}
+  {% set claudeUrl = "https://claude.ai/new?q=" + agentPrompt | urlencode %}
+  {% set chatgptUrl = "https://chatgpt.com/?q=" + agentPrompt | urlencode %}
+  <div class="agent-buttons">
+    <a href="{{ claudeUrl }}" class="agent-button agent-button--claude" target="_blank" rel="noopener">
+      <span class="agent-button-label">Read with Claude</span>
+    </a>
+    <a href="{{ chatgptUrl }}" class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
+      <span class="agent-button-label">Read with ChatGPT</span>
+    </a>
+    <button class="agent-button agent-button--copy" data-prompt="{{ agentPrompt }}">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
   {% endif %}
 
   <div class="content">
@@ -343,85 +327,49 @@ layout: base.njk
     font-size: 1rem;
   }
 
-  /* Agent usage section */
-  .agent-usage-section {
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-  }
-
-  .agent-usage-section summary {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    background-color: var(--surface-color);
-    border-radius: 0.5rem;
-  }
-
-  .agent-usage-section[open] summary {
-    border-bottom: 1px solid var(--border-color);
-    border-radius: 0.5rem 0.5rem 0 0;
-  }
-
-  .agent-usage-content {
-    padding: 0.75rem 1rem;
-  }
-
-  .agent-usage-content p {
-    margin: 0 0 0.5rem;
-    font-size: 0.9rem;
-  }
-
-  .agent-url-block {
+  /* Agent action buttons */
+  .agent-buttons {
     display: flex;
-    align-items: center;
     gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
 
-  .agent-url {
-    flex: 1;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--code-background);
-    border: 1px solid var(--code-border);
-    border-radius: 0.25rem;
+  .agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .copy-url-button {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    background-color: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
     cursor: pointer;
-    white-space: nowrap;
     transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
   }
 
-  .copy-url-button:hover {
-    color: var(--primary-color);
+  .agent-button:hover {
     border-color: var(--primary-color);
+    color: var(--primary-color);
   }
 
-  .copy-url-button.copied {
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: #12212b;
-  }
-
-  .agent-usage-hint {
-    color: var(--text-muted);
-    font-size: 0.85rem !important;
-    margin-top: 0.5rem !important;
-  }
-
-  .agent-usage-hint em {
-    color: var(--text-color);
   }
 
   /* Code block styling */
@@ -515,15 +463,16 @@ layout: base.njk
       }
     });
 
-    // Copy URL buttons for agent usage section
-    document.querySelectorAll('.copy-url-button').forEach(button => {
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
       button.addEventListener('click', async () => {
         try {
-          await navigator.clipboard.writeText(button.dataset.url);
-          button.textContent = 'Copied!';
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
           button.classList.add('copied');
           setTimeout(() => {
-            button.textContent = 'Copy';
+            label.textContent = 'Copy for agent';
             button.classList.remove('copied');
           }, 2000);
         } catch (err) {

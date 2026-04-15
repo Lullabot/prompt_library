@@ -162,6 +162,12 @@ module.exports = function(eleventyConfig) {
   const baseUrl = process.env.GITHUB_ACTIONS ? "/prompt_library" : "";
   eleventyConfig.addGlobalData("baseUrl", baseUrl);
 
+  // Site origin for building absolute URLs (e.g. for Claude/ChatGPT links)
+  const siteOrigin = process.env.GITHUB_ACTIONS
+    ? "https://lullabot.github.io"
+    : "http://localhost:8080";
+  eleventyConfig.addGlobalData("siteOrigin", siteOrigin);
+
   // Extract content type from URL path (e.g. /development/rules/code-quality/ -> rules)
   eleventyConfig.addFilter("contentTypeFromUrl", function(url) {
     if (!url) return '';
