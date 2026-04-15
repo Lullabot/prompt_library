@@ -70,6 +70,22 @@ Supported resource file types: `.sh`, `.yml`, `.yaml`, `.json`, `.py`, `.rb`, `.
 
 Skills with resource directories automatically get a &quot;Download All Resources (.zip)&quot; button on their page, generated at build time.
 
+### Raw Markdown Endpoints
+
+All content types generate raw markdown files at build time for agent consumption. These files strip frontmatter and serve only the usable content:
+
+| Content Type | Raw File | Example URL |
+|---|---|---|
+| Skills | `SKILL.md` | `/development/skills/cloudflare-tunnel/SKILL.md` |
+| Prompts | `PROMPT.md` | `/development/prompts/adr/PROMPT.md` |
+| Rules | `RULE.md` | `/development/rules/code-quality/RULE.md` |
+| Agents | `AGENT.md` | `/development/agents/code-review-assistant/AGENT.md` |
+| Project Configs | `CONFIG.md` | `/development/project-configs/drupal-setup/CONFIG.md` |
+| Workflow States | `WORKFLOW.md` | `/&lt;discipline&gt;/workflow-states/&lt;slug&gt;/WORKFLOW.md` |
+| Resources | `RESOURCE.md` | `/&lt;discipline&gt;/resources/&lt;slug&gt;/RESOURCE.md` |
+
+Each content page includes a collapsible &quot;Use with your agent&quot; section with copy-pasteable URLs and instructions tailored to the content type.
+
 ### Versioning
 
 All content types support optional version tracking via frontmatter fields:

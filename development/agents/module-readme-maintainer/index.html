@@ -77,6 +77,34 @@
   
 
   
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+  <div class="agent-buttons">
+    <a href="https://claude.ai/new?q=Fetch%20the%20agent%20configuration%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fagents%2Fmodule-readme-maintainer%2FAGENT.md%20and%20use%20it." class="agent-button agent-button--claude" target="_blank" rel="noopener">
+      <span class="agent-button-label">Read with Claude</span>
+    </a>
+    <a href="https://chatgpt.com/?q=Fetch%20the%20agent%20configuration%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Fagents%2Fmodule-readme-maintainer%2FAGENT.md%20and%20use%20it." class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
+      <span class="agent-button-label">Read with ChatGPT</span>
+    </a>
+    <button class="agent-button agent-button--copy" data-prompt="Fetch the agent configuration from https://lullabot.github.io/prompt_library/development/agents/module-readme-maintainer/AGENT.md and use it.">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
+  
 
   <div class="content">
     <pre><code>---
@@ -374,28 +402,49 @@ Remember: Your role is to be the bridge between code reality and documentation c
     font-size: 1rem;
   }
 
-  /* Raw SKILL.md download link */
-  .skill-raw-download {
+  /* Agent action buttons */
+  .agent-buttons {
+    display: flex;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
 
-  .raw-download-link {
+  .agent-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.75rem;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
     font-size: 0.8rem;
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
-    text-decoration: none;
     font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
     transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
   }
 
-  .raw-download-link:hover {
-    color: var(--primary-color);
+  .agent-button:hover {
     border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
   }
 
   /* Code block styling */
@@ -487,6 +536,24 @@ Remember: Your role is to be the bridge between code reality and documentation c
 
         pre.appendChild(button);
       }
+    });
+
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = 'Copy for agent';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
     });
   });
 </script>
