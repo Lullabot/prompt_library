@@ -223,7 +223,7 @@ Synchronize design variables between Pencil and CSS files bidirectionally.
 ## Best Practices
 
 1. **Save frequently** -- no auto-save yet (Cmd/Ctrl+S)
-2. **Commit `.pen` files to Git** -- they are text-based JSON and diff cleanly
+2. **Commit `.pen` files to Git** -- they are version-control friendly and diff cleanly, but always use MCP tools to read or edit their contents
 3. **Use variables** instead of hardcoded values for colors, spacing, and fonts
 4. **Create components** for repeated UI elements to maintain consistency
 5. **Use descriptive names** for layers and components (e.g., `dashboard-header`, `user-card`)

@@ -2,6 +2,8 @@
 
 ## Core Structure
 
+> **Note:** This specification describes the logical document structure exposed by Pencil's MCP tools. On disk, `.pen` file contents are encrypted and must only be accessed via MCP -- never with `Read`, `Grep`, or `cat`.
+
 The .pen format stores design documents as JSON describing an object tree. Each object requires:
 - **id**: Unique string identifier (no forward slashes allowed)
 - **type**: Object type from supported set
