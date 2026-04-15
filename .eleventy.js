@@ -162,6 +162,24 @@ module.exports = function(eleventyConfig) {
   const baseUrl = process.env.GITHUB_ACTIONS ? "/prompt_library" : "";
   eleventyConfig.addGlobalData("baseUrl", baseUrl);
 
+  // Site origin for building absolute URLs (e.g. for Claude/ChatGPT links)
+  const siteOrigin = process.env.GITHUB_ACTIONS
+    ? "https://lullabot.github.io"
+    : "http://localhost:8080";
+  eleventyConfig.addGlobalData("siteOrigin", siteOrigin);
+
+  // Extract content type from URL path (e.g. /development/rules/code-quality/ -> rules)
+  // Strips baseUrl prefix first so it works on GitHub Pages (/prompt_library/...)
+  eleventyConfig.addFilter("contentTypeFromUrl", function(url) {
+    if (!url || typeof url !== 'string') return '';
+    let normalizedUrl = url;
+    if (baseUrl && normalizedUrl.startsWith(baseUrl)) {
+      normalizedUrl = normalizedUrl.slice(baseUrl.length);
+    }
+    const parts = normalizedUrl.replace(/^\//, '').split('/').filter(Boolean);
+    return parts.length > 1 ? parts[1] : '';
+  });
+
   // Add URL filter that includes base URL
   eleventyConfig.addFilter("fullUrl", function(url) {
     if (url.startsWith(baseUrl)) {
@@ -268,70 +286,98 @@ module.exports = function(eleventyConfig) {
     return updatedUtc > thirtyDaysAgoUtc;
   });
 
-  // After build: copy raw markdown for skill files as SKILL.md
-  // and generate zip archives for skill resource directories
+  // Map content types to their raw markdown filename
+  const rawFilenames = {
+    skills: 'SKILL.md',
+    prompts: 'PROMPT.md',
+    rules: 'RULE.md',
+    agents: 'AGENT.md',
+    'project-configs': 'CONFIG.md',
+    'workflow-states': 'WORKFLOW.md',
+    resources: 'RESOURCE.md'
+  };
+
+  // After build: generate raw markdown files for all content types
+  // and zip archives for skill resource directories
   eleventyConfig.on('eleventy.after', async () => {
     const outputDir = path.join(__dirname, '_site');
 
     for (const discipline of disciplines) {
-      const skillsDir = path.join(__dirname, discipline, 'skills');
-      if (!fs.existsSync(skillsDir)) continue;
+      for (const type of contentTypes) {
+        const typeDir = path.join(__dirname, discipline, type);
+        if (!fs.existsSync(typeDir)) continue;
 
-      const entries = fs.readdirSync(skillsDir);
-      for (const entry of entries) {
-        if (!entry.endsWith('.md') || entry === 'index.md') continue;
+        const entries = fs.readdirSync(typeDir);
+        for (const entry of entries) {
+          if (!entry.endsWith('.md') || entry === 'index.md') continue;
 
-        const slug = entry.replace(/\.md$/, '');
-        const srcFile = path.join(skillsDir, entry);
-        const destDir = path.join(outputDir, discipline, 'skills', slug);
+          const slug = entry.replace(/\.md$/, '');
+          const srcFile = path.join(typeDir, entry);
+          const destDir = path.join(outputDir, discipline, type, slug);
+          const rawFilename = rawFilenames[type] || 'RAW.md';
 
-        // Copy raw SKILL.md
-        const raw = fs.readFileSync(srcFile, 'utf8');
-        const match = raw.match(/`{5}\n([\s\S]*?)\n`{5}/);
-        const skillContent = match ? match[1] : raw;
+          // Extract raw content: for skills, use five-backtick extraction;
+          // for all other types, strip frontmatter
+          const raw = fs.readFileSync(srcFile, 'utf8');
+          let content;
+          if (type === 'skills') {
+            const match = raw.match(/`{5}\n([\s\S]*?)\n`{5}/);
+            content = match ? match[1] : matter(raw).content.trim();
+          } else {
+            content = matter(raw).content.trim();
+          }
 
-        fs.mkdirSync(destDir, { recursive: true });
-        fs.writeFileSync(path.join(destDir, 'SKILL.md'), skillContent);
+          fs.mkdirSync(destDir, { recursive: true });
+          fs.writeFileSync(path.join(destDir, rawFilename), content);
 
-        // Generate zip if skill has a companion resource directory
-        const resourceDir = path.join(skillsDir, slug);
-        if (fs.existsSync(resourceDir) && fs.statSync(resourceDir).isDirectory()) {
-          const zipPath = path.join(destDir, `${slug}-resources.zip`);
-          await new Promise((resolve, reject) => {
-            const output = fs.createWriteStream(zipPath);
-            const archive = archiver('zip', { zlib: { level: 9 } });
+          // Generate zip if skill has a companion resource directory
+          if (type === 'skills') {
+            const resourceDir = path.join(typeDir, slug);
+            if (fs.existsSync(resourceDir) && fs.statSync(resourceDir).isDirectory()) {
+              const zipPath = path.join(destDir, `${slug}-resources.zip`);
+              await new Promise((resolve, reject) => {
+                const output = fs.createWriteStream(zipPath);
+                const archive = archiver('zip', { zlib: { level: 9 } });
 
-            output.on('close', resolve);
-            output.on('error', reject);
-            archive.on('warning', (err) => {
-              if (err.code !== 'ENOENT') {
-                reject(err);
-              }
-            });
-            archive.on('error', reject);
-            archive.pipe(output);
-
-            // Add only whitelisted files, matching getSkillResources behavior
-            const allowedExts = new Set(skillResourceExtensions);
-            const addFiltered = (dir, prefix) => {
-              const items = fs.readdirSync(dir, { withFileTypes: true });
-              for (const item of items) {
-                if (item.name.startsWith('.')) continue;
-                const fullPath = path.join(dir, item.name);
-                if (item.isDirectory()) {
-                  addFiltered(fullPath, `${prefix}${item.name}/`);
-                } else {
-                  const ext = item.name.split('.').pop();
-                  if (allowedExts.has(ext)) {
-                    archive.file(fullPath, { name: `${prefix}${item.name}` });
+                output.on('close', resolve);
+                output.on('error', reject);
+                archive.on('warning', (err) => {
+                  if (err.code !== 'ENOENT') {
+                    reject(err);
                   }
-                }
-              }
-            };
-            addFiltered(resourceDir, `${slug}/`);
+                });
+                archive.on('error', reject);
+                archive.pipe(output);
 
-            archive.finalize();
-          });
+                // Add only whitelisted files, matching getSkillResources behavior
+                const allowedExts = new Set(skillResourceExtensions);
+                const addFiltered = (dir, prefix) => {
+                  const items = fs.readdirSync(dir, { withFileTypes: true });
+                  for (const item of items) {
+                    if (item.name.startsWith('.')) continue;
+                    const fullPath = path.join(dir, item.name);
+                    if (item.isDirectory()) {
+                      addFiltered(fullPath, `${prefix}${item.name}/`);
+                    } else {
+                      const ext = item.name.split('.').pop();
+                      if (allowedExts.has(ext)) {
+                        archive.file(fullPath, { name: `${prefix}${item.name}` });
+                      }
+                    }
+                  }
+                };
+                addFiltered(resourceDir, `${slug}/`);
+
+                // Include the SKILL.md so the zip is self-contained
+                const skillMdPath = path.join(destDir, 'SKILL.md');
+                if (fs.existsSync(skillMdPath)) {
+                  archive.file(skillMdPath, { name: `${slug}/SKILL.md` });
+                }
+
+                archive.finalize();
+              });
+            }
+          }
         }
       }
     }
