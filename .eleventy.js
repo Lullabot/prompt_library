@@ -169,9 +169,14 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addGlobalData("siteOrigin", siteOrigin);
 
   // Extract content type from URL path (e.g. /development/rules/code-quality/ -> rules)
+  // Strips baseUrl prefix first so it works on GitHub Pages (/prompt_library/...)
   eleventyConfig.addFilter("contentTypeFromUrl", function(url) {
-    if (!url) return '';
-    const parts = url.replace(/^\//, '').split('/');
+    if (!url || typeof url !== 'string') return '';
+    let normalizedUrl = url;
+    if (baseUrl && normalizedUrl.startsWith(baseUrl)) {
+      normalizedUrl = normalizedUrl.slice(baseUrl.length);
+    }
+    const parts = normalizedUrl.replace(/^\//, '').split('/').filter(Boolean);
     return parts.length > 1 ? parts[1] : '';
   });
 
