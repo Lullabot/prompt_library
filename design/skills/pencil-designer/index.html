@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Pencil Designer - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Pencil Designer</h1>
+  <p class="description">Comprehensive guide for working with Pencil design files (.pen), creating and editing designs via Pencil MCP tools, building UI layouts, managing design systems and libraries, and bridging design-to-code workflows. Covers node types, layout properties, styling, components, variables, theming, and best practices.</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">design</span>
+      
+        <span class="tag">pencil</span>
+      
+        <span class="tag">ui-design</span>
+      
+        <span class="tag">design-systems</span>
+      
+        <span class="tag">mcp</span>
+      
+        <span class="tag">prototyping</span>
+      
+        <span class="tag">components</span>
+      
+        <span class="tag">design-to-code</span>
+      
+    </div>
+    <div class="metadata-right">
+      
+        <span class="version-badge">v1.0.0</span>
+      
+      
+        <span class="last-updated">Updated 2026-04-15</span>
+      
+    </div>
+  </div>
+
+  
+  <details class="changelog-section">
+    <summary>Changelog (1 version)</summary>
+    <ul class="changelog-list">
+      
+        <li class="changelog-entry">
+          <strong class="changelog-version">v1.0.0</strong>
+          <time class="changelog-date" datetime="2026-04-15">2026-04-15</time>
+          <span class="changelog-summary">Initial contribution to prompt library</span>
+        </li>
+      
+    </ul>
+  </details>
+  
+
+  
+  
+  
+  <details class="skill-install-section">
+    <summary>Installation &amp; Resources</summary>
+    <div class="skill-install-content">
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        
+        <a href="/prompt_library/design/skills/pencil-designer/pencil-designer-resources.zip" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        
+      </div>
+      <ul class="resource-list">
+        
+        <li class="resource-item">
+          <a href="/prompt_library/design/skills/pencil-designer/references/mcp-tools-guide.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/mcp-tools-guide.md</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/design/skills/pencil-designer/references/pen-format-spec.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/pen-format-spec.md</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+  
+
+  
+  <div class="skill-raw-download">
+    <a href="/prompt_library/design/skills/pencil-designer/SKILL.md" class="raw-download-link" title="Raw markdown for agent consumption">
+      <i class="fas fa-file-code"></i> Raw SKILL.md
+    </a>
+  </div>
+  
+
+  <div class="content">
+    <pre><code>---
+name: pencil-designer
+description: This skill should be used when working with Pencil design files (.pen), creating or editing designs in the Pencil editor, using Pencil MCP tools, building UI layouts, managing design systems/libraries, or generating code from Pencil designs. Triggers on &quot;pencil&quot;, &quot;.pen file&quot;, &quot;design in pencil&quot;, &quot;create a design&quot;, &quot;design library&quot;, &quot;pen file&quot;, or when Pencil MCP tools are available and design work is requested.
+---
+
+# Pencil Designer
+
+This skill provides comprehensive guidance for working with Pencil -- a vector design tool that integrates directly into development environments. Pencil bridges design and development by operating within IDEs, enabling designers and developers to collaborate using familiar version control workflows.
+
+## When to Use This Skill
+
+- Creating or editing designs in `.pen` files
+- Working with Pencil MCP tools (batch_design, batch_get, etc.)
+- Building UI layouts, screens, dashboards, or components
+- Managing design libraries and design systems
+- Generating code from Pencil designs or importing code into designs
+- Working with design variables and theming
+- Creating reusable components with slots
+
+## Critical Rules
+
+1. **NEVER use Read, Grep, or cat to read `.pen` files** -- contents are encrypted and only accessible via Pencil MCP tools
+2. **Always start with `get_editor_state()`** to understand the current context before making changes
+3. **Use `get_screenshot`** periodically to validate design changes visually
+4. **Limit `batch_design` to ~25 operations per call** to avoid overwhelming the system
+
+## Workflow
+
+### Starting a Design Task
+
+1. Call `get_editor_state()` to check the active `.pen` file and current selection
+2. If no file is open, call `open_document('new')` for a new file or `open_document(path)` for existing
+3. Call `get_guidelines(topic)` for relevant design rules (topics: `code`, `table`, `tailwind`, `landing-page`, `slides`, `design-system`, `mobile-app`, `web-app`)
+4. Call `get_style_guide_tags` then `get_style_guide(tags)` for design inspiration when not using an existing design system
+5. Use `snapshot_layout` to understand existing layout structure before inserting
+
+### Making Design Changes
+
+Use `batch_design(operations)` with this operation syntax:
+
+```
+# Insert new node
+varName=I(&quot;parentId&quot;, { type: &quot;frame&quot;, width: 200, height: 100, fill: &quot;#FF0000&quot; })
+
+# Copy existing node
+copy=C(&quot;sourceId&quot;, &quot;parentId&quot;, { fill: &quot;#00FF00&quot; })
+
+# Replace node(s)
+R(&quot;nodeId1/nodeId2&quot;, { fill: &quot;#0000FF&quot; })
+
+# Update node (reference variables from prior operations)
+U(varName+&quot;/childId&quot;, { text: &quot;Updated text&quot; })
+
+# Delete node
+D(&quot;nodeId&quot;)
+
+# Move node to new parent at index
+M(&quot;nodeId&quot;, &quot;newParentId&quot;, 2)
+
+# Generate AI image
+G(&quot;nodeId&quot;, &quot;ai&quot;, &quot;A sunset over mountains&quot;)
+```
+
+### Discovering Content
+
+- Use `batch_get(patterns)` to search for nodes by pattern
+- Use `batch_get(nodeIds)` to read specific nodes by ID
+- Use `search_all_unique_properties` to audit property values across the tree
+- Use `snapshot_layout` to see computed layout rectangles
+
+### Validating Changes
+
+After making changes, call `get_screenshot` to render a visual preview. Verify:
+- Layout looks correct (alignment, spacing)
+- Colors and typography match intent
+- Components render properly
+- No overlapping or misaligned elements
+
+## Node Types
+
+| Type | Purpose |
+|------|---------|
+| `frame` | Main container with children and layout (flexbox-like) |
+| `rectangle` | Basic rectangle shape |
+| `ellipse` | Circle/ellipse |
+| `text` | Text element |
+| `line` | Line element |
+| `polygon` | Multi-sided polygon |
+| `path` | SVG-like path |
+| `group` | Unstyled grouping container |
+| `ref` | Instance of a reusable component |
+| `icon_font` | Icon from built-in font libraries |
+
+## Layout Properties
+
+Frames support flexbox-like layout:
+
+| Property | Values |
+|----------|--------|
+| `layout` | `&quot;none&quot;`, `&quot;vertical&quot;`, `&quot;horizontal&quot;` |
+| `gap` | number (space between children) |
+| `padding` | number or `{top, right, bottom, left}` |
+| `justifyContent` | `&quot;start&quot;`, `&quot;center&quot;`, `&quot;end&quot;`, `&quot;space_between&quot;`, `&quot;space_around&quot;` |
+| `alignItems` | `&quot;start&quot;`, `&quot;center&quot;`, `&quot;end&quot;` |
+
+Child sizing: use fixed `width`/`height` or `&quot;fit_content&quot;` / `&quot;fill_container&quot;`.
+
+## Styling Properties
+
+### Fill
+- Solid: `{ fill: &quot;#3B82F6&quot; }` or `{ fill: { type: &quot;solid&quot;, color: &quot;#3B82F6&quot; } }`
+- Gradient: `{ fill: { type: &quot;linear_gradient&quot;, stops: [...], angle: 0 } }`
+- Image: `{ fill: { type: &quot;image&quot;, url: &quot;...&quot; } }`
+
+### Stroke
+```json
+{ &quot;stroke&quot;: { &quot;fill&quot;: &quot;#000&quot;, &quot;thickness&quot;: 1, &quot;alignment&quot;: &quot;inside&quot; } }
+```
+
+### Effects
+```json
+{ &quot;effect&quot;: [{ &quot;type&quot;: &quot;shadow&quot;, &quot;x&quot;: 0, &quot;y&quot;: 4, &quot;blur&quot;: 8, &quot;color&quot;: &quot;#00000020&quot; }] }
+```
+
+### Text
+Key properties: `fontSize`, `fontFamily`, `fontWeight`, `fontStyle`, `letterSpacing`, `lineHeight`, `textAlign` (&quot;left&quot;/&quot;center&quot;/&quot;right&quot;/&quot;justify&quot;), `textAlignVertical` (&quot;top&quot;/&quot;middle&quot;/&quot;bottom&quot;), `textGrowth` (&quot;auto&quot;/&quot;fixed-width&quot;/&quot;fixed-width-height&quot;).
+
+### Other
+- `opacity`: 0-1
+- `cornerRadius`: number or per-corner object
+- `rotation`: degrees (counter-clockwise)
+- `enabled`: boolean (visibility)
+
+## Components
+
+### Creating Components
+Set `reusable: true` on any node to make it a component origin (magenta bounding box).
+
+### Creating Instances
+Use `ref` type: `{ type: &quot;ref&quot;, ref: &quot;componentId&quot;, descendants: { &quot;childId&quot;: { overrides } } }`
+
+### Slots
+Frames marked with `slot` property become designated drop zones within components. Only empty frames in component origins can be slots.
+
+## Variables and Theming
+
+### Defining Variables
+Variables act as design tokens -- define once, reference everywhere with `$variable-name` syntax.
+
+Types: `color`, `number`, `string`, `boolean`
+
+### Theme Support
+Variables can have theme-conditional values for light/dark mode or other theme axes.
+
+### Managing Variables
+- `get_variables` -- read current tokens and themes
+- `set_variables` -- add or update variables
+- AI can import variables from CSS (`globals.css`) or Figma
+
+## Design Libraries
+
+### Built-in Libraries
+- **Shadcn UI** -- Modern component library
+- **Halo** -- UI design system
+- **Lunaris** -- Design library
+- **Nitro** -- Design framework
+
+### Custom Libraries
+1. Create a `.pen` file with components
+2. Turn it into a library (creates `.lib.pen` suffix -- irreversible)
+3. Import into other `.pen` files via the Libraries panel
+
+### Built-in Icon Libraries
+Material Symbols (Outlined/Rounded/Sharp), Lucide Icons, Feather, Phosphor
+
+## Design-to-Code / Code-to-Design
+
+### Design to Code
+Select elements, open AI chat (Cmd/Ctrl+K), and request code generation. Supports React, Vue, Next.js, Svelte, Tailwind CSS, CSS Modules, and any framework.
+
+### Code to Design
+Keep `.pen` file in the same workspace as code. AI can recreate code components as Pencil designs.
+
+### Variable Sync
+Synchronize design variables between Pencil and CSS files bidirectionally.
+
+## Import/Export
+
+### Import
+- **Figma**: Full files via toolbar import or individual layers via copy/paste (images must be imported separately)
+- **Images**: Drag-and-drop, clipboard paste, or toolbar import (PNG, JPEG, SVG)
+- **Icons**: Built-in libraries or custom SVG
+
+### Export
+- Elements as PNG, JPEG, WEBP, or PDF via properties panel
+- Code generation via AI chat
+
+## Best Practices
+
+1. **Save frequently** -- no auto-save yet (Cmd/Ctrl+S)
+2. **Commit `.pen` files to Git** -- they are version-control friendly and diff cleanly, but always use MCP tools to read or edit their contents
+3. **Use variables** instead of hardcoded values for colors, spacing, and fonts
+4. **Create components** for repeated UI elements to maintain consistency
+5. **Use descriptive names** for layers and components (e.g., `dashboard-header`, `user-card`)
+6. **Validate visually** with `get_screenshot` after batch operations
+7. **Use `snapshot_layout`** before inserting to understand spatial relationships
+8. **Iterate progressively** -- start broad, then refine details
+9. **Use style guides** via `get_style_guide` when not working with an existing design system
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Raw SKILL.md download link */
+  .skill-raw-download {
+    margin-bottom: 1.5rem;
+  }
+
+  .raw-download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .raw-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+  });
+</script>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
