@@ -74,15 +74,14 @@ EOF
 
 ## Step 3: Analyze the profile
 
-Pipe a Python script into the container via `ddev exec python3` using a heredoc. The script reads the exported JSON from the container's `/tmp`. This avoids requiring Python on the host.
+Pipe a PHP script into the container via `ddev exec php` using a heredoc. The script reads the exported JSON from the container's `/tmp`. PHP is always available in DDEV containers.
 
 ```bash
-ddev exec python3 << 'PYEOF'
-import json
-with open('/tmp/xhgui_profile_<run_id>.json') as f:
-    profile = json.loads(f.read().strip())
-# ... analysis code ...
-PYEOF
+ddev exec php << 'PHPEOF'
+<?php
+$profile = json_decode(file_get_contents('/tmp/xhgui_profile_<run_id>.json'), true);
+// ... analysis code ...
+PHPEOF
 ```
 
 The analysis should produce:
