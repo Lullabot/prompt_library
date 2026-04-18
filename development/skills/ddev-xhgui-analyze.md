@@ -64,15 +64,28 @@ Do this for each run ID provided. Verify the run exists before proceeding.
 
 ## Step 2: Export profile data
 
-Export the full profile JSON (stored as `longtext` in the `profile` column):
+Export the full profile JSON (stored as `longtext` in the `profile` column) to `/tmp` inside the container:
 
 ```bash
-ddev exec mysql -u db -pdb xhgui -N -e "SELECT profile FROM results WHERE id = '<run_id>'" > /tmp/xhgui_profile_<run_id>.json
+ddev exec bash << 'EOF'
+mysql -u db -pdb xhgui -N -e "SELECT profile FROM results WHERE id = '<run_id>'" > /tmp/xhgui_profile_<run_id>.json
+EOF
 ```
 
 ## Step 3: Analyze the profile
 
-Write and execute a Python script to parse the profile JSON and produce:
+Pipe a Python script into the container via `ddev exec python3` using a heredoc. The script reads the exported JSON from the container's `/tmp`. This avoids requiring Python on the host.
+
+```bash
+ddev exec python3 << 'PYEOF'
+import json
+with open('/tmp/xhgui_profile_<run_id>.json') as f:
+    profile = json.loads(f.read().strip())
+# ... analysis code ...
+PYEOF
+```
+
+The analysis should produce:
 
 ### 3a. Top 30 functions by inclusive wall time
 The profile is a dictionary keyed by `"caller==>callee"` with values `{wt, ct, cpu, mu, pmu}`. Aggregate inclusive wall time per callee across all callers.
