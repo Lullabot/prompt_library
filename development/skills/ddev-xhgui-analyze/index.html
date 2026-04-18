@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>DDEV xhgui Analyze - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>DDEV xhgui Analyze</h1>
+  <p class="description">Analyze xhprof/xhgui profile runs from a DDEV environment. Supports standalone analysis of a single run or before/after comparison of two runs. Fetches profile data, identifies hotspots, traces call chains, and provides actionable performance recommendations.</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">ddev</span>
+      
+        <span class="tag">xhgui</span>
+      
+        <span class="tag">xhprof</span>
+      
+        <span class="tag">performance</span>
+      
+        <span class="tag">profiling</span>
+      
+        <span class="tag">php</span>
+      
+    </div>
+    <div class="metadata-right">
+      
+        <span class="version-badge">v1.0.0</span>
+      
+      
+        <span class="last-updated">Updated 2026-04-17</span>
+      
+    </div>
+  </div>
+
+  
+  <details class="changelog-section">
+    <summary>Changelog (1 version)</summary>
+    <ul class="changelog-list">
+      
+        <li class="changelog-entry">
+          <strong class="changelog-version">v1.0.0</strong>
+          <time class="changelog-date" datetime="2026-04-17">2026-04-17</time>
+          <span class="changelog-summary">Initial submission</span>
+        </li>
+      
+    </ul>
+  </details>
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+      
+    
+  
+  <div class="agent-buttons">
+    
+    <button class="agent-button agent-button--copy" data-prompt="Fetch the skill definition from https://lullabot.github.io/prompt_library/development/skills/ddev-xhgui-analyze/SKILL.md and add it to my skills.">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
+  
+
+  <div class="content">
+    <pre><code>---
+name: ddev-xhgui-analyze
+description: Analyze an xhgui/xhprof profile run from a DDEV environment. Provide one run ID for standalone analysis, or two for before/after comparison.
+argument-hint: &quot;&lt;run_id&gt; [compare_run_id]&quot;
+disable-model-invocation: true
+---
+# Analyze xhgui Profile Run
+
+You are a performance analysis specialist. Your job is to fetch xhprof profile data from the xhgui service in a DDEV environment, analyze it, and present a clear summary of where time is being spent.
+
+## Prerequisites
+
+This skill requires:
+
+1. **DDEV** — You must be working inside a DDEV project (a directory with a `.ddev/` config). All commands below use `ddev exec`.
+2. **The xhgui add-on** — xhgui must already be installed and configured. See [DDEV xhprof/xhgui docs](https://docs.ddev.com/en/stable/users/debugging-profiling/xhprof-profiling/) for setup instructions.
+3. **At least one captured profile run** — You need a run ID from xhgui. You can find run IDs by browsing the xhgui UI (typically at `https://&lt;project&gt;.ddev.site:8143`) or by querying the database directly:
+   ```bash
+   ddev exec mysql -u db -pdb xhgui -e &quot;SELECT id, url, request_ts FROM results ORDER BY request_ts DESC LIMIT 10&quot;
+   ```
+
+If any prerequisite is not met, inform the user and point them to the DDEV docs linked above.
+
+## Arguments
+
+The user provides: $ARGUMENTS
+
+Parse the arguments:
+- If one ID is provided: perform a **standalone analysis** of that run.
+- If two IDs are provided: the first is the **baseline** run, the second is the **after** run. Perform a **comparison analysis**.
+
+## Step 1: Fetch run metadata
+
+Query the xhgui MySQL database for run-level summary data. The xhgui DDEV add-on stores profiling data in the `xhgui` database on the `db` service using PDO/MySQL.
+
+```bash
+ddev exec mysql -u db -pdb xhgui -e &quot;SELECT id, url, simple_url, request_ts, main_wt, main_ct, main_cpu, main_mu, main_pmu FROM results WHERE id = '&lt;run_id&gt;'&quot;
+```
+
+Do this for each run ID provided. Verify the run exists before proceeding.
+
+## Step 2: Export profile data
+
+Export the full profile JSON (stored as `longtext` in the `profile` column) to `/tmp` inside the container:
+
+```bash
+ddev exec bash &lt;&lt; 'EOF'
+mysql -u db -pdb xhgui -N -e &quot;SELECT profile FROM results WHERE id = '&lt;run_id&gt;'&quot; &gt; /tmp/xhgui_profile_&lt;run_id&gt;.json
+EOF
+```
+
+## Step 3: Analyze the profile
+
+Pipe a PHP script into the container via `ddev exec php` using a heredoc. The script reads the exported JSON from the container's `/tmp`. PHP is always available in DDEV containers.
+
+```bash
+ddev exec php &lt;&lt; 'PHPEOF'
+&lt;?php
+$profile = json_decode(file_get_contents('/tmp/xhgui_profile_&lt;run_id&gt;.json'), true);
+// ... analysis code ...
+PHPEOF
+```
+
+The analysis should produce:
+
+### 3a. Top 30 functions by inclusive wall time
+The profile is a dictionary keyed by `&quot;caller==&gt;callee&quot;` with values `{wt, ct, cpu, mu, pmu}`. Aggregate inclusive wall time per callee across all callers.
+
+### 3b. HTTP / external call breakdown
+Filter for functions containing: `guzzle`, `curl`, `http`, `stream_`. Show the top entries by wall time.
+
+### 3c. Application-specific hotspots
+Look for functions that belong to the project's own codebase (non-vendor, non-core). Identify custom modules, services, or controllers that appear in the top functions by wall time. Cross-reference with the project directory structure to categorize them.
+
+Also look for hotspots in these common areas:
+- AI/ML providers
+- External API calls
+- Database operations
+- Queue/batch processing
+
+### 3d. Call chain analysis
+For the top time-consuming leaf functions (functions where most time is actually spent, not just passed through), trace the caller chain by examining `caller==&gt;callee` keys.
+
+## Step 4: Cross-reference with codebase
+
+For the most expensive custom (non-vendor) functions found in the profile, use Grep/Glob to find them in the codebase and understand what the code is actually doing. This provides context for the recommendations.
+
+## Step 5: Report
+
+Present a structured summary:
+
+### For standalone analysis:
+1. **Run overview**: URL, total wall time, memory, date
+2. **Time breakdown table**: Top components by wall time (as a markdown table)
+3. **HTTP call analysis**: How many external calls, to where, total time
+4. **Hotspots**: The most expensive functions with codebase context
+5. **Recommendations**: Actionable suggestions ranked by estimated impact
+
+### For comparison analysis:
+Include everything above for the &quot;after&quot; run, plus:
+1. **Before vs After table**: Side-by-side metrics for key functions
+2. **What improved**: Functions that got faster or were called fewer times
+3. **What didn't change**: Remaining bottlenecks
+4. **What regressed**: Anything that got slower (if applicable)
+5. **Next steps**: What to optimize next
+
+## Notes
+
+- Wall time (`wt`) is in **microseconds** in the profile data. Convert to milliseconds or seconds for display.
+- Call count (`ct`) indicates how many times a function was invoked.
+- `main_wt` in the results table is also in microseconds.
+- `request_ts` is a Unix timestamp.
+- The profile keys use `==&gt;` as the caller/callee separator.
+- Memory values (`mu`, `pmu`) are in bytes.
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Agent action buttons */
+  .agent-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
+  }
+
+  .agent-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = 'Copy for agent';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  });
+</script>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
