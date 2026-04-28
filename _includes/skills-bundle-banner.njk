@@ -11,8 +11,8 @@
     </p>
   </div>
   <div class="skills-bundle-banner__cmd">
-    <pre><code id="skills-bundle-cmd">git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code></pre>
-    <button type="button" class="skills-bundle-banner__copy" data-copy-target="skills-bundle-cmd" aria-label="Copy install command">
+    <pre><code>git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code></pre>
+    <button type="button" class="skills-bundle-banner__copy" aria-label="Copy install command">
       <i class="fas fa-copy" aria-hidden="true"></i>
       <span class="skills-bundle-banner__copy-label">Copy</span>
     </button>
@@ -120,24 +120,62 @@
     background: var(--accent-color, #2da44e);
     color: #12212b;
   }
+  .skills-bundle-banner__copy.is-copy-failed {
+    background: #c0392b;
+    color: white;
+  }
 </style>
 
 <script>
   (function() {
+    function flashLabel(btn, text, stateClass) {
+      var label = btn.querySelector('.skills-bundle-banner__copy-label');
+      var original = btn.getAttribute('data-original-label');
+      if (!original) {
+        original = label ? label.textContent : '';
+        btn.setAttribute('data-original-label', original);
+      }
+      if (label) label.textContent = text;
+      btn.classList.remove('is-copied', 'is-copy-failed');
+      if (stateClass) btn.classList.add(stateClass);
+      setTimeout(function() {
+        if (label) label.textContent = original;
+        btn.classList.remove('is-copied', 'is-copy-failed');
+      }, 1500);
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      return ok;
+    }
+
     document.querySelectorAll('.skills-bundle-banner__copy').forEach(function(btn) {
       btn.addEventListener('click', function() {
-        var target = document.getElementById(btn.dataset.copyTarget);
+        var banner = btn.closest('.skills-bundle-banner');
+        var target = banner ? banner.querySelector('.skills-bundle-banner__cmd code') : null;
         if (!target) return;
-        navigator.clipboard.writeText(target.textContent.trim()).then(function() {
-          var label = btn.querySelector('.skills-bundle-banner__copy-label');
-          var original = label ? label.textContent : '';
-          if (label) label.textContent = 'Copied!';
-          btn.classList.add('is-copied');
-          setTimeout(function() {
-            if (label) label.textContent = original;
-            btn.classList.remove('is-copied');
-          }, 1500);
-        });
+        var text = target.textContent.trim();
+
+        function onSuccess() { flashLabel(btn, 'Copied!', 'is-copied'); }
+        function onFailure() {
+          if (fallbackCopy(text)) { onSuccess(); return; }
+          flashLabel(btn, 'Copy failed', 'is-copy-failed');
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(onSuccess).catch(onFailure);
+        } else {
+          onFailure();
+        }
       });
     });
   })();
