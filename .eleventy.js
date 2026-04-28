@@ -4,6 +4,11 @@ const archiver = require('archiver');
 const matter = require('gray-matter');
 
 module.exports = function(eleventyConfig) {
+  // Don't auto-exclude based on .gitignore — generated skill pages
+  // (under <discipline>/skills/) are gitignored but must be rendered.
+  // .eleventyignore handles the exclusions Eleventy actually needs.
+  eleventyConfig.setUseGitIgnore(false);
+
   // Copy static assets
   eleventyConfig.addPassthroughCopy("assets");
 

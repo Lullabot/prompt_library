@@ -22,4 +22,26 @@ yarn-error.log*
 
 # Cache
 .cache/
-.eleventy-cache/ 
+.eleventy-cache/
+
+# Generated skill pages — sourced from the lullabot-skills submodule via
+# `npm run generate-skills`. Do not edit these directly; edit upstream at
+# https://github.com/Lullabot/lullabot-skills and the build pulls them in.
+content-strategy/skills/*.md
+content-strategy/skills/*/
+!content-strategy/skills/index.njk
+design/skills/*.md
+design/skills/*/
+!design/skills/index.njk
+development/skills/*.md
+development/skills/*/
+!development/skills/index.njk
+project-management/skills/*.md
+project-management/skills/*/
+!project-management/skills/index.njk
+quality-assurance/skills/*.md
+quality-assurance/skills/*/
+!quality-assurance/skills/index.njk
+sales-marketing/skills/*.md
+sales-marketing/skills/*/
+!sales-marketing/skills/index.njk

@@ -5,20 +5,24 @@ services:
     image: tugboatqa/httpd:latest
     commands:
       init:
-        # Install Node.js 18
+        # Install Node.js 20
         - apt-get update
         - apt-get install -yq ca-certificates curl gnupg
         - mkdir -p /etc/apt/keyrings
         - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-        - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+        - echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
         - apt-get update
         - apt-get install -yq nodejs
         # Set the webroot to the Eleventy output directory (_site)
         - ln -snf "${TUGBOAT_ROOT}/_site" "${DOCROOT}"
       update:
+        # Initialize the lullabot-skills submodule (skills source of truth)
+        - git -C "${TUGBOAT_ROOT}" submodule update --init --recursive
         # Install dependencies
         - npm install
       build:
+        # Refresh the submodule in case the pinned commit changed
+        - git -C "${TUGBOAT_ROOT}" submodule update --init --recursive
         # Install dependencies and build the static site
         - npm install
         - npm run build
