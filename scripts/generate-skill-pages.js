@@ -28,9 +28,10 @@ const VALID_DISCIPLINES = new Set([
   'sales-marketing',
 ]);
 
+class GenerateSkillsError extends Error {}
+
 function fail(msg) {
-  console.error(`[generate-skill-pages] ${msg}`);
-  process.exit(1);
+  throw new GenerateSkillsError(msg);
 }
 
 function isSkillDir(entry) {
@@ -40,13 +41,17 @@ function isSkillDir(entry) {
   return fs.existsSync(skillMd);
 }
 
-function readSkill(skillName) {
-  const skillDir = path.join(VENDOR_DIR, skillName);
+function readSkill(skillName, vendorDir = VENDOR_DIR) {
+  const skillDir = path.join(vendorDir, skillName);
   const skillMdPath = path.join(skillDir, 'SKILL.md');
   const metaPath = path.join(skillDir, 'meta.yml');
+  const rel = path.relative(path.dirname(vendorDir), skillDir);
 
+  if (!fs.existsSync(skillMdPath)) {
+    fail(`Missing SKILL.md in ${rel}/`);
+  }
   if (!fs.existsSync(metaPath)) {
-    fail(`Missing meta.yml in _skills-vendor/${skillName}/`);
+    fail(`Missing meta.yml in ${rel}/`);
   }
 
   const skillRaw = fs.readFileSync(skillMdPath, 'utf8');
@@ -55,17 +60,19 @@ function readSkill(skillName) {
 
   if (!meta.discipline || !VALID_DISCIPLINES.has(meta.discipline)) {
     fail(
-      `Invalid discipline "${meta.discipline}" in _skills-vendor/${skillName}/meta.yml. ` +
+      `Invalid discipline "${meta.discipline}" in ${rel}/meta.yml. ` +
       `Must be one of: ${[...VALID_DISCIPLINES].join(', ')}`
     );
   }
-  if (!meta.title) fail(`Missing title in _skills-vendor/${skillName}/meta.yml`);
-  if (!meta.date) fail(`Missing date in _skills-vendor/${skillName}/meta.yml`);
+  if (!meta.title) fail(`Missing title in ${rel}/meta.yml`);
+  if (!meta.date) fail(`Missing date in ${rel}/meta.yml`);
 
   return {
     name: skillName,
     skillDir,
-    skillBody: skillRaw.trim(),
+    // Preserve upstream content verbatim — don't trim trailing whitespace
+    // that might be meaningful (e.g., hard line breaks in markdown).
+    skillBody: skillRaw,
     description: skillFm.data.description || '',
     meta,
   };
@@ -176,7 +183,15 @@ function main() {
 }
 
 if (require.main === module) {
-  main();
+  try {
+    main();
+  } catch (err) {
+    if (err instanceof GenerateSkillsError) {
+      console.error(`[generate-skill-pages] ${err.message}`);
+      process.exit(1);
+    }
+    throw err;
+  }
 }
 
-module.exports = { readSkill, buildPageContent, VALID_DISCIPLINES };
+module.exports = { readSkill, buildPageContent, VALID_DISCIPLINES, GenerateSkillsError };

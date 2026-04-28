@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const { readSkill, buildPageContent, VALID_DISCIPLINES } = require('./generate-skill-pages');
+const { readSkill, buildPageContent, VALID_DISCIPLINES, GenerateSkillsError } = require('./generate-skill-pages');
 
 // These tests rely on the lullabot-skills submodule being initialized.
 // They exercise the real fixtures rather than synthesizing fake ones,
@@ -70,25 +70,85 @@ test('buildPageContent omits version fields when absent', { skip: !vendorAvailab
   assert.doesNotMatch(page, /^changelog:/m);
 });
 
-test('readSkill rejects unknown discipline', () => {
-  // Create a temp fixture with a bad meta.yml
+function makeFixture(files) {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'skill-test-'));
   const skillDir = path.join(tmp, 'bad-skill');
   fs.mkdirSync(skillDir);
-  fs.writeFileSync(
-    path.join(skillDir, 'SKILL.md'),
-    '---\nname: bad-skill\ndescription: x\n---\n# x\n'
-  );
-  fs.writeFileSync(
-    path.join(skillDir, 'meta.yml'),
-    'title: Bad\ndiscipline: not-real\ndate: "2025-01-01"\n'
-  );
+  for (const [name, contents] of Object.entries(files)) {
+    fs.writeFileSync(path.join(skillDir, name), contents);
+  }
+  return { vendorDir: tmp, skillDir, cleanup: () => fs.rmSync(tmp, { recursive: true, force: true }) };
+}
 
-  // We can't easily call readSkill against an arbitrary path because it's
-  // hardcoded to VENDOR_DIR. Instead, verify the discipline set is enforced
-  // via the buildFrontmatter path — covered by integration: `npm run build`
-  // fails if a generated page has an invalid discipline. This test documents
-  // the constraint exists.
-  assert.ok(VALID_DISCIPLINES.size > 0);
-  fs.rmSync(tmp, { recursive: true, force: true });
+test('readSkill rejects unknown discipline', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
+    'meta.yml': 'title: Bad\ndiscipline: not-real\ndate: "2025-01-01"\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) => err instanceof GenerateSkillsError && /Invalid discipline "not-real"/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill fails clearly when SKILL.md is missing', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'meta.yml': 'title: x\ndiscipline: development\ndate: "2025-01-01"\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) => err instanceof GenerateSkillsError && /Missing SKILL\.md/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill fails clearly when meta.yml is missing', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: x\ndescription: x\n---\n# x\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) => err instanceof GenerateSkillsError && /Missing meta\.yml/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill rejects missing required meta fields', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: x\ndescription: x\n---\n# x\n',
+    'meta.yml': 'discipline: development\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) => err instanceof GenerateSkillsError && /Missing title/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill preserves SKILL.md content verbatim', () => {
+  // Trailing two-space hard line break must survive — markdown semantic
+  const body = '---\nname: x\ndescription: x\n---\n# x\n\nline one  \nline two\n';
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': body,
+    'meta.yml': 'title: x\ndiscipline: development\ndate: "2025-01-01"\n',
+  });
+  try {
+    const skill = readSkill('bad-skill', vendorDir);
+    assert.equal(skill.skillBody, body, 'body must match upstream byte-for-byte');
+  } finally {
+    cleanup();
+  }
 });
