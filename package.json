@@ -4,9 +4,12 @@
   "description": "A collection of AI prompts, rules, project configurations, and workflow states",
   "main": "index.js",
   "scripts": {
+    "generate-skills": "node scripts/generate-skill-pages.js",
+    "prestart": "npm run generate-skills",
     "start": "eleventy --serve",
+    "prebuild": "npm run generate-skills",
     "build": "eleventy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test \"scripts/*.test.js\""
   },
   "keywords": [
     "ai",
@@ -22,6 +25,7 @@
   },
   "dependencies": {
     "archiver": "^7.0.1",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "js-yaml": "^4.1.1"
   }
 }

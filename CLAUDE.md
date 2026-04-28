@@ -64,16 +64,24 @@ Prompt content here
 `````
 ```
 
+### Skill Source: lullabot-skills submodule
+
+Skills are **not** authored directly in this repo. They live upstream in [Lullabot/lullabot-skills](https://github.com/Lullabot/lullabot-skills), which is also published as a Claude Code skill bundle (clone into any project's `.claude/skills/`). This repo consumes that bundle via a git submodule at `_skills-vendor/` and generates the discipline-organized skill pages at build time.
+
+To edit a skill: open a PR against `Lullabot/lullabot-skills`, then bump the submodule pointer here (`git submodule update --remote _skills-vendor && git add _skills-vendor`).
+
+To add a new skill: add a folder to `Lullabot/lullabot-skills` containing `SKILL.md` + `meta.yml` (and any resource files). Bump the submodule pointer to pick it up.
+
+**Build flow:**
+1. `npm start` / `npm run build` triggers `prestart` / `prebuild` → `node scripts/generate-skill-pages.js`
+2. Generator walks `_skills-vendor/*/`, reads `SKILL.md` + `meta.yml`, writes `<discipline>/skills/<name>.md` (prompt-library frontmatter wrapping the SKILL.md body in five backticks) and copies resource files to `<discipline>/skills/<name>/`
+3. Eleventy renders pages and (post-build) extracts raw `SKILL.md` + zip archives, same as before
+
+Generated skill files are gitignored. Don't edit them — the next build wipes and regenerates.
+
+**Initial submodule setup:** new clones need `git submodule update --init --recursive` (or `git clone --recurse-submodules`).
+
 ### Skill Resources
-
-Skills can include companion resources (scripts, config files, templates) in a directory alongside the skill markdown file. The directory name must match the skill filename (without `.md`):
-
-```text
-development/skills/cloudflare-tunnel.md        # Skill definition
-development/skills/cloudflare-tunnel/           # Resource directory
-  scripts/tunnel.sh
-  resources/config-template.yml
-```
 
 Resources are automatically:
 - Copied to the build output via 11ty passthrough copy

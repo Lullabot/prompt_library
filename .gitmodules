@@ -1,0 +1,4 @@
+[submodule "_skills-vendor"]
+	path = _skills-vendor
+	url = https://github.com/Lullabot/lullabot-skills.git
+	branch = main
