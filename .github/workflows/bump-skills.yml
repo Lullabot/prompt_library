@@ -1,0 +1,59 @@
+name: Bump lullabot-skills submodule
+
+# Triggered by Lullabot/lullabot-skills via repository_dispatch on every
+# push to its main branch. Pulls the latest commit into the submodule
+# pointer, commits, and pushes — which fires deploy.yml on the new commit
+# and rebuilds the site.
+#
+# Manual trigger is also exposed for ad-hoc bumps.
+
+on:
+  repository_dispatch:
+    types: [skills-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          # Use the PAT so the resulting push triggers deploy.yml
+          # (pushes made with the default GITHUB_TOKEN don't fire other
+          # workflow runs by design).
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Pull latest skills
+        id: bump
+        run: |
+          git submodule update --remote --recursive _skills-vendor
+          if git diff --quiet _skills-vendor; then
+            echo "No changes to _skills-vendor — skipping commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            cd _skills-vendor
+            NEW_SHA=$(git rev-parse --short HEAD)
+            NEW_MSG=$(git log -1 --pretty=format:'%s')
+            cd ..
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "sha=$NEW_SHA" >> "$GITHUB_OUTPUT"
+            echo "msg=$NEW_MSG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.bump.outputs.changed == 'true'
+        env:
+          NEW_SHA: ${{ steps.bump.outputs.sha }}
+          NEW_MSG: ${{ steps.bump.outputs.msg }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add _skills-vendor
+          git commit -m "chore: bump _skills-vendor to ${NEW_SHA}" \
+            -m "Upstream: ${NEW_MSG}"
+          git push
