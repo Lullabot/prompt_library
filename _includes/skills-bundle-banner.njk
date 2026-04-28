@@ -1,0 +1,182 @@
+{# Promotes the lullabot-skills Claude Code bundle install command. #}
+{# Variant via `compact` — `false` (default) for /skills, `true` for home. #}
+<aside class="skills-bundle-banner{% if compact %} skills-bundle-banner--compact{% endif %}">
+  <div class="skills-bundle-banner__text">
+    <h3 class="skills-bundle-banner__title">
+      <span class="skills-bundle-banner__icon" aria-hidden="true">🛠️</span>
+      Install all skills at once
+    </h3>
+    <p class="skills-bundle-banner__desc">
+      Every skill below is bundled in <a href="https://github.com/Lullabot/lullabot-skills" target="_blank" rel="noopener">Lullabot/lullabot-skills</a>. Clone it into <code>.claude/skills/</code> and Claude Code picks them all up automatically.
+    </p>
+  </div>
+  <div class="skills-bundle-banner__cmd">
+    <pre><code>git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code></pre>
+    <button type="button" class="skills-bundle-banner__copy" aria-label="Copy install command">
+      <i class="fas fa-copy" aria-hidden="true"></i>
+      <span class="skills-bundle-banner__copy-label">Copy</span>
+    </button>
+  </div>
+</aside>
+
+<style>
+  .skills-bundle-banner {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+  .skills-bundle-banner--compact {
+    margin: 1rem auto 2rem auto;
+    padding: 1rem 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .skills-bundle-banner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+  }
+  .skills-bundle-banner__title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skills-bundle-banner--compact .skills-bundle-banner__title {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+  .skills-bundle-banner__icon { font-size: 1.4rem; }
+  .skills-bundle-banner__desc {
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .skills-bundle-banner__desc a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .skills-bundle-banner__desc a:hover { text-decoration: underline; }
+  .skills-bundle-banner__desc code {
+    background: var(--tag-background);
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+  .skills-bundle-banner__cmd {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skills-bundle-banner__cmd pre {
+    background: var(--code-background, #1e1e1e);
+    color: var(--code-color, #d4d4d4);
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.375rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    overflow-x: auto;
+    flex: 1;
+    min-width: 0;
+  }
+  .skills-bundle-banner__cmd code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    white-space: pre;
+  }
+  .skills-bundle-banner__copy {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    transition: background-color 0.2s;
+  }
+  .skills-bundle-banner__copy:hover { background: var(--secondary-color); }
+  .skills-bundle-banner__copy.is-copied {
+    background: var(--accent-color, #2da44e);
+    color: #12212b;
+  }
+  .skills-bundle-banner__copy.is-copy-failed {
+    background: #c0392b;
+    color: white;
+  }
+</style>
+
+<script>
+  (function() {
+    function flashLabel(btn, text, stateClass) {
+      var label = btn.querySelector('.skills-bundle-banner__copy-label');
+      var original = btn.getAttribute('data-original-label');
+      if (!original) {
+        original = label ? label.textContent : '';
+        btn.setAttribute('data-original-label', original);
+      }
+      if (label) label.textContent = text;
+      btn.classList.remove('is-copied', 'is-copy-failed');
+      if (stateClass) btn.classList.add(stateClass);
+      setTimeout(function() {
+        if (label) label.textContent = original;
+        btn.classList.remove('is-copied', 'is-copy-failed');
+      }, 1500);
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      return ok;
+    }
+
+    document.querySelectorAll('.skills-bundle-banner__copy').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var banner = btn.closest('.skills-bundle-banner');
+        var target = banner ? banner.querySelector('.skills-bundle-banner__cmd code') : null;
+        if (!target) return;
+        var text = target.textContent.trim();
+
+        function onSuccess() { flashLabel(btn, 'Copied!', 'is-copied'); }
+        function onFailure() {
+          if (fallbackCopy(text)) { onSuccess(); return; }
+          flashLabel(btn, 'Copy failed', 'is-copy-failed');
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(onSuccess).catch(onFailure);
+        } else {
+          onFailure();
+        }
+      });
+    });
+  })();
+</script>
