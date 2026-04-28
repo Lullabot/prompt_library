@@ -45,6 +45,9 @@ hideSearch: false
     </div>
   </div>
   
+  {% set compact = true %}
+  {% include "skills-bundle-banner.njk" %}
+
   <h2 class="recently-added-title">By Type</h2>
   <div class="by-type-nav">
     {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}

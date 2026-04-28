@@ -8,6 +8,9 @@ layout: "base.njk"
   <h1 class="page-title">🛠️ All Skills</h1>
   <p class="page-description">{{ description }}</p>
 
+  {% set compact = false %}
+  {% include "skills-bundle-banner.njk" %}
+
   <div class="content-list">
     {% for item in collections.skills %}
       <article class="content-item fade-up">
