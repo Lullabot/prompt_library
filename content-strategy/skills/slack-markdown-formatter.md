@@ -1,16 +1,22 @@
 ---
-title: "Slack Markdown Formatter"
-description: "Format messages for Slack using mrkdwn syntax, which differs from standard markdown. Covers text formatting, links, mentions, Block Kit, and common pitfalls."
-date: "2026-04-13"
-layout: "markdown.njk"
-discipline: "content-strategy"
-contentType: "skills"
+title: Slack Markdown Formatter
+description: >-
+  This skill should be used when users request messages, notifications, or
+  content formatted for Slack. Use this skill when the user asks to write,
+  draft, format, or compose messages specifically for Slack, as Slack uses
+  'mrkdwn' which differs from standard markdown. Also use when users mention
+  Slack Block Kit or rich message formatting for Slack.
+date: '2026-04-13'
+layout: markdown.njk
+discipline: content-strategy
+contentType: skills
 tags:
   - slack
   - markdown
   - formatting
   - communication
 ---
+
 
 `````
 ---
@@ -169,4 +175,5 @@ Block Kit messages can embed mrkdwn text in specific text fields using:
 - Verify all formatting renders correctly
 - Check that mentions and channel links use correct IDs
 - Ensure no standard markdown syntax remains
+
 `````

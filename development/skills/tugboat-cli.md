@@ -1,10 +1,15 @@
 ---
-title: "Tugboat CLI"
-description: "Manage Tugboat preview environments via the tugboat CLI. Create, list, rebuild, refresh, debug, and administer Tugboat previews, services, and repositories. Includes config file guidance, lifecycle phases, and CLI command reference."
-date: "2026-04-14"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
+title: Tugboat CLI
+description: >-
+  This skill should be used when managing Tugboat preview environments via the
+  tugboat CLI. It applies when creating, listing, rebuilding, refreshing,
+  debugging, or administering Tugboat previews, services, and repositories.
+  Triggers on tugboat commands, preview environment management,
+  .tugboat/config.yml editing, and Tugboat QA workflow questions.
+date: '2026-04-14'
+layout: markdown.njk
+discipline: development
+contentType: skills
 tags:
   - tugboat
   - preview-environments
@@ -12,6 +17,7 @@ tags:
   - qa
   - cli
 ---
+
 
 `````
 ---
@@ -164,4 +170,5 @@ Key concepts:
 ## Reference
 
 For the complete command reference, configuration schema, environment variables, and API details, load `references/cli_reference.md`.
+
 `````

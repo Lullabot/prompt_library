@@ -1,10 +1,15 @@
 ---
-title: "Cloudflare Tunnel"
-description: "Expose local development web services to the internet using Cloudflare Tunnel. Supports quick tunnels (zero config, temporary URL) and named tunnels (persistent, reusable). Includes installation, authentication, common patterns for popular frameworks, and troubleshooting guidance."
-date: "2025-01-22"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
+title: Cloudflare Tunnel
+description: >-
+  This skill should be used when users need to expose a local development web
+  service to the internet via Cloudflare Tunnel. Use when users say 'expose my
+  local server', 'share my dev server', 'create a tunnel', 'cloudflare tunnel',
+  'public URL for localhost', 'trycloudflare', or need to share a locally
+  running service with others for testing or preview.
+date: '2025-01-22'
+layout: markdown.njk
+discipline: development
+contentType: skills
 tags:
   - cloudflare
   - tunnels
@@ -12,6 +17,7 @@ tags:
   - networking
   - devops
 ---
+
 
 `````
 ---
@@ -156,4 +162,5 @@ The helper script at `scripts/tunnel.sh` supports these commands:
 - **HTTP 429 errors:** Quick tunnels cap at 200 concurrent in-flight requests. For higher traffic, use a named tunnel.
 - **SSE not working:** Quick tunnels do not support Server-Sent Events. Use a named tunnel instead.
 - **Tunnel stops when terminal closes:** Run with `nohup` or `screen`/`tmux` to persist across terminal sessions.
+
 `````

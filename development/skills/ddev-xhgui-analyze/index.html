@@ -46,7 +46,7 @@
         
 <div class="markdown-content">
   <h1>DDEV xhgui Analyze</h1>
-  <p class="description">Analyze xhprof/xhgui profile runs from a DDEV environment. Supports standalone analysis of a single run or before/after comparison of two runs. Fetches profile data, identifies hotspots, traces call chains, and provides actionable performance recommendations.</p>
+  <p class="description">Analyze an xhgui/xhprof profile run from a DDEV environment. Provide one run ID for standalone analysis, or two for before/after comparison.</p>
 
   <div class="metadata">
     <div class="tags">
@@ -236,6 +236,7 @@ Include everything above for the &quot;after&quot; run, plus:
 - `request_ts` is a Unix timestamp.
 - The profile keys use `==&gt;` as the caller/callee separator.
 - Memory values (`mu`, `pmu`) are in bytes.
+
 </code></pre>
 
   </div>

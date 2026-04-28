@@ -1,10 +1,16 @@
 ---
-title: "Nano Banana Prompt Generator"
-description: "Generate optimized prompts for Gemini Nano Banana (Nano Banana Pro) image generation. Leverages structured formatting, markdown syntax, and prestige anchoring for strong prompt adherence, character consistency, and nuanced visual control. Ideal for book illustrations, concept art, character designs, and creative visual projects."
-date: "2025-01-22"
-layout: "markdown.njk"
-discipline: "design"
-contentType: "skills"
+title: Nano Banana Prompt Generator
+description: >-
+  This skill should be used when users need to create detailed, effective
+  prompts for Gemini Nano Banana (or Nano Banana Pro) image generation. Use when
+  users ask for "image prompts", "create a prompt for", "visualize this scene",
+  "generate art of", or need help crafting prompts for AI image generation.
+  Ideal for book illustrations, concept art, character designs, scene
+  visualization, and creative projects requiring precise visual output.
+date: '2025-01-22'
+layout: markdown.njk
+discipline: design
+contentType: skills
 tags:
   - image-generation
   - ai-art
@@ -12,6 +18,7 @@ tags:
   - visual-design
   - gemini
 ---
+
 
 `````
 ---
@@ -299,4 +306,5 @@ When editing existing images rather than generating new ones, use these five act
 | **Make** | Transform qualities | "Make the character look older" |
 | **Remove** | Delete elements | "Remove the text in the corner" |
 | **Replace** | Substitute elements | "Replace the sword with an axe" |
+
 `````

@@ -46,7 +46,7 @@
         
 <div class="markdown-content">
   <h1>Google Workspace CLI (gws)</h1>
-  <p class="description">Comprehensive skill for interacting with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, and more) via the gws command-line tool. Covers helper commands for common tasks, raw API access for advanced operations, cross-service workflows, schema discovery, and output formatting.</p>
+  <p class="description">This skill should be used when users need to interact with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, etc.) from the command line. Use when users ask to send/read email, check calendar, upload files, read spreadsheets, manage tasks, or perform any Google Workspace operation. Triggers on &#39;check my email&#39;, &#39;send email&#39;, &#39;calendar&#39;, &#39;agenda&#39;, &#39;upload to drive&#39;, &#39;read spreadsheet&#39;, &#39;google workspace&#39;, &#39;gws&#39;, or any request involving Gmail, Google Calendar, Google Drive, Google Sheets, Google Docs, or Google Tasks.</p>
 
   <div class="metadata">
     <div class="tags">
@@ -453,6 +453,7 @@ gws gmail users messages list --params '{&quot;userId&quot;: &quot;me&quot;}' --
 6. **Use `--format table`** when output is for human reading
 7. **Pipe JSON to `jq`** for filtering: `gws gmail +triage --format json | jq '.[].subject'`
 8. **Times must be RFC 3339/ISO 8601** for calendar operations (e.g., `2026-06-17T09:00:00-07:00`)
+
 </code></pre>
 
   </div>

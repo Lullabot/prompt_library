@@ -46,7 +46,7 @@
         
 <div class="markdown-content">
   <h1>Resolve Composer Conflicts</h1>
-  <p class="description">Resolve Composer lockfile conflicts handling updates and removals</p>
+  <p class="description">Resolve composer.lock merge conflicts when merging main into the current branch.</p>
 
   <div class="metadata">
     <div class="tags">
@@ -166,6 +166,7 @@ git commit
 - Never manually edit `composer.lock` — always let Composer regenerate it.
 - If `composer.json` itself has conflicts, those must be resolved manually first.
 - Always re-run the original composer commands rather than using `composer update` broadly, to avoid unintended dependency changes.
+
 </code></pre>
 
   </div>

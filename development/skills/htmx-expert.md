@@ -1,10 +1,16 @@
 ---
-title: "htmx Expert"
-description: "Expert guidance for htmx development, including AJAX interactions, htmx attributes (hx-get, hx-post, hx-swap, hx-target, hx-trigger), debugging htmx behavior, building hypermedia-driven applications, and htmx best practices."
-date: "2026-03-17"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
+title: htmx Expert
+description: >-
+  This skill should be used when users need help with htmx development,
+  including implementing AJAX interactions, understanding htmx attributes
+  (hx-get, hx-post, hx-swap, hx-target, hx-trigger), debugging htmx behavior,
+  building hypermedia-driven applications, or following htmx best practices. Use
+  when users ask about htmx patterns, server-side HTML responses, or
+  transitioning from SPA frameworks to htmx. (user)
+date: '2026-03-17'
+layout: markdown.njk
+discipline: development
+contentType: skills
 tags:
   - htmx
   - html
@@ -12,6 +18,7 @@ tags:
   - ajax
   - frontend
 ---
+
 
 `````
 ---
@@ -534,4 +541,5 @@ For detailed reference, consult:
 - Official docs: https://htmx.org/docs/
 - Attributes reference: https://htmx.org/reference/
 - Examples: https://htmx.org/examples/
+
 `````

@@ -1,14 +1,17 @@
 ---
-title: "Resolve Composer Conflicts"
-description: "Resolve Composer lockfile conflicts handling updates and removals"
-date: "2026-03-13"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
+title: Resolve Composer Conflicts
+description: >-
+  Resolve composer.lock merge conflicts when merging main into the current
+  branch.
+date: '2026-03-13'
+layout: markdown.njk
+discipline: development
+contentType: skills
 tags:
   - local-development
   - composer
 ---
+
 
 `````
 ---
@@ -78,4 +81,5 @@ git commit
 - Never manually edit `composer.lock` — always let Composer regenerate it.
 - If `composer.json` itself has conflicts, those must be resolved manually first.
 - Always re-run the original composer commands rather than using `composer update` broadly, to avoid unintended dependency changes.
+
 `````

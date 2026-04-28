@@ -1,16 +1,22 @@
 ---
-title: "Pencil Designer"
-description: "Comprehensive guide for working with Pencil design files (.pen), creating and editing designs via Pencil MCP tools, building UI layouts, managing design systems and libraries, and bridging design-to-code workflows. Covers node types, layout properties, styling, components, variables, theming, and best practices."
-date: "2026-04-15"
-layout: "markdown.njk"
-discipline: "design"
-contentType: "skills"
-version: "1.0.0"
-lastUpdated: "2026-04-15"
+title: Pencil Designer
+description: >-
+  This skill should be used when working with Pencil design files (.pen),
+  creating or editing designs in the Pencil editor, using Pencil MCP tools,
+  building UI layouts, managing design systems/libraries, or generating code
+  from Pencil designs. Triggers on "pencil", ".pen file", "design in pencil",
+  "create a design", "design library", "pen file", or when Pencil MCP tools are
+  available and design work is requested.
+date: '2026-04-15'
+layout: markdown.njk
+discipline: design
+contentType: skills
+version: 1.0.0
+lastUpdated: '2026-04-15'
 changelog:
-  - version: "1.0.0"
-    date: "2026-04-15"
-    summary: "Initial contribution to prompt library"
+  - version: 1.0.0
+    date: '2026-04-15'
+    summary: Initial contribution to prompt library
 tags:
   - design
   - pencil
@@ -21,6 +27,7 @@ tags:
   - components
   - design-to-code
 ---
+
 
 `````
 ---
@@ -231,4 +238,5 @@ Synchronize design variables between Pencil and CSS files bidirectionally.
 7. **Use `snapshot_layout`** before inserting to understand spatial relationships
 8. **Iterate progressively** -- start broad, then refine details
 9. **Use style guides** via `get_style_guide` when not working with an existing design system
+
 `````

@@ -1,16 +1,18 @@
 ---
-title: "DDEV xhgui Analyze"
-description: "Analyze xhprof/xhgui profile runs from a DDEV environment. Supports standalone analysis of a single run or before/after comparison of two runs. Fetches profile data, identifies hotspots, traces call chains, and provides actionable performance recommendations."
-date: "2026-04-17"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
-version: "1.0.0"
-lastUpdated: "2026-04-17"
+title: DDEV xhgui Analyze
+description: >-
+  Analyze an xhgui/xhprof profile run from a DDEV environment. Provide one run
+  ID for standalone analysis, or two for before/after comparison.
+date: '2026-04-17'
+layout: markdown.njk
+discipline: development
+contentType: skills
+version: 1.0.0
+lastUpdated: '2026-04-17'
 changelog:
-  - version: "1.0.0"
-    date: "2026-04-17"
-    summary: "Initial submission"
+  - version: 1.0.0
+    date: '2026-04-17'
+    summary: Initial submission
 tags:
   - ddev
   - xhgui
@@ -19,6 +21,7 @@ tags:
   - profiling
   - php
 ---
+
 
 `````
 ---
@@ -135,4 +138,5 @@ Include everything above for the "after" run, plus:
 - `request_ts` is a Unix timestamp.
 - The profile keys use `==>` as the caller/callee separator.
 - Memory values (`mu`, `pmu`) are in bytes.
+
 `````

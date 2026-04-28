@@ -1,16 +1,22 @@
 ---
-title: "GitHub Wiki"
-description: "Create, edit, and manage GitHub wiki pages with correct Gollum link syntax, sidebar navigation, and image handling."
-date: "2026-04-13"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
+title: GitHub Wiki
+description: >-
+  This skill should be used when creating, editing, or managing GitHub wiki
+  pages. Use when writing wiki content, creating internal links between wiki
+  pages, adding images, updating sidebar navigation, or working with .wiki.git
+  repositories. Triggers on 'wiki', 'wiki page', 'update the wiki', 'add to
+  wiki', or when working in a *.wiki directory or *.wiki.git repository.
+date: '2026-04-13'
+layout: markdown.njk
+discipline: development
+contentType: skills
 tags:
   - github
   - wiki
   - documentation
   - gollum
 ---
+
 
 `````
 ---
@@ -186,4 +192,5 @@ controlled dimensions:
   unless using Gollum subdirectory support)
 - Verify the file was pushed to the remote (`git push origin master`)
 - Check that the file has a `.md` extension
+
 `````

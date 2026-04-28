@@ -1,10 +1,16 @@
 ---
-title: "SEO Expert"
-description: "Comprehensive SEO and GEO (Generative Engine Optimization) auditing for websites. Analyzes traditional SEO factors plus AI-readiness including content structure, schema markup, readability, and E-E-A-T signals."
-date: "2026-04-13"
-layout: "markdown.njk"
-discipline: "sales-marketing"
-contentType: "skills"
+title: SEO Expert
+description: >-
+  This skill should be used when users need SEO audits, website optimization
+  recommendations, technical SEO analysis, or competitive research. Use when
+  users request to analyze a website's search engine performance, identify SEO
+  issues, or get prioritized action items to improve rankings. Ideal for tasks
+  like 'audit this website for SEO' or 'what are the top issues affecting this
+  site's SEO performance.'
+date: '2026-04-13'
+layout: markdown.njk
+discipline: sales-marketing
+contentType: skills
 tags:
   - seo
   - geo
@@ -13,6 +19,7 @@ tags:
   - accessibility
   - ai-search
 ---
+
 
 `````
 ---
@@ -177,4 +184,5 @@ Structure audit reports with:
 ### assets/
 - `audit_report_template.md` - Structured template for audit reports
 - `priority_matrix.md` - Framework for prioritizing issues by impact/effort
+
 `````

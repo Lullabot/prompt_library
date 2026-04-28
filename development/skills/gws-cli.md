@@ -1,19 +1,29 @@
 ---
-title: "Google Workspace CLI (gws)"
-description: "Comprehensive skill for interacting with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, and more) via the gws command-line tool. Covers helper commands for common tasks, raw API access for advanced operations, cross-service workflows, schema discovery, and output formatting."
-date: "2026-03-23"
-layout: "markdown.njk"
-discipline: "development"
-contentType: "skills"
-version: "1.1.0"
-lastUpdated: "2026-04-14"
+title: Google Workspace CLI (gws)
+description: >-
+  This skill should be used when users need to interact with Google Workspace
+  services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, etc.) from the
+  command line. Use when users ask to send/read email, check calendar, upload
+  files, read spreadsheets, manage tasks, or perform any Google Workspace
+  operation. Triggers on 'check my email', 'send email', 'calendar', 'agenda',
+  'upload to drive', 'read spreadsheet', 'google workspace', 'gws', or any
+  request involving Gmail, Google Calendar, Google Drive, Google Sheets, Google
+  Docs, or Google Tasks.
+date: '2026-03-23'
+layout: markdown.njk
+discipline: development
+contentType: skills
+version: 1.1.0
+lastUpdated: '2026-04-14'
 changelog:
-  - version: "1.1.0"
-    date: "2026-04-14"
-    summary: "Add Gmail +send --draft helper for saving messages as drafts instead of sending"
-  - version: "1.0.0"
-    date: "2026-03-23"
-    summary: "Initial version"
+  - version: 1.1.0
+    date: '2026-04-14'
+    summary: >-
+      Add Gmail +send --draft helper for saving messages as drafts instead of
+      sending
+  - version: 1.0.0
+    date: '2026-03-23'
+    summary: Initial version
 tags:
   - google-workspace
   - gmail
@@ -24,6 +34,7 @@ tags:
   - productivity
   - automation
 ---
+
 
 `````
 ---
@@ -347,4 +358,5 @@ gws gmail users messages list --params '{"userId": "me"}' --page-all --page-limi
 6. **Use `--format table`** when output is for human reading
 7. **Pipe JSON to `jq`** for filtering: `gws gmail +triage --format json | jq '.[].subject'`
 8. **Times must be RFC 3339/ISO 8601** for calendar operations (e.g., `2026-06-17T09:00:00-07:00`)
+
 `````
