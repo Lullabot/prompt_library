@@ -5,7 +5,8 @@ name: Bump lullabot-skills submodule
 # pointer, commits, and pushes — which fires deploy.yml on the new commit
 # and rebuilds the site.
 #
-# Manual trigger is also exposed for ad-hoc bumps.
+# Manual trigger (workflow_dispatch) is also exposed for ad-hoc bumps;
+# the job-level guard restricts it to the main branch.
 
 on:
   repository_dispatch:
@@ -15,10 +16,32 @@ on:
 permissions:
   contents: write
 
+# Serialize bump runs so rapid upstream pushes can't race on `git push`
+# and produce non-fast-forward errors or redundant commits.
+concurrency:
+  group: bump-skills-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   bump:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     steps:
+      - name: Validate dispatch shared secret
+        if: github.event_name == 'repository_dispatch'
+        env:
+          SHARED_SECRET: ${{ secrets.SKILLS_DISPATCH_SECRET }}
+          CLIENT_SECRET: ${{ github.event.client_payload.secret }}
+        run: |
+          if [ -z "$SHARED_SECRET" ]; then
+            echo "::error::SKILLS_DISPATCH_SECRET is not configured."
+            exit 1
+          fi
+          if [ "$CLIENT_SECRET" != "$SHARED_SECRET" ]; then
+            echo "::error::Invalid shared secret in client_payload."
+            exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@v6
         with:
@@ -42,7 +65,14 @@ jobs:
             cd ..
             echo "changed=true" >> "$GITHUB_OUTPUT"
             echo "sha=$NEW_SHA" >> "$GITHUB_OUTPUT"
-            echo "msg=$NEW_MSG" >> "$GITHUB_OUTPUT"
+            # Use a heredoc-style multi-line output to safely carry an
+            # arbitrary commit subject (which may contain quotes, $, etc.)
+            DELIM="EOF_$(uuidgen)"
+            {
+              echo "msg<<$DELIM"
+              echo "$NEW_MSG"
+              echo "$DELIM"
+            } >> "$GITHUB_OUTPUT"
           fi
 
       - name: Commit and push
@@ -54,6 +84,13 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add _skills-vendor
-          git commit -m "chore: bump _skills-vendor to ${NEW_SHA}" \
-            -m "Upstream: ${NEW_MSG}"
+          # Build the commit message in a temp file so quoting / special
+          # characters in the upstream subject can't break the shell.
+          MSG_FILE="$(mktemp)"
+          {
+            printf 'chore: bump _skills-vendor to %s\n\n' "$NEW_SHA"
+            printf 'Upstream: %s\n' "$NEW_MSG"
+          } > "$MSG_FILE"
+          git commit -F "$MSG_FILE"
+          rm -f "$MSG_FILE"
           git push
