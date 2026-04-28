@@ -4,3 +4,14 @@
 */skills/*/assets/
 */skills/*/scripts/
 */skills/*/templates/
+
+# Skills source repo — consumed at build time by scripts/generate-skill-pages.js
+# Don't let Eleventy render its contents directly
+_skills-vendor/
+
+# Standard build/dependency directories (replaces .gitignore-based exclusion
+# since we disable setUseGitIgnore so generated skill pages are included)
+node_modules/
+_site/
+.cache/
+.eleventy-cache/
