@@ -13,6 +13,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 const yaml = require('js-yaml');
 const matter = require('gray-matter');
 
@@ -41,6 +42,76 @@ function isSkillDir(entry) {
   return fs.existsSync(skillMd);
 }
 
+// Walk git history of a skill folder and collect:
+//   - lastUpdated: commit date (YYYY-MM-DD) of the most recent commit that
+//     touched any file in <skillDir>/
+//   - changelog:   array of { date, summary } entries, one per
+//     `User-Facing-Change:` (or `User-Facing-Change[<name>]:`) trailer line
+//     in commit messages of commits that touched this skill folder.
+//     Newest first.
+//
+// Unscoped trailers apply to this skill. Scoped trailers apply only when
+// the bracketed name matches `skillName`. This lets multi-skill commits
+// emit one trailer per skill.
+//
+// If the directory isn't a git repo, or git isn't available, returns
+// `{ lastUpdated: null, changelog: [] }` so the rest of the build can
+// continue. meta.yml values always win over git-derived values.
+function gitMetaForSkill(skillName, vendorDir) {
+  const FIELD_SEP = '\x1f';
+  const RECORD_SEP = '\x1e';
+
+  let raw;
+  try {
+    raw = execFileSync(
+      'git',
+      [
+        '-C', vendorDir,
+        'log',
+        '--reverse',
+        `--pretty=format:%H${FIELD_SEP}%cs${FIELD_SEP}%B${RECORD_SEP}`,
+        '--',
+        `${skillName}/`,
+      ],
+      { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }
+    );
+  } catch {
+    return { lastUpdated: null, changelog: [] };
+  }
+  if (!raw) return { lastUpdated: null, changelog: [] };
+
+  const records = raw.split(RECORD_SEP).map(s => s.replace(/^\n+/, '')).filter(Boolean);
+  const changelog = [];
+  let lastUpdated = null;
+
+  const scopedRe = /^User-Facing-Change\[([^\]]+)\]:\s*(.+)$/;
+  const bareRe = /^User-Facing-Change:\s*(.+)$/;
+
+  for (const record of records) {
+    const [, date, body] = record.split(FIELD_SEP);
+    if (!date) continue;
+    lastUpdated = date; // --reverse means oldest first, so the loop's last iteration is newest
+    if (!body) continue;
+    for (const line of body.split('\n')) {
+      const scoped = line.match(scopedRe);
+      if (scoped) {
+        if (scoped[1].trim() === skillName) {
+          changelog.push({ date, summary: scoped[2].trim() });
+        }
+        continue;
+      }
+      const bare = line.match(bareRe);
+      if (bare) {
+        changelog.push({ date, summary: bare[1].trim() });
+      }
+    }
+  }
+
+  // Newest first
+  changelog.reverse();
+  return { lastUpdated, changelog };
+}
+
 function readSkill(skillName, vendorDir = VENDOR_DIR) {
   const skillDir = path.join(vendorDir, skillName);
   const skillMdPath = path.join(skillDir, 'SKILL.md');
@@ -66,6 +137,15 @@ function readSkill(skillName, vendorDir = VENDOR_DIR) {
   }
   if (!meta.title) fail(`Missing title in ${rel}/meta.yml`);
   if (!meta.date) fail(`Missing date in ${rel}/meta.yml`);
+
+  // Derive lastUpdated + changelog from git history. meta.yml values win.
+  const gitMeta = gitMetaForSkill(skillName, vendorDir);
+  if (!meta.lastUpdated && gitMeta.lastUpdated) {
+    meta.lastUpdated = gitMeta.lastUpdated;
+  }
+  if (!meta.changelog && gitMeta.changelog.length > 0) {
+    meta.changelog = gitMeta.changelog;
+  }
 
   return {
     name: skillName,
@@ -194,4 +274,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { readSkill, buildPageContent, VALID_DISCIPLINES, GenerateSkillsError };
+module.exports = { readSkill, buildPageContent, gitMetaForSkill, VALID_DISCIPLINES, GenerateSkillsError };

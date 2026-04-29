@@ -77,9 +77,27 @@ To bump manually (e.g. while developing locally): `git submodule update --remote
 **Build flow:**
 1. `npm start` / `npm run build` triggers `prestart` / `prebuild` → `node scripts/generate-skill-pages.js`
 2. Generator walks `_skills-vendor/*/`, reads `SKILL.md` + `meta.yml`, writes `<discipline>/skills/<name>.md` (prompt-library frontmatter wrapping the SKILL.md body in five backticks) and copies resource files to `<discipline>/skills/<name>/`
-3. Eleventy renders pages and (post-build) extracts raw `SKILL.md` + zip archives, same as before
+3. For each skill, generator queries `git log` of the submodule to derive `lastUpdated` (most recent commit touching the folder) and `changelog` entries from `User-Facing-Change:` commit trailers (see below). `meta.yml` values always win.
+4. Eleventy renders pages and (post-build) extracts raw `SKILL.md` + zip archives, same as before
 
 Generated skill files are gitignored. Don't edit them — the next build wipes and regenerates.
+
+**Changelog convention.** Commits to `lullabot-skills` that should surface on the public site include a `User-Facing-Change:` trailer:
+
+```
+Add gollum link reference
+
+User-Facing-Change: Added gollum link syntax reference for handling broken wiki links
+```
+
+For commits that touch multiple skills, scope the trailer:
+
+```
+User-Facing-Change[github-wiki]: Added gollum link reference
+User-Facing-Change[gws-cli]: Reformatted description for clarity
+```
+
+Cosmetic / internal commits (typo fixes, refactors, hygiene) omit the trailer and don't appear in the public changelog. Manual `changelog` entries in `meta.yml` override git-derived ones.
 
 **Initial submodule setup:** new clones need `git submodule update --init --recursive` (or `git clone --recurse-submodules`).
 
