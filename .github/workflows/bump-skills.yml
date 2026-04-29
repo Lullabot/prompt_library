@@ -46,10 +46,13 @@ jobs:
         uses: actions/checkout@v6
         with:
           submodules: recursive
-          # Use the PAT so the resulting push triggers deploy.yml
-          # (pushes made with the default GITHUB_TOKEN don't fire other
-          # workflow runs by design).
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          # Use a dedicated PAT (Contents: write on this repo only) so
+          # the resulting push triggers deploy.yml — pushes made with
+          # the default GITHUB_TOKEN don't fire other workflow runs by
+          # design. Distinct from PERSONAL_ACCESS_TOKEN (used by
+          # slack_submit.yml) so the two flows can be rotated
+          # independently.
+          token: ${{ secrets.SKILLS_BUMP_TOKEN }}
 
       - name: Pull latest skills
         id: bump
