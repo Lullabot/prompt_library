@@ -17,6 +17,7 @@ date: '2025-01-22'
 layout: markdown.njk
 discipline: content-strategy
 contentType: skills
+lastUpdated: '2026-04-28'
 tags:
   - content-editing
   - writing-quality

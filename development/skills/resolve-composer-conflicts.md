@@ -7,6 +7,7 @@ date: '2026-03-13'
 layout: markdown.njk
 discipline: development
 contentType: skills
+lastUpdated: '2026-04-28'
 tags:
   - local-development
   - composer

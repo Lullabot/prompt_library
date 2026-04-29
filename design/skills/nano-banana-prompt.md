@@ -11,6 +11,7 @@ date: '2025-01-22'
 layout: markdown.njk
 discipline: design
 contentType: skills
+lastUpdated: '2026-04-28'
 tags:
   - image-generation
   - ai-art
