@@ -1,0 +1,96 @@
+name: Bump lullabot-skills submodule
+
+# Triggered by Lullabot/lullabot-skills via repository_dispatch on every
+# push to its main branch. Pulls the latest commit into the submodule
+# pointer, commits, and pushes — which fires deploy.yml on the new commit
+# and rebuilds the site.
+#
+# Manual trigger (workflow_dispatch) is also exposed for ad-hoc bumps;
+# the job-level guard restricts it to the main branch.
+
+on:
+  repository_dispatch:
+    types: [skills-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Serialize bump runs so rapid upstream pushes can't race on `git push`
+# and produce non-fast-forward errors or redundant commits.
+concurrency:
+  group: bump-skills-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Validate dispatch shared secret
+        if: github.event_name == 'repository_dispatch'
+        env:
+          SHARED_SECRET: ${{ secrets.SKILLS_DISPATCH_SECRET }}
+          CLIENT_SECRET: ${{ github.event.client_payload.secret }}
+        run: |
+          if [ -z "$SHARED_SECRET" ]; then
+            echo "::error::SKILLS_DISPATCH_SECRET is not configured."
+            exit 1
+          fi
+          if [ "$CLIENT_SECRET" != "$SHARED_SECRET" ]; then
+            echo "::error::Invalid shared secret in client_payload."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+          # Use the PAT so the resulting push triggers deploy.yml
+          # (pushes made with the default GITHUB_TOKEN don't fire other
+          # workflow runs by design).
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Pull latest skills
+        id: bump
+        run: |
+          git submodule update --remote --recursive _skills-vendor
+          if git diff --quiet _skills-vendor; then
+            echo "No changes to _skills-vendor — skipping commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            cd _skills-vendor
+            NEW_SHA=$(git rev-parse --short HEAD)
+            NEW_MSG=$(git log -1 --pretty=format:'%s')
+            cd ..
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "sha=$NEW_SHA" >> "$GITHUB_OUTPUT"
+            # Use a heredoc-style multi-line output to safely carry an
+            # arbitrary commit subject (which may contain quotes, $, etc.)
+            DELIM="EOF_$(uuidgen)"
+            {
+              echo "msg<<$DELIM"
+              echo "$NEW_MSG"
+              echo "$DELIM"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push
+        if: steps.bump.outputs.changed == 'true'
+        env:
+          NEW_SHA: ${{ steps.bump.outputs.sha }}
+          NEW_MSG: ${{ steps.bump.outputs.msg }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add _skills-vendor
+          # Build the commit message in a temp file so quoting / special
+          # characters in the upstream subject can't break the shell.
+          MSG_FILE="$(mktemp)"
+          {
+            printf 'chore: bump _skills-vendor to %s\n\n' "$NEW_SHA"
+            printf 'Upstream: %s\n' "$NEW_MSG"
+          } > "$MSG_FILE"
+          git commit -F "$MSG_FILE"
+          rm -f "$MSG_FILE"
+          git push
