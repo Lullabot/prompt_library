@@ -101,6 +101,8 @@ Cosmetic / internal commits (typo fixes, refactors, hygiene) omit the trailer an
 
 **Initial submodule setup:** new clones need `git submodule update --init --recursive` (or `git clone --recurse-submodules`).
 
+**CI history requirement:** because `lastUpdated` and `changelog` are derived from `git log` inside `_skills-vendor/`, CI must check out the submodule with full history. `actions/checkout` defaults to `fetch-depth: 1` (shallow), which makes `git log -- <skill>/` return nothing for many skills. The `deploy.yml` workflow sets `fetch-depth: 0` for this reason — preserve that if you fork. The Tugboat config also relies on the default full clone.
+
 ### Skill Resources
 
 Resources are automatically:

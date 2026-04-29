@@ -58,40 +58,57 @@ function isSkillDir(entry) {
 // `{ lastUpdated: null, changelog: [] }` so the rest of the build can
 // continue. meta.yml values always win over git-derived values.
 function gitMetaForSkill(skillName, vendorDir) {
+  // Cheap: just the last commit's date.
+  let lastUpdated = null;
+  try {
+    const out = execFileSync(
+      'git',
+      ['-C', vendorDir, 'log', '-1', '--format=%cs', '--', `${skillName}/`],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+    ).trim();
+    if (out) lastUpdated = out;
+  } catch {
+    return { lastUpdated: null, changelog: [] };
+  }
+
+  if (!lastUpdated) {
+    return { lastUpdated: null, changelog: [] };
+  }
+
+  // Targeted: only commits whose message contains the trailer marker.
+  // --grep filters server-side so we don't buffer commit bodies for noisy histories.
   const FIELD_SEP = '\x1f';
   const RECORD_SEP = '\x1e';
-
-  let raw;
+  let raw = '';
   try {
     raw = execFileSync(
       'git',
       [
         '-C', vendorDir,
         'log',
-        '--reverse',
-        `--pretty=format:%H${FIELD_SEP}%cs${FIELD_SEP}%B${RECORD_SEP}`,
+        '--grep=^User-Facing-Change',
+        '--extended-regexp',
+        `--pretty=format:%cs${FIELD_SEP}%B${RECORD_SEP}`,
         '--',
         `${skillName}/`,
       ],
-      { encoding: 'utf8', maxBuffer: 50 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }
+      { encoding: 'utf8', maxBuffer: 10 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] }
     );
   } catch {
-    return { lastUpdated: null, changelog: [] };
+    // History too shallow or git unavailable for the second query — return
+    // what we have. lastUpdated alone is still useful.
+    return { lastUpdated, changelog: [] };
   }
-  if (!raw) return { lastUpdated: null, changelog: [] };
 
-  const records = raw.split(RECORD_SEP).map(s => s.replace(/^\n+/, '')).filter(Boolean);
-  const changelog = [];
-  let lastUpdated = null;
+  if (!raw) return { lastUpdated, changelog: [] };
 
   const scopedRe = /^User-Facing-Change\[([^\]]+)\]:\s*(.+)$/;
   const bareRe = /^User-Facing-Change:\s*(.+)$/;
-
-  for (const record of records) {
-    const [, date, body] = record.split(FIELD_SEP);
-    if (!date) continue;
-    lastUpdated = date; // --reverse means oldest first, so the loop's last iteration is newest
-    if (!body) continue;
+  const changelog = [];
+  // git log default order is newest-first; iterate in that order and append.
+  for (const record of raw.split(RECORD_SEP).map(s => s.replace(/^\n+/, '')).filter(Boolean)) {
+    const [date, body] = record.split(FIELD_SEP);
+    if (!date || !body) continue;
     for (const line of body.split('\n')) {
       const scoped = line.match(scopedRe);
       if (scoped) {
@@ -107,8 +124,6 @@ function gitMetaForSkill(skillName, vendorDir) {
     }
   }
 
-  // Newest first
-  changelog.reverse();
   return { lastUpdated, changelog };
 }
 

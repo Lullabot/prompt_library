@@ -26,11 +26,11 @@ layout: base.njk
 
   {% if changelog and changelog.length > 0 %}
   <details class="changelog-section">
-    <summary>Changelog ({{ changelog.length }} {{ "version" if changelog.length == 1 else "versions" }})</summary>
+    <summary>Changelog ({{ changelog.length }} {{ "entry" if changelog.length == 1 else "entries" }})</summary>
     <ul class="changelog-list">
       {% for entry in changelog %}
         <li class="changelog-entry">
-          <strong class="changelog-version">v{{ entry.version }}</strong>
+          {% if entry.version %}<strong class="changelog-version">v{{ entry.version }}</strong>{% endif %}
           <time class="changelog-date" datetime="{{ entry.date }}">{{ entry.date | date }}</time>
           <span class="changelog-summary">{{ entry.summary }}</span>
         </li>

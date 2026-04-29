@@ -254,8 +254,9 @@ module.exports = function(eleventyConfig) {
           }
           if (data.changelog && Array.isArray(data.changelog)) {
             data.changelog.forEach((entry, i) => {
-              if (!entry.version || !entry.date || !entry.summary) {
-                console.warn(`[VERSION] Incomplete changelog entry #${i + 1} in ${discipline}/${type}/${file}`);
+              // version is optional (git-derived entries omit it). date + summary required.
+              if (!entry.date || !entry.summary) {
+                console.warn(`[VERSION] Incomplete changelog entry #${i + 1} in ${discipline}/${type}/${file} (date and summary are required)`);
               }
               if (entry.version && !semverRegex.test(String(entry.version))) {
                 console.warn(`[VERSION] Invalid semver in changelog entry #${i + 1} of ${discipline}/${type}/${file}: "${entry.version}"`);
