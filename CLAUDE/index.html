@@ -54,9 +54,11 @@ frontmatter...
 
 Skills are **not** authored directly in this repo. They live upstream in [Lullabot/lullabot-skills](https://github.com/Lullabot/lullabot-skills), which is also published as a Claude Code skill bundle (clone into any project's `.claude/skills/`). This repo consumes that bundle via a git submodule at `_skills-vendor/` and generates the discipline-organized skill pages at build time.
 
-To edit a skill: open a PR against `Lullabot/lullabot-skills`, then bump the submodule pointer here (`git submodule update --remote _skills-vendor &amp;&amp; git add _skills-vendor`).
+To edit a skill: open a PR against `Lullabot/lullabot-skills`. When it merges to `main`, the upstream `notify-prompt-library` workflow fires a `repository_dispatch` here, the `bump-skills` workflow updates the submodule pointer, and the site rebuilds — no manual bump needed.
 
-To add a new skill: add a folder to `Lullabot/lullabot-skills` containing `SKILL.md` + `meta.yml` (and any resource files). Bump the submodule pointer to pick it up.
+To add a new skill: add a folder to `Lullabot/lullabot-skills` containing `SKILL.md` + `meta.yml` (and any resource files). Same auto-bump flow picks it up on merge.
+
+To bump manually (e.g. while developing locally): `git submodule update --remote _skills-vendor &amp;&amp; git add _skills-vendor`.
 
 **Build flow:**
 1. `npm start` / `npm run build` triggers `prestart` / `prebuild` → `node scripts/generate-skill-pages.js`
@@ -126,7 +128,8 @@ GitHub issue templates are available for submitting new content:
 - Project Configs: `.github/ISSUE_TEMPLATE/project-config-submission.yml`
 - Workflow States: `.github/ISSUE_TEMPLATE/workflow-state-submission.yml`
 - Agents: `.github/ISSUE_TEMPLATE/agent-submission.yml`
-- Skills: `.github/ISSUE_TEMPLATE/skill-submission.yml`
+
+Skill submissions go to the upstream [Lullabot/lullabot-skills](https://github.com/Lullabot/lullabot-skills) repo, not this one.
 
 Programmatic submissions can be made via repository_dispatch events (see `.github/workflows/slack_submit.yml`).
 
