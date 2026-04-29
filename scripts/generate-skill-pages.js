@@ -55,8 +55,22 @@ function readSkill(skillName, vendorDir = VENDOR_DIR) {
   }
 
   const skillRaw = fs.readFileSync(skillMdPath, 'utf8');
-  const skillFm = matter(skillRaw);
-  const meta = yaml.load(fs.readFileSync(metaPath, 'utf8')) || {};
+  let skillFm;
+  try {
+    skillFm = matter(skillRaw);
+  } catch (err) {
+    fail(
+      `Invalid YAML frontmatter in ${rel}/SKILL.md — ${err.reason || err.message}. ` +
+      `Multi-line description values must be quoted or use YAML folded scalar (>-).`
+    );
+  }
+
+  let meta;
+  try {
+    meta = yaml.load(fs.readFileSync(metaPath, 'utf8')) || {};
+  } catch (err) {
+    fail(`Invalid YAML in ${rel}/meta.yml — ${err.reason || err.message}.`);
+  }
 
   if (!meta.discipline || !VALID_DISCIPLINES.has(meta.discipline)) {
     fail(
@@ -66,6 +80,8 @@ function readSkill(skillName, vendorDir = VENDOR_DIR) {
   }
   if (!meta.title) fail(`Missing title in ${rel}/meta.yml`);
   if (!meta.date) fail(`Missing date in ${rel}/meta.yml`);
+  if (!skillFm.data.name) fail(`Missing 'name' in ${rel}/SKILL.md frontmatter (Claude Code requires it).`);
+  if (!skillFm.data.description) fail(`Missing 'description' in ${rel}/SKILL.md frontmatter (Claude Code requires it).`);
 
   return {
     name: skillName,

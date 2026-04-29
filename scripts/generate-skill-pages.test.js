@@ -138,6 +138,63 @@ test('readSkill rejects missing required meta fields', () => {
   }
 });
 
+test('readSkill names the offending file when SKILL.md frontmatter YAML is broken', () => {
+  // Description split across lines without quoting — gray-matter rejects it.
+  // Without hardening, the user got a raw YAMLException stack trace; with
+  // hardening, they get "Invalid YAML frontmatter in <file>".
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md':
+      '---\nname: x\ndescription: line one\nline two without quotes\n---\n# x\n',
+    'meta.yml': 'title: x\ndiscipline: development\ndate: "2025-01-01"\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) =>
+        err instanceof GenerateSkillsError &&
+        /Invalid YAML frontmatter in .*SKILL\.md/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill names the offending file when meta.yml is malformed', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: x\ndescription: x\n---\n# x\n',
+    'meta.yml': 'title: ok\ndiscipline: development\ndate: "2025-01-01"\n  bogus: indent\n\t- mixed\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) =>
+        err instanceof GenerateSkillsError &&
+        /Invalid YAML in .*meta\.yml/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill rejects SKILL.md missing Claude Code required fields', () => {
+  // SKILL.md must have name + description in its frontmatter — Claude Code
+  // refuses to load skills without them.
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: x\n---\n# x\n',
+    'meta.yml': 'title: x\ndiscipline: development\ndate: "2025-01-01"\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) =>
+        err instanceof GenerateSkillsError &&
+        /Missing 'description' in .*SKILL\.md/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
 test('readSkill preserves SKILL.md content verbatim', () => {
   // Trailing two-space hard line break must survive — markdown semantic
   const body = '---\nname: x\ndescription: x\n---\n# x\n\nline one  \nline two\n';
