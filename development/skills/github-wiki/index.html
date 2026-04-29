@@ -46,7 +46,7 @@
         
 <div class="markdown-content">
   <h1>GitHub Wiki</h1>
-  <p class="description">This skill should be used when creating, editing, or managing GitHub wiki pages. Use when writing wiki content, creating internal links between wiki pages, adding images, updating sidebar navigation, or working with .wiki.git repositories. Triggers on &#39;wiki&#39;, &#39;wiki page&#39;, &#39;update the wiki&#39;, &#39;add to wiki&#39;, or when working in a *.wiki directory or *.wiki.git repository.</p>
+  <p class="description">This skill should be used when creating, editing, or managing GitHub wiki pages. Use when writing wiki content, creating internal links between wiki pages, adding images, updating sidebar navigation, or working with .wiki.git repositories. Triggers on &quot;wiki&quot;, &quot;wiki page&quot;, &quot;update the wiki&quot;, &quot;add to wiki&quot;, or when working in a *.wiki directory or *.wiki.git repository.</p>
 
   <div class="metadata">
     <div class="tags">
@@ -136,7 +136,7 @@
   <div class="content">
     <pre><code>---
 name: github-wiki
-description: &quot;This skill should be used when creating, editing, or managing GitHub wiki pages. Use when writing wiki content, creating internal links between wiki pages, adding images, updating sidebar navigation, or working with .wiki.git repositories. Triggers on 'wiki', 'wiki page', 'update the wiki', 'add to wiki', or when working in a *.wiki directory or *.wiki.git repository.&quot;
+description: This skill should be used when creating, editing, or managing GitHub wiki pages. Use when writing wiki content, creating internal links between wiki pages, adding images, updating sidebar navigation, or working with .wiki.git repositories. Triggers on &quot;wiki&quot;, &quot;wiki page&quot;, &quot;update the wiki&quot;, &quot;add to wiki&quot;, or when working in a *.wiki directory or *.wiki.git repository.
 ---
 
 # GitHub Wiki
@@ -166,6 +166,9 @@ WRONG:    [[page-name|Display Text]]
 When the order is reversed, links silently resolve to non-existent pages
 and render as red/broken links with no error message.
 
+For the full link syntax reference including resolution rules, image
+handling, and special pages, read `references/gollum-link-syntax.md`.
+
 ## Working with Wiki Repositories
 
 ### Locating the Wiki Repo
@@ -175,6 +178,10 @@ Wiki repositories are cloned separately from the main repo:
 ```bash
 git clone https://github.com/OWNER/REPO.wiki.git
 ```
+
+Within a project, the wiki repo is typically at a path like
+`code/REPO.wiki/` or similar. Check the project's CLAUDE.md or
+memory files for the exact location.
 
 ### Pushing Changes
 
