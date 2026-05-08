@@ -8,7 +8,7 @@ layout: "base.njk"
   <h1 class="page-title">How to Contribute Content</h1>
   
   <p class="intro-text">
-    The Prompt Library thrives on community contributions. This guide explains various ways to add your own prompts, rules, project configurations, or workflow states to the library.
+    The Prompt Library thrives on community contributions. This guide explains various ways to add your own prompts, rules, project configurations, workflow states, or skills to the library. Note that skills are contributed via a separate upstream repository — see <strong>Contributing a Skill</strong> below.
   </p>
 
   <div class="quick-submit">
@@ -19,7 +19,9 @@ layout: "base.njk"
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
       <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
+      <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button" target="_blank">Submit a Skill</a>
     </div>
+    <p class="quick-submit-note">Skills are submitted to the <a href="https://github.com/Lullabot/lullabot-skills" target="_blank">lullabot-skills</a> repository and synced here automatically.</p>
   </div>
 
   <div class="accordion-container">
@@ -216,6 +218,85 @@ Your content goes here...</code></pre>
             <li>Create a Markdown file in the appropriate <code>resources/</code> folder using the provided metadata.</li>
             <li>Close the issue once the resource is added.</li>
           </ol>
+        </div>
+      </div>
+    </div>
+    <div class="accordion">
+      <button class="accordion-btn">
+        <h2>5. Contributing a Skill</h2>
+        <span class="accordion-icon">▲</span>
+      </button>
+      <div class="accordion-content">
+        <div class="method-content">
+          <p>
+            Skills live in the <a href="https://github.com/Lullabot/lullabot-skills" target="_blank">Lullabot/lullabot-skills</a> repository and are automatically synced to this site when a pull request is merged. You don't need to touch this repository at all — just contribute upstream and your skill appears here within minutes.
+          </p>
+
+          <h3>Step-by-Step Process</h3>
+          <ol>
+            <li>
+              <strong>Fork the upstream repository</strong>
+              <p><a href="https://github.com/Lullabot/lullabot-skills/fork" target="_blank">Fork Lullabot/lullabot-skills</a> to your GitHub account and clone it locally.</p>
+            </li>
+            <li>
+              <strong>Create a branch and a new folder</strong>
+              <pre><code>git checkout -b add-my-skill
+mkdir my-skill-name</code></pre>
+              <p>The folder name becomes the skill's URL slug, so use lowercase kebab-case (e.g., <code>code-review</code>, <code>drupal-recipe</code>).</p>
+            </li>
+            <li>
+              <strong>Add <code>SKILL.md</code></strong>
+              <p>This is the Claude Code skill definition — what gets loaded into an AI assistant's context. It must include a YAML frontmatter block:</p>
+              <pre><code>---
+name: my-skill-name
+description: |
+  One or two sentences describing when to invoke this skill.
+  Use when the user asks to do X or Y.
+allowed-tools:
+  - Read
+  - Edit
+  - Bash
+---
+
+# Skill Title
+
+Your skill instructions go here...</code></pre>
+              <p><code>name</code> and <code>description</code> are required. <code>allowed-tools</code> is optional but recommended.</p>
+            </li>
+            <li>
+              <strong>Add <code>meta.yml</code></strong>
+              <p>This controls how the skill appears on this site:</p>
+              <pre><code>discipline: development
+title: "My Skill Display Title"
+date: "YYYY-MM-DD"
+tags:
+  - relevant-tag
+  - another-tag</code></pre>
+              <p><code>discipline</code> must be one of: <code>development</code>, <code>content-strategy</code>, <code>design</code>, <code>project-management</code>, <code>quality-assurance</code>, <code>sales-marketing</code>.</p>
+            </li>
+            <li>
+              <strong>Optionally add resource files</strong>
+              <p>Any scripts, config files, or reference documents you place in the folder (e.g., <code>setup.sh</code>, <code>config.yml</code>) will appear as downloads on the skill's page automatically.</p>
+            </li>
+            <li>
+              <strong>Open a pull request</strong>
+              <p>Push your branch and open a PR against <code>main</code> in <code>lullabot-skills</code>. Once merged, the skill is synced here — no further action needed.</p>
+            </li>
+          </ol>
+
+          <h3>Changelog Entries</h3>
+          <p>
+            If your commit should appear in the skill's public changelog on this site, add a <code>User-Facing-Change:</code> trailer to your commit message:
+          </p>
+          <pre><code>Add initial my-skill-name skill
+
+User-Facing-Change: Initial release with support for X and Y</code></pre>
+          <p>Commits without this trailer (typo fixes, internal refactors) are excluded from the public changelog automatically.</p>
+
+          <div class="submit-links" style="margin-top: 1.5rem;">
+            <a href="https://github.com/Lullabot/lullabot-skills" class="cta-button" target="_blank">Browse Existing Skills</a>
+            <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button" target="_blank">Open an Issue Instead</a>
+          </div>
         </div>
       </div>
     </div>
@@ -496,5 +577,11 @@ Your content goes here...</code></pre>
   }
   .cta-button:hover {
     background-color: #1d4e89;
+  }
+  .quick-submit-note {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.75;
   }
 </style>
