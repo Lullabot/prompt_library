@@ -10,12 +10,7 @@ date: '2026-05-08'
 layout: markdown.njk
 discipline: content-strategy
 contentType: skills
-lastUpdated: '2026-05-08'
-changelog:
-  - date: '2026-05-08'
-    summary: >-
-      Added Hemingway-style editing skill that applies clarity and directness
-      principles to writing and editing tasks.
+lastUpdated: '2026-05-16'
 tags:
   - writing
   - editing
