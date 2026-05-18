@@ -78,6 +78,21 @@ jobs:
             } >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Setup Node.js
+        if: steps.bump.outputs.changed == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: steps.bump.outputs.changed == 'true'
+        run: npm ci
+
+      - name: Validate build
+        if: steps.bump.outputs.changed == 'true'
+        run: npm run build
+
       - name: Commit and push
         if: steps.bump.outputs.changed == 'true'
         env:
