@@ -1,0 +1,223 @@
+<h1>Improve Test Quality Skill</h1>
+<p>A Claude Code slash command skill that automates mutation testing analysis and test quality improvement.</p>
+<h2>What It Does</h2>
+<p>This skill helps you improve test quality by:</p>
+<ol>
+<li>Running Stryker mutation testing on a specific file</li>
+<li>Analyzing survived mutants to identify weak spots in tests</li>
+<li>Suggesting targeted test improvements</li>
+<li>Implementing the improvements (with your approval)</li>
+<li>Verifying improvements by re-running mutation testing</li>
+<li>Iterating until target mutation score is reached</li>
+</ol>
+<h2>Prerequisites</h2>
+<ul>
+<li>Stryker mutation testing must be configured (<code>stryker.config.mjs</code>)</li>
+<li>The file you want to test must have existing tests</li>
+<li>JSON reporter must be enabled in Stryker config (already configured)</li>
+</ul>
+<h2>Usage</h2>
+<h3>Basic Usage</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js
+</code></pre>
+<p>This will:</p>
+<ul>
+<li>Run mutation testing on <code>server/routes/projects.js</code></li>
+<li>Analyze survived mutants</li>
+<li>Show recommendations</li>
+<li>Ask for your approval before making changes</li>
+<li>Target 85% mutation score by default</li>
+</ul>
+<h3>Auto Mode</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js --auto
+</code></pre>
+<p>Automatically implements improvements without asking for approval at each step.</p>
+<h3>Custom Target Score</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js --target 90
+</code></pre>
+<p>Set a custom target mutation score (default is 85%).</p>
+<h3>Limit Iterations</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js --max-iterations 5
+</code></pre>
+<p>Set maximum number of improvement cycles (default is 3).</p>
+<h3>Dry Run</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js --dry-run
+</code></pre>
+<p>Show recommendations without making any changes.</p>
+<h3>Combining Options</h3>
+<pre><code class="language-bash">/improve-test-quality server/routes/projects.js --auto --target 90 --max-iterations 5
+</code></pre>
+<h2>Workflow</h2>
+<ol>
+<li><strong>You:</strong> Write initial tests to get ~60-70% coverage</li>
+<li><strong>You:</strong> Run <code>/improve-test-quality &lt;file-path&gt;</code></li>
+<li><strong>Skill:</strong> Runs mutation testing and analyzes results</li>
+<li><strong>Skill:</strong> Shows you recommendations categorized by priority</li>
+<li><strong>You:</strong> Approve improvements (or skill auto-implements with <code>--auto</code>)</li>
+<li><strong>Skill:</strong> Adds test cases and strengthens assertions</li>
+<li><strong>Skill:</strong> Re-runs mutation testing to verify</li>
+<li><strong>Skill:</strong> Reports improvement (e.g., &quot;76% → 89%&quot;)</li>
+<li><strong>Repeat</strong> if target not reached and iterations remaining</li>
+</ol>
+<h2>What Gets Improved</h2>
+<p>The skill targets common mutation testing issues:</p>
+<h3>High Priority</h3>
+<ul>
+<li><strong>Boundary conditions</strong>: Tests for exact threshold values (&gt;= vs &gt;)</li>
+<li><strong>Boolean combinations</strong>: Tests for all true/false combinations (&amp;&amp; vs ||)</li>
+<li><strong>Weak assertions</strong>: Strengthens status-only checks to verify response bodies</li>
+</ul>
+<h3>Medium Priority</h3>
+<ul>
+<li><strong>Arithmetic operations</strong>: Verifies calculation correctness (+ vs -)</li>
+<li><strong>Return values</strong>: Checks specific return values, not just truthiness</li>
+<li><strong>Block statements</strong>: Tests both branches of conditionals</li>
+</ul>
+<h3>Low Priority</h3>
+<ul>
+<li><strong>String literals</strong>: Often acceptable edge cases</li>
+<li><strong>Optional fields</strong>: May not need testing if truly optional</li>
+</ul>
+<h2>Example Session</h2>
+<pre><code class="language-bash">$ /improve-test-quality server/routes/projects.js
+
+🔍 Analyzing test quality for server/routes/projects.js...
+
+Current status:
+- Test file: server/__tests__/routes/projects.test.js
+- Target mutation score: 85%
+- Max iterations: 3
+
+Running mutation testing... (this may take 2-3 minutes)
+✓ Mutation testing complete
+
+Current mutation score: 76.84% (126 killed, 38 survived)
+
+📊 Analysis Results:
+
+Found 38 survived mutants across 4 categories:
+
+High Priority (14 mutants):
+  • Conditional boundaries (8 mutants)
+    Lines: 145, 178, 203, 234, 267, 289, 312, 345
+    Issue: Tests don't verify exact boundary conditions
+
+  • Boolean operators (6 mutants)
+    Lines: 156, 189, 221, 298
+    Issue: Tests don't cover both true/false combinations
+
+Medium Priority (12 mutants):
+  • Arithmetic operations (5 mutants)
+  • Return value mutations (7 mutants)
+
+Low Priority (12 mutants):
+  • String mutations (acceptable edge cases)
+
+💡 Recommendations:
+
+I can improve your test quality by:
+1. Adding 8 boundary condition test cases
+2. Adding 6 boolean combination tests
+3. Strengthening 7 response assertions
+4. Adding 5 arithmetic verification tests
+
+Expected improvement: 76.84% → ~89% mutation score
+
+Would you like me to:
+1. Automatically implement all improvements
+2. Implement only high-priority improvements
+3. Let me review each category separately
+4. Show me the specific changes first
+
+Your choice (1-4): 1
+
+Implementing improvements...
+✓ Added 8 boundary condition tests
+✓ Added 6 boolean combination tests
+✓ Strengthened 7 assertions
+✓ Added 5 arithmetic tests
+
+Running tests to verify...
+✓ All tests pass (40 tests, 0 failures)
+
+Re-running mutation testing...
+✓ Mutation testing complete
+
+✅ Target reached! Final score: 89.47%
+
+📈 Summary:
+- Killed 22 additional mutants (76.84% → 89.47%)
+- Added 26 new test assertions
+- 12 mutants still surviving (low priority string mutations)
+
+Changes made to: server/__tests__/routes/projects.test.js
+Run `npm test` to verify all tests still pass.
+</code></pre>
+<h2>Benefits</h2>
+<ul>
+<li><strong>Time savings</strong>: 1-2 hours of manual work → 10 minutes mostly automated</li>
+<li><strong>Better insights</strong>: AI understands mutation patterns and suggests targeted fixes</li>
+<li><strong>Higher quality</strong>: Systematic approach catches edge cases you might miss</li>
+<li><strong>Learning tool</strong>: See patterns in mutation testing and improve your testing skills</li>
+<li><strong>Consistency</strong>: Same high standard applied across all files</li>
+</ul>
+<h2>Limitations</h2>
+<ul>
+<li>Requires Stryker mutation testing to be configured</li>
+<li>Works best with files that already have 60%+ test coverage</li>
+<li>Targets 85-90% mutation score (100% is rarely necessary or practical)</li>
+<li>Some survived mutants may be acceptable edge cases</li>
+<li>Mutation testing is slow (2-3 minutes per run)</li>
+</ul>
+<h2>Tips</h2>
+<ol>
+<li><strong>Start with good coverage</strong>: Get to 60-70% line coverage before using this skill</li>
+<li><strong>Review changes</strong>: Even in auto mode, review the changes before committing</li>
+<li><strong>Iterate carefully</strong>: 85-90% is usually sufficient; don't chase 100%</li>
+<li><strong>Commit frequently</strong>: Commit after each successful improvement cycle</li>
+<li><strong>Learn patterns</strong>: Pay attention to what mutants survive to improve your testing habits</li>
+</ol>
+<h2>Troubleshooting</h2>
+<h3>&quot;File not in mutate array&quot;</h3>
+<p>The skill will offer to add the file to <code>stryker.config.mjs</code> for you.</p>
+<h3>&quot;Test file not found&quot;</h3>
+<p>Make sure your test file follows conventions:</p>
+<ul>
+<li><code>server/routes/file.js</code> → <code>server/__tests__/routes/file.test.js</code></li>
+</ul>
+<h3>&quot;Mutation testing failed&quot;</h3>
+<p>Ensure all tests pass first: <code>npm test</code></p>
+<h3>&quot;JSON report not found&quot;</h3>
+<p>The skill configuration should have already added the JSON reporter to <code>stryker.config.mjs</code>.</p>
+<h2>Configuration</h2>
+<p>The skill uses these defaults (overridable with flags):</p>
+<ul>
+<li>Target mutation score: 85%</li>
+<li>Max iterations: 3</li>
+<li>Mode: Interactive (ask before implementing)</li>
+</ul>
+<h2>Files Modified</h2>
+<p>This skill may modify:</p>
+<ul>
+<li>Your test file (adds tests, strengthens assertions)</li>
+<li><code>stryker.config.mjs</code> (if file not in mutate array)</li>
+</ul>
+<p>It will NOT:</p>
+<ul>
+<li>Modify your source code</li>
+<li>Commit changes automatically (you control commits)</li>
+<li>Run in CI/CD (it's a development tool)</li>
+</ul>
+<h2>Future Enhancements</h2>
+<p>Potential future features:</p>
+<ul>
+<li>Multi-file support</li>
+<li>Git auto-commit with descriptive messages</li>
+<li>Coverage improvement suggestions</li>
+<li>CI/CD integration recommendations</li>
+<li>Learning from past improvements</li>
+</ul>
+<h2>See Also</h2>
+<ul>
+<li><a href="https://stryker-mutator.io/">Stryker Mutation Testing</a></li>
+</ul>

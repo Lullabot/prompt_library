@@ -1,0 +1,137 @@
+<h1>Mutation Testing Analysis Utilities</h1>
+<p>Helper scripts for analyzing Stryker mutation testing reports.</p>
+<h2>analyze-mutations.js</h2>
+<p>Efficiently extracts and analyzes data from large mutation JSON reports.</p>
+<h3>Usage</h3>
+<pre><code class="language-bash">node analyze-mutations.js &lt;command&gt; &lt;file&gt; [options]
+</code></pre>
+<h3>Commands</h3>
+<h4><code>summary &lt;file&gt;</code></h4>
+<p>Get overall mutation metrics for a file.</p>
+<pre><code class="language-bash">node analyze-mutations.js summary server/services/googleSheetsApi.js
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-json">{
+  &quot;total&quot;: 162,
+  &quot;killed&quot;: 48,
+  &quot;survived&quot;: 20,
+  &quot;noCoverage&quot;: 88,
+  &quot;timeout&quot;: 2,
+  &quot;score&quot;: 29.63
+}
+</code></pre>
+<h4><code>survived &lt;file&gt;</code></h4>
+<p>List all survived mutants with line numbers.</p>
+<pre><code class="language-bash">node analyze-mutations.js survived server/routes/projects.js
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: &quot;346&quot;,
+    &quot;line&quot;: 75,
+    &quot;column&quot;: 10,
+    &quot;mutatorName&quot;: &quot;EqualityOperator&quot;,
+    &quot;replacement&quot;: &quot;col &lt;= dateRow.length&quot;
+  },
+  ...
+]
+</code></pre>
+<h4><code>by-type &lt;file&gt;</code></h4>
+<p>Group survived mutants by mutator type.</p>
+<pre><code class="language-bash">node analyze-mutations.js by-type server/utils/dateUtils.js
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-json">{
+  &quot;EqualityOperator&quot;: [
+    { &quot;id&quot;: &quot;346&quot;, &quot;line&quot;: 75, &quot;replacement&quot;: &quot;col &lt;= dateRow.length&quot; }
+  ],
+  &quot;ConditionalExpression&quot;: [
+    { &quot;id&quot;: &quot;352&quot;, &quot;line&quot;: 78, &quot;replacement&quot;: &quot;false&quot; }
+  ],
+  ...
+}
+</code></pre>
+<h4><code>by-line &lt;file&gt; &lt;line&gt;</code></h4>
+<p>Get all mutants at a specific line number.</p>
+<pre><code class="language-bash">node analyze-mutations.js by-line server/services/cacheService.js 45
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-json">[
+  {
+    &quot;id&quot;: &quot;123&quot;,
+    &quot;status&quot;: &quot;Killed&quot;,
+    &quot;mutatorName&quot;: &quot;ConditionalExpression&quot;,
+    &quot;replacement&quot;: &quot;true&quot;,
+    &quot;line&quot;: 45,
+    &quot;column&quot;: 10
+  }
+]
+</code></pre>
+<h4><code>high-priority &lt;file&gt;</code></h4>
+<p>Categorize survived mutants by priority (high/medium/low).</p>
+<pre><code class="language-bash">node analyze-mutations.js high-priority server/services/googleSheetsApi.js
+</code></pre>
+<p>Output:</p>
+<pre><code class="language-json">{
+  &quot;high&quot;: [
+    {
+      &quot;mutatorName&quot;: &quot;EqualityOperator&quot;,
+      &quot;count&quot;: 3,
+      &quot;mutants&quot;: [...]
+    }
+  ],
+  &quot;medium&quot;: [...],
+  &quot;low&quot;: [...]
+}
+</code></pre>
+<h3>Priority Levels</h3>
+<ul>
+<li>
+<p><strong>High</strong>: ConditionalExpression, LogicalOperator, EqualityOperator</p>
+<ul>
+<li>These reveal critical logic flaws</li>
+</ul>
+</li>
+<li>
+<p><strong>Medium</strong>: ArithmeticOperator, ReturnStatement, BlockStatement, MethodExpression, OptionalChaining</p>
+<ul>
+<li>Calculation and flow control issues</li>
+</ul>
+</li>
+<li>
+<p><strong>Low</strong>: StringLiteral, ObjectLiteral, etc.</p>
+<ul>
+<li>Often acceptable edge cases</li>
+</ul>
+</li>
+</ul>
+<h3>Environment Variables</h3>
+<ul>
+<li><code>MUTATION_REPORT</code>: Custom path to mutation.json (default: <code>reports/mutation/mutation.json</code>)</li>
+</ul>
+<pre><code class="language-bash">MUTATION_REPORT=custom/path/report.json node analyze-mutations.js summary myfile.js
+</code></pre>
+<h3>Using as a Module</h3>
+<pre><code class="language-javascript">import { getSummary, groupByType, loadReport, findFileData } from './analyze-mutations.js';
+
+const report = loadReport('reports/mutation/mutation.json');
+const { data } = findFileData(report, 'server/services/myService.js');
+const summary = getSummary(data);
+const grouped = groupByType(data);
+</code></pre>
+<h2>Benefits</h2>
+<ul>
+<li><strong>Fast</strong>: Loads entire report once, filters efficiently</li>
+<li><strong>Clean output</strong>: JSON format for easy parsing</li>
+<li><strong>Reusable</strong>: Use standalone or import as module</li>
+<li><strong>Handles large files</strong>: Processes 640KB+ reports that exceed Read tool limits</li>
+<li><strong>Flexible matching</strong>: Finds files by partial path match</li>
+</ul>
+<h2>Examples in the Wild</h2>
+<p>Used by the <code>/improve-test-quality</code> skill to:</p>
+<ol>
+<li>Baseline analysis (get current mutation score)</li>
+<li>Identify survived mutants to target</li>
+<li>Categorize by priority for systematic improvement</li>
+<li>Verify improvements after re-running tests</li>
+</ol>
