@@ -1,23 +1,29 @@
 ---
 title: Humanizer
-description: >
+description: >-
   Remove signs of AI-generated writing from text. Use when editing or reviewing
-
-  text to make it sound more natural and human-written. Based on Wikipedia's
-
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns
-  including:
-
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-
-  attributions, em dash overuse, rule of three, AI vocabulary words, negative
-
-  parallelisms, and excessive conjunctive phrases.
+  text to make it sound more natural and human-written. Based on the
+  comprehensive Wikipedia "Signs of AI writing" guide. Detects and fixes
+  patterns including inflated symbolism, promotional language, superficial -ing
+  analyses, vague attributions, em dash overuse, rule of three, AI vocabulary
+  words, negative parallelisms, excessive conjunctive phrases, and
+  conversational tells like emphatic "real", announcing the rhetorical move, and
+  anthropomorphized objects.
 date: '2025-01-22'
 layout: markdown.njk
 discipline: content-strategy
 contentType: skills
-lastUpdated: '2026-04-28'
+lastUpdated: '2026-06-15'
+changelog:
+  - date: '2026-06-15'
+    summary: >-
+      Fixed the skill description so the full text renders (it previously
+      collapsed to a single "|" character).
+  - date: '2026-06-15'
+    summary: >-
+      Added detection for conversational AI tells — emphatic "real", announcing
+      the rhetorical move ("One honest caveat:", "The thing I'd push back on:"),
+      and anthropomorphized objects ("they want opposite homes").
 tags:
   - content-editing
   - writing-quality
@@ -30,14 +36,8 @@ tags:
 `````
 ---
 name: humanizer
-version: 2.1.1
-description: |
-  Remove signs of AI-generated writing from text. Use when editing or reviewing
-  text to make it sound more natural and human-written. Based on Wikipedia's
-  comprehensive "Signs of AI writing" guide. Detects and fixes patterns including:
-  inflated symbolism, promotional language, superficial -ing analyses, vague
-  attributions, em dash overuse, rule of three, AI vocabulary words, negative
-  parallelisms, and excessive conjunctive phrases.
+version: 2.2.0
+description: 'Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia "Signs of AI writing" guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic "real", announcing the rhetorical move, and anthropomorphized objects.'
 allowed-tools:
   - Read
   - Write
@@ -416,6 +416,58 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 **After:**
 > The company plans to open two more locations next year.
+
+---
+
+## CONVERSATIONAL AND ARGUMENT PATTERNS
+
+These show up in chat replies, code reviews, PR comments, and Slack, not just articles. They're the tells that survive even after the "Wikipedia-slop" patterns above are gone.
+
+### 25. Emphatic "real" (and other empty intensifiers)
+
+**Words to watch:** a real bug, the real problem, real value, genuinely, actually, truly, the thing that really matters
+
+**Problem:** "Real" gets bolted onto a noun to manufacture stakes. The noun is almost always stronger alone. Same for "genuinely," "actually," and "truly" used as flavor rather than contrast.
+
+**Before:**
+> The nano-banana one caught a real bug a linter never could.
+> This is a genuinely useful pattern that actually solves the problem.
+
+**After:**
+> The nano-banana one caught a bug a linter never could.
+> This pattern solves the problem.
+
+Keep the intensifier only when it draws a true contrast ("not a styling nit, a logic bug").
+
+### 26. Announcing the rhetorical move
+
+**Words to watch:** One honest caveat:, The thing I'd push back on:, Here's what gets me:, To be fair:, I'll be honest:, What's interesting is:, The key insight is:, that's the X doing the thing Y can't
+
+**Problem:** Labeling your move before making it is throat-clearing. Just make the point. State the caveat as a caveat; state the disagreement as the disagreement. The meta-framing reads as performance, not thought.
+
+**Before:**
+> One honest caveat on encouraging local use: opt-in tools get forgotten.
+> The thing I'd push back on gently: "run it locally" is really two decisions.
+
+**After:**
+> On encouraging local use: opt-in tools get forgotten.
+> "Run it locally" feels like one decision but it's really two.
+
+Note the related "that's the X doing the thing Y can't" construction. It restates a point you already made in a self-congratulatory frame. Cut it and let the example carry it.
+
+### 27. Cute metaphors and anthropomorphized objects
+
+**Words to watch:** wants to live in, they want opposite homes, the natural home for, the obvious citizen, X is happiest when, lives where it belongs, earning its keep
+
+**Problem:** Giving tools, files, or code human desires ("the script wants to run in CI," "these two want opposite homes") is a stylistic tic that trades precision for charm. Say what's actually true: it's cheaper, it's faster, it fits better.
+
+**Before:**
+> There are two tools and they want opposite homes.
+> The deterministic script is the obvious CI citizen.
+
+**After:**
+> There are two tools, and they split cleanly.
+> The deterministic script belongs in CI: it's cheap and produces the same result every time.
 
 ---
 
