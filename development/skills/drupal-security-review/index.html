@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Drupal Security Review - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
+            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
+            <div class="search-container">
+                <form class="search-form" role="search">
+                    <label for="search-input" class="visually-hidden">Search</label>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="search-input" 
+                        placeholder="Search prompts, rules, and configurations..."
+                        aria-label="Search content"
+                    >
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Drupal Security Review</h1>
+  <p class="description">Deep security review of a Drupal site&#39;s CUSTOM code (modules + theme) running under DDEV, followed by recorded exploit-demonstration videos produced with the Playwright Agent CLI (playwright-cli) via the e0ipso/ddev-playwright-cli add-on. Use when the user wants to audit a DDEV Drupal codebase for vulnerabilities AND get reproducible video proofs-of-concept, especially on projects that do NOT already have a Playwright test harness. Not for diff-only PR review (use the built-in /security-review for that).</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">drupal</span>
+      
+        <span class="tag">security</span>
+      
+        <span class="tag">ddev</span>
+      
+        <span class="tag">playwright</span>
+      
+    </div>
+    <div class="metadata-right">
+      
+      
+        <span class="last-updated">Updated 2026-06-10</span>
+      
+    </div>
+  </div>
+
+  
+
+  
+  
+  
+  <details class="skill-install-section">
+    <summary>Installation &amp; Resources</summary>
+    <div class="skill-install-content">
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        
+        <a href="/prompt_library/development/skills/drupal-security-review/drupal-security-review-resources.zip" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        
+      </div>
+      <ul class="resource-list">
+        
+        <li class="resource-item">
+          <a href="/prompt_library/development/skills/drupal-security-review/references/drupal-ui-automation.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/drupal-ui-automation.md</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/development/skills/drupal-security-review/references/playwright-cli.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/playwright-cli.md</span>
+          </a>
+        </li>
+        
+        <li class="resource-item">
+          <a href="/prompt_library/development/skills/drupal-security-review/references/review-methodology.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/review-methodology.md</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+      
+    
+  
+  <div class="agent-buttons">
+    
+    <button class="agent-button agent-button--copy" data-prompt="Download https://lullabot.github.io/prompt_library/development/skills/drupal-security-review/drupal-security-review-resources.zip — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources.">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
+  
+
+  <div class="content">
+    <pre><code>---
+name: drupal-security-review
+description: Deep security review of a Drupal site's CUSTOM code (modules + theme) running under DDEV, followed by recorded exploit-demonstration videos produced with the Playwright Agent CLI (playwright-cli) via the e0ipso/ddev-playwright-cli add-on. Use when the user wants to audit a DDEV Drupal codebase for vulnerabilities AND get reproducible video proofs-of-concept, especially on projects that do NOT already have a Playwright test harness. Not for diff-only PR review (use the built-in /security-review for that).
+---
+
+# drupal-security-review
+
+Run a thorough security review of a Drupal project's custom code, then *prove*
+each finding by driving a real browser with `playwright-cli` and recording a
+video. Recording the exploit is treated as adversarial verification: it
+routinely changes a finding's severity — usually **down** (the payload turns
+out to be plantable only by an administrator), occasionally **up** (something
+believed admin-only is reachable by a semi-trusted user). Surface every change,
+and call out **upgrades loudly**.
+
+**Always record every finding, regardless of severity — and never ask first.**
+The video and reproduction scenario are how we validate findings and detect
+severity changes, so they are produced for *all* findings (High, Medium, Low,
+hardening) **and** for the refuted candidates — a recording that demonstrates a
+candidate is genuinely unreachable is itself the evidence of refutation. Do
+**not** ask the user whether to record a given finding, skip low-severity ones,
+or seek confirmation before producing the videos: just create all of them.
+
+This skill is generic: it discovers roles, content types, the login mechanism,
+and form quirks at runtime. Never hardcode another project's specifics.
+
+## Reference material (read on demand, not all upfront)
+
+- `references/review-methodology.md` — the multi-agent review sweep, the
+  findings-document schema, and the severity-reconciliation feedback loop.
+- `references/playwright-cli.md` — how to drive and video-record with
+  `playwright-cli` (commands, chapter markers, overlays, output location).
+- `references/drupal-ui-automation.md` — logging in (SSO/antibot/honeypot),
+  the standard XSS demo payload, and the Drupal admin-form gotchas that break
+  naive automation (required-on-publish, tagify, options_buttons, Gin's
+  duplicated submit button, invalid default references, the test-suite DB
+  reset).
+
+## Two robust helpers (run via drush)
+
+- `scripts/recon.php` — prints a JSON snapshot of everything the review and the
+  demos need (roles + is_admin, per-role create access for nodes/blocks/terms,
+  required &amp; required-on-publish fields, reference-field widgets, save-blocking
+  default values, Layout Builder access, login-related modules). Run it early.
+- `scripts/cleanup.php` — deletes everything this skill planted (content/blocks
+  whose title/label contains the marker, and the throwaway test users).
+
+Copy a helper into the project root before running it, because `ddev drush
+php:script` resolves paths inside the web container:
+`cp ~/.claude/skills/drupal-security-review/scripts/recon.php ./.sec_recon.php &amp;&amp; ddev drush php:script .sec_recon.php`
+
+## Workflow
+
+### Phase 0 — Preconditions &amp; recon
+1. Confirm a running DDEV project: `ddev describe`. Confirm a git repo. If DDEV
+   isn't running, ask the user to `ddev start`.
+2. Locate custom code. Default to `web/modules/custom/` and
+   `web/themes/custom/`; if the docroot differs, discover it (`ddev drush
+   php:eval 'print DRUPAL_ROOT;'`). Exclude core, contrib, and test code.
+3. Run `scripts/recon.php` and read the JSON. This is the ground truth for
+   *who can actually author what* — it is what separates a real finding from a
+   refuted one. Keep it for the whole session.
+
+### Phase 1 — Deep multi-agent review
+Follow `references/review-methodology.md`. Fan out along **two axes** (hybrid):
+by vulnerability class *and* by subsystem — one agent per custom module plus a
+**dedicated agent for the theme**, because shared Twig atoms (e.g. a `|raw`
+button atom) are reached by many callers and a class-only sweep tends to trace
+just the first one. For **every** unescaped/trust-marking sink (`|raw`,
+`Markup::create()`, `#markup`, unfiltered `-&gt;value`), **enumerate all callers/
+sources** and grade severity by the *lowest-privilege* source that can reach it —
+never by the first caller seen (this is the one step most likely to be skipped,
+and the one that turns a &quot;Low, admin-only&quot; into the real editor→anon escalation).
+For **every** candidate finding — reported *and* refuted, every severity — write
+a concrete **reproduction recipe**: the lowest-privilege role that can plant the
+payload, the exact UI steps, the payload, and the trigger URL + who is affected.
+Every candidate gets a recipe because every candidate gets a Phase-3 video
+(including refuted ones, whose recording documents the access barrier). For a
+candidate you believe is unreachable, the recipe still names the role/steps you
+will attempt on camera and the barrier you expect to hit. Cross-check
+exploitability against the recon JSON before assigning a severity. Write
+`security-review-custom-code.md` using the schema in the methodology reference.
+
+### Phase 2 — Prepare the demo environment
+1. Ensure the add-on: if `ddev exec playwright-cli --version` fails, install it
+   with `ddev add-on get e0ipso/ddev-playwright-cli &amp;&amp; ddev restart`.
+2. Create the throwaway test users the demos need — one per distinct role that
+   appears in a reproduction recipe (e.g. an editor-role user). Use a clear
+   marker in the name (e.g. `secdemo_&lt;role&gt;`). See the UI-automation reference
+   for login.
+3. Heed the DB-reset caveat in the UI-automation reference: do **not** run the
+   project's own own test suite during the demos.
+
+### Phase 3 — Demonstrate every finding (full path) with video
+Demo **every finding, full creation→trigger path — regardless of severity and
+without asking the user.** This includes High/Medium findings, Low/hardening
+findings, *and* the refuted candidates: record one video per candidate so each is
+independently validated on camera. For a finding you expect to be unreachable,
+still record the attempt — the video that shows the access system blocking the
+actor is the proof of refutation and may instead reveal a path you missed. Never
+gate a recording on severity, and never pause to ask whether to make it. For
+each, the actor is the *lowest-privilege role that can plant the payload* (per
+recon); for a refuted candidate, the actor is the lowest-privilege role the
+recipe says to attempt.
+
+**The video must show the entire editorial workflow needed to plant the payload,
+performed on camera through the real UI as the acting role.** If the exploit
+vector is a field on a piece of content the actor must author (a block title or
+description, a node field, a term name, a menu link, a media label, a paragraph
+field…), the recording **creates that entity from scratch in the UI** — navigate
+to its add form, fill the required fields, enter the payload in the vector field,
+and save — so the viewer sees exactly what an editor with that role can do. Do
+**not** shortcut the authoring step with `drush`, with the SQL/db, or by editing
+a pre-existing entity someone else made: those hide the very access question the
+demo exists to answer (can *this role*, through the UI it actually has, plant
+this?). The only acceptable off-camera setup is scaffolding the actor can't
+influence and that isn't the vector (e.g. a parent node the payload references) —
+and call out in narration that it was pre-seeded.
+
+Per `references/playwright-cli.md` and `references/drupal-ui-automation.md`:
+1. `playwright-cli video-start finding-N.webm --size=1280x720`.
+2. `video-chapter &quot;Log in as &lt;role&gt;&quot;` → establish the session.
+3. `video-chapter &quot;Author the &lt;entity&gt; via the editorial UI&quot;` → open the real
+   add/create form for the entity that carries the vector, fill every required
+   field, enter the visible full-screen-overlay payload in the vector field, and
+   save. Add a `video-chapter` per distinct authoring step when the path spans
+   several forms (e.g. create block → place block, or create paragraph → publish
+   host node) so the full content-change sequence is legible on camera.
+4. `video-chapter &quot;Trigger as &lt;audience&gt;&quot;` → drop/switch session and visit the
+   trigger URL as the affected audience (anonymous, or another role).
+5. `playwright-cli video-stop`; collect the WebM from `.playwright-cli/`, and
+   transcode to mp4 with `ffmpeg` if available.
+
+If a required field genuinely blocks the actor from saving through the UI (e.g. a
+required-on-publish field the role can't satisfy), that is itself a finding about
+reachability — record it in Phase 4, don't paper over it by seeding the entity.
+
+### Phase 4 — Severity reconciliation (the point of the demos)
+For each finding, update severity from what the demo actually **proved**:
+- Lowest planter is admin **and** audience is admin → **downgrade** (admin→admin
+  is not a privilege escalation; group it with refuted candidates).
+- A finding thought admin-only is plantable/triggerable by a non-admin →
+  **UPGRADE**. This is the result the user most wants to know about — make it
+  prominent.
+- Anonymous can trigger with no authentication → escalate accordingly.
+Add a &quot;Severity changes after demonstration&quot; section to the review,
+**listing upgrades first and in bold**, each with the evidence the demo gave.
+
+### Phase 5 — Deliver &amp; clean up
+1. Deliver: the updated `security-review-custom-code.md`, the videos (send mp4s
+   with `SendUserFile`), and the severity-change summary.
+2. Run `scripts/cleanup.php` to remove planted content and test users; scrub any
+   one-time login tokens from working files.
+3. Ask before deleting the review doc, videos, or any recording harness — these
+   are the deliverables.
+
+## Guardrails
+- Record everything, never ask: produce a video and reproduction scenario for
+  every finding and every refuted candidate at all severities, without pausing to
+  ask the user whether to record any of them. The only &quot;ask&quot; in this skill is the
+  Phase-5 confirmation before *deleting* the finished deliverables.
+- Authorized review only. This runs against the user's own local DDEV site.
+- Use a visibly-defacing but non-destructive payload (overlay/`document.title`),
+  never anything that exfiltrates or persists beyond the planted node/block.
+- Generic first: derive roles, content types, login, and quirks from recon and
+  the live forms — never assume another project matches this one.
+
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Agent action buttons */
+  .agent-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
+  }
+
+  .agent-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = 'Copy for agent';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  });
+</script>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Prompt Library</p>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
