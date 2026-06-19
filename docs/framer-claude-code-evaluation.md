@@ -19,6 +19,18 @@ code" handoff to an AI agent works today if you design with plain layers, model
 things as named components, and keep the right plugin open — but it is not yet
 turnkey.**
 
+> ⚠️ **Privacy caution (added after publishing).** The path that actually worked
+> here — the third-party **unframer** plugin — runs through a *hosted* service
+> tied to your personal account and email. Shortly after we tried it, the
+> project's author **emailed our team member directly, unsolicited.** We didn't
+> ask for contact and didn't expect a person on the other end watching usage
+> closely enough to reach out — and frankly, it felt gross. The tool was
+> fairly effective, but that experience is part of the evaluation: using the
+> hosted endpoint ties your activity to your identity in a way we found
+> intrusive. If you try unframer, weigh that, and strongly prefer
+> **self-hosting the [open-source version](https://github.com/remorses/unframer)**
+> over the hosted `mcp.unframer.co` tunnel.
+
 ### Terms used in this report
 
 - **AI coding agent** — a tool like Claude Code or Cursor that can read your
