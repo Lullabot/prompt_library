@@ -36,6 +36,26 @@
     --font-sans: 'Inter', verdana, sans-serif;
     --font-mono: 'IBM Plex Mono', 'Consolas', 'Liberation Mono', monospace;
     --font-heading: 'Inter', verdana, sans-serif;
+
+    /* Homepage redesign tokens (Framer "Miraculous Motivation") — light. See docs/redesign-spec.md */
+    --rd-bg: #f7f4ef;
+    --rd-surface: #ffffff;
+    --rd-terminal: #0b1822;
+    --rd-terminal-text: #e6edf2;
+    --rd-ink: #16242e;
+    --rd-text: #2c3a44;
+    --rd-muted: #5c6b73;
+    --rd-accent: #f15a3b;
+    --rd-accent-soft: rgba(241, 90, 59, 0.12);
+    --rd-chip: #eceae4;
+    --rd-chip-text: #46535c;
+    --rd-border: rgba(16, 35, 49, 0.10);
+    --rd-nav-shell: rgba(255, 255, 255, 0.72);
+    --rd-matrix-head: #efede7;
+    --rd-on-accent: #ffffff;
+    --rd-dot-red: #ff6a57;
+    --rd-dot-yellow: #ffd15c;
+    --rd-dot-green: #5cdf7b;
 }
 
 /* Dark theme — Lullabot primary-dark palette */
@@ -63,6 +83,23 @@
     --inline-code-text: #e0e6eb;
     --card-hover-shadow: rgba(0, 0, 0, 0.4);
     --card-text: #edf0f2;
+
+    /* Homepage redesign tokens (Framer "Miraculous Motivation") — dark. See docs/redesign-spec.md */
+    --rd-bg: #102331;
+    --rd-surface: #17303e;
+    --rd-terminal: #0b1822;
+    --rd-terminal-text: #e6edf2;
+    --rd-ink: #ffffff;
+    --rd-text: #c7d6df;
+    --rd-muted: #7fa2b3;
+    --rd-accent: #f15a3b;
+    --rd-accent-soft: rgba(241, 90, 59, 0.12);
+    --rd-chip: rgba(178, 209, 223, 0.10);
+    --rd-chip-text: #b2d1df;
+    --rd-border: rgba(178, 209, 223, 0.12);
+    --rd-nav-shell: rgba(23, 48, 62, 0.78);
+    --rd-matrix-head: #0b1822;
+    --rd-on-accent: #ffffff;
 }
 
 /* ===========================
