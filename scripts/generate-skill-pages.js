@@ -21,6 +21,7 @@ const ROOT = path.resolve(__dirname, '..');
 const VENDOR_DIR = path.join(ROOT, '_skills-vendor');
 
 const VALID_DISCIPLINES = new Set([
+  'admin',
   'development',
   'content-strategy',
   'design',
