@@ -1,0 +1,196 @@
+<h1>Framer + AI Coding Agents: A Hands-On Evaluation</h1>
+<p><em>An experience report on using Claude Code with a Framer design to reimplement
+it in a real codebase.</em></p>
+<h2>Executive Summary</h2>
+<p>We connected an AI coding agent (Claude Code) to a <a href="https://framer.com">Framer</a>
+redesign of our &quot;Prompt Library&quot; site and tried to read the design well enough
+to rebuild it in our own 11ty/Eleventy codebase. Connecting and authenticating
+was painless on both integration paths we tried, and reading a normal page was
+genuinely excellent — we extracted a complete, accurate design spec. But the
+two paths each had real gaps: Framer's official agent bridge is currently
+blocked by a rendering bug, and the third-party tool that <em>does</em> work is
+fragile in specific, predictable ways.</p>
+<p><strong>Bottom line: promising but early-stage. A &quot;design in Framer → implement in
+code&quot; handoff to an AI agent works today if you design with plain layers, model
+things as named components, and keep the right plugin open — but it is not yet
+turnkey.</strong></p>
+<h3>Terms used in this report</h3>
+<ul>
+<li><strong>AI coding agent</strong> — a tool like Claude Code or Cursor that can read your
+files and project context and write code. Here it reads the Framer design and
+writes the implementation.</li>
+<li><strong>MCP (Model Context Protocol)</strong> — an open standard that lets an AI agent
+call external tools (here, tools that read a Framer project). &quot;MCP server&quot;
+means the program exposing those tools.</li>
+<li><strong>Replica / variant</strong> — Framer's mechanism for reusing one design across
+states or screen sizes (e.g. a light-theme copy of a dark design, or a mobile
+version of a desktop layout). This is where the tooling is weakest.</li>
+</ul>
+<h2>What We Were Trying to Do</h2>
+<p>Take a finished Framer design (a homepage redesign) and have the agent read it
+faithfully — colors, layout, copy, links, component props — so we could rebuild
+it node-for-node in our static-site codebase. We were <strong>not</strong> trying to use
+Framer's own hosting; the goal was design-in-Framer, ship-in-our-stack.</p>
+<p>We succeeded. The extracted result lives in
+<a href="./redesign-spec.md"><code>docs/redesign-spec.md</code></a> — a full 8-section spec with exact
+palette tokens, layout, and component definitions, captured node-for-node. That
+file is the evidence this workflow <em>can</em> work. This report explains how we got
+there and where it broke.</p>
+<h2>Integration Paths We Tested</h2>
+<p>We tried three ways to get the design out of Framer and into the agent.</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>What it is</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Official Framer bridge</strong> (<code>@framer/agent</code> CLI + Claude Code skills)</td>
+<td>Framer's own first-party tooling for connecting an agent to a project</td>
+<td><strong>Blocked.</strong> Setup and auth worked; every call that renders or serializes the canvas failed with a renderer bug</td>
+</tr>
+<tr>
+<td><strong>2. unframer MCP</strong> (third-party, <a href="https://github.com/remorses/unframer">open source</a>)</td>
+<td>A community MCP server, installed as an in-Framer plugin that tunnels read/write tools to the agent</td>
+<td><strong>Worked.</strong> We read the whole page as XML and reconstructed it — with notable blind spots</td>
+</tr>
+<tr>
+<td><strong>3. Publishing route</strong> (read the live site's HTML/CSS)</td>
+<td>Skip the tooling; just read the published web page</td>
+<td><strong>Not viable here.</strong> The design lived on a Framer <em>design page</em>, which doesn't publish; staging/production URLs were null</td>
+</tr>
+</tbody>
+</table>
+<h3>Path 1 — Official <code>@framer/agent</code> bridge (v0.0.33)</h3>
+<p>Setup was the smooth part. Three commands and a browser approval:</p>
+<ul>
+<li><code>npx @framer/agent setup</code> — installs the Claude Code skills</li>
+<li><code>npx @framer/agent project auth &lt;url&gt;</code> — browser-based approval (clean)</li>
+<li><code>npx @framer/agent session new &lt;id&gt;</code> — starts a local relay server</li>
+</ul>
+<p>Lightweight calls worked: <code>getContext()</code> and <code>getNodesOfTypes()</code> returned node
+lists and counts. But <strong>every call that has to render or serialize the canvas
+failed</strong> with the same error:</p>
+<pre><code>Assertion Error: The importMap has to exist on the module
+</code></pre>
+<p>This killed <code>screenshot</code>, <code>serialize</code>, <code>getNode</code>, and even reading a single
+node's <code>.attributes</code> or <code>.text</code>. In other words, the bridge could enumerate the
+design but could not <em>read</em> it.</p>
+<p>We tried hard to clear it: destroy and recreate the session, restart the relay
+server, re-authorize, reload the skills/plugins, open the project in Framer's
+browser editor so its modules would load, and a brand-new agent session. <strong>The
+bug persisted in every case.</strong> Our conclusion is that this is a genuine
+renderer bug in <code>@framer/agent</code> 0.0.33 for this project — and the version
+number (<code>0.0.x</code>) tells you how early this tooling is. For now, the first-party
+bridge was effectively unusable for <em>reading</em> a design.</p>
+<h3>Path 2 — unframer MCP (the one that worked)</h3>
+<p>The <a href="https://github.com/remorses/unframer">unframer</a> MCP server (hosted at
+<code>mcp.unframer.co</code>) installs as an in-Framer plugin (Cmd-K → search &quot;MCP&quot;). The
+plugin exposes an HTTP tunnel URL, which we registered with the agent via
+<code>claude mcp add --transport http</code>.</p>
+<p>This succeeded where the official bridge failed. We read the entire page as XML
+(<code>getProjectXml</code>, <code>getNodeXml</code>) and reconstructed all 8 sections node-for-node:
+exact colors, layout, copy, links, and component props. Roughly 22 tools are
+available — read project/node/selected-node XML, read and write CMS content,
+read color and text styles, search fonts, create/update/delete/duplicate nodes
+via an XML DSL, and export React.</p>
+<p>The XML maps cleanly onto web concepts. Framer expresses layout with familiar,
+CSS-ish ideas — stack/grid layout, <code>gap</code>, <code>padding</code>, <code>backgroundColor</code>,
+<code>borderRadius</code> — so translating it into real HTML and CSS was straightforward.</p>
+<h3>Path 3 — Publishing route</h3>
+<p>If the design had been on a publishable web page, we could have skipped the
+tooling and just read the rendered HTML/CSS. But this design lived on a Framer
+<strong>design page</strong> (a canvas surface), which does not publish, so there was no URL
+to read. Worth knowing as a fallback, but it did not apply here.</p>
+<h2>What Worked Well</h2>
+<ul>
+<li><strong>Connecting and authenticating</strong> the agent to Framer was quick and painless
+on <em>both</em> paths. No friction here.</li>
+<li><strong>Reading a normal page</strong> (plain frames and stacks) via unframer was better
+than expected — accurate and complete. The extracted spec
+(<a href="./redesign-spec.md"><code>redesign-spec.md</code></a>) is the proof.</li>
+<li><strong>Components with named props translated beautifully.</strong> Where the design used
+components (&quot;Resource Card&quot;, &quot;Type Card&quot;, &quot;Library Button&quot;), each instance
+exposed its props directly in the XML and mapped 1:1 to code — we turned them
+into reusable Nunjucks macros. <strong>This is the pattern to recommend.</strong></li>
+<li><strong>Familiar layout model.</strong> Because Framer's layout vocabulary mirrors CSS, an
+agent that knows CSS can reason about it with little translation loss.</li>
+</ul>
+<h2>What Didn't Work</h2>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Official bridge renderer bug</strong> (<code>importMap</code>)</td>
+<td>The first-party <code>@framer/agent</code> path can enumerate but not read a design. Effectively unusable for reads today</td>
+</tr>
+<tr>
+<td><strong>Tunnel is fragile</strong></td>
+<td>Closing the unframer plugin panel in Framer drops the tunnel — every call then returns &quot;Framer plugin not connected.&quot; You must keep the plugin open for the whole session</td>
+</tr>
+<tr>
+<td><strong>Replicas / variants are a blind spot</strong></td>
+<td><code>getNodeXml</code> and <code>getSelectedNodesXml</code> return replica/variant nodes self-closed (no children), and <code>duplicateNode</code> refuses them (&quot;Cannot set parent of a replica node&quot;). Our light-theme design was built as a replica, so it was <em>entirely unreadable</em> — we recovered its colors from an editor screenshot</td>
+</tr>
+<tr>
+<td><strong>Component <em>definitions</em> aren't readable</strong></td>
+<td>Calling <code>getNodeXml</code> on a component's own node returned &quot;Node is not a text node.&quot; We could still read each <em>instance's</em> props where it was used, which was enough — but you can't introspect the component itself</td>
+</tr>
+<tr>
+<td><strong>Clean React export is paywalled</strong></td>
+<td><code>exportReactComponents</code> (pitched as &quot;the most interesting tool&quot;) returns &quot;No active React Export subscription&quot; and points to a pricing page. It also only exports component nodes, not whole pages</td>
+</tr>
+</tbody>
+</table>
+<p>The replica/variant blind spot deserves emphasis: <strong>variants and replicas are
+exactly how Framer handles responsive breakpoints <em>and</em> component states.</strong> So
+the read tooling is weakest precisely where a real, production-grade design is
+richest. Plan around this.</p>
+<h2>If You Want to Try This</h2>
+<p>A concrete setup checklist for a Framer → AI-agent handoff today:</p>
+<ol>
+<li><strong>Use the unframer MCP, not the first-party bridge.</strong> Install the unframer
+plugin in Framer (Cmd-K → &quot;MCP&quot;), then register its tunnel URL with your
+agent (<code>claude mcp add --transport http &lt;url&gt;</code>).</li>
+<li><strong>Keep the unframer plugin panel open</strong> in Framer for the entire session.
+If you close it, the tunnel drops and every call fails until you reconnect.</li>
+<li><strong>Design with plain layers where you need a clean read.</strong> Frames and stacks
+read perfectly; replicas/variants do not.</li>
+<li><strong>Model reusable elements as components with clearly named props/controls.</strong>
+Named props are what survive the trip to code 1:1 — this is the single
+biggest lever for a clean handoff.</li>
+<li><strong>Detach or flatten any replicas/variants you need read</strong> before handoff —
+or accept that you'll recover those from a screenshot. (Note the tension:
+this conflicts with using variants for responsive breakpoints. Decide
+per-element.)</li>
+<li><strong>Treat colors pulled from screenshots as &quot;within a few shades.&quot;</strong> Fine-tune
+them against a real preview rather than trusting the sampled hex exactly.</li>
+<li><strong>Budget for the React Export subscription</strong> if you want direct design→React
+from unframer — or evaluate Framer's own native React export separately.</li>
+<li><strong>Report the <code>importMap</code> bug to Framer</strong> so the first-party bridge becomes
+viable.</li>
+</ol>
+<blockquote>
+<p><strong>Security note.</strong> The unframer tunnel URL embeds a personal session secret
+(<code>?id=…&amp;secret=…</code>). Treat it like a credential — don't commit it to a repo or
+paste it into shared channels.</p>
+</blockquote>
+<h2>Readiness Verdict</h2>
+<p><strong>Promising, but early-stage and not yet turnkey.</strong></p>
+<p>The first-party bridge is blocked by a real renderer bug. The reliable path is a
+third-party MCP that is tunnel-fragile, blind to replicas and variants, and
+paywalls the clean code export. None of that is a dealbreaker — we got a
+complete, accurate spec out of a real design — but it does mean the workflow
+rewards deliberate design choices rather than working out of the box.</p>
+<p>Usable <strong>today</strong> for &quot;read a Framer design and reimplement it in code&quot; <em>if</em> you:
+design with plain layers (or detach replicas before handoff), model things as
+named components, and keep the unframer plugin open. As Framer's own agent
+tooling matures past <code>0.0.x</code>, expect this to get meaningfully smoother.</p>

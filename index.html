@@ -6,51 +6,121 @@
     <meta name="base-url" content="/prompt_library">
     <title>Prompt Library - Prompt Library</title>
     <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/prompt_library/assets/js/theme.js"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
-            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
-            <div class="search-container">
-                <form class="search-form" role="search">
-                    <label for="search-input" class="visually-hidden">Search</label>
-                    <input 
-                        type="search" 
-                        id="search-input" 
-                        class="search-input" 
-                        placeholder="Search prompts, rules, and configurations..."
-                        aria-label="Search content"
-                    >
-                    <button type="submit" class="search-button" aria-label="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                <div id="search-results" class="search-results" hidden></div>
-            </div>
-            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"></i>
-            </a>
-            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
-                <i class="fas fa-moon"></i>
-            </button>
+<body class="rd-home">
+    <header class="rd-topbar">
+        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
+            <span class="rd-brand__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 6l5 6-5 6"/>
+                    <path d="M13 18h6"/>
+                </svg>
+            </span>
+            <span class="rd-brand__name">Prompt Library</span>
+        </a>
+        
+        <nav class="rd-topbar__links" aria-label="Primary">
+            <a href="/prompt_library/">Home</a>
+            <a href="/prompt_library/help">Help</a>
         </nav>
+        <div class="rd-topbar__actions">
+            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
     </header>
 
     <main>
         
-<div class="disciplines">
-  <h1 class="page-title"><i class="fas fa-book-open"></i> Prompt Library</h1>
-  <p class="page-description">Explore AI resources organized by discipline and content type.</p>
 
-  <div class="recently-added">
-    <h2 class="recently-added-title">Recently Added</h2>
-    <!-- Swiper -->
+
+
+
+
+
+
+
+
+<div class="rd-page">
+
+  
+  <section class="rd-hero">
+    <span class="rd-eyebrow"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> AI workflows, ready to reuse</span>
+    <h1 class="rd-hero__title">Find the right prompt before the work starts.</h1>
+    <p class="rd-hero__sub">A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams.</p>
+
+    <div class="rd-search">
+      <form class="rd-searchbar search-form" role="search">
+        <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+        <label for="search-input" class="visually-hidden">Search</label>
+        <input type="search" id="search-input" class="search-input rd-searchbar__input"
+               placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+        <button type="submit" class="rd-btn rd-btn--filled rd-searchbar__btn">Search <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="rd-chips">
+        <button type="button" class="rd-chip is-active" data-query="prompt">Prompts</button>
+        <button type="button" class="rd-chip" data-query="skill">Skills</button>
+        <button type="button" class="rd-chip" data-query="agent">Agents</button>
+        <button type="button" class="rd-chip" data-query="development">Development</button>
+        <button type="button" class="rd-chip" data-query="content strategy">Content Strategy</button>
+      </div>
+      <div id="search-results" class="search-results" hidden></div>
+    </div>
+
+    <div class="rd-stats">
+      <span><strong>46</strong> resources</span>
+      <span><strong>5</strong> content types</span>
+      <span><strong>6</strong> disciplines</span>
+    </div>
+  </section>
+
+  
+  <section class="rd-install">
+    <div class="rd-install__card">
+      <div class="rd-install__copy">
+        <span class="rd-eyebrow rd-eyebrow--plain">Claude Code skills bundle</span>
+        <h2 class="rd-install__title">Install all skills at once.</h2>
+        <p class="rd-install__desc">Clone the shared skill bundle into your project and let Claude Code pick up the workflows automatically.</p>
+      </div>
+      <div class="rd-terminal">
+        <div class="rd-terminal__dots" aria-hidden="true">
+          <span class="rd-dot rd-dot--r"></span>
+          <span class="rd-dot rd-dot--y"></span>
+          <span class="rd-dot rd-dot--g"></span>
+        </div>
+        <code class="rd-terminal__cmd">git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code>
+        <button type="button" class="rd-btn rd-btn--filled rd-copy"
+                data-copy="git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills">
+          <span class="rd-copy__label">Copy command</span> <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--split">
+      <div class="rd-section__heading">
+        <span class="rd-eyebrow rd-eyebrow--plain">Recently Added</span>
+        <h2 class="rd-section__title">New and updated workflows</h2>
+        <p class="rd-section__lead">The latest prompts, rules, agents, and skills added to the library.</p>
+      </div>
+      
+<a class="rd-btn rd-btn--outline" href="/prompt_library/skills/">
+  <span class="rd-btn__label">View all</span>
+  <span class="rd-btn__arrow" aria-hidden="true">→</span>
+</a>
+
+    </div>
     <div class="swiper-container recently-added-swiper">
       <div class="swiper-wrapper">
         
@@ -58,16 +128,10 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/skills/idea-crucible/">Idea Crucible</a></h3>
               <div class="recent-meta">
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Project Management</span>
                 
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
-                
-                
-                  <span class="recent-updated">Updated</span>
-                
+                <span class="recent-updated">Updated</span>
               </div>
               <p class="recent-desc">Generate, compare, select, and refine multiple distinct ideas using the Idea Crucible Method. Use when the user wants to brainstorm several options for a task, weigh alternatives against criteria, pick the strongest one with clear justification, and iteratively refine it. Triggers on ideation, brainstorming, comparing options/approaches, decision-making between alternatives, and strategic problem-solving — even when the user doesn&#39;t name the method.</p>
             </article>
@@ -77,16 +141,10 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/reviewing-skills/">Reviewing Skills</a></h3>
               <div class="recent-meta">
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
-                
-                
-                  <span class="recent-updated">Updated</span>
-                
+                <span class="recent-updated">Updated</span>
               </div>
               <p class="recent-desc">Reviews a Claude Code skill against skill-authoring best practices and produces a prioritized, non-blocking report. Use when creating, editing, or reviewing a SKILL.md, a skill&#39;s meta.yml, or a skill directory, or when asked whether a skill follows best practices.</p>
             </article>
@@ -96,16 +154,10 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/quality-assurance/skills/broken-link-report/">Broken Link Report</a></h3>
               <div class="recent-meta">
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Quality Assurance</span>
                 
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Quality Assurance</span>
-                
-                
-                
-                  <span class="recent-updated">Updated</span>
-                
+                <span class="recent-updated">Updated</span>
               </div>
               <p class="recent-desc">Turn a Screaming Frog &#39;All Outlinks&#39; CSV export into a clean broken-links report (Excel workbook). Use whenever the user has a Screaming Frog outlinks export and wants to find, triage, report on, or clean up broken links — including phrasings like &#39;broken link report&#39;, &#39;dead links&#39;, &#39;find the 404s&#39;, &#39;clean up this outlinks export&#39;, &#39;which links are broken&#39;, or &#39;report on bad links from this crawl&#39;. Trigger even if the user hands over a CSV with From/To/Status Code columns and asks what&#39;s broken.</p>
             </article>
@@ -115,16 +167,10 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/drupal-security-review/">Drupal Security Review</a></h3>
               <div class="recent-meta">
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
-                
-                
-                  <span class="recent-updated">Updated</span>
-                
+                <span class="recent-updated">Updated</span>
               </div>
               <p class="recent-desc">Deep security review of a Drupal site&#39;s CUSTOM code (modules + theme) running under DDEV, followed by recorded exploit-demonstration videos produced with the Playwright Agent CLI (playwright-cli) via the e0ipso/ddev-playwright-cli add-on. Use when the user wants to audit a DDEV Drupal codebase for vulnerabilities AND get reproducible video proofs-of-concept, especially on projects that do NOT already have a Playwright test harness. Not for diff-only PR review (use the built-in /security-review for that).</p>
             </article>
@@ -134,12 +180,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/quality-assurance/skills/improve-test-quality/">Improve Test Quality</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Quality Assurance</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Quality Assurance</span>
                 
                 
               </div>
@@ -151,12 +193,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/skills/content-inventory/">Content Inventory</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
                 
               </div>
@@ -169,12 +207,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/skills/hemingway-editor/">Hemingway Editor</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
                 
               </div>
@@ -186,12 +220,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/data-dict-extractor/">Drupal Data Dictionary Extractor</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -203,15 +233,9 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/ddev-xhgui-analyze/">DDEV xhgui Analyze</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
-                
-                  <span class="recent-version">v1.0.0</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
+                <span class="recent-version">v1.0.0</span>
                 
               </div>
               <p class="recent-desc">Analyze an xhgui/xhprof profile run from a DDEV environment. Provide one run ID for standalone analysis, or two for before/after comparison.</p>
@@ -222,15 +246,9 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/design/skills/pencil-designer/">Pencil Designer</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Design</span>
-                
-                
-                  <span class="recent-version">v1.0.0</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Design</span>
+                <span class="recent-version">v1.0.0</span>
                 
               </div>
               <p class="recent-desc">This skill should be used when working with Pencil design files (.pen), creating or editing designs in the Pencil editor, using Pencil MCP tools, building UI layouts, managing design systems/libraries, or generating code from Pencil designs. Triggers on &quot;pencil&quot;, &quot;.pen file&quot;, &quot;design in pencil&quot;, &quot;create a design&quot;, &quot;design library&quot;, &quot;pen file&quot;, or when Pencil MCP tools are available and design work is requested.</p>
@@ -241,12 +259,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/tugboat-cli/">Tugboat CLI</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -258,12 +272,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/skills/slack-markdown-formatter/">Slack Markdown Formatter</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
                 
               </div>
@@ -275,12 +285,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/github-wiki/">GitHub Wiki</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -292,12 +298,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/sales-marketing/skills/seo-expert/">SEO Expert</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Sales Marketing</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Sales Marketing</span>
                 
                 
               </div>
@@ -309,15 +311,9 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/gws-cli/">Google Workspace CLI (gws)</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
-                
-                  <span class="recent-version">v1.1.0</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
+                <span class="recent-version">v1.1.0</span>
                 
               </div>
               <p class="recent-desc">This skill should be used when users need to interact with Google Workspace services (Gmail, Calendar, Drive, Sheets, Docs, Tasks, Chat, etc.) from the command line. Use when users ask to send/read email, check calendar, upload files, read spreadsheets, manage tasks, or perform any Google Workspace operation. Triggers on &quot;check my email&quot;, &quot;send email&quot;, &quot;calendar&quot;, &quot;agenda&quot;, &quot;upload to drive&quot;, &quot;read spreadsheet&quot;, &quot;google workspace&quot;, &quot;gws&quot;, or any request involving Gmail, Google Calendar, Google Drive, Google Sheets, Google Docs, or Google Tasks.</p>
@@ -328,12 +324,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/htmx-expert/">htmx Expert</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -345,12 +337,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/resolve-composer-conflicts/">Resolve Composer Conflicts</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -362,12 +350,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/rules/lullabot-voice-and-tone-styleguide/">Lullabot Voice and Tone Styleguide</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Rules</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
+                <span class="recent-type">Rules</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
                 
               </div>
@@ -379,12 +363,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/sales-marketing/prompts/create-natm-from-rfp/">Create an NATM from an RFP</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Sales Marketing</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Sales Marketing</span>
                 
                 
               </div>
@@ -396,12 +376,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/resources/basic-prompting/">Basic Prompting: Essential Resources for Getting Started</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Resources</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Resources</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -413,12 +389,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/resources/drupal-and-ddev-links/">Drupal and DDEV: Reference Links and Documentation Guidance</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Resources</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Resources</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -430,12 +402,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/meeting-notes-extraction/">Meeting Notes Extraction</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -447,12 +415,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/prompts/adr/">ADR Generator</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -464,12 +428,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/project-journal-entry/">Weekly Project Journal Entry</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -481,12 +441,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/summarize-this/">Summarize This</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -498,12 +454,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/quality-assurance/prompts/qa-test-checklist/">Quality Assurance Test Checklist</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Quality Assurance</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Quality Assurance</span>
                 
                 
               </div>
@@ -515,12 +467,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/voice-guide/">Create a Personal Voice Guide</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -532,12 +480,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/github-assistant/">GitHub Assistant Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -549,12 +493,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/module-readme-maintainer/">Module README Maintainer Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -566,16 +506,10 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/skills/humanizer/">Humanizer</a></h3>
               <div class="recent-meta">
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
-                
-                
-                  <span class="recent-updated">Updated</span>
-                
+                <span class="recent-updated">Updated</span>
               </div>
               <p class="recent-desc">Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia &quot;Signs of AI writing&quot; guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic &quot;real&quot;, announcing the rhetorical move, and anthropomorphized objects.</p>
             </article>
@@ -585,12 +519,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/design/skills/nano-banana-prompt/">Nano Banana Prompt Generator</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Design</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Design</span>
                 
                 
               </div>
@@ -602,12 +532,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/skills/cloudflare-tunnel/">Cloudflare Tunnel</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Skills</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Skills</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -619,12 +545,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/content-strategy/agents/content-optimization/">Content Optimization Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Content Strategy</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Content Strategy</span>
                 
                 
               </div>
@@ -636,12 +558,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/code-review-assistant/">Code Review Assistant Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -653,12 +571,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/agents/meeting-facilitator/">Meeting Facilitator Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -670,12 +584,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/drupal-backend-specialist/">Drupal Backend Specialist Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -687,12 +597,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/drupal-frontend-engineer/">Drupal Frontend Engineer Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -704,12 +610,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/development/agents/testing-qa-engineer/">Testing QA Engineer Agent</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Agents</span>
-                
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-type">Agents</span>
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -721,12 +623,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/sales-marketing/rules/no-corrective-contrast-pattern/">No Corrective Contrast Pattern</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Rules</span>
-                
-                
-                  <span class="recent-discipline">Sales Marketing</span>
-                
+                <span class="recent-type">Rules</span>
+                <span class="recent-discipline">Sales Marketing</span>
                 
                 
               </div>
@@ -739,9 +637,7 @@
               <h3><a href="/prompt_library/development/rules/drupal/">Drupal Development</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -753,12 +649,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/readable-zoom-transcripts/">Readable Zoom Transcripts</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -770,12 +662,8 @@
             <article class="recent-item">
               <h3><a href="/prompt_library/project-management/prompts/meeting-action-items/">Meeting Action Items Extractor</a></h3>
               <div class="recent-meta">
-                
-                  <span class="recent-type">Prompts</span>
-                
-                
-                  <span class="recent-discipline">Project Management</span>
-                
+                <span class="recent-type">Prompts</span>
+                <span class="recent-discipline">Project Management</span>
                 
                 
               </div>
@@ -788,9 +676,7 @@
               <h3><a href="/prompt_library/development/prompts/ai-code-review/">AI Code Review Assistant</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -803,9 +689,7 @@
               <h3><a href="/prompt_library/development/prompts/drupal-code-review/">Drupal 11 Code Review Assistant</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -818,9 +702,7 @@
               <h3><a href="/prompt_library/development/rules/code-quality/">Code Quality Standards</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -833,9 +715,7 @@
               <h3><a href="/prompt_library/development/rules/drupal-standards/">Drupal 11 Development Standards</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -848,9 +728,7 @@
               <h3><a href="/prompt_library/development/project-configs/11ty-setup/">11ty Project Configuration</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -863,9 +741,7 @@
               <h3><a href="/prompt_library/development/project-configs/drupal-setup/">Drupal 11 Project Setup</a></h3>
               <div class="recent-meta">
                 
-                
-                  <span class="recent-discipline">Development</span>
-                
+                <span class="recent-discipline">Development</span>
                 
                 
               </div>
@@ -874,1138 +750,416 @@
           </div>
         
       </div>
-      <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
-      <!-- Add Navigation -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
-  </div>
-  
-  <h2 class="recently-added-title">By Type</h2>
-  <div class="by-type-nav">
-    
-      
-      
-      <a href="/prompt_library/prompts/" class="by-type-link">
-      
-        <span class="content-type-icon" aria-hidden="true">
-          💡
-          
-        </span>
-        <span class="by-type-label">Prompts</span>
-        <span class="by-type-count">11</span>
-      
-      </a>
-      
-    
-      
-      
-      <a href="/prompt_library/rules/" class="by-type-link">
-      
-        <span class="content-type-icon" aria-hidden="true">
-          📋
-          
-        </span>
-        <span class="by-type-label">Rules</span>
-        <span class="by-type-count">5</span>
-      
-      </a>
-      
-    
-      
-      
-      <a href="/prompt_library/agents/" class="by-type-link">
-      
-        <span class="content-type-icon" aria-hidden="true">
-          🤖
-          
-        </span>
-        <span class="by-type-label">Agents</span>
-        <span class="by-type-count">8</span>
-      
-      </a>
-      
-    
-      
-      
-      <a href="/prompt_library/skills/" class="by-type-link">
-      
-        <span class="content-type-icon" aria-hidden="true">
-          🛠️
-          
-        </span>
-        <span class="by-type-label">Skills</span>
-        <span class="by-type-count">20</span>
-      
-      </a>
-      
-    
-      
-      
-      <a href="/prompt_library/resources/" class="by-type-link">
-      
-        <span class="content-type-icon" aria-hidden="true">
-          🔗
-          
-        </span>
-        <span class="by-type-label">Resources</span>
-        <span class="by-type-count">2</span>
-      
-      </a>
-      
-    
-  </div>
+  </section>
 
   
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--center">
+      <span class="rd-eyebrow rd-eyebrow--plain">Browse by Type</span>
+      <h2 class="rd-section__title">Choose the shape of help you need</h2>
+      <p class="rd-section__lead">Each content type has a different job: starting points, standards, installable workflows, role-based assistants, and reference material.</p>
+    </div>
+    <div class="rd-grid rd-grid--types">
+      
+        
+<a class="rd-card rd-card--type" href="/prompt_library/prompts/">
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">Prompts</h3>
+    <span class="rd-count">11</span>
+  </div>
+  <p class="rd-card__desc">Reusable starting points for repeatable AI tasks.</p>
+</a>
+
+      
+        
+<a class="rd-card rd-card--type" href="/prompt_library/rules/">
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">Rules</h3>
+    <span class="rd-count">5</span>
+  </div>
+  <p class="rd-card__desc">Reusable standards for writing, code quality, and team conventions.</p>
+</a>
+
+      
+        
+<a class="rd-card rd-card--type" href="/prompt_library/agents/">
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">Agents</h3>
+    <span class="rd-count">8</span>
+  </div>
+  <p class="rd-card__desc">Role-based assistants for structured project workflows.</p>
+</a>
+
+      
+        
+<a class="rd-card rd-card--type" href="/prompt_library/skills/">
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">Skills</h3>
+    <span class="rd-count">20</span>
+  </div>
+  <p class="rd-card__desc">Installable workflows for Claude Code and project-specific tasks.</p>
+</a>
+
+      
+        
+<a class="rd-card rd-card--type" href="/prompt_library/resources/">
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">Resources</h3>
+    <span class="rd-count">2</span>
+  </div>
+  <p class="rd-card__desc">Reference links, documentation, and learning material.</p>
+</a>
+
+      
+    </div>
+  </section>
+
   
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--split">
+      <div class="rd-section__heading">
+        <span class="rd-eyebrow rd-eyebrow--plain">Browse by Discipline</span>
+        <h2 class="rd-section__title">A library map for every team</h2>
+        <p class="rd-section__lead">A compact matrix so people can scan across teams and resource types quickly.</p>
+      </div>
+    </div>
+    <div class="rd-matrix" role="table" aria-label="Resources by discipline and type">
+      <div class="rd-matrix__row rd-matrix__row--head" role="row">
+        <span class="rd-matrix__cell rd-matrix__cell--label" role="columnheader">Discipline</span>
+        
+          <span class="rd-matrix__cell" role="columnheader">Prompts</span>
+        
+          <span class="rd-matrix__cell" role="columnheader">Rules</span>
+        
+          <span class="rd-matrix__cell" role="columnheader">Agents</span>
+        
+          <span class="rd-matrix__cell" role="columnheader">Skills</span>
+        
+          <span class="rd-matrix__cell" role="columnheader">Resources</span>
+        
+      </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/project-management/">Project Management</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/project-management/prompts/">6</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/project-management/agents/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/project-management/skills/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+        </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/development/">Development</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/development/prompts/">3</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/development/rules/">3</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/development/agents/">6</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/development/skills/">10</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/development/resources/">2</a>
+            </span>
+          
+        </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/content-strategy/">Content Strategy</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/content-strategy/rules/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/content-strategy/agents/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/content-strategy/skills/">4</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+        </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/design/">Design</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/design/skills/">2</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+        </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/quality-assurance/">Quality Assurance</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/quality-assurance/prompts/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/quality-assurance/skills/">2</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+        </div>
+      
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="/prompt_library/sales-marketing/">Sales &amp; Marketing</a></span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/sales-marketing/prompts/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/sales-marketing/rules/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <a href="/prompt_library/sales-marketing/skills/">1</a>
+            </span>
+          
+            
+            <span class="rd-matrix__cell" role="cell">
+              <span class="rd-matrix__dash">—</span>
+            </span>
+          
+        </div>
+      
+    </div>
+  </section>
 
-<aside class="skills-bundle-banner skills-bundle-banner--compact">
-  <div class="skills-bundle-banner__text">
-    <h3 class="skills-bundle-banner__title">
-      <span class="skills-bundle-banner__icon" aria-hidden="true">🛠️</span>
-      Install all skills at once
-    </h3>
-    <p class="skills-bundle-banner__desc">
-      Every skill below is bundled in <a href="https://github.com/Lullabot/lullabot-skills" target="_blank" rel="noopener">Lullabot/lullabot-skills</a>. Clone it into <code>.claude/skills/</code> and Claude Code picks them all up automatically.
-    </p>
-  </div>
-  <div class="skills-bundle-banner__cmd">
-    <pre><code>git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code></pre>
-    <button type="button" class="skills-bundle-banner__copy" aria-label="Copy install command">
-      <i class="fas fa-copy" aria-hidden="true"></i>
-      <span class="skills-bundle-banner__copy-label">Copy</span>
-    </button>
-  </div>
-</aside>
+  
+  <section class="rd-cta-wrap">
+    <div class="rd-cta">
+      <div class="rd-cta__copy">
+        <h2 class="rd-cta__title">Share your best workflow.</h2>
+        <p class="rd-cta__desc">Submit a prompt, rule, agent, or skill and help the library become more useful for everyone.</p>
+      </div>
+      <div class="rd-cta__actions">
+        
+<a class="rd-btn rd-btn--filled" href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" target="_blank" rel="noopener noreferrer">
+  <span class="rd-btn__label">Submit Prompt</span>
+  <span class="rd-btn__arrow" aria-hidden="true">→</span>
+</a>
 
-<style>
-  .skills-bundle-banner {
-    background: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin: 2rem auto;
-    max-width: 1200px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    align-items: start;
-  }
-  .skills-bundle-banner--compact {
-    margin: 1rem auto 2rem auto;
-    padding: 1rem 1.25rem;
-  }
-  @media (min-width: 768px) {
-    .skills-bundle-banner {
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 2rem;
-    }
-  }
-  .skills-bundle-banner__title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin: 0 0 0.5rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .skills-bundle-banner--compact .skills-bundle-banner__title {
-    font-size: 1.1rem;
-    margin-bottom: 0.25rem;
-  }
-  .skills-bundle-banner__icon { font-size: 1.4rem; }
-  .skills-bundle-banner__desc {
-    color: var(--text-muted);
-    margin: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  .skills-bundle-banner__desc a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .skills-bundle-banner__desc a:hover { text-decoration: underline; }
-  .skills-bundle-banner__desc code {
-    background: var(--tag-background);
-    padding: 0.1rem 0.35rem;
-    border-radius: 0.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-  }
-  .skills-bundle-banner__cmd {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .skills-bundle-banner__cmd pre {
-    background: var(--code-background, #1e1e1e);
-    color: var(--code-color, #d4d4d4);
-    padding: 0.6rem 0.9rem;
-    border-radius: 0.375rem;
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    overflow-x: auto;
-    flex: 1;
-    min-width: 0;
-  }
-  .skills-bundle-banner__cmd code {
-    background: none;
-    color: inherit;
-    padding: 0;
-    white-space: pre;
-  }
-  .skills-bundle-banner__copy {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    flex-shrink: 0;
-    transition: background-color 0.2s;
-  }
-  .skills-bundle-banner__copy:hover { background: var(--secondary-color); }
-  .skills-bundle-banner__copy.is-copied {
-    background: var(--accent-color, #2da44e);
-    color: #12212b;
-  }
-  .skills-bundle-banner__copy.is-copy-failed {
-    background: #c0392b;
-    color: white;
-  }
-</style>
+        
+<a class="rd-btn rd-btn--outline" href="/prompt_library/contributing">
+  <span class="rd-btn__label">Contribution Guide</span>
+  <span class="rd-btn__arrow" aria-hidden="true">→</span>
+</a>
+
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <script>
-  (function() {
-    function flashLabel(btn, text, stateClass) {
-      var label = btn.querySelector('.skills-bundle-banner__copy-label');
-      var original = btn.getAttribute('data-original-label');
-      if (!original) {
-        original = label ? label.textContent : '';
-        btn.setAttribute('data-original-label', original);
-      }
-      if (label) label.textContent = text;
-      btn.classList.remove('is-copied', 'is-copy-failed');
-      if (stateClass) btn.classList.add(stateClass);
-      setTimeout(function() {
-        if (label) label.textContent = original;
-        btn.classList.remove('is-copied', 'is-copy-failed');
-      }, 1500);
-    }
-
-    function fallbackCopy(text) {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'absolute';
-      ta.style.left = '-9999px';
-      document.body.appendChild(ta);
-      ta.select();
-      var ok = false;
-      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
-      document.body.removeChild(ta);
-      return ok;
-    }
-
-    document.querySelectorAll('.skills-bundle-banner__copy').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var banner = btn.closest('.skills-bundle-banner');
-        var target = banner ? banner.querySelector('.skills-bundle-banner__cmd code') : null;
-        if (!target) return;
-        var text = target.textContent.trim();
-
-        function onSuccess() { flashLabel(btn, 'Copied!', 'is-copied'); }
-        function onFailure() {
-          if (fallbackCopy(text)) { onSuccess(); return; }
-          flashLabel(btn, 'Copy failed', 'is-copy-failed');
+  (function () {
+    // Filter chips populate and trigger the search
+    var input = document.getElementById('search-input');
+    document.querySelectorAll('.rd-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        document.querySelectorAll('.rd-chip').forEach(function (c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        if (input) {
+          input.value = chip.dataset.query || chip.textContent.trim();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.focus();
         }
+      });
+    });
 
+    // Copy command button
+    document.querySelectorAll('.rd-copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy') || '';
+        var label = btn.querySelector('.rd-copy__label');
+        var prev = label ? label.textContent : '';
+        var done = function () {
+          if (label) { label.textContent = 'Copied'; }
+          btn.classList.add('is-copied');
+          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copied'); }, 1600);
+        };
+        var fail = function () {
+          if (label) { label.textContent = 'Copy failed'; }
+          btn.classList.add('is-copy-failed');
+          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copy-failed'); }, 1600);
+        };
+        var fallbackCopy = function () {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'absolute';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            return ok;
+          } catch (e) { return false; }
+        };
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(onSuccess).catch(onFailure);
+          navigator.clipboard.writeText(text).then(done).catch(function () {
+            if (fallbackCopy()) { done(); } else { fail(); }
+          });
+        } else if (fallbackCopy()) {
+          done();
         } else {
-          onFailure();
+          fail();
         }
       });
     });
   })();
 </script>
 
-
-  <h2 class="recently-added-title">By Discipline</h2>
-  <div class="discipline-grid">
-    
-    
-      
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Project Management</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/project-management/prompts" class="content-type-link ">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/project-management/rules" class="content-type-link empty">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/project-management/agents" class="content-type-link ">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/project-management/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/project-management/resources" class="content-type-link empty">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-      
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Development</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/development/prompts" class="content-type-link ">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/development/rules" class="content-type-link ">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/development/agents" class="content-type-link ">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/development/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/development/resources" class="content-type-link ">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-      
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Sales Marketing</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/sales-marketing/prompts" class="content-type-link ">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/sales-marketing/rules" class="content-type-link ">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/sales-marketing/agents" class="content-type-link empty">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/sales-marketing/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/sales-marketing/resources" class="content-type-link empty">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-      
-      
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-          
-        
-      
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Content Strategy</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/content-strategy/prompts" class="content-type-link empty">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/content-strategy/rules" class="content-type-link ">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/content-strategy/agents" class="content-type-link ">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/content-strategy/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/content-strategy/resources" class="content-type-link empty">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-      
-      
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Design</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/design/prompts" class="content-type-link empty">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/design/rules" class="content-type-link empty">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/design/agents" class="content-type-link empty">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/design/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/design/resources" class="content-type-link empty">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-      
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-          
-        
-      
-        
-      
-
-      <div class="discipline-card fade-up ">
-        <h2>Quality Assurance</h2>
-        <div class="content-types">
-          
-            
-            <a href="/prompt_library/quality-assurance/prompts" class="content-type-link ">
-              <span class="content-type-icon">
-                💡
-                
-              </span>
-              <span class="content-type-label">Prompts</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/quality-assurance/rules" class="content-type-link empty">
-              <span class="content-type-icon">
-                📋
-                
-              </span>
-              <span class="content-type-label">Rules</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/quality-assurance/agents" class="content-type-link empty">
-              <span class="content-type-icon">
-                🤖
-                
-              </span>
-              <span class="content-type-label">Agents</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/quality-assurance/skills" class="content-type-link ">
-              <span class="content-type-icon">
-                🛠️
-                
-              </span>
-              <span class="content-type-label">Skills</span>
-              <span class="content-indicator" aria-label="Contains content"></span>
-            </a>
-          
-            
-            <a href="/prompt_library/quality-assurance/resources" class="content-type-link empty">
-              <span class="content-type-icon">
-                🔗
-                
-              </span>
-              <span class="content-type-label">Resources</span>
-              <span class="content-indicator" aria-label="No content"></span>
-            </a>
-          
-        </div>
-      </div>
-    
-  </div>
-
-  <div class="contribute-cta">
-    <h2>Share Your Knowledge</h2>
-    <p>Have a great prompt, cursor rule, or workflow configuration to share? The Prompt Library thrives on community contributions.</p>
-    <div class="submit-links">
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=agent-submission.yml" class="cta-button">Submit an Agent</a>
-      <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button">Submit a Skill</a>
-    </div>
-    <a href="/prompt_library/contributing" class="cta-button secondary">Learn How to Contribute</a>
-  </div>
-</div>
-
-<style>
-  .disciplines {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  .page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-  }
-
-  .page-title i {
-    color: var(--primary-color);
-  }
-
-  .page-description {
-    font-size: 1.25rem;
-    color: var(--text-muted);
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .by-type-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 3rem;
-  }
-
-  .by-type-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-  }
-
-  a.by-type-link:hover,
-  a.by-type-link:focus-visible {
-    border-color: var(--primary-color);
-    background-color: var(--surface-color);
-    transform: translateY(-1px);
-  }
-
-  a.by-type-link:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-  }
-
-  .by-type-link.empty {
-    opacity: 0.5;
-  }
-
-  .by-type-count {
-    background-color: var(--tag-background);
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
-    font-weight: 600;
-  }
-
-  .discipline-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-
-  .discipline-card {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
-    border: 1px solid var(--border-color);
-  }
-
-  .discipline-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px var(--card-hover-shadow);
-  }
-
-  .discipline-card h2 {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-  }
-
-  .content-types {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .content-type-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    background-color: var(--tag-background);
-    border-radius: 0.375rem;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: background-color 0.2s, var(--theme-transition);
-  }
-
-  .content-type-link:hover {
-    background-color: var(--background-color);
-  }
-
-  .content-type-icon {
-    font-size: 1.25rem;
-  }
-
-  .content-type-label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-color);
-  }
-
-  .contribute-cta {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    text-align: center;
-    margin-top: 3rem;
-    border: 1px solid var(--border-color);
-  }
-
-  .contribute-cta h2 {
-    font-size: 1.75rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-  }
-
-  .contribute-cta p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .submit-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.2s;
-  }
-
-  .cta-button:hover {
-    background-color: var(--secondary-color);
-  }
-
-  .cta-button.secondary {
-    background: none;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-  }
-
-  @media (max-width: 640px) {
-    .discipline-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .content-types {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .recently-added {
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
-    padding: 2rem 1rem 0 1rem;
-  }
-  .recently-added-title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  .recently-added-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .recent-item {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    padding: 1.25rem 1rem;
-    border: 1px solid var(--border-color);
-    transition: box-shadow 0.2s;
-  }
-  .recent-item h3 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-  }
-  .recent-item h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .recent-item h3 a:hover {
-    color: var(--primary-color);
-  }
-  .recent-meta {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin-bottom: 0.5rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .recent-type, .recent-discipline, .recent-date, .recent-version, .recent-updated {
-    background: var(--tag-background);
-    border-radius: 0.25rem;
-    padding: 0.1rem 0.5rem;
-    margin-right: 0.25rem;
-    font-weight: 500;
-  }
-  .recent-version {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-  .recent-updated {
-    background-color: var(--accent-color);
-    color: #12212b;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    letter-spacing: 0.02em;
-  }
-  .recent-desc {
-    color: var(--text-color);
-    opacity: 0.85;
-    font-size: 1rem;
-    margin-bottom: 0;
-  }
-
-  /* Swiper Styles */
-  .recently-added-swiper {
-    width: 100%;
-    position: relative; /* Ensure positioning context for arrows */
-    padding-top: 20px; /* Space for pagination */
-    padding-bottom: 50px; /* Space for pagination and nav buttons */
-  }
-  .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: stretch; /* Make slides same height */
-    height: auto; /* Allow slides to determine height based on content */
-    transition: opacity 0.3s ease; /* For smooth fading */
-  }
-  .swiper-slide .recent-item {
-    width: 100%; /* Make recent-item fill the slide */
-    display: flex;
-    flex-direction: column; /* Ensure content within card stacks vertically */
-    justify-content: flex-start; /* Align content to top */
-  }
-  .swiper-pagination-bullet-active {
-    background-color: var(--primary-color);
-  }
-  .swiper-button-next, .swiper-button-prev {
-    color: var(--primary-color);
-    --swiper-navigation-size: 30px;
-    --swiper-navigation-sides-offset: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .swiper-button-prev {
-    left: -20px !important;
-  }
-  .swiper-button-next {
-    right: -20px !important;
-  }
-  .swiper-button-next:after, .swiper-button-prev:after {
-    font-size: var(--swiper-navigation-size);
-  }
-</style>
-
 <script>
-  function initRecentlyAddedSwiper() {
-    var swiper = new Swiper('.recently-added-swiper', {
-      watchSlidesProgress: true, // Needed for progress-based effects
-      slidesPerView: 1, // Base: 1 slide for small screens
-      spaceBetween: 20,
-      centeredSlides: true, // Center single slide on small screens
-      loop: true, // Optional: enable continuous loop
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-          centeredSlides: false 
-        },
-        960: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-          centeredSlides: true 
+  // Recently Added carousel (Swiper) — waits until the Swiper lib has loaded
+  (function () {
+    var IDLE_MS = 30000; // resume autoplay after this long without interaction
+    function initRecentlyAddedSwiper() {
+      var idleTimer = null;
+      var swiper = new Swiper('.recently-added-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        loopAdditionalSlides: 5,
+        watchSlidesProgress: true,
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true, dynamicBullets: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          960: { slidesPerView: 3, spaceBetween: 24 }
         }
-      },
-      on: {
-        progress: function (swiperInstance) {
-          const slides = swiperInstance.slides;
-          const slidesPerView = swiperInstance.params.slidesPerView;
-          // Threshold for fading: beyond half the number of visible slides from the center
-          // For 3 slides, center is 0, edges are approx +/-1. Anything beyond +/-1.5 (approx) should fade.
-          // A simpler way for centered slides: progress absolute value > (slidesPerView -1) / 2 roughly
-          // Let's use a threshold like 1.2 for 3 slides, 0.7 for 2 slides, 0.2 for 1 slide
-          let fadeThreshold = 0.2; // For 1 slide view
-          if (slidesPerView === 2) fadeThreshold = 0.7;
-          if (slidesPerView >= 3) fadeThreshold = 1.2; 
+      });
 
-          for (let i = 0; i < slides.length; i++) {
-            const slideProgress = slides[i].progress;
-            const absProgress = Math.abs(slideProgress);
-            if (absProgress > fadeThreshold) {
-              slides[i].style.opacity = 0.3; // Faded
-            } else {
-              slides[i].style.opacity = 1; // Fully visible
-            }
-          }
-        },
-        transitionEnd: function(swiperInstance){
-          // Trigger progress update to re-apply opacities after transition
-          swiperInstance.emit('progress', swiperInstance.progress);
-        },
-        // Also call on init to set initial opacities
-        init: function(swiperInstance){
-            swiperInstance.emit('progress', swiperInstance.progress);
-        }
+      // Pause autoplay on any interaction; resume after 30s of inactivity.
+      function onInteract() {
+        if (swiper.autoplay) { swiper.autoplay.stop(); }
+        if (idleTimer) { clearTimeout(idleTimer); }
+        idleTimer = setTimeout(function () {
+          if (swiper.autoplay) { swiper.autoplay.start(); }
+        }, IDLE_MS);
       }
-    });
-  }
-
-  function checkSwiperAndInit() {
-    if (typeof Swiper !== 'undefined') {
-      initRecentlyAddedSwiper();
-    } else {
-      requestAnimationFrame(checkSwiperAndInit);
+      swiper.el.addEventListener('pointerdown', onInteract, { passive: true });
+      swiper.el.addEventListener('keydown', onInteract);
     }
-  }
-  requestAnimationFrame(checkSwiperAndInit);
-</script> 
+    function checkSwiperAndInit() {
+      if (typeof Swiper !== 'undefined') { initRecentlyAddedSwiper(); }
+      else { requestAnimationFrame(checkSwiperAndInit); }
+    }
+    requestAnimationFrame(checkSwiperAndInit);
+  })();
+</script>
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 Prompt Library</p>
+    <footer class="rd-footer">
+        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
+        <div class="rd-footer__links">
+            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/prompt_library/help">Help</a>
+        </div>
     </footer>
 
     <div id="markdown-modal" class="markdown-modal">

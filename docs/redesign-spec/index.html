@@ -1,0 +1,386 @@
+<h1>Prompt Library — Homepage Redesign Spec</h1>
+<p>Source of truth for the homepage redesign. Extracted from the Framer project
+<strong>&quot;Miraculous Motivation&quot;</strong> (<code>8OZqoCrNXFsUHCrgmH3H</code>), page <code>/</code> (node <code>augiA20Il</code>),
+plus the design page <strong>&quot;Prompt Library Theme Comparison&quot;</strong> (light + dark versions).</p>
+<blockquote>
+<p><strong>How this was captured.</strong> The dark version was read node-for-node via the
+<a href="https://github.com/remorses/unframer">unframer</a> MCP (<code>getProjectXml</code> /
+<code>getNodeXml</code>). The light version is a Framer <em>replica/variant</em> node, which the
+MCP cannot traverse, so its palette was read from an editor screenshot. Framer's
+first-party <code>@framer/agent</code> bridge could not be used for reads — it fails with
+<code>Assertion Error: The importMap has to exist on the module</code> on every render-path
+call (<code>screenshot</code>, <code>serialize</code>, node attributes). See
+<code>docs/framer-claude-code-evaluation.md</code> for the full tooling write-up.</p>
+</blockquote>
+<h2>Goal</h2>
+<p>Replace the current homepage (plain title + Swiper carousel + &quot;By Type&quot; pills +
+discipline grid) with the Framer redesign: a search-first hero, an install
+callout, a resource-card grid, a type-card grid, a discipline <strong>matrix</strong>, an
+orange contribution CTA, and a footer — all dual-theme (light + dark), keeping
+the existing <code>theme.js</code> toggle.</p>
+<p>Scope: <strong>homepage only</strong> (<code>index.njk</code>). Interior pages keep their current
+templates. Counts are computed <strong>live</strong> from collections (never hardcoded).</p>
+<h2>Palette (both themes)</h2>
+<p>Implemented as <code>--rd-*</code> tokens scoped to <code>:root</code> (light) and <code>:root.dark-theme</code>
+(dark) so the redesign is self-contained and does not restyle interior pages.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Role</th>
+<th>Light</th>
+<th>Dark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--rd-bg</code></td>
+<td>page background</td>
+<td><code>#F7F4EF</code> (warm cream)</td>
+<td><code>#102331</code></td>
+</tr>
+<tr>
+<td><code>--rd-surface</code></td>
+<td>cards / panels</td>
+<td><code>#FFFFFF</code></td>
+<td><code>#17303E</code></td>
+</tr>
+<tr>
+<td><code>--rd-terminal</code></td>
+<td>terminal card (dark in BOTH themes)</td>
+<td><code>#0B1822</code></td>
+<td><code>#0B1822</code></td>
+</tr>
+<tr>
+<td><code>--rd-terminal-text</code></td>
+<td>terminal text</td>
+<td><code>#E6EDF2</code></td>
+<td><code>#E6EDF2</code></td>
+</tr>
+<tr>
+<td><code>--rd-ink</code></td>
+<td>headings</td>
+<td><code>#16242E</code></td>
+<td><code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td><code>--rd-text</code></td>
+<td>body text</td>
+<td><code>#2C3A44</code></td>
+<td><code>#C7D6DF</code></td>
+</tr>
+<tr>
+<td><code>--rd-muted</code></td>
+<td>muted / icons</td>
+<td><code>#5C6B73</code></td>
+<td><code>#7FA2B3</code> (<code>rgb(127,162,179)</code>)</td>
+</tr>
+<tr>
+<td><code>--rd-accent</code></td>
+<td>coral accent (same both)</td>
+<td><code>#F15A3B</code></td>
+<td><code>#F15A3B</code></td>
+</tr>
+<tr>
+<td><code>--rd-accent-soft</code></td>
+<td>eyebrow / tint</td>
+<td><code>rgba(241,90,59,0.12)</code></td>
+<td><code>rgba(241,90,59,0.12)</code></td>
+</tr>
+<tr>
+<td><code>--rd-chip</code></td>
+<td>inactive filter / tag chip</td>
+<td><code>#ECEAE4</code></td>
+<td><code>rgba(178,209,223,0.10)</code></td>
+</tr>
+<tr>
+<td><code>--rd-chip-text</code></td>
+<td>chip text</td>
+<td><code>#46535C</code></td>
+<td><code>#B2D1DF</code></td>
+</tr>
+<tr>
+<td><code>--rd-border</code></td>
+<td>hairline borders</td>
+<td><code>rgba(16,35,49,0.10)</code></td>
+<td><code>rgba(178,209,223,0.12)</code></td>
+</tr>
+<tr>
+<td><code>--rd-nav-shell</code></td>
+<td>nav pill background</td>
+<td><code>rgba(255,255,255,0.72)</code></td>
+<td><code>rgba(23,48,62,0.78)</code></td>
+</tr>
+<tr>
+<td><code>--rd-matrix-head</code></td>
+<td>matrix header row</td>
+<td><code>#EFEDE7</code></td>
+<td><code>#0B1822</code></td>
+</tr>
+<tr>
+<td><code>--rd-on-accent</code></td>
+<td>text on coral</td>
+<td><code>#FFFFFF</code></td>
+<td><code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td>dots</td>
+<td>terminal traffic lights</td>
+<td><code>#FF6A57</code> / <code>#FFD15C</code> / <code>#5CDF7B</code></td>
+<td>same</td>
+</tr>
+</tbody>
+</table>
+<p>Fonts: <strong>Inter</strong> (already the site font). Framer weights used: Black, ExtraBold,
+Bold, SemiBold, Medium, Regular.</p>
+<p><strong>Confidence:</strong> dark values + page-bg + the &quot;terminal stays dark / coral is shared&quot;
+decisions are exact. Light ink/muted/chip/header values were read off a 32%-zoom
+screenshot and should be fine-tuned against the Tugboat preview.</p>
+<h2>Layout</h2>
+<p>Single column, centered, <code>max-width: 1120px</code>, <code>28px</code> horizontal padding. Sections
+top → bottom:</p>
+<h3>1. Navigation (pill)</h3>
+<p>Rounded <code>999px</code> shell (<code>--rd-nav-shell</code>), <code>space-between</code>:</p>
+<ul>
+<li><strong>Brand</strong> — coral <code>#F15A3B</code> rounded square (<code>8px</code>) with white &quot;P&quot; (Inter Black) + &quot;Prompt Library&quot; wordmark (Inter ExtraBold).</li>
+<li><strong>Links</strong> — Home (<code>/</code>), Help (<code>/help</code>).</li>
+<li><strong>Library Button</strong> &quot;GitHub&quot; (outline) → <code>https://github.com/Lullabot/prompt_library</code>.</li>
+</ul>
+<h3>2. Hero (<code>SearchFirstIntroduction</code>)</h3>
+<p>Centered, <code>56px</code> top padding:</p>
+<ul>
+<li>Eyebrow pill (<code>--rd-accent-soft</code>): sparkles icon + &quot;AI workflows, ready to reuse&quot;.</li>
+<li>H1 (Inter ExtraBold): <strong>&quot;Find the right prompt before the work starts.&quot;</strong></li>
+<li>Subtitle (max 720px): &quot;A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams.&quot;</li>
+<li><strong>Search panel</strong> (<code>--rd-surface</code>, radius <code>28px</code>): search bar (icon + placeholder &quot;Search prompts, rules, agents, skills…&quot; + filled &quot;Search&quot; button → <code>/#search</code>) and <strong>filter chips</strong>: <code>Prompts</code> (active, coral) · <code>Skills</code> · <code>Agents</code> · <code>Development</code> · <code>Content Strategy</code>.</li>
+<li><strong>Stats</strong> (Inter ExtraBold): <code>{N} resources</code> · <code>5 content types</code> · <code>6 disciplines</code> — all live.</li>
+</ul>
+<h3>3. Install callout (<code>InstallSkillsCallout</code>)</h3>
+<p>Two-column card (<code>--rd-surface</code>, radius <code>28px</code>):</p>
+<ul>
+<li><strong>Left</strong> — eyebrow &quot;Claude Code skills bundle&quot;, &quot;Install all skills at once.&quot;, body &quot;Clone the shared skill bundle into your project and let Claude Code pick up the workflows automatically.&quot;</li>
+<li><strong>Right</strong> — terminal card (<code>--rd-terminal</code>): red/yellow/green dots, <code>git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code>, &quot;Copy command&quot; button (clipboard).</li>
+</ul>
+<h3>4. Recently Added (<code>RecentlyAdded</code>)</h3>
+<p>Heading (&quot;Recently Added&quot; eyebrow / &quot;New and updated workflows&quot; / body) + &quot;View all&quot;
+button (→ <code>/skills/</code>). Then a <strong>Resource Card grid</strong> (<code>minmax(300px, 1fr)</code>), driven
+by <code>collections.recentlyAdded</code>. Framer mock cards:</p>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Type</th>
+<th>Discipline</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reviewing Skills</td>
+<td>Skills</td>
+<td>Development</td>
+<td>Updated</td>
+</tr>
+<tr>
+<td>Broken Link Report</td>
+<td>Skills</td>
+<td>Quality Assurance</td>
+<td>Updated</td>
+</tr>
+<tr>
+<td>Drupal Security Review</td>
+<td>Skills</td>
+<td>Development</td>
+<td>Updated</td>
+</tr>
+<tr>
+<td>Content Inventory</td>
+<td>Skills</td>
+<td>Content Strategy</td>
+<td>New</td>
+</tr>
+<tr>
+<td>Pencil Designer</td>
+<td>Skills</td>
+<td>Design</td>
+<td>v1.0.0</td>
+</tr>
+<tr>
+<td>SEO Expert</td>
+<td>Skills</td>
+<td>Sales Marketing</td>
+<td>New</td>
+</tr>
+</tbody>
+</table>
+<p>Status rule: <code>lastUpdated</code> within 30d → &quot;Updated&quot;; <code>version</code> set → <code>v{version}</code>;
+else if recently created → &quot;New&quot;.</p>
+<h3>5. Browse by Type (<code>BrowseByType</code>)</h3>
+<p>Centered heading (&quot;Browse by Type&quot; / &quot;Choose the shape of help you need&quot; / body) +
+<strong>Type Card grid</strong> (<code>minmax(198px, 1fr)</code>). Cards (count = live):</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Mock count</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompts</td>
+<td>12</td>
+<td>Reusable starting points for repeatable AI tasks.</td>
+</tr>
+<tr>
+<td>Rules</td>
+<td>5</td>
+<td>Reusable standards for writing, code quality, and team conventions.</td>
+</tr>
+<tr>
+<td>Agents</td>
+<td>8</td>
+<td>Role-based assistants for structured project workflows.</td>
+</tr>
+<tr>
+<td>Skills</td>
+<td>19</td>
+<td>Installable workflows for Claude Code and project-specific tasks.</td>
+</tr>
+<tr>
+<td>Resources</td>
+<td>2</td>
+<td>Reference links, documentation, and learning material.</td>
+</tr>
+</tbody>
+</table>
+<h3>6. Browse by Discipline (<code>BrowseByDiscipline</code>)</h3>
+<p>Heading (&quot;Browse by Discipline&quot; / &quot;A library map for every team&quot; / body) + a
+<strong>6-column matrix</strong> (<code>--rd-surface</code>, radius <code>26px</code>). Header row (<code>--rd-matrix-head</code>):
+<code>Discipline | Prompts | Rules | Agents | Skills | Resources</code>. Cells show counts or
+<code>—</code>. Framer mock rows (counts illustrative — implementation computes live):</p>
+<table>
+<thead>
+<tr>
+<th>Discipline</th>
+<th>Prompts</th>
+<th>Rules</th>
+<th>Agents</th>
+<th>Skills</th>
+<th>Resources</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Management</td>
+<td>3</td>
+<td>—</td>
+<td>1</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Development</td>
+<td>5</td>
+<td>3</td>
+<td>4</td>
+<td>9</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Content Strategy</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>5</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Design</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>2</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Quality Assurance</td>
+<td>1</td>
+<td>—</td>
+<td>1</td>
+<td>3</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>⚠️ Fidelity note:</strong> the Framer matrix omits <strong>Sales Marketing</strong> (5 rows, but the
+stats say &quot;6 disciplines&quot; and SEO Expert is Sales Marketing). The implementation
+<strong>includes all 6 disciplines</strong>.</p>
+</blockquote>
+<h3>7. Share your knowledge (<code>ShareYourKnowledge</code>)</h3>
+<p>Orange band (<code>--rd-accent</code>, radius <code>30px</code>), <code>space-between</code>:</p>
+<ul>
+<li>Copy: &quot;Share your best workflow.&quot; / &quot;Submit a prompt, rule, agent, or skill and help the library become more useful for everyone.&quot;</li>
+<li>Buttons: &quot;Submit Prompt&quot; (→ prompt issue template), &quot;Contribute Guide&quot; (→ <code>/contributing</code>).</li>
+</ul>
+<h3>8. Footer</h3>
+<p><code>space-between</code>: &quot;© {year} Prompt Library&quot; + links GitHub, Help.</p>
+<h2>Components → Nunjucks macros</h2>
+<table>
+<thead>
+<tr>
+<th>Framer component</th>
+<th>id</th>
+<th>Macro</th>
+<th>Props</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Library Button</td>
+<td><code>m6SKoROEH</code></td>
+<td><code>_lib-button.njk</code></td>
+<td>label, href, variant (<code>filled</code>|<code>outline</code>), newTab</td>
+</tr>
+<tr>
+<td>Resource Card</td>
+<td><code>U4fILFY7M</code></td>
+<td><code>_resource-card.njk</code></td>
+<td>title, description, typeTag, disciplineTag, status, href</td>
+</tr>
+<tr>
+<td>Type Card</td>
+<td><code>zZ0bGFHll</code></td>
+<td><code>_type-card.njk</code></td>
+<td>title, count, description, href</td>
+</tr>
+</tbody>
+</table>
+<p>Button variants in Framer: filled = <code>dmpGepZk0</code>, outline = <code>e4iNiqO4b</code>.</p>
+<h2>Data layer (<code>.eleventy.js</code>)</h2>
+<p>Added Nunjucks filters (live counts):</p>
+<ul>
+<li><code>typeCount(contentType)</code> → items in that content-type collection.</li>
+<li><code>disciplineTypeCount(discipline, contentType)</code> → items matching both (matrix cells).</li>
+<li><code>sumTypeCounts(types)</code> → total across a list of types (hero &quot;N resources&quot;).</li>
+<li><code>activeDisciplineCount(disciplines, types)</code> → disciplines with ≥1 item (hero &quot;N disciplines&quot;).</li>
+</ul>
+<p>Display types: <code>['prompts','rules','agents','skills','resources']</code>.
+Disciplines: <code>['development','project-management','sales-marketing','content-strategy','design','quality-assurance']</code>.</p>
+<h2>Implementation phases</h2>
+<ol start="0">
+<li><strong>Data layer</strong> — filters above. ✅ (this change)</li>
+<li><strong>Palette + macros</strong> — <code>--rd-*</code> tokens, 3 macros, <code>redesign.css</code> component styles. ✅ (this change)</li>
+<li><strong>Header/footer</strong> — pill nav + footer links in <code>base.njk</code>; drop Swiper CDN.</li>
+<li><strong>Homepage rewrite</strong> — <code>index.njk</code>: hero, install callout, resource grid, type grid, discipline matrix, CTA. Remove Swiper.</li>
+<li><strong>JS</strong> — remove Swiper init; wire &quot;Copy command&quot; + filter chips → search (<code>main.js</code>).</li>
+<li><strong>Verify</strong> — <code>npm run build</code> + <code>npm start</code>, both themes, responsive, Tugboat preview.</li>
+</ol>
+<h2>Open decisions (resolved)</h2>
+<ul>
+<li>Keep the light/dark toggle (dual-theme). ✅</li>
+<li>Reuse existing search JS; chips pre-filter. ✅</li>
+<li>Include all 6 disciplines in the matrix. ✅</li>
+<li>Compute all counts live. ✅</li>
+</ul>

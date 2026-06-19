@@ -6,40 +6,44 @@
     <meta name="base-url" content="/prompt_library">
     <title>Basic Prompting: Essential Resources for Getting Started - Prompt Library</title>
     <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="/prompt_library/assets/js/theme.js"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="/prompt_library/" class="home-link"><i class="fas fa-book-open"></i> Home</a>
-            <a href="/prompt_library/help" class="home-link"><i class="fas fa-question-circle"></i> Help</a>
-            <div class="search-container">
-                <form class="search-form" role="search">
-                    <label for="search-input" class="visually-hidden">Search</label>
-                    <input 
-                        type="search" 
-                        id="search-input" 
-                        class="search-input" 
-                        placeholder="Search prompts, rules, and configurations..."
-                        aria-label="Search content"
-                    >
-                    <button type="submit" class="search-button" aria-label="Search">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
-                <div id="search-results" class="search-results" hidden></div>
-            </div>
-            <a href="https://github.com/Lullabot/prompt_library" class="theme-toggle" aria-label="GitHub Repository" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-github"></i>
-            </a>
-            <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
-                <i class="fas fa-moon"></i>
-            </button>
+<body class="">
+    <header class="rd-topbar">
+        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
+            <span class="rd-brand__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 6l5 6-5 6"/>
+                    <path d="M13 18h6"/>
+                </svg>
+            </span>
+            <span class="rd-brand__name">Prompt Library</span>
+        </a>
+        
+        <div class="rd-topbar__search">
+            <form class="search-form" role="search">
+                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+                <label for="search-input" class="visually-hidden">Search</label>
+                <input type="search" id="search-input" class="search-input"
+                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+            </form>
+            <div id="search-results" class="search-results" hidden></div>
+        </div>
+        
+        <nav class="rd-topbar__links" aria-label="Primary">
+            <a href="/prompt_library/">Home</a>
+            <a href="/prompt_library/help">Help</a>
         </nav>
+        <div class="rd-topbar__actions">
+            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
     </header>
 
     <main>
@@ -505,8 +509,12 @@
 
     </main>
 
-    <footer>
-        <p>&copy; 2026 Prompt Library</p>
+    <footer class="rd-footer">
+        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
+        <div class="rd-footer__links">
+            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/prompt_library/help">Help</a>
+        </div>
     </footer>
 
     <div id="markdown-modal" class="markdown-modal">
