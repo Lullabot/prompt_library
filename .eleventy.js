@@ -119,7 +119,7 @@ module.exports = function(eleventyConfig) {
   contentTypes.forEach(type => {
     eleventyConfig.addCollection(type, function(collection) {
       return collection.getFilteredByGlob(
-        disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
+        disciplines.map(discipline => `${discipline}/${type}/*.md`)
       ).map(item => {
         // Ensure URLs have the correct base URL
         if (process.env.GITHUB_ACTIONS && !item.url.startsWith('/prompt_library')) {
@@ -228,7 +228,7 @@ module.exports = function(eleventyConfig) {
     let all = [];
     contentTypes.forEach(type => {
       all = all.concat(collection.getFilteredByGlob(
-        disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
+        disciplines.map(discipline => `${discipline}/${type}/*.md`)
       ));
     });
     return all.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -273,7 +273,7 @@ module.exports = function(eleventyConfig) {
     let all = [];
     contentTypes.forEach(type => {
       all = all.concat(collection.getFilteredByGlob(
-        disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
+        disciplines.map(discipline => `${discipline}/${type}/*.md`)
       ));
     });
     return all
