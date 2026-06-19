@@ -1,0 +1,14 @@
+{#
+  Type Card — Framer "Type Card" (zZ0bGFHll).
+  Usage: {% from "_type-card.njk" import typeCard %}
+         {{ typeCard("Prompts", 12, "Reusable starting points…", "/prompts/") }}
+#}
+{% macro typeCard(title, count, description, href, newTab=false) %}
+<a class="rd-card rd-card--type" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  <div class="rd-card__type-head">
+    <h3 class="rd-card__title">{{ title }}</h3>
+    <span class="rd-count">{{ count }}</span>
+  </div>
+  <p class="rd-card__desc">{{ description }}</p>
+</a>
+{% endmacro %}

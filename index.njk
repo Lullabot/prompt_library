@@ -1,17 +1,101 @@
 ---
 title: "Prompt Library"
-description: "A collection of AI prompts, rules, project configurations, and resources organized by discipline."
+description: "A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams."
 layout: "base.njk"
-hideSearch: false
+hideHeaderSearch: true
+bodyClass: "rd-home"
+needsSwiper: true
 ---
+{% from "_lib-button.njk" import libButton %}
+{% from "_resource-card.njk" import resourceCard %}
+{% from "_type-card.njk" import typeCard %}
 
-<div class="disciplines">
-  <h1 class="page-title"><i class="fas fa-book-open"></i> Prompt Library</h1>
-  <p class="page-description">Explore AI resources organized by discipline and content type.</p>
+{% set displayTypes = ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
+{% set allDisciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
+{% set matrixDisciplines = [
+  { slug: 'project-management', label: 'Project Management' },
+  { slug: 'development', label: 'Development' },
+  { slug: 'content-strategy', label: 'Content Strategy' },
+  { slug: 'design', label: 'Design' },
+  { slug: 'quality-assurance', label: 'Quality Assurance' },
+  { slug: 'sales-marketing', label: 'Sales Marketing' }
+] %}
+{% set typeDescriptions = {
+  prompts: 'Reusable starting points for repeatable AI tasks.',
+  rules: 'Reusable standards for writing, code quality, and team conventions.',
+  agents: 'Role-based assistants for structured project workflows.',
+  skills: 'Installable workflows for Claude Code and project-specific tasks.',
+  resources: 'Reference links, documentation, and learning material.'
+} %}
+{% set totalResources = displayTypes | sumTypeCounts %}
+{% set disciplineCount = allDisciplines | activeDisciplineCount(displayTypes) %}
 
-  <div class="recently-added">
-    <h2 class="recently-added-title">Recently Added</h2>
-    <!-- Swiper -->
+<div class="rd-page">
+
+  {# 2. Hero #}
+  <section class="rd-hero">
+    <span class="rd-eyebrow"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> AI workflows, ready to reuse</span>
+    <h1 class="rd-hero__title">Find the right prompt before the work starts.</h1>
+    <p class="rd-hero__sub">A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams.</p>
+
+    <div class="rd-search">
+      <form class="rd-searchbar search-form" role="search">
+        <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+        <label for="search-input" class="visually-hidden">Search</label>
+        <input type="search" id="search-input" class="search-input rd-searchbar__input"
+               placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+        <button type="submit" class="rd-btn rd-btn--filled rd-searchbar__btn">Search <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="rd-chips">
+        <button type="button" class="rd-chip is-active" data-query="prompt">Prompts</button>
+        <button type="button" class="rd-chip" data-query="skill">Skills</button>
+        <button type="button" class="rd-chip" data-query="agent">Agents</button>
+        <button type="button" class="rd-chip" data-query="development">Development</button>
+        <button type="button" class="rd-chip" data-query="content strategy">Content Strategy</button>
+      </div>
+      <div id="search-results" class="search-results" hidden></div>
+    </div>
+
+    <div class="rd-stats">
+      <span><strong>{{ totalResources }}</strong> resources</span>
+      <span><strong>{{ displayTypes | length }}</strong> content types</span>
+      <span><strong>{{ disciplineCount }}</strong> disciplines</span>
+    </div>
+  </section>
+
+  {# 3. Install callout #}
+  <section class="rd-install">
+    <div class="rd-install__card">
+      <div class="rd-install__copy">
+        <span class="rd-eyebrow rd-eyebrow--plain">Claude Code skills bundle</span>
+        <h2 class="rd-install__title">Install all skills at once.</h2>
+        <p class="rd-install__desc">Clone the shared skill bundle into your project and let Claude Code pick up the workflows automatically.</p>
+      </div>
+      <div class="rd-terminal">
+        <div class="rd-terminal__dots" aria-hidden="true">
+          <span class="rd-dot rd-dot--r"></span>
+          <span class="rd-dot rd-dot--y"></span>
+          <span class="rd-dot rd-dot--g"></span>
+        </div>
+        <code class="rd-terminal__cmd">git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code>
+        <button type="button" class="rd-btn rd-btn--filled rd-copy"
+                data-copy="git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills">
+          <span class="rd-copy__label">Copy command</span> <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  {# 4. Recently Added (carousel) #}
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--split">
+      <div class="rd-section__heading">
+        <span class="rd-eyebrow rd-eyebrow--plain">Recently Added</span>
+        <h2 class="rd-section__title">New and updated workflows</h2>
+        <p class="rd-section__lead">The latest prompts, rules, agents, and skills added to the library.</p>
+      </div>
+      {{ libButton("View all", baseUrl + "/skills/", "outline") }}
+    </div>
     <div class="swiper-container recently-added-swiper">
       <div class="swiper-wrapper">
         {% for item in collections.recentlyAdded %}
@@ -19,493 +103,153 @@ hideSearch: false
             <article class="recent-item">
               <h3><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h3>
               <div class="recent-meta">
-                {% if item.data.contentType %}
-                  <span class="recent-type">{{ item.data.contentType | replace('-', ' ') | title }}</span>
-                {% endif %}
-                {% if item.data.discipline %}
-                  <span class="recent-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>
-                {% endif %}
-                {% if item.data.version %}
-                  <span class="recent-version">v{{ item.data.version }}</span>
-                {% endif %}
-                {% if item | isRecentlyUpdated %}
-                  <span class="recent-updated">Updated</span>
-                {% endif %}
+                {% if item.data.contentType %}<span class="recent-type">{{ item.data.contentType | replace('-', ' ') | title }}</span>{% endif %}
+                {% if item.data.discipline %}<span class="recent-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>{% endif %}
+                {% if item.data.version %}<span class="recent-version">v{{ item.data.version }}</span>{% endif %}
+                {% if item | isRecentlyUpdated %}<span class="recent-updated">Updated</span>{% endif %}
               </div>
               <p class="recent-desc">{{ item.data.description }}</p>
             </article>
           </div>
         {% endfor %}
       </div>
-      <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
-      <!-- Add Navigation -->
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
-  </div>
-  
-  <h2 class="recently-added-title">By Type</h2>
-  <div class="by-type-nav">
-    {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
-      {% set typeCount = collections[type] | length %}
-      {% if typeCount > 0 %}
-      <a href="{{ baseUrl }}/{{ type }}/" class="by-type-link">
-      {% else %}
-      <span class="by-type-link empty" aria-disabled="true">
-      {% endif %}
-        <span class="content-type-icon" aria-hidden="true">
-          {% if type === 'prompts' %}💡
-          {% elif type === 'rules' %}📋
-          {% elif type === 'agents' %}🤖
-          {% elif type === 'skills' %}🛠️
-          {% elif type === 'resources' %}🔗
-          {% endif %}
-        </span>
-        <span class="by-type-label">{{ type | replace('-', ' ') | title }}</span>
-        <span class="by-type-count">{{ typeCount }}</span>
-      {% if typeCount > 0 %}
-      </a>
-      {% else %}
-      </span>
-      {% endif %}
-    {% endfor %}
-  </div>
+  </section>
 
-  {% set compact = true %}
-  {% include "skills-bundle-banner.njk" %}
-
-  <h2 class="recently-added-title">By Discipline</h2>
-  <div class="discipline-grid">
-    
-    {% for discipline in ['project-management', 'development', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
-      {% set hasAnyDisciplineContent = false %}
-      {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
-        {% if discipline | hasContent(type) %}
-          {% set hasAnyDisciplineContent = true %}
-        {% endif %}
+  {# 5. Browse by Type #}
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--center">
+      <span class="rd-eyebrow rd-eyebrow--plain">Browse by Type</span>
+      <h2 class="rd-section__title">Choose the shape of help you need</h2>
+      <p class="rd-section__lead">Each content type has a different job: starting points, standards, installable workflows, role-based assistants, and reference material.</p>
+    </div>
+    <div class="rd-grid rd-grid--types">
+      {% for t in displayTypes %}
+        {{ typeCard(t | replace('-', ' ') | title, t | typeCount, typeDescriptions[t], baseUrl + "/" + t + "/") }}
       {% endfor %}
+    </div>
+  </section>
 
-      <div class="discipline-card fade-up {% if not hasAnyDisciplineContent %}discipline-empty{% endif %}">
-        <h2>{{ discipline | replace('-', ' ') | title }}</h2>
-        <div class="content-types">
-          {% for type in ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
-            {% set hasTypeContent = discipline | hasContent(type) %}
-            <a href="{{ baseUrl }}/{{ discipline }}/{{ type }}" class="content-type-link {% if not hasTypeContent %}empty{% endif %}">
-              <span class="content-type-icon">
-                {% if type === 'prompts' %}💡
-                {% elif type === 'rules' %}📋
-                {% elif type === 'agents' %}🤖
-                {% elif type === 'skills' %}🛠️
-                {% elif type === 'resources' %}🔗
-                {% endif %}
-              </span>
-              <span class="content-type-label">{{ type | replace('-', ' ') | title }}</span>
-              <span class="content-indicator" aria-label="{% if hasTypeContent %}Contains content{% else %}No content{% endif %}"></span>
-            </a>
+  {# 6. Browse by Discipline (matrix) #}
+  <section class="rd-section">
+    <div class="rd-section__head rd-section__head--split">
+      <div class="rd-section__heading">
+        <span class="rd-eyebrow rd-eyebrow--plain">Browse by Discipline</span>
+        <h2 class="rd-section__title">A library map for every team</h2>
+        <p class="rd-section__lead">A compact matrix so people can scan across teams and resource types quickly.</p>
+      </div>
+    </div>
+    <div class="rd-matrix" role="table" aria-label="Resources by discipline and type">
+      <div class="rd-matrix__row rd-matrix__row--head" role="row">
+        <span class="rd-matrix__cell rd-matrix__cell--label" role="columnheader">Discipline</span>
+        {% for t in displayTypes %}
+          <span class="rd-matrix__cell" role="columnheader">{{ t | replace('-', ' ') | title }}</span>
+        {% endfor %}
+      </div>
+      {% for d in matrixDisciplines %}
+        <div class="rd-matrix__row" role="row">
+          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="{{ baseUrl }}/{{ d.slug }}/">{{ d.label }}</a></span>
+          {% for t in displayTypes %}
+            {% set n = d.slug | disciplineTypeCount(t) %}
+            <span class="rd-matrix__cell" role="cell">
+              {% if n > 0 %}<a href="{{ baseUrl }}/{{ d.slug }}/{{ t }}/">{{ n }}</a>{% else %}<span class="rd-matrix__dash">—</span>{% endif %}
+            </span>
           {% endfor %}
         </div>
-      </div>
-    {% endfor %}
-  </div>
-
-  <div class="contribute-cta">
-    <h2>Share Your Knowledge</h2>
-    <p>Have a great prompt, cursor rule, or workflow configuration to share? The Prompt Library thrives on community contributions.</p>
-    <div class="submit-links">
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=agent-submission.yml" class="cta-button">Submit an Agent</a>
-      <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button">Submit a Skill</a>
+      {% endfor %}
     </div>
-    <a href="{{ baseUrl }}/contributing" class="cta-button secondary">Learn How to Contribute</a>
-  </div>
+  </section>
+
+  {# 7. Share your knowledge #}
+  <section class="rd-cta-wrap">
+    <div class="rd-cta">
+      <div class="rd-cta__copy">
+        <h2 class="rd-cta__title">Share your best workflow.</h2>
+        <p class="rd-cta__desc">Submit a prompt, rule, agent, or skill and help the library become more useful for everyone.</p>
+      </div>
+      <div class="rd-cta__actions">
+        {{ libButton("Submit Prompt", "https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml", "filled", true) }}
+        {{ libButton("Contribution Guide", baseUrl + "/contributing", "outline") }}
+      </div>
+    </div>
+  </section>
+
 </div>
 
-<style>
-  .disciplines {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
+<script>
+  (function () {
+    // Filter chips populate and trigger the search
+    var input = document.getElementById('search-input');
+    document.querySelectorAll('.rd-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        document.querySelectorAll('.rd-chip').forEach(function (c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        if (input) {
+          input.value = chip.dataset.query || chip.textContent.trim();
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.focus();
+        }
+      });
+    });
 
-  .page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-  }
-
-  .page-title i {
-    color: var(--primary-color);
-  }
-
-  .page-description {
-    font-size: 1.25rem;
-    color: var(--text-muted);
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .by-type-nav {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 3rem;
-  }
-
-  .by-type-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.2rem;
-    background-color: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 2rem;
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.2s;
-  }
-
-  a.by-type-link:hover,
-  a.by-type-link:focus-visible {
-    border-color: var(--primary-color);
-    background-color: var(--surface-color);
-    transform: translateY(-1px);
-  }
-
-  a.by-type-link:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-  }
-
-  .by-type-link.empty {
-    opacity: 0.5;
-  }
-
-  .by-type-count {
-    background-color: var(--tag-background);
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 1rem;
-    font-weight: 600;
-  }
-
-  .discipline-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-  }
-
-  .discipline-card {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s, var(--theme-transition);
-    border: 1px solid var(--border-color);
-  }
-
-  .discipline-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px var(--card-hover-shadow);
-  }
-
-  .discipline-card h2 {
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-  }
-
-  .content-types {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .content-type-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    background-color: var(--tag-background);
-    border-radius: 0.375rem;
-    color: var(--text-color);
-    text-decoration: none;
-    transition: background-color 0.2s, var(--theme-transition);
-  }
-
-  .content-type-link:hover {
-    background-color: var(--background-color);
-  }
-
-  .content-type-icon {
-    font-size: 1.25rem;
-  }
-
-  .content-type-label {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-color);
-  }
-
-  .contribute-cta {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    text-align: center;
-    margin-top: 3rem;
-    border: 1px solid var(--border-color);
-  }
-
-  .contribute-cta h2 {
-    font-size: 1.75rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-  }
-
-  .contribute-cta p {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .submit-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .cta-button {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.2s;
-  }
-
-  .cta-button:hover {
-    background-color: var(--secondary-color);
-  }
-
-  .cta-button.secondary {
-    background: none;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-  }
-
-  @media (max-width: 640px) {
-    .discipline-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .content-types {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .recently-added {
-    max-width: 1200px;
-    margin: 0 auto 2rem auto;
-    padding: 2rem 1rem 0 1rem;
-  }
-  .recently-added-title {
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  .recently-added-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .recent-item {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    padding: 1.25rem 1rem;
-    border: 1px solid var(--border-color);
-    transition: box-shadow 0.2s;
-  }
-  .recent-item h3 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-  }
-  .recent-item h3 a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .recent-item h3 a:hover {
-    color: var(--primary-color);
-  }
-  .recent-meta {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin-bottom: 0.5rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-  .recent-type, .recent-discipline, .recent-date, .recent-version, .recent-updated {
-    background: var(--tag-background);
-    border-radius: 0.25rem;
-    padding: 0.1rem 0.5rem;
-    margin-right: 0.25rem;
-    font-weight: 500;
-  }
-  .recent-version {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-  }
-  .recent-updated {
-    background-color: var(--accent-color);
-    color: #12212b;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.7rem;
-    letter-spacing: 0.02em;
-  }
-  .recent-desc {
-    color: var(--text-color);
-    opacity: 0.85;
-    font-size: 1rem;
-    margin-bottom: 0;
-  }
-
-  /* Swiper Styles */
-  .recently-added-swiper {
-    width: 100%;
-    position: relative; /* Ensure positioning context for arrows */
-    padding-top: 20px; /* Space for pagination */
-    padding-bottom: 50px; /* Space for pagination and nav buttons */
-  }
-  .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: stretch; /* Make slides same height */
-    height: auto; /* Allow slides to determine height based on content */
-    transition: opacity 0.3s ease; /* For smooth fading */
-  }
-  .swiper-slide .recent-item {
-    width: 100%; /* Make recent-item fill the slide */
-    display: flex;
-    flex-direction: column; /* Ensure content within card stacks vertically */
-    justify-content: flex-start; /* Align content to top */
-  }
-  .swiper-pagination-bullet-active {
-    background-color: var(--primary-color);
-  }
-  .swiper-button-next, .swiper-button-prev {
-    color: var(--primary-color);
-    --swiper-navigation-size: 30px;
-    --swiper-navigation-sides-offset: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .swiper-button-prev {
-    left: -20px !important;
-  }
-  .swiper-button-next {
-    right: -20px !important;
-  }
-  .swiper-button-next:after, .swiper-button-prev:after {
-    font-size: var(--swiper-navigation-size);
-  }
-</style>
+    // Copy command button
+    document.querySelectorAll('.rd-copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy') || '';
+        var label = btn.querySelector('.rd-copy__label');
+        var prev = label ? label.textContent : '';
+        var done = function () {
+          if (label) { label.textContent = 'Copied'; }
+          btn.classList.add('is-copied');
+          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copied'); }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () {});
+        }
+      });
+    });
+  })();
+</script>
 
 <script>
-  function initRecentlyAddedSwiper() {
-    var swiper = new Swiper('.recently-added-swiper', {
-      watchSlidesProgress: true, // Needed for progress-based effects
-      slidesPerView: 1, // Base: 1 slide for small screens
-      spaceBetween: 20,
-      centeredSlides: true, // Center single slide on small screens
-      loop: true, // Optional: enable continuous loop
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-          centeredSlides: false 
-        },
-        960: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-          centeredSlides: true 
+  // Recently Added carousel (Swiper) — waits until the Swiper lib has loaded
+  (function () {
+    var IDLE_MS = 30000; // resume autoplay after this long without interaction
+    function initRecentlyAddedSwiper() {
+      var idleTimer = null;
+      var swiper = new Swiper('.recently-added-swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        loopAdditionalSlides: 5,
+        watchSlidesProgress: true,
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true, dynamicBullets: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 20 },
+          960: { slidesPerView: 3, spaceBetween: 24 }
         }
-      },
-      on: {
-        progress: function (swiperInstance) {
-          const slides = swiperInstance.slides;
-          const slidesPerView = swiperInstance.params.slidesPerView;
-          // Threshold for fading: beyond half the number of visible slides from the center
-          // For 3 slides, center is 0, edges are approx +/-1. Anything beyond +/-1.5 (approx) should fade.
-          // A simpler way for centered slides: progress absolute value > (slidesPerView -1) / 2 roughly
-          // Let's use a threshold like 1.2 for 3 slides, 0.7 for 2 slides, 0.2 for 1 slide
-          let fadeThreshold = 0.2; // For 1 slide view
-          if (slidesPerView === 2) fadeThreshold = 0.7;
-          if (slidesPerView >= 3) fadeThreshold = 1.2; 
+      });
 
-          for (let i = 0; i < slides.length; i++) {
-            const slideProgress = slides[i].progress;
-            const absProgress = Math.abs(slideProgress);
-            if (absProgress > fadeThreshold) {
-              slides[i].style.opacity = 0.3; // Faded
-            } else {
-              slides[i].style.opacity = 1; // Fully visible
-            }
-          }
-        },
-        transitionEnd: function(swiperInstance){
-          // Trigger progress update to re-apply opacities after transition
-          swiperInstance.emit('progress', swiperInstance.progress);
-        },
-        // Also call on init to set initial opacities
-        init: function(swiperInstance){
-            swiperInstance.emit('progress', swiperInstance.progress);
-        }
+      // Pause autoplay on any interaction; resume after 30s of inactivity.
+      function onInteract() {
+        if (swiper.autoplay) { swiper.autoplay.stop(); }
+        if (idleTimer) { clearTimeout(idleTimer); }
+        idleTimer = setTimeout(function () {
+          if (swiper.autoplay) { swiper.autoplay.start(); }
+        }, IDLE_MS);
       }
-    });
-  }
-
-  function checkSwiperAndInit() {
-    if (typeof Swiper !== 'undefined') {
-      initRecentlyAddedSwiper();
-    } else {
-      requestAnimationFrame(checkSwiperAndInit);
+      swiper.el.addEventListener('pointerdown', onInteract, { passive: true });
+      swiper.el.addEventListener('keydown', onInteract);
     }
-  }
-  requestAnimationFrame(checkSwiperAndInit);
-</script> 
+    function checkSwiperAndInit() {
+      if (typeof Swiper !== 'undefined') { initRecentlyAddedSwiper(); }
+      else { requestAnimationFrame(checkSwiperAndInit); }
+    }
+    requestAnimationFrame(checkSwiperAndInit);
+  })();
+</script>

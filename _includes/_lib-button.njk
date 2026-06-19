@@ -1,0 +1,12 @@
+{#
+  Library Button — Framer "Library Button" (m6SKoROEH).
+  variant: "filled" (Framer dmpGepZk0) | "outline" (Framer e4iNiqO4b)
+  Usage: {% from "_lib-button.njk" import libButton %}
+         {{ libButton("GitHub", "https://…", "outline", true) }}
+#}
+{% macro libButton(label, href, variant="outline", newTab=false) %}
+<a class="rd-btn rd-btn--{{ variant }}" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  <span class="rd-btn__label">{{ label }}</span>
+  <span class="rd-btn__arrow" aria-hidden="true">→</span>
+</a>
+{% endmacro %}

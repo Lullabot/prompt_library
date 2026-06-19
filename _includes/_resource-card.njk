@@ -1,0 +1,17 @@
+{#
+  Resource Card — Framer "Resource Card" (U4fILFY7M).
+  Usage: {% from "_resource-card.njk" import resourceCard %}
+         {{ resourceCard(title, description, typeTag, disciplineTag, status, href) }}
+#}
+{% macro resourceCard(title, description, typeTag, disciplineTag, status, href, newTab=false) %}
+<a class="rd-card rd-card--resource" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  <div class="rd-card__tags">
+    {% if typeTag %}<span class="rd-tag">{{ typeTag }}</span>{% endif %}
+    {% if disciplineTag %}<span class="rd-tag">{{ disciplineTag }}</span>{% endif %}
+    {% if status %}<span class="rd-badge">{{ status }}</span>{% endif %}
+  </div>
+  <h3 class="rd-card__title">{{ title }}</h3>
+  <p class="rd-card__desc">{{ description }}</p>
+  <span class="rd-card__cta">View resource <span aria-hidden="true">→</span></span>
+</a>
+{% endmacro %}

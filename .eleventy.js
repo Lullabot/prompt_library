@@ -231,7 +231,57 @@ module.exports = function(eleventyConfig) {
         disciplines.map(discipline => `${discipline}/${type}/**/*.md`)
       ));
     });
-    return all.sort((a, b) => new Date(b.date) - new Date(a.date));
+    // Exclude nested skill resource files (README.md, references/*.md, etc.)
+    // which have no title frontmatter — keep only real content pages.
+    return all
+      .filter(item => item.data && item.data.title)
+      .sort((a, b) => new Date(b.date) - new Date(a.date));
+  });
+
+  // --- Homepage redesign data layer: live counts for stats / type cards / matrix ---
+  const normalizeTypeName = (t) => String(t).toLowerCase().replace(/\s+/g, '-');
+
+  // Total items in a content-type collection (whole library)
+  eleventyConfig.addNunjucksFilter("typeCount", function(contentType) {
+    const c = this.ctx.collections;
+    const name = normalizeTypeName(contentType);
+    return (c && c[name]) ? c[name].length : 0;
+  });
+
+  // Items matching a discipline within a content-type collection (matrix cells)
+  eleventyConfig.addNunjucksFilter("disciplineTypeCount", function(discipline, contentType) {
+    const c = this.ctx.collections;
+    const name = normalizeTypeName(contentType);
+    if (!c || !c[name]) return 0;
+    const d = String(discipline).toLowerCase();
+    return c[name].filter(item =>
+      typeof item.data.discipline === 'string' && item.data.discipline.toLowerCase() === d
+    ).length;
+  });
+
+  // Sum of counts across a list of content types (hero "N resources")
+  eleventyConfig.addNunjucksFilter("sumTypeCounts", function(types) {
+    const c = this.ctx.collections;
+    if (!c) return 0;
+    return (types || []).reduce((sum, t) => {
+      const name = normalizeTypeName(t);
+      return sum + (c[name] ? c[name].length : 0);
+    }, 0);
+  });
+
+  // Disciplines with at least one item across the given types (hero "N disciplines")
+  eleventyConfig.addNunjucksFilter("activeDisciplineCount", function(disciplineList, typeList) {
+    const c = this.ctx.collections;
+    if (!c) return 0;
+    return (disciplineList || []).filter(d => {
+      const dl = String(d).toLowerCase();
+      return (typeList || []).some(t => {
+        const name = normalizeTypeName(t);
+        return c[name] && c[name].some(item =>
+          typeof item.data.discipline === 'string' && item.data.discipline.toLowerCase() === dl
+        );
+      });
+    }).length;
   });
 
   // Version validation: warn on invalid semver or incomplete version metadata

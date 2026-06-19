@@ -37,9 +37,13 @@ function toggleTheme() {
 
 // Initialize theme
 function initializeTheme() {
-    // Set initial theme
-    const theme = getColorPreference();
-    setTheme(theme);
+    // Non-persistent theme preview via ?theme=light|dark (handy for previews/screenshots)
+    const override = new URLSearchParams(window.location.search).get('theme');
+    if (override === 'light' || override === 'dark') {
+        reflectTheme(override);
+    } else {
+        setTheme(getColorPreference());
+    }
 
     // Watch for system theme changes
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', ({ matches }) => {

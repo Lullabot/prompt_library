@@ -88,8 +88,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const descriptionScore = description.toLowerCase().includes(queryLower) ? 2 : 0;
                 const contentScore = content.toLowerCase().includes(queryLower) ? 1 : 0;
                 const tagScore = tags.some(tag => tag.toLowerCase().includes(queryLower)) ? 2 : 0;
-                
-                const totalScore = titleScore + descriptionScore + contentScore + tagScore;
+
+                // Also match the discipline / content type, normalizing hyphens vs spaces
+                // so a "Content Strategy" filter chip finds content-strategy items.
+                const normalize = (s) => String(s || '').toLowerCase().replace(/[-_\s]+/g, ' ').trim();
+                const normQuery = normalize(query);
+                const disciplineScore = normQuery && normalize(item.discipline).includes(normQuery) ? 2 : 0;
+                const typeScore = normQuery && normalize(item.contentType).includes(normQuery) ? 2 : 0;
+
+                const totalScore = titleScore + descriptionScore + contentScore + tagScore + disciplineScore + typeScore;
                 
                 return {
                     ...item,
