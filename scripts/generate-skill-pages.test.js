@@ -91,7 +91,7 @@ function makeFixture(files) {
   return { vendorDir: tmp, skillDir, cleanup: () => fs.rmSync(tmp, { recursive: true, force: true }) };
 }
 
-test('readSkill rejects unknown discipline', () => {
+test('readSkill rejects discipline with no supported value', () => {
   const { vendorDir, cleanup } = makeFixture({
     'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
     'meta.yml': 'title: Bad\ndiscipline: not-real\ndate: "2025-01-01"\n',
@@ -99,7 +99,49 @@ test('readSkill rejects unknown discipline', () => {
   try {
     assert.throws(
       () => readSkill('bad-skill', vendorDir),
-      (err) => err instanceof GenerateSkillsError && /Invalid discipline "not-real"/.test(err.message)
+      (err) => err instanceof GenerateSkillsError && /No supported discipline.*"not-real"/.test(err.message)
+    );
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill accepts a list of disciplines and resolves the first supported one', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
+    'meta.yml': 'title: Multi\ndiscipline:\n  - security\n  - development\n  - admin\ndate: "2025-01-01"\n',
+  });
+  try {
+    const skill = readSkill('bad-skill', vendorDir);
+    // "security" and "admin" aren't supported; "development" is, so it wins.
+    assert.equal(skill.meta.discipline, 'development');
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill resolves the first supported discipline in declared order', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
+    'meta.yml': 'title: Multi\ndiscipline:\n  - quality-assurance\n  - development\ndate: "2025-01-01"\n',
+  });
+  try {
+    const skill = readSkill('bad-skill', vendorDir);
+    assert.equal(skill.meta.discipline, 'quality-assurance');
+  } finally {
+    cleanup();
+  }
+});
+
+test('readSkill rejects a list with no supported discipline', () => {
+  const { vendorDir, cleanup } = makeFixture({
+    'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
+    'meta.yml': 'title: Bad\ndiscipline:\n  - security\n  - admin\ndate: "2025-01-01"\n',
+  });
+  try {
+    assert.throws(
+      () => readSkill('bad-skill', vendorDir),
+      (err) => err instanceof GenerateSkillsError && /No supported discipline.*"security", "admin"/.test(err.message)
     );
   } finally {
     cleanup();

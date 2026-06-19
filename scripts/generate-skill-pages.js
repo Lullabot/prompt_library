@@ -158,12 +158,25 @@ function readSkill(skillName, vendorDir = VENDOR_DIR) {
     fail(`Invalid YAML in ${rel}/meta.yml — ${err.reason || err.message}.`);
   }
 
-  if (!meta.discipline || !VALID_DISCIPLINES.has(meta.discipline)) {
+  // A skill may declare one discipline or a list of them. The skill bundle is
+  // shared across consumers, so it's free to use categories this site doesn't
+  // model (e.g. "security", "admin"). We file the skill under the first
+  // declared value we recognize and ignore the rest. We only fail if NONE of
+  // the declared disciplines is one this site supports.
+  const declared = (Array.isArray(meta.discipline) ? meta.discipline : [meta.discipline])
+    .filter((d) => typeof d === 'string' && d.trim())
+    .map((d) => d.trim());
+  const resolved = declared.find((d) => VALID_DISCIPLINES.has(d));
+  if (!resolved) {
+    const got = declared.length ? declared.map((d) => `"${d}"`).join(', ') : '(none)';
     fail(
-      `Invalid discipline "${meta.discipline}" in ${rel}/meta.yml. ` +
-      `Must be one of: ${[...VALID_DISCIPLINES].join(', ')}`
+      `No supported discipline in ${rel}/meta.yml — declared ${got}. ` +
+      `At least one must be: ${[...VALID_DISCIPLINES].join(', ')}`
     );
   }
+  // Collapse to the single resolved value for everything downstream
+  // (frontmatter, output path, cleanup) which assumes a scalar discipline.
+  meta.discipline = resolved;
   if (!meta.title) fail(`Missing title in ${rel}/meta.yml`);
   if (!meta.date) fail(`Missing date in ${rel}/meta.yml`);
   if (!skillFm.data.name) fail(`Missing 'name' in ${rel}/SKILL.md frontmatter (Claude Code requires it).`);
