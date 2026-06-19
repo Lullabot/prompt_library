@@ -7,7 +7,6 @@ bodyClass: "rd-home"
 needsSwiper: true
 ---
 {% from "_lib-button.njk" import libButton %}
-{% from "_resource-card.njk" import resourceCard %}
 {% from "_type-card.njk" import typeCard %}
 
 {% set displayTypes = ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
@@ -18,7 +17,7 @@ needsSwiper: true
   { slug: 'content-strategy', label: 'Content Strategy' },
   { slug: 'design', label: 'Design' },
   { slug: 'quality-assurance', label: 'Quality Assurance' },
-  { slug: 'sales-marketing', label: 'Sales Marketing' }
+  { slug: 'sales-marketing', label: 'Sales & Marketing' }
 ] %}
 {% set typeDescriptions = {
   prompts: 'Reusable starting points for repeatable AI tasks.',
@@ -206,8 +205,33 @@ needsSwiper: true
           btn.classList.add('is-copied');
           setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copied'); }, 1600);
         };
+        var fail = function () {
+          if (label) { label.textContent = 'Copy failed'; }
+          btn.classList.add('is-copy-failed');
+          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copy-failed'); }, 1600);
+        };
+        var fallbackCopy = function () {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'absolute';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            return ok;
+          } catch (e) { return false; }
+        };
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done).catch(function () {});
+          navigator.clipboard.writeText(text).then(done).catch(function () {
+            if (fallbackCopy()) { done(); } else { fail(); }
+          });
+        } else if (fallbackCopy()) {
+          done();
+        } else {
+          fail();
         }
       });
     });
