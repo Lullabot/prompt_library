@@ -327,6 +327,47 @@ nav a:hover::after {
     transform: translateY(-1px);
 }
 
+/* Discipline landing page — grouped content listing */
+.discipline-group {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding: 0 1rem;
+}
+
+.discipline-group__title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.discipline-group__title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.discipline-group__title a:hover {
+    color: var(--primary-color);
+}
+
+.discipline-group__count {
+    background-color: var(--tag-background);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.1rem 0.6rem;
+    border-radius: 1rem;
+}
+
+.discipline-empty-note {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    color: var(--text-muted);
+}
+
 /* ===========================
    Content Type Header
    =========================== */

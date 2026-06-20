@@ -273,6 +273,20 @@ module.exports = function(eleventyConfig) {
     ).length;
   });
 
+  // Total items in a discipline across all content types (discipline landing page)
+  eleventyConfig.addNunjucksFilter("disciplineContentCount", function(discipline) {
+    const c = this.ctx.collections;
+    if (!c) return 0;
+    const d = String(discipline).toLowerCase();
+    return contentTypes.reduce((sum, t) => {
+      const name = normalizeTypeName(t);
+      if (!c[name]) return sum;
+      return sum + c[name].filter(item =>
+        typeof item.data.discipline === 'string' && item.data.discipline.toLowerCase() === d
+      ).length;
+    }, 0);
+  });
+
   // Sum of counts across a list of content types (hero "N resources")
   eleventyConfig.addNunjucksFilter("sumTypeCounts", function(types) {
     const c = this.ctx.collections;
