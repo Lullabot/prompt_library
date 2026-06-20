@@ -18,8 +18,9 @@ function vendorAvailable() {
   return fs.existsSync(path.join(VENDOR_DIR, 'cloudflare-tunnel', 'SKILL.md'));
 }
 
-test('VALID_DISCIPLINES contains the six disciplines', () => {
-  assert.equal(VALID_DISCIPLINES.size, 6);
+test('VALID_DISCIPLINES contains the seven disciplines', () => {
+  assert.equal(VALID_DISCIPLINES.size, 7);
+  assert.ok(VALID_DISCIPLINES.has('admin'));
   assert.ok(VALID_DISCIPLINES.has('development'));
   assert.ok(VALID_DISCIPLINES.has('content-strategy'));
   assert.ok(VALID_DISCIPLINES.has('design'));
@@ -136,12 +137,12 @@ test('readSkill resolves the first supported discipline in declared order', () =
 test('readSkill rejects a list with no supported discipline', () => {
   const { vendorDir, cleanup } = makeFixture({
     'SKILL.md': '---\nname: bad-skill\ndescription: x\n---\n# x\n',
-    'meta.yml': 'title: Bad\ndiscipline:\n  - security\n  - admin\ndate: "2025-01-01"\n',
+    'meta.yml': 'title: Bad\ndiscipline:\n  - security\n  - ops\ndate: "2025-01-01"\n',
   });
   try {
     assert.throws(
       () => readSkill('bad-skill', vendorDir),
-      (err) => err instanceof GenerateSkillsError && /No supported discipline.*"security", "admin"/.test(err.message)
+      (err) => err instanceof GenerateSkillsError && /No supported discipline.*"security", "ops"/.test(err.message)
     );
   } finally {
     cleanup();

@@ -185,6 +185,20 @@ module.exports = function(eleventyConfig) {
     return parts.length > 1 ? parts[1] : '';
   });
 
+  // Extract discipline from URL path (e.g. /development/resources/ -> development)
+  // Strips baseUrl prefix first so it works on GitHub Pages (/prompt_library/...).
+  // Used as a defensive fallback in discipline.njk when the page omits the
+  // `discipline` frontmatter (which otherwise yields broken `//` nav links).
+  eleventyConfig.addFilter("disciplineFromUrl", function(url) {
+    if (!url || typeof url !== 'string') return '';
+    let normalizedUrl = url;
+    if (baseUrl && normalizedUrl.startsWith(baseUrl)) {
+      normalizedUrl = normalizedUrl.slice(baseUrl.length);
+    }
+    const parts = normalizedUrl.replace(/^\//, '').split('/').filter(Boolean);
+    return parts.length > 0 ? parts[0] : '';
+  });
+
   // Add URL filter that includes base URL
   eleventyConfig.addFilter("fullUrl", function(url) {
     if (url.startsWith(baseUrl)) {
