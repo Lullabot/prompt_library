@@ -10,8 +10,11 @@ layout: base.njk
     <a href="{{ baseUrl }}/{{ disc }}/prompts">Prompts</a>
     <a href="{{ baseUrl }}/{{ disc }}/rules">Rules</a>
     <a href="{{ baseUrl }}/{{ disc }}/project-configs">Project Configs</a>
-    <a href="{{ baseUrl }}/{{ disc }}/resources">Resources</a>
     <a href="{{ baseUrl }}/{{ disc }}/agents">Agents</a>
+    <a href="{{ baseUrl }}/{{ disc }}/skills">Skills</a>
+    <a href="{{ baseUrl }}/{{ disc }}/resources">Resources</a>
 </nav>
 
-{{ content | safe }} 
+<div class="discipline-body">
+{{ content | safe }}
+</div> 
