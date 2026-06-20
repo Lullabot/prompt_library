@@ -10,14 +10,15 @@ needsSwiper: true
 {% from "_type-card.njk" import typeCard %}
 
 {% set displayTypes = ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
-{% set allDisciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'] %}
+{% set allDisciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance', 'admin'] %}
 {% set matrixDisciplines = [
   { slug: 'project-management', label: 'Project Management' },
   { slug: 'development', label: 'Development' },
   { slug: 'content-strategy', label: 'Content Strategy' },
   { slug: 'design', label: 'Design' },
   { slug: 'quality-assurance', label: 'Quality Assurance' },
-  { slug: 'sales-marketing', label: 'Sales & Marketing' }
+  { slug: 'sales-marketing', label: 'Sales & Marketing' },
+  { slug: 'admin', label: 'Admin' }
 ] %}
 {% set typeDescriptions = {
   prompts: 'Reusable starting points for repeatable AI tasks.',

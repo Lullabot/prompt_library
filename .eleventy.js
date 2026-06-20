@@ -46,7 +46,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add collections for all content types
-  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
+  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance', 'admin'];
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
 
   // Copy skill resource directories (scripts, configs, templates)
