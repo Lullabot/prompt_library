@@ -10,8 +10,49 @@ layout: base.njk
     <a href="{{ baseUrl }}/{{ disc }}/prompts">Prompts</a>
     <a href="{{ baseUrl }}/{{ disc }}/rules">Rules</a>
     <a href="{{ baseUrl }}/{{ disc }}/project-configs">Project Configs</a>
-    <a href="{{ baseUrl }}/{{ disc }}/resources">Resources</a>
     <a href="{{ baseUrl }}/{{ disc }}/agents">Agents</a>
+    <a href="{{ baseUrl }}/{{ disc }}/skills">Skills</a>
+    <a href="{{ baseUrl }}/{{ disc }}/resources">Resources</a>
 </nav>
 
-{{ content | safe }} 
+{# Landing page (no contentType set): list ALL of the discipline's content,
+   grouped by content type. Content-type pages set `contentType`, so this block
+   is skipped there to avoid double-listing. #}
+{% if not contentType %}
+<div class="content-type-header">
+    <h1>{{ title or (disc | replace("-", " ") | title) }}</h1>
+    {% if description %}<p class="description">{{ description }}</p>{% endif %}
+</div>
+
+{% set typeOrder = ['prompts', 'rules', 'agents', 'skills', 'project-configs', 'resources', 'workflow-states'] %}
+{% for type in typeOrder %}
+    {% set items = collections[type] | filterByDiscipline(disc) %}
+    {% if items | length %}
+        <section class="discipline-group">
+            <h2 class="discipline-group__title">
+                <a href="{{ baseUrl }}/{{ disc }}/{{ type }}">{{ type | replace("-", " ") | title }}</a>
+                <span class="discipline-group__count">{{ items | length }}</span>
+            </h2>
+            <div class="content-list">
+                {% for item in items %}
+                    <article class="content-item fade-up">
+                        <h2>
+                            <a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a>
+                            {% if item | isRecentlyUpdated %}<span class="updated-badge">Updated</span>{% endif %}
+                            {% if item.data.version %}<span class="version-tag">v{{ item.data.version }}</span>{% endif %}
+                        </h2>
+                        <p>{{ item.data.description }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    {% endif %}
+{% endfor %}
+{% if (disc | disciplineContentCount) == 0 %}
+    <p class="discipline-empty-note">No content has been added to this discipline yet.</p>
+{% endif %}
+{% endif %}
+
+<div class="discipline-body">
+{{ content | safe }}
+</div>

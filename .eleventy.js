@@ -46,7 +46,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // Add collections for all content types
-  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance'];
+  const disciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance', 'admin'];
   const contentTypes = ['prompts', 'rules', 'project-configs', 'workflow-states', 'resources', 'agents', 'skills'];
 
   // Copy skill resource directories (scripts, configs, templates)
@@ -271,6 +271,20 @@ module.exports = function(eleventyConfig) {
     return c[name].filter(item =>
       typeof item.data.discipline === 'string' && item.data.discipline.toLowerCase() === d
     ).length;
+  });
+
+  // Total items in a discipline across all content types (discipline landing page)
+  eleventyConfig.addNunjucksFilter("disciplineContentCount", function(discipline) {
+    const c = this.ctx.collections;
+    if (!c) return 0;
+    const d = String(discipline).toLowerCase();
+    return contentTypes.reduce((sum, t) => {
+      const name = normalizeTypeName(t);
+      if (!c[name]) return sum;
+      return sum + c[name].filter(item =>
+        typeof item.data.discipline === 'string' && item.data.discipline.toLowerCase() === d
+      ).length;
+    }, 0);
   });
 
   // Sum of counts across a list of content types (hero "N resources")
