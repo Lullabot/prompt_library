@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Admin Rules - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body class="">
+    <header class="rd-topbar">
+        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
+            <span class="rd-brand__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 6l5 6-5 6"/>
+                    <path d="M13 18h6"/>
+                </svg>
+            </span>
+            <span class="rd-brand__name">Prompt Library</span>
+        </a>
+        
+        <div class="rd-topbar__search">
+            <form class="search-form" role="search">
+                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+                <label for="search-input" class="visually-hidden">Search</label>
+                <input type="search" id="search-input" class="search-input"
+                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+            </form>
+            <div id="search-results" class="search-results" hidden></div>
+        </div>
+        
+        <nav class="rd-topbar__links" aria-label="Primary">
+            <a href="/prompt_library/">Home</a>
+            <a href="/prompt_library/help">Help</a>
+        </nav>
+        <div class="rd-topbar__actions">
+            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        
+
+
+<nav class="discipline-nav">
+    <span class="discipline-name">Admin : </span>
+    <a href="/prompt_library/admin/prompts">Prompts</a>
+    <a href="/prompt_library/admin/rules">Rules</a>
+    <a href="/prompt_library/admin/project-configs">Project Configs</a>
+    <a href="/prompt_library/admin/agents">Agents</a>
+    <a href="/prompt_library/admin/skills">Skills</a>
+    <a href="/prompt_library/admin/resources">Resources</a>
+</nav>
+
+
+
+
+<div class="discipline-body">
+
+<div class="content-type-header">
+    <h1>Admin Rules</h1>
+    <p class="description">Standards and conventions for internal operations and administrative workflows.</p>
+</div>
+
+<div class="content-list">
+    
+</div>
+
+<style>
+  .updated-badge {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+  }
+
+  .version-tag {
+    display: inline-block;
+    background-color: var(--tag-background);
+    color: var(--text-muted);
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    vertical-align: middle;
+    margin-left: 0.25rem;
+  }
+</style>
+</div>
+
+    </main>
+
+    <footer class="rd-footer">
+        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
+        <div class="rd-footer__links">
+            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/prompt_library/help">Help</a>
+        </div>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
