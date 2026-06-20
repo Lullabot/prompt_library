@@ -23,21 +23,35 @@ const BASE_URL = '/prompt_library';
 let built = false;
 let buildError = null;
 
+// npm is `npm.cmd` on Windows; pick the right executable so `npm test` works cross-platform.
+const NPM = process.platform === 'win32' ? 'npm.cmd' : 'npm';
+
 function build() {
   if (built) return;
   try {
     // Start from a clean output so stale artifacts from removed pages (Eleventy
     // does not prune _site between builds) can't mask or fake link results.
     fs.rmSync(SITE, { recursive: true, force: true });
-    execFileSync('npm', ['run', 'build'], {
+    execFileSync(NPM, ['run', 'build'], {
       cwd: ROOT,
       env: { ...process.env, GITHUB_ACTIONS: '1' },
       stdio: 'pipe',
     });
     built = true;
   } catch (e) {
-    buildError = e;
+    // With stdio:'pipe' the build output is captured on the error — surface it so
+    // CI failures are actionable instead of just "Command failed".
+    const details = [e.message, e.stdout && e.stdout.toString(), e.stderr && e.stderr.toString()]
+      .filter(Boolean).join('\n');
+    buildError = new Error(details);
   }
+}
+
+// Guard used by every link test: fail fast with the build error instead of
+// letting collectLinks() throw confusing secondary errors on a missing _site.
+function ensureBuilt() {
+  build();
+  assert.equal(buildError, null, `Eleventy build failed:\n${buildError && buildError.message}`);
 }
 
 function htmlFiles(dir) {
@@ -78,13 +92,12 @@ function collectLinks() {
 }
 
 test('site builds for link checking', () => {
-  build();
-  assert.equal(buildError, null, `Eleventy build failed: ${buildError && buildError.message}`);
+  ensureBuilt();
   assert.ok(fs.existsSync(path.join(SITE, 'index.html')), '_site/index.html should exist after build');
 });
 
 test('no internal link contains a double slash', () => {
-  build();
+  ensureBuilt();
   const offenders = collectLinks().filter(({ value }) =>
     value.startsWith('/') && !value.startsWith('//') && value.includes('//')
   );
@@ -95,7 +108,7 @@ test('no internal link contains a double slash', () => {
 });
 
 test('internal links that resolve to a real page carry the baseUrl prefix', () => {
-  build();
+  ensureBuilt();
   // A root-relative link that does NOT start with baseUrl but DOES resolve to a
   // built file is a missing-prefix bug. Content examples (e.g. /category) don't
   // resolve, so they're correctly ignored.
@@ -113,7 +126,7 @@ test('internal links that resolve to a real page carry the baseUrl prefix', () =
 });
 
 test('baseUrl-prefixed internal links point at real files (no dead links)', () => {
-  build();
+  ensureBuilt();
   const offenders = collectLinks().filter(({ value }) => {
     if (!value.startsWith(BASE_URL + '/') && value !== BASE_URL) return false;
     const sitePath = value.slice(BASE_URL.length) || '/';
