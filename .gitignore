@@ -27,6 +27,9 @@ yarn-error.log*
 # Generated skill pages — sourced from the lullabot-skills submodule via
 # `npm run generate-skills`. Do not edit these directly; edit upstream at
 # https://github.com/Lullabot/lullabot-skills and the build pulls them in.
+admin/skills/*.md
+admin/skills/*/
+!admin/skills/index.njk
 content-strategy/skills/*.md
 content-strategy/skills/*/
 !content-strategy/skills/index.njk
