@@ -50,7 +50,7 @@
         
 <div class="markdown-content">
   <h1>Humanizer</h1>
-  <p class="description">Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia &quot;Signs of AI writing&quot; guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic &quot;real&quot;, announcing the rhetorical move, and anthropomorphized objects.</p>
+  <p class="description">Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia &quot;Signs of AI writing&quot; guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic &quot;real&quot;, announcing the rhetorical move, anthropomorphized objects, and chatbot-voice clichés such as &quot;no X, no Y&quot; chains, &quot;sit with that&quot;, and &quot;the punchline is&quot;.</p>
 
   <div class="metadata">
     <div class="tags">
@@ -69,15 +69,21 @@
     <div class="metadata-right">
       
       
-        <span class="last-updated">Updated 2026-06-15</span>
+        <span class="last-updated">Updated 2026-07-22</span>
       
     </div>
   </div>
 
   
   <details class="changelog-section">
-    <summary>Changelog (2 entries)</summary>
+    <summary>Changelog (3 entries)</summary>
     <ul class="changelog-list">
+      
+        <li class="changelog-entry">
+          
+          <time class="changelog-date" datetime="2026-07-21">2026-07-21</time>
+          <span class="changelog-summary">Added pattern #28 &quot;Chatbot-voice clichés&quot; covering twelve closing-line tics (&quot;no X, no Y&quot; chains, &quot;sit with that&quot;, &quot;that&#39;s not nothing&quot;, &quot;the punchline is&quot;, &quot;you already know the answer&quot; and others), each with a specific rewrite. Strengthened the em dash rule with explicit replacement guidance and added an em dash pass to the process steps.</span>
+        </li>
       
         <li class="changelog-entry">
           
@@ -130,8 +136,8 @@
   <div class="content">
     <pre><code>---
 name: humanizer
-version: 2.2.0
-description: 'Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia &quot;Signs of AI writing&quot; guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic &quot;real&quot;, announcing the rhetorical move, and anthropomorphized objects.'
+version: 2.3.0
+description: 'Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. Based on the comprehensive Wikipedia &quot;Signs of AI writing&quot; guide. Detects and fixes patterns including inflated symbolism, promotional language, superficial -ing analyses, vague attributions, em dash overuse, rule of three, AI vocabulary words, negative parallelisms, excessive conjunctive phrases, and conversational tells like emphatic &quot;real&quot;, announcing the rhetorical move, anthropomorphized objects, and chatbot-voice clichés such as &quot;no X, no Y&quot; chains, &quot;sit with that&quot;, and &quot;the punchline is&quot;.'
 allowed-tools:
   - Read
   - Write
@@ -357,15 +363,35 @@ Avoiding AI patterns is only half the job. Sterile, voiceless writing is just as
 
 ## STYLE PATTERNS
 
-### 13. Em Dash Overuse
+### 13. Em Dash Overuse (HIGH PRIORITY)
 
-**Problem:** LLMs use em dashes (—) more than humans, mimicking &quot;punchy&quot; sales writing.
+**IMPORTANT: This is one of the most persistent AI tells. Every em dash (—) in the output must be consciously justified or replaced.** Most of the time, a comma, period, colon, or parentheses works better. Em dashes should be rare in the final output. More than one in a short message usually means AI artifacts are still in there.
+
+**Problem:** LLMs default to em dashes constantly, using them for asides, lists, emphasis, parentheticals, and clause separation. Humans use them sparingly. A text with 3+ em dashes in a few paragraphs reads as AI-generated.
+
+**Rule:** Replace every em dash with the simplest alternative:
+- Aside or parenthetical → comma or parentheses
+- Emphasis or contrast → period (start a new sentence)
+- List intro → colon
+- Only keep an em dash if removing it makes the sentence genuinely worse AND no other punctuation works
 
 **Before:**
 &gt; The term is primarily promoted by Dutch institutions—not by the people themselves. You don't say &quot;Netherlands, Europe&quot; as an address—yet this mislabeling continues—even in official documents.
 
 **After:**
 &gt; The term is primarily promoted by Dutch institutions, not by the people themselves. You don't say &quot;Netherlands, Europe&quot; as an address, yet this mislabeling continues in official documents.
+
+**More examples:**
+
+&gt; She's been moving fast — 10-15 pages a day — and the reviewer suggested...
+
+Rewrite as:
+&gt; She's been moving fast (10-15 pages a day), and the reviewer suggested...
+
+&gt; The launch slipped by about a month — the old CMS is being retired.
+
+Rewrite as:
+&gt; The launch slipped by about a month. The old CMS is being retired.
 
 ---
 
@@ -563,20 +589,50 @@ Note the related &quot;that's the X doing the thing Y can't&quot; construction. 
 &gt; There are two tools, and they split cleanly.
 &gt; The deterministic script belongs in CI: it's cheap and produces the same result every time.
 
+### 28. Chatbot-voice clichés
+
+**Words to watch:** No X, no Y, no Z; Didn't flinch, didn't blink; That's the whole point/game/thing; X is the entire point/game/business model; The entire pitch is; Don't call it X, call it Y; Sit with that; You already know the answer; The improvement is real, and it's not subtle; The punchline is; That loss is worth naming; That's not nothing
+
+**Problem:** A dozen constructions show up so often in chat replies that they read as a signature. Most are closing-line tics: the model has finished the substance and reaches for a beat of manufactured gravity. Several also break the rules above (the &quot;no X, no Y&quot; chain is the rule of three wearing a negation; &quot;the improvement is real&quot; is the emphatic &quot;real&quot; from #25). They cluster, so finding one usually means finding four.
+
+**The twelve, and what to do instead:**
+
+- **&quot;No X, no Y, no Z&quot;** chains. Say what the thing does. &quot;No signups, no downloads, no hassle&quot; becomes &quot;Paste your text and go.&quot;
+- **&quot;Didn't flinch, didn't blink, didn't reach for the red pen.&quot;** Same chain with a negated verb. Keep one clause, drop the rhythm.
+- **&quot;That's the whole point / the whole game / the whole thing.&quot;** Almost always deletable. If the point needs stating, state it.
+- **&quot;X is the entire point / the entire business model.&quot;** Flipped twin of the above, including &quot;The entire pitch is one sentence.&quot; Cut &quot;entire.&quot;
+- **&quot;Don't call it a rewrite. Call it a rescue.&quot;** The negate-then-restate. Just use the second word.
+- **&quot;Sit with that.&quot;** Also &quot;sit with the discomfort,&quot; &quot;sit with it for a moment.&quot; Instructing the reader how to feel. Delete.
+- **&quot;You already know the answer.&quot;** Flattery dressed as insight. If they know, don't say it. If they don't, say the thing.
+- **&quot;The improvement is real, and it's not subtle.&quot;** See #25. &quot;The improvement is real&quot; adds nothing to &quot;it improved.&quot;
+- **&quot;The punchline is...&quot;** Also &quot;The punchline:&quot; and &quot;The punchline?&quot; A close cousin of #26, announcing the move before making it. Deliver the line.
+- **&quot;That loss is worth naming.&quot;** Therapist voice. Name it or don't.
+- **&quot;That's not nothing.&quot;** Also &quot;which is not nothing.&quot; A hedge pretending to be a concession. Give the actual size.
+- **Stacking any of the above.** Two in one paragraph is a tell even when each is individually defensible.
+
+**Before:**
+&gt; No meetings, no status reports, no overhead. Don't call it a process change, call it a reset. The time savings are real, and they're not subtle. Sit with that for a moment. The punchline is that nobody asked for it. That's not nothing.
+
+**After:**
+&gt; The team dropped the weekly status meeting and the written report that went with it. That's about three hours a week back, and nobody has asked for either one since.
+
+**How to check:** Simon Willison's [LLM cliché highlighter](https://tools.simonwillison.net/llm-cliche-highlighter) flags all twelve in pasted text or at a URL. Useful as a second pass once the patterns above are handled.
+
 ---
 
 ## Process
 
 1. Read the input text carefully
 2. Identify all instances of the patterns above
-3. Rewrite each problematic section
-4. Ensure the revised text:
+3. **Do an explicit em dash pass:** Find every `—` in the text and replace it with a comma, period, colon, or parentheses. Only keep an em dash if no alternative works.
+4. Rewrite each problematic section
+5. Ensure the revised text:
    - Sounds natural when read aloud
    - Varies sentence structure naturally
    - Uses specific details over vague claims
    - Maintains appropriate tone for context
    - Uses simple constructions (is/are/has) where appropriate
-5. Present the humanized version
+6. Present the humanized version
 
 ## Output Format
 
