@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>Pull Request Description - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body class="">
+    <header class="rd-topbar">
+        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
+            <span class="rd-brand__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 6l5 6-5 6"/>
+                    <path d="M13 18h6"/>
+                </svg>
+            </span>
+            <span class="rd-brand__name">Prompt Library</span>
+        </a>
+        
+        <div class="rd-topbar__search">
+            <form class="search-form" role="search">
+                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+                <label for="search-input" class="visually-hidden">Search</label>
+                <input type="search" id="search-input" class="search-input"
+                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+            </form>
+            <div id="search-results" class="search-results" hidden></div>
+        </div>
+        
+        <nav class="rd-topbar__links" aria-label="Primary">
+            <a href="/prompt_library/">Home</a>
+            <a href="/prompt_library/help">Help</a>
+        </nav>
+        <div class="rd-topbar__actions">
+            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>Pull Request Description</h1>
+  <p class="description">Write or improve a pull request or merge request description so a reviewer can act on it without reconstructing your reasoning from the diff. Use when opening a PR/MR, when asked to draft or rewrite a PR description or title, when filling in a PULL_REQUEST_TEMPLATE, or when a reviewer says a PR lacks context. Covers client-repo PRs, Drupal.org merge requests, and open source contributions.</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">pull-requests</span>
+      
+        <span class="tag">code-review</span>
+      
+        <span class="tag">git</span>
+      
+        <span class="tag">drupal</span>
+      
+        <span class="tag">open-source</span>
+      
+        <span class="tag">documentation</span>
+      
+    </div>
+    <div class="metadata-right">
+      
+      
+        <span class="last-updated">Updated 2026-08-12</span>
+      
+    </div>
+  </div>
+
+  
+  <details class="changelog-section">
+    <summary>Changelog (2 entries)</summary>
+    <ul class="changelog-list">
+      
+        <li class="changelog-entry">
+          
+          <time class="changelog-date" datetime="2026-08-12">2026-08-12</time>
+          <span class="changelog-summary">Added guidance to keep PR descriptions plain and free of padding, and made the humanizer pass unconditional.</span>
+        </li>
+      
+        <li class="changelog-entry">
+          
+          <time class="changelog-date" datetime="2026-08-12">2026-08-12</time>
+          <span class="changelog-summary">New skill for drafting pull request and merge request descriptions and titles, with separate guidance for client repos, Drupal.org merge requests, and open source contributions.</span>
+        </li>
+      
+    </ul>
+  </details>
+  
+
+  
+  
+  
+  <details class="skill-install-section">
+    <summary>Installation &amp; Resources</summary>
+    <div class="skill-install-content">
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        
+        <a href="/prompt_library/development/skills/pull-request-description/pull-request-description-resources.zip" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        
+      </div>
+      <ul class="resource-list">
+        
+        <li class="resource-item">
+          <a href="/prompt_library/development/skills/pull-request-description/references/sources.md" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">references/sources.md</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+      
+    
+  
+  <div class="agent-buttons">
+    
+    <button class="agent-button agent-button--copy" data-prompt="Download https://lullabot.github.io/prompt_library/development/skills/pull-request-description/pull-request-description-resources.zip — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources.">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
+  
+
+  <div class="content">
+    <pre><code>---
+name: pull-request-description
+description: Write or improve a pull request or merge request description so a reviewer can act on it without reconstructing your reasoning from the diff. Use when opening a PR/MR, when asked to draft or rewrite a PR description or title, when filling in a PULL_REQUEST_TEMPLATE, or when a reviewer says a PR lacks context. Covers client-repo PRs, Drupal.org merge requests, and open source contributions.
+---
+
+# Pull Request Descriptions
+
+A reviewer opening your PR has the diff. What they don't have is why the change exists, what you decided along the way, and how to confirm it works. Supplying those three things is the entire job.
+
+## Answer three questions
+
+Every description, however short, answers:
+
+1. **Why** — the problem, and the link to the ticket or issue.
+2. **What** — what changed, in reviewer-facing terms rather than a file listing.
+3. **How to verify** — the steps someone else follows to see it working.
+
+Lullabot's [A Quick Guide for Code Reviews](https://www.lullabot.com/articles/a-quick-guide-for-code-reviews) frames a pull request as the atomic unit that carries those three. [The Peer Review How-To Guide](https://www.lullabot.com/articles/the-peer-review-howto-guide) adds the reason to bother: the easier you make it for the reviewer, the faster it merges.
+
+## Workflow
+
+1. **Read the actual change.** `git diff &lt;base&gt;...HEAD --stat`, then the diff itself. Describe what the code does now, not what the ticket asked for. Those drift apart.
+2. **Find the ticket.** Pull the issue number from the branch name, the commits, or ask. Every title and description links back to it.
+3. **Check for a template.** If `.github/PULL_REQUEST_TEMPLATE.md` (or `.gitlab/merge_request_templates/`) exists, fill that structure instead of imposing your own. Never delete a template's sections to make room for prose.
+4. **Match the house style.** Skim two or three recently merged PRs in the repo. A repo with terse three-line descriptions does not want an essay.
+5. **Draft, then cut.** Aim for roughly 200 to 400 words in the body. Longer descriptions get skimmed, which defeats the point.
+6. **Keep the register plain.** A description is a work order, not a pitch. No scene-setting, no restating the ticket at length, no adjectives doing work the diff already does. If a sentence would survive being deleted, delete it.
+7. **Self-review the diff as if you were the reviewer.** Leave inline comments on anything surprising: a workaround, a decision that looks wrong without context, a deliberately out-of-scope chunk.
+
+## Template
+
+Adapt freely. The headings matter less than the questions being answered.
+
+```markdown
+## Why
+
+&lt;Problem in one or two sentences.&gt; Closes #123.
+
+## What changed
+
+- &lt;Change a reviewer needs to know about, in behavior terms.&gt;
+- &lt;Another one.&gt;
+- Out of scope: &lt;anything deliberately left alone, with the follow-up ticket.&gt;
+
+## How to verify
+
+1. &lt;Setup: branch, environment, URL, test user.&gt;
+2. &lt;Action.&gt;
+3. Expected: &lt;observable result.&gt;
+
+## Notes for the reviewer
+
+&lt;Approaches ruled out, known limitations, where you want the closest attention.&gt;
+```
+
+Drop sections that would be empty. A one-line CSS fix needs Why and How to verify, and nothing else.
+
+## Titles
+
+The title is the part that shows up in changelogs, release notes, and six months of `git log`. Write it as an action.
+
+| Context | Format | Example |
+| --- | --- | --- |
+| Client / internal repo | `[TICKET-ID] Imperative description` | `[PROJ-1234] Prevent nav bar from bouncing on scroll` |
+| Drupal.org merge request | `Issue #NNNNNNN: Brief description` | `Issue #3467675: Make URL field required by default` |
+| Open source, no tracker | Imperative summary | `Cache the taxonomy term lookup in the menu builder` |
+
+Rules that hold everywhere:
+
+- Start with a verb, in the imperative. &quot;Delete the RPC&quot;, not &quot;Deleting the RPC&quot; and not &quot;Deleted the RPC.&quot;
+- Be specific enough to stand alone. Google's [CL description guidance](https://google.github.io/eng-practices/review/developer/cl-descriptions.html) names the failures: &quot;Fix bug&quot;, &quot;Fix build&quot;, &quot;Phase 1&quot;, &quot;Moving code from A to B.&quot;
+- Describe the change, not the symptom. &quot;Prevent nav bar from bouncing on scroll&quot; beats &quot;Navigation is wonky.&quot;
+- Prefix `[WIP]` or open as a draft when it isn't ready for review, and say what feedback you want.
+
+Branch names follow the Lullabot ADR [`[ticket-id]--[short-description]`](https://architecture.lullabot.com/adr/20220920-git-branch-naming/) — double dash, no forward slashes. When no ticket exists the ADR substitutes a prefix in the ticket-id slot, keeping the separator: `NOTICKET--fix-jumping-nav`, `0--fix-jumping-nav`, or `HOTFIX--remove-has-krumo` for urgent fixes.
+
+## Scope
+
+Description quality is downstream of PR scope. A PR that does three unrelated things cannot be described well.
+
+- **One change type per PR.** Drupal's [merge request guidelines](https://www.drupal.org/docs/develop/git/using-git-to-contribute-to-drupal/merge-request-guidelines) put bug fixes, performance work, and code style fixes in separate merge requests. The same discipline helps in client repos.
+- **Split, don't apologize.** If the description needs &quot;also, unrelated:&quot;, that's a second PR.
+- **Keep main deployable.** Lullabot's [main-branch ADR](https://architecture.lullabot.com/adr/20251125-main-deployable/) rules out long-lived integration branches, so each PR merges on its own merit and its description has to stand on its own.
+- **Follow-ups over stalling.** When review discussion outgrows the change, file a follow-up ticket, link it in the description, and merge.
+
+## Drupal.org contributions
+
+Drupal.org inverts the usual weighting: the **issue summary** is the canonical record, not the merge request body.
+
+- Keep the [issue summary](https://www.drupal.org/docs/develop/issues/fields-and-other-parts-of-an-issue/issue-summary-field) current: problem, proposed resolution, remaining tasks, user interface changes, API changes. Reviewers and committers read this first.
+- Record **approaches tried and ruled out**, with the reasoning. This is the section other contributors most often need and most often lack.
+- The MR description defaults to `Closes #issue_number`. Expand it with the problem summary, the key changes, and any known limitations or follow-up work, per [Creating merge requests](https://www.drupal.org/docs/develop/git/using-gitlab-to-contribute-to-drupal/creating-merge-requests).
+- Note automated test coverage explicitly. Merge requests with tests are likelier to be accepted.
+
+## Open source contributions
+
+- Read `CONTRIBUTING.md` before writing anything. It outranks this skill.
+- Assume the reader has no history with your work. GitHub's [how to write the perfect pull request](https://github.blog/developer-skills/github/how-to-write-the-perfect-pull-request/) makes the point that anyone might read this, at any point in the future.
+- Say what kind of feedback you want: architecture, correctness, wording, or a sanity check on an approach before you go further.
+- Link the issue you're fixing and confirm a maintainer wanted it fixed. Unsolicited large PRs get closed.
+- Screenshots or a short recording for anything visual. Before and after, in the same viewport.
+
+## Anti-patterns
+
+- **A file-by-file narration of the diff.** The reviewer has the diff. Tell them what it means.
+- **A description written from the ticket rather than the code.** They diverge, and the reviewer trusts the description.
+- **&quot;See ticket.&quot;** The ticket describes the problem. Only the PR describes the solution.
+- **Silent scope expansion.** An unmentioned refactor buried in a bug fix is the fastest way to lose a reviewer's trust.
+- **A checked template with empty answers.** &quot;Tested: yes&quot; tells a reviewer nothing they can repeat.
+- **Fifteen-checkbox templates.** They get rubber-stamped. Keep repo templates short enough that people fill them in honestly.
+- **Padding.** Preamble about the importance of the area, a paragraph restating the ticket, or a closing line summarizing what the reader just read. Each one costs the reviewer time and adds nothing.
+
+## Before you post
+
+- Title starts with a verb and carries the ticket reference.
+- Ticket linked with a closing keyword (`Closes #123`) where the tracker supports it.
+- Verification steps are numbered and specific enough for someone else's machine.
+- Anything out of scope is named, with a follow-up link.
+- Screenshots for visual changes.
+- No credentials, internal URLs, or customer data in the body or screenshots.
+- In a client repo: no other client's name anywhere in the description, commits, or screenshots.
+- No invented time estimates. Describe the work, not how long you imagine review will take.
+- Nothing flowery. Every sentence carries information a reviewer needs.
+- Run the `humanizer` skill over the description. Then grep for `—` and `–`; a hit means the pass isn't finished.
+
+## Sources
+
+`references/sources.md` collects the guides this skill draws on, with what each one contributes.
+
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Agent action buttons */
+  .agent-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
+  }
+
+  .agent-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = 'Copy for agent';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  });
+</script>
+
+    </main>
+
+    <footer class="rd-footer">
+        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
+        <div class="rd-footer__links">
+            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/prompt_library/help">Help</a>
+        </div>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
