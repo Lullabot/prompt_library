@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="base-url" content="/prompt_library">
+    <title>GitHub Attachments - Prompt Library</title>
+    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/prompt_library/assets/js/theme.js"></script>
+</head>
+<body class="">
+    <header class="rd-topbar">
+        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
+            <span class="rd-brand__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 6l5 6-5 6"/>
+                    <path d="M13 18h6"/>
+                </svg>
+            </span>
+            <span class="rd-brand__name">Prompt Library</span>
+        </a>
+        
+        <div class="rd-topbar__search">
+            <form class="search-form" role="search">
+                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
+                <label for="search-input" class="visually-hidden">Search</label>
+                <input type="search" id="search-input" class="search-input"
+                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
+            </form>
+            <div id="search-results" class="search-results" hidden></div>
+        </div>
+        
+        <nav class="rd-topbar__links" aria-label="Primary">
+            <a href="/prompt_library/">Home</a>
+            <a href="/prompt_library/help">Help</a>
+        </nav>
+        <div class="rd-topbar__actions">
+            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
+                <i class="fas fa-moon" aria-hidden="true"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        
+<div class="markdown-content">
+  <h1>GitHub Attachments</h1>
+  <p class="description">Upload images, screenshots, videos, and other files to GitHub so they render inside an issue, pull request, comment, release note, or wiki page. Use when a GitHub body needs an embedded screenshot or diagram, when asked to &quot;attach this image to the issue&quot;, when a bug report needs a visual, or when a PR description should show before/after screenshots. Covers the undocumented user-attachments upload endpoint, MIME/size limits, and the markdown to embed the result.</p>
+
+  <div class="metadata">
+    <div class="tags">
+      
+        <span class="tag">github</span>
+      
+        <span class="tag">attachments</span>
+      
+        <span class="tag">screenshots</span>
+      
+        <span class="tag">issues</span>
+      
+        <span class="tag">pull-requests</span>
+      
+        <span class="tag">cli</span>
+      
+    </div>
+    <div class="metadata-right">
+      
+      
+        <span class="last-updated">Updated 2026-08-27</span>
+      
+    </div>
+  </div>
+
+  
+  <details class="changelog-section">
+    <summary>Changelog (2 entries)</summary>
+    <ul class="changelog-list">
+      
+        <li class="changelog-entry">
+          
+          <time class="changelog-date" datetime="2026-08-27">2026-08-27</time>
+          <span class="changelog-summary">Added an `--alt=&quot;...&quot;` flag for the upload helper, fixed uploads of filenames containing special characters, and the helper now fails with a clear message when `gh`, `jq`, `curl`, or `file` is missing.</span>
+        </li>
+      
+        <li class="changelog-entry">
+          
+          <time class="changelog-date" datetime="2026-08-27">2026-08-27</time>
+          <span class="changelog-summary">New skill for uploading screenshots and files to GitHub and embedding them in issues, PRs, and comments, with a `gh-upload-attachment.sh` helper that resolves the repo and MIME type automatically.</span>
+        </li>
+      
+    </ul>
+  </details>
+  
+
+  
+  
+  
+  <details class="skill-install-section">
+    <summary>Installation &amp; Resources</summary>
+    <div class="skill-install-content">
+      <div class="skill-install-header">
+        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
+        
+        <a href="/prompt_library/development/skills/github-attachments/github-attachments-resources.zip" class="zip-download-link" download>
+          <i class="fas fa-file-archive"></i> Download all as .zip
+        </a>
+        
+      </div>
+      <ul class="resource-list">
+        
+        <li class="resource-item">
+          <a href="/prompt_library/development/skills/github-attachments/scripts/gh-upload-attachment.sh" class="resource-link" download>
+            <span class="resource-icon" aria-hidden="true">📄</span>
+            <span class="resource-path">scripts/gh-upload-attachment.sh</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </details>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  
+    
+      
+    
+  
+  <div class="agent-buttons">
+    
+    <button class="agent-button agent-button--copy" data-prompt="Download https://lullabot.github.io/prompt_library/development/skills/github-attachments/github-attachments-resources.zip — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources.">
+      <span class="agent-button-label">Copy for agent</span>
+    </button>
+  </div>
+  
+  <p class="agent-help">Paste into Claude Code or Claude Cowork to run with this skill context.</p>
+  
+  
+
+  <div class="content">
+    <pre><code>---
+name: github-attachments
+description: Upload images, screenshots, videos, and other files to GitHub so they render inside an issue, pull request, comment, release note, or wiki page. Use when a GitHub body needs an embedded screenshot or diagram, when asked to &quot;attach this image to the issue&quot;, when a bug report needs a visual, or when a PR description should show before/after screenshots. Covers the undocumented user-attachments upload endpoint, MIME/size limits, and the markdown to embed the result.
+---
+
+# Attaching files to GitHub content
+
+GitHub's public API has no endpoint for issue or PR attachments. The web UI uploads through `uploads.github.com/user-attachments/assets`, which is undocumented but works with a normal `gh auth token`. Source: [Ben Sheldon, &quot;Programmatically upload attachments to GitHub issues, pull requests, comments&quot;](https://island94.org/2026/08/programmatically-upload-attachments-to-github-issues-pull-requests-comments).
+
+Because it is unofficial, it can change or disappear without notice. If a call starts returning 404 or 422 where it used to work and the troubleshooting below does not explain it, stop. Tell the user the endpoint looks like it has changed and let them decide what to do. Do not spend a session reverse-engineering a replacement.
+
+## Upload
+
+Use the bundled helper (`&lt;skill-dir&gt;/scripts/gh-upload-attachment.sh`):
+
+```bash
+bash &lt;skill-dir&gt;/scripts/gh-upload-attachment.sh screenshot.png --markdown --alt=&quot;Checkout form with the ZIP field overlapping the submit button&quot;
+# ![Checkout form with the ZIP field overlapping the submit button](https://github.com/user-attachments/assets/1ccd36c3-...)
+```
+
+Arguments: the file path, then optionally `owner/repo` (defaults to the current directory's GitHub remote), `--alt=&quot;...&quot;`, and one of `--markdown` or `--html`. With no format flag it prints the bare URL. Always pass `--alt`; without it the helper falls back to the filename, which tells a screen reader nothing. The helper URL-encodes the filename and MIME type and HTML-escapes the alt string, so awkward filenames and quotes in the alt text are safe.
+
+The raw call, if you need to do it inline:
+
+```bash
+FILE=screenshot.png
+REPO=owner/name
+curl -sS &quot;https://uploads.github.com/user-attachments/assets?name=$FILE&amp;content_type=image/png&amp;repository_id=$(gh api &quot;repos/$REPO&quot; --jq .id)&quot; \
+  -X POST \
+  -H &quot;Authorization: Bearer $(gh auth token)&quot; \
+  -H &quot;Accept: application/json&quot; \
+  --data-binary &quot;@$FILE&quot;
+# {&quot;url&quot;:&quot;https://github.com/user-attachments/assets/&lt;uuid&gt;&quot;}
+```
+
+The response is a single JSON object with a `url` key. A 201 means success.
+
+## Embed
+
+The upload does not attach the file to anything. It returns a URL, and the file only shows up where you paste that URL.
+
+```bash
+BODY=&quot;Repro on staging:
+
+![Broken layout](https://github.com/user-attachments/assets/&lt;uuid&gt;)&quot;
+
+gh issue create --repo owner/name --title &quot;...&quot; --body &quot;$BODY&quot;
+gh issue comment 123 --repo owner/name --body &quot;$BODY&quot;
+gh pr create --body &quot;$BODY&quot;
+```
+
+For a body with several images or any shell-hostile characters, write it to a file and use `--body-file` instead of `--body`.
+
+Use HTML when you need to control the size, which is usually the case for full-page screenshots:
+
+```html
+&lt;img src=&quot;https://github.com/user-attachments/assets/&lt;uuid&gt;&quot; alt=&quot;Broken layout on mobile&quot; width=&quot;600&quot;&gt;
+```
+
+Before/after pairs read best in a table:
+
+```markdown
+| Before | After |
+| --- | --- |
+| &lt;img src=&quot;URL_A&quot; width=&quot;400&quot;&gt; | &lt;img src=&quot;URL_B&quot; width=&quot;400&quot;&gt; |
+```
+
+## Rules
+
+- **Always write real alt text.** The alt text carries the point of the screenshot for anyone using a screen reader, and for anyone reading the issue when the image fails to load. `![screenshot](...)` says nothing. Describe what the image shows: `![Checkout form with the ZIP field overlapping the submit button](...)`.
+- **An image supplements the text, it never replaces it.** Error messages, stack traces, and config go in the body as text so they are searchable and copyable. Screenshot the thing a screenshot is actually needed for: layout, rendering, a UI state.
+- **The repo scopes the upload, not the placement.** Upload against the repo where the content will live. Do not upload a client's screenshot against an unrelated repo just because it is the current directory.
+- **Check what is in the frame before uploading.** Screenshots leak: session tokens in a URL bar, other clients' names in browser tabs, staff email addresses, customer data in a CMS listing. Crop or redact first. In a client repo this also means the cross-client rule applies to pixels, not just prose.
+- **Anyone with the URL can view the asset**, including on a private repo. Treat the URL as the access control.
+- **The asset persists** once uploaded, whether or not you ever reference it. There is no delete API here.
+
+## Limits and formats
+
+GitHub's own upload limits apply: 10MB for images and gifs, 10MB for most other files, 25MB for videos (100MB for accounts on a paid plan). Supported types include PNG, JPEG, GIF, WEBP, SVG, PDF, plain text, MP4, MOV, and zip. Compress or trim before uploading rather than finding out at the request.
+
+Set `content_type` to the file's real MIME type. The helper reads it with `file --mime-type`; if you hand-roll the call, do not guess `image/png` for a `.jpg`.
+
+## Troubleshooting
+
+- **401** — `gh auth token` returned nothing or an expired token. Run `gh auth status`. Any source gh recognizes works here, including a `GH_TOKEN` or `GITHUB_TOKEN` exported by a secret manager such as `op run`, since `gh auth token` prints the environment token when one is set.
+- **404 on the `repos/` lookup** — wrong `owner/repo`, or the token cannot see a private repo. Confirm with `gh repo view owner/name`.
+- **422** — usually a missing or mismatched `content_type`, or a file over the size limit.
+- **The URL renders as a link instead of an image** — the markdown is missing the leading `!`, or the content type was uploaded as something other than an image type.
+
+</code></pre>
+
+  </div>
+</div>
+
+<style>
+  .markdown-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .description {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .metadata-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    margin-left: auto;
+  }
+
+  .tag {
+    background-color: var(--tag-background);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .version-badge {
+    background-color: var(--accent-color);
+    color: #12212b;
+    padding: 0.15rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+
+  .last-updated {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .changelog-section {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    padding: 0;
+  }
+
+  .changelog-section summary {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95rem;
+  }
+
+  .changelog-section summary:hover {
+    color: var(--primary-color);
+  }
+
+  .changelog-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 1rem 0.75rem;
+  }
+
+  .changelog-entry {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.4rem 0;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.875rem;
+  }
+
+  .changelog-version {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    color: var(--accent-color);
+  }
+
+  .changelog-date {
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-size: 0.8rem;
+  }
+
+  .changelog-summary {
+    color: var(--text-color);
+  }
+
+  .content {
+    line-height: 1.6;
+  }
+
+  .content h2 {
+    color: var(--text-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .content ul, .content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Install header with zip link */
+  .skill-install-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+  }
+
+  .skill-install-header p {
+    margin: 0;
+  }
+
+  .zip-download-link {
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: all 0.2s;
+  }
+
+  .zip-download-link:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  /* Resource list inside collapsible */
+  .resource-list {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+  }
+
+  .resource-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+
+  .resource-link:hover {
+    background-color: var(--tag-background);
+    border-color: var(--primary-color);
+  }
+
+  .resource-icon {
+    font-size: 1rem;
+  }
+
+  /* Agent action buttons */
+  .agent-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .agent-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: var(--surface-color);
+    color: var(--text-muted);
+  }
+
+  .agent-button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  .agent-button--claude:hover {
+    border-color: #d97706;
+    color: #d97706;
+  }
+
+  .agent-button--chatgpt:hover {
+    border-color: #10a37f;
+    color: #10a37f;
+  }
+
+  .agent-button--copy.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+
+  .agent-help {
+    margin: -0.75rem 0 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  /* Code block styling */
+  .content pre {
+    background-color: var(--code-background);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border: 1px solid var(--code-border);
+    position: relative;
+  }
+
+  .content pre code {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    display: block;
+  }
+
+  /* Inline code styling */
+  .content code:not(pre code) {
+    background-color: var(--inline-code-background);
+    color: var(--inline-code-text);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: var(--font-mono);
+  }
+
+  /* Copy button styling */
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+  }
+
+  .content pre:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background-color: var(--tag-background);
+    border-color: var(--text-muted);
+  }
+
+  .copy-button.copied {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #12212b;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Add copy button to all code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const code = pre.querySelector('code');
+      if (code) {
+        const button = document.createElement('button');
+        button.className = 'copy-button';
+        button.textContent = 'Copy';
+
+        button.addEventListener('click', async () => {
+          try {
+            await navigator.clipboard.writeText(code.textContent);
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed to copy';
+          }
+        });
+
+        pre.appendChild(button);
+      }
+    });
+
+    // "Copy for agent" button
+    document.querySelectorAll('.agent-button--copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.prompt);
+          const label = button.querySelector('.agent-button-label');
+          label.textContent = 'Copied!';
+          button.classList.add('copied');
+          setTimeout(() => {
+            label.textContent = 'Copy for agent';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  });
+</script>
+
+    </main>
+
+    <footer class="rd-footer">
+        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
+        <div class="rd-footer__links">
+            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="/prompt_library/help">Help</a>
+        </div>
+    </footer>
+
+    <div id="markdown-modal" class="markdown-modal">
+        <div class="markdown-content">
+            <button class="close-button" aria-label="Close">&times;</button>
+            <div id="markdown-display" class="markdown-body"></div>
+        </div>
+    </div>
+
+    <script src="/prompt_library/assets/js/main.js"></script>
+</body>
+</html> 
