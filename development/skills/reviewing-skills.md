@@ -9,8 +9,12 @@ date: '2026-06-11'
 layout: markdown.njk
 discipline: development
 contentType: skills
-lastUpdated: '2026-06-11'
+lastUpdated: '2026-09-22'
 changelog:
+  - date: '2026-09-22'
+    summary: >-
+      Synced the best-practices rubric with current Anthropic guidance, adding
+      evaluation and testing checks
   - date: '2026-06-11'
     summary: >-
       Added a skill that reviews a skill against authoring best practices and

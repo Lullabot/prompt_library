@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="/prompt_library">
-    <title>Reviewing Skills - Prompt Library</title>
+    <title>Refresh - Prompt Library</title>
     <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
     <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -49,19 +49,15 @@
     <main>
         
 <div class="markdown-content">
-  <h1>Reviewing Skills</h1>
-  <p class="description">Reviews a Claude Code skill against skill-authoring best practices and produces a prioritized, non-blocking report. Use when creating, editing, or reviewing a SKILL.md, a skill&#39;s meta.yml, or a skill directory, or when asked whether a skill follows best practices.</p>
+  <h1>Refresh</h1>
+  <p class="description">Return a git repo to a clean, up-to-date default branch. Discards throwaway local changes, removes untracked files, checks out the default branch (main/master/develop, whatever origin says) and fast-forwards it. Stops without touching anything if it finds work that looks worth keeping, meaning real uncommitted edits or commits that exist only locally. Use when the user types /refresh, or asks to reset, clean up, or refresh a repo or checkout, or to &quot;get back to main and pull&quot; or start fresh from the latest default branch.</p>
 
   <div class="metadata">
     <div class="tags">
       
-        <span class="tag">skills</span>
+        <span class="tag">git</span>
       
-        <span class="tag">authoring</span>
-      
-        <span class="tag">best practices</span>
-      
-        <span class="tag">quality assurance</span>
+        <span class="tag">local-development</span>
       
     </div>
     <div class="metadata-right">
@@ -74,19 +70,13 @@
 
   
   <details class="changelog-section">
-    <summary>Changelog (2 entries)</summary>
+    <summary>Changelog (1 entry)</summary>
     <ul class="changelog-list">
       
         <li class="changelog-entry">
           
           <time class="changelog-date" datetime="2026-09-22">2026-09-22</time>
-          <span class="changelog-summary">Synced the best-practices rubric with current Anthropic guidance, adding evaluation and testing checks</span>
-        </li>
-      
-        <li class="changelog-entry">
-          
-          <time class="changelog-date" datetime="2026-06-11">2026-06-11</time>
-          <span class="changelog-summary">Added a skill that reviews a skill against authoring best practices and produces a prioritized, non-blocking report.</span>
+          <span class="changelog-summary">Added refresh skill, which resets a repo to a clean, up-to-date default branch and halts if it finds unsaved work</span>
         </li>
       
     </ul>
@@ -95,30 +85,6 @@
 
   
   
-  
-  <details class="skill-install-section">
-    <summary>Installation &amp; Resources</summary>
-    <div class="skill-install-content">
-      <div class="skill-install-header">
-        <p>This skill includes companion scripts and files. Download them to your local <code>~/.claude/skills/</code> directory.</p>
-        
-        <a href="/prompt_library/development/skills/reviewing-skills/reviewing-skills-resources.zip" class="zip-download-link" download>
-          <i class="fas fa-file-archive"></i> Download all as .zip
-        </a>
-        
-      </div>
-      <ul class="resource-list">
-        
-        <li class="resource-item">
-          <a href="/prompt_library/development/skills/reviewing-skills/references/skill-best-practices.md" class="resource-link" download>
-            <span class="resource-icon" aria-hidden="true">📄</span>
-            <span class="resource-path">references/skill-best-practices.md</span>
-          </a>
-        </li>
-        
-      </ul>
-    </div>
-  </details>
   
 
   
@@ -140,7 +106,7 @@
   
   <div class="agent-buttons">
     
-    <button class="agent-button agent-button--copy" data-prompt="Download https://lullabot.github.io/prompt_library/development/skills/reviewing-skills/reviewing-skills-resources.zip — it contains a skill definition (SKILL.md) and companion resources. Extract it and install the skill and its resources.">
+    <button class="agent-button agent-button--copy" data-prompt="Fetch the skill definition from https://lullabot.github.io/prompt_library/development/skills/refresh/SKILL.md and add it to my skills.">
       <span class="agent-button-label">Copy for agent</span>
     </button>
   </div>
@@ -151,115 +117,95 @@
 
   <div class="content">
     <pre><code>---
-name: reviewing-skills
-description: Reviews a Claude Code skill against skill-authoring best practices and produces a prioritized, non-blocking report. Use when creating, editing, or reviewing a SKILL.md, a skill's meta.yml, or a skill directory, or when asked whether a skill follows best practices.
+name: refresh
+description: Return a git repo to a clean, up-to-date default branch. Discards throwaway local changes, removes untracked files, checks out the default branch (main/master/develop, whatever origin says) and fast-forwards it. Stops without touching anything if it finds work that looks worth keeping, meaning real uncommitted edits or commits that exist only locally. Use when the user types /refresh, or asks to reset, clean up, or refresh a repo or checkout, or to &quot;get back to main and pull&quot; or start fresh from the latest default branch.
+argument-hint: &quot;[path]&quot;
 ---
 
-# Reviewing Skills
+# Refresh a repo
 
-Review a skill against Anthropic's skill-authoring best practices and report what could be
-improved. This is **advisory**: produce recommendations, never edit the skill unless the
-user explicitly asks. Nothing here blocks a commit.
+The goal is a checkout on the default branch, matching origin, with a clean working tree, without ever throwing away something the user would miss. `git reset --hard` and `git clean` can't be undone, so the survey step decides everything. Be quick when the tree is clearly disposable and stop when it isn't.
 
-The rubric you score against lives at
-[references/skill-best-practices.md](references/skill-best-practices.md) — a vendored,
-version-pinned copy of the upstream guidance. Read it before reviewing.
+## 0. Find the repo
 
-## When to run this
+Work in the current directory unless `$ARGUMENTS` names a path. Run `git rev-parse --show-toplevel` and use `git -C &lt;toplevel&gt;` for everything after that, so a `cd` in the middle can't point you at the wrong repo.
 
-- The user is creating or editing a `SKILL.md`, `meta.yml`, or a skill directory.
-- The user asks &quot;does this skill follow best practices?&quot;, &quot;review my skill&quot;, or similar.
-- Proactively, when you notice you're helping author a skill — offer a quick review.
+## 1. Survey (read-only)
 
-Keep it lightweight and opt-in. Offer the review; don't force it, and don't gate the user's
-work on it.
+Run these together:
 
-## Review workflow
-
-1. **Identify the target skill directory** (the folder containing `SKILL.md`). If the user
-   didn't name one, ask or infer from the file being edited.
-
-2. **Run the deterministic checks** and capture the output:
-
-   ```bash
-   node scripts/review-skill.js &lt;skill-dir&gt;
-   ```
-
-   This reports the mechanical findings (body length, `name`/`description` rules,
-   Windows-style paths, nested references, missing table-of-contents, rubric staleness). It
-   is advisory and always exits 0. Fold its findings into your report rather than repeating
-   the work by hand.
-
-3. **Read the rubric**: [references/skill-best-practices.md](references/skill-best-practices.md).
-
-4. **Assess the judgment calls** the script can't — these are where you add value:
-   - Is the `description` genuinely specific, or just superficially detailed? Would a
-     different skill trigger instead?
-   - Is the body **concise**, or does it explain things Claude already knows?
-   - Is the **degree of freedom** right (prose vs. exact commands) for how fragile the task
-     is?
-   - Is **progressive disclosure** used well — overview inline, detail in linked files?
-   - Are **examples concrete** (input/output pairs) where output style matters?
-   - Is **terminology consistent**? Any **time-sensitive** content that will rot?
-   - For skills with scripts: do they solve rather than punt, avoid magic constants, declare
-     dependencies, and make execute-vs-read intent clear?
-   - Is the **naming** clear (gerund form preferred, but noun-phrase and action-oriented are
-     fine)? Only flag a name that is vague or genuinely confusing.
-
-5. **Emit the report** using the template below.
-
-## Report template
-
-Group findings by rubric area. Tag each as **Pass**, **Suggestion**, or **Issue**, and give
-a one-line concrete fix. End with a short, prioritized list. Keep it scannable.
-
-```
-# Skill review: &lt;skill-name&gt;
-
-## Frontmatter
-- [Issue] description is first-person — rewrite in third person: &quot;Generates …&quot;.
-- [Pass] name is valid and matches the directory.
-
-## Conciseness &amp; structure
-- [Suggestion] SKILL.md body is 540 lines — move the API table into reference/api.md.
-
-## Progressive disclosure
-- [Pass] Detail files are linked one level deep from SKILL.md.
-
-## Content &amp; examples
-- [Suggestion] The commit-message section would benefit from input/output example pairs.
-
-## Scripts (if any)
-- [Issue] scripts/run.py uses TIMEOUT = 47 with no rationale — document or derive it.
-
-## Top recommendations
-1. Rewrite the description in third person with explicit triggers.
-2. Split the SKILL.md body below 500 lines.
-3. Add two concrete examples to the commit-message section.
+```bash
+git -C &quot;$R&quot; status --porcelain=v1 --branch
+git -C &quot;$R&quot; diff HEAD --stat
+git -C &quot;$R&quot; clean -nd                     # untracked files that clean -fd would delete
+git -C &quot;$R&quot; log --oneline HEAD --not --remotes   # commits that exist nowhere on a remote
+git -C &quot;$R&quot; stash list
+ls &quot;$(git -C &quot;$R&quot; rev-parse --git-dir)&quot; | grep -E '^(MERGE_HEAD|REBASE_(HEAD|APPLY|MERGE)|rebase-(apply|merge)|CHERRY_PICK_HEAD|REVERT_HEAD|BISECT_LOG)$'
 ```
 
-If there are no findings, say so plainly and note anything the skill does well.
+`HEAD --not --remotes` also covers a detached HEAD, where checking out another branch would leave local commits hard to find.
 
-## Refresh mode
+When `--stat` shows changes, read the actual diff (`git diff HEAD`, or just the files in question if it's large) and look at the untracked files before you decide. File names alone don't tell you whether an edit is trivial.
 
-The vendored rubric carries a `last_synced:` date. When it's stale (the deterministic check
-flags it after 30 days), or when the user asks to update the best practices:
+## 2. Decide: halt or proceed
 
-1. `WebFetch` the canonical URL recorded at the top of
-   [references/skill-best-practices.md](references/skill-best-practices.md).
-2. Compare the fetched guidance against the vendored rubric and the checks in
-   `scripts/review-skill.js`.
-3. Propose edits to the rubric (and, if a *mechanical* rule changed, to `review-skill.js`)
-   for the user to approve.
-4. Update the `last_synced:` date in the rubric header.
+**Halt** if any of these are true:
 
-Don't refresh silently — show the diff and let the user accept it.
+- **Uncommitted changes that look like real work.** That includes code, config, content or docs someone wrote, a new source file, or a deliberate deletion. If you can't tell, treat it as real work.
+- **Local-only commits.** The log in step 1 printed anything. Checking out another branch doesn't delete them, but a branch no one pushed is easy to forget and may be the only copy of that work.
+- **An operation in progress** (merge, rebase, cherry-pick, revert or bisect). A hard reset would drop that operation halfway through.
 
-## Boundaries
+**Disposable, fine to discard:**
 
-- **Advisory only.** Do not edit the reviewed skill unless the user asks you to apply a fix.
-- This skill complements, and never replaces, the blocking structural gate in
-  `scripts/validate-skills.js`.
+- Whitespace-only or line-ending-only diffs, and file mode (chmod) flips
+- Lockfile or generated-file churn from an install or build (`composer.lock`, `package-lock.json`, compiled CSS/JS, `.phpunit.result.cache`)
+- Editor and tool debris: `*.swp`, `.DS_Store`, `.playwright-cli/`, logs, core dumps
+- Edits you or the user made earlier in this conversation and have since said to throw away
+
+When you halt, change nothing: no stash, no commit, no partial reset. Report what you found, grouped by type, with file paths and a one-line gist of each meaningful change and the local-only commits (`sha subject`). Say what the user could do (commit, push, stash, or tell you to discard it anyway), then stop. If the user then says to discard it, go ahead with step 3. The commits need no action, because the refresh doesn't delete them.
+
+Stashes survive a refresh. Don't halt for them, but mention them in the final report if any exist.
+
+## 3. Refresh
+
+```bash
+git -C &quot;$R&quot; fetch --prune origin
+```
+
+Find the default branch from origin's HEAD:
+
+```bash
+git -C &quot;$R&quot; symbolic-ref --short refs/remotes/origin/HEAD   # e.g. origin/main -&gt; main
+```
+
+If that fails (origin/HEAD was never set), run `git -C &quot;$R&quot; remote set-head origin --auto` and try again. If it still fails, use `gh repo view --json defaultBranchRef -q .defaultBranchRef.name` from inside the repo. Don't guess `main`. If there's no `origin` but exactly one remote, use that one. With several remotes and no `origin`, ask.
+
+Then:
+
+```bash
+git -C &quot;$R&quot; reset --hard
+git -C &quot;$R&quot; clean -fd
+git -C &quot;$R&quot; checkout &quot;$DEFAULT&quot;             # creates the tracking branch if there's no local one yet
+git -C &quot;$R&quot; merge --ff-only &quot;origin/$DEFAULT&quot;
+```
+
+`clean -fd` removes untracked files and directories but keeps anything gitignored (vendor/, node_modules/, .env, ddev config), which is what we want. Don't escalate to `-x`.
+
+If `.gitmodules` exists, finish with `git -C &quot;$R&quot; submodule update --init --recursive`.
+
+### When a step fails
+
+- **Checkout refused: the branch is already checked out in another worktree.** Report which worktree has it (`git worktree list`) and stop. Don't force it.
+- **Fast-forward refused: the local default branch has diverged from origin.** Step 1 would already have caught any local-only commits reachable from HEAD, so this means someone committed to the local default branch while on a different branch. Show `git log --oneline origin/$DEFAULT..$DEFAULT` and stop. Resetting to origin would throw those commits away, and that's the user's call.
+- **Fetch fails** (network, auth or VPN). Say so, and don't continue with a stale checkout while presenting it as current.
+
+## 4. Report
+
+Keep it short:
+
+- The branch you're on now, and `old..new` short SHAs from the fast-forward (or &quot;already up to date&quot;)
+- What got discarded, if anything: counts and a few example paths
+- Anything worth knowing: stashes, other local branches with local-only commits, a changed lockfile that probably means running `composer install` or `npm ci`
 
 </code></pre>
 
