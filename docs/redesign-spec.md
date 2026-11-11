@@ -1,5 +1,7 @@
 # Prompt Library — Homepage Redesign Spec
 
+> **Superseded (2026-11-10).** The site now follows the Lullabot App Design System (see "Design System" in `README.md`). The `--rd-*` tokens, `redesign.css` and the rounded Framer components described below no longer exist. The page structure (search, install callout, recently added, type cards, discipline matrix, call to action) carried over. This file is kept as a record of the earlier design.
+
 Source of truth for the homepage redesign. Extracted from the Framer project
 **"Miraculous Motivation"** (`8OZqoCrNXFsUHCrgmH3H`), page `/` (node `augiA20Il`),
 plus the design page **"Prompt Library Theme Comparison"** (light + dark versions).

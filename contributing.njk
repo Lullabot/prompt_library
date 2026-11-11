@@ -4,39 +4,36 @@ description: "Learn how to contribute new content to the Prompt Library"
 layout: "base.njk"
 ---
 
-<div class="container">
-  <h1 class="page-title">How to Contribute Content</h1>
+<div class="pl-container pl-main">
+  <div class="pl-measure pl-stack">
   
-  <p class="intro-text">
+  <p class="ds-body-md">
     The Prompt Library thrives on community contributions. This guide explains various ways to add your own prompts, rules, project configurations, workflow states, or skills to the library. Note that skills are contributed via a separate upstream repository — see <strong>Contributing a Skill</strong> below.
   </p>
 
-  <div class="quick-submit">
-    <h2>Quick Submit</h2>
-    <p>If you want to quickly submit new content, use one of the forms below. No need to fork or make a pull request!</p>
-    <div class="submit-links">
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
-      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
-      <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button" target="_blank">Submit a Skill</a>
+  <section class="ds-panel">
+    <h2 class="ds-section-title">Quick Submit</h2>
+    <p class="ds-section-note">If you want to quickly submit new content, use one of the forms below. No need to fork or make a pull request!</p>
+    <div class="pl-row pl-mt-24">
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="ds-btn ds-btn-secondary">Submit a Prompt</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="ds-btn ds-btn-secondary">Submit a Rule</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="ds-btn ds-btn-secondary">Submit a Project Config</a>
+      <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="ds-btn ds-btn-secondary">Submit a Workflow State</a>
+      <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="ds-btn ds-btn-secondary" target="_blank" rel="noopener noreferrer">Submit a Skill</a>
     </div>
-    <p class="quick-submit-note">Skills are submitted to the <a href="https://github.com/Lullabot/lullabot-skills" target="_blank">lullabot-skills</a> repository and synced here automatically.</p>
-  </div>
+    <p class="ds-hint pl-mt-16">Skills are submitted to the <a class="ds-link" href="https://github.com/Lullabot/lullabot-skills" target="_blank" rel="noopener noreferrer">lullabot-skills</a> repository and synced here automatically.</p>
+  </section>
 
-  <div class="accordion-container">
-    <div class="accordion">
-      <button class="accordion-btn active">
-        <h2>1. GitHub Direct Contribution</h2>
-        <span class="accordion-icon">▼</span>
-      </button>
-      <div class="accordion-content show">
-        <div class="method-content">
+  <section>
+    <details class="pl-accordion" open>
+      <summary><h2 class="pl-accordion__title">1. GitHub Direct Contribution</h2></summary>
+      <div class="pl-accordion__content pl-stack-sm">
+        <div class="pl-prose">
           <h3>Step-by-Step Process</h3>
           <ol>
             <li>
               <strong>Fork the repository</strong>
-              <p>Start by <a href="https://github.com/Lullabot/prompt_library/fork" target="_blank">forking the Prompt Library repository</a> to your own GitHub account.</p>
+              <p>Start by <a class="ds-link" href="https://github.com/Lullabot/prompt_library/fork" target="_blank" rel="noopener noreferrer">forking the Prompt Library repository</a> to your own GitHub account.</p>
             </li>
             <li>
               <strong>Clone your fork locally</strong>
@@ -64,7 +61,7 @@ git push origin add-new-content</code></pre>
           </ol>
         </div>
 
-        <div class="method-content">
+        <div class="pl-prose">
           <h3>File Structure Requirements</h3>
           <p>Each content file should include the following frontmatter:</p>
           <pre><code>---
@@ -81,24 +78,21 @@ tags:
 Your content goes here...</code></pre>
         </div>
       </div>
-    </div>
+    </details>
 
-    <div class="accordion">
-      <button class="accordion-btn">
-        <h2>2. Using Cursor</h2>
-        <span class="accordion-icon">▲</span>
-      </button>
-      <div class="accordion-content">
-        <div class="method-content">
+    <details class="pl-accordion">
+      <summary><h2 class="pl-accordion__title">2. Using Cursor</h2></summary>
+      <div class="pl-accordion__content pl-stack-sm">
+        <div class="pl-prose">
           <p>
-            <a href="https://cursor.sh/" target="_blank">Cursor</a> is an AI-powered code editor that can help you create content for the Prompt Library with built-in rules for formatting and structure.
+            <a class="ds-link" href="https://cursor.sh/" target="_blank" rel="noopener noreferrer">Cursor</a> is an AI-powered code editor that can help you create content for the Prompt Library with built-in rules for formatting and structure.
           </p>
           
           <h3>Setting Up Cursor</h3>
           <ol>
             <li>
               <strong>Install Cursor</strong>
-              <p>Download and install Cursor from their <a href="https://cursor.sh/" target="_blank">official website</a>.</p>
+              <p>Download and install Cursor from their <a class="ds-link" href="https://cursor.sh/" target="_blank" rel="noopener noreferrer">official website</a>.</p>
             </li>
             <li>
               <strong>Clone the repository</strong>
@@ -118,7 +112,7 @@ Your content goes here...</code></pre>
             <li>
               <strong>Leverage the prompt-library-requirements rule</strong>
               <p>Cursor has built-in rules to help with content creation. You can ask the AI:</p>
-              <blockquote>"I want to create a new prompt for [your purpose]. Can you help me follow the prompt-library-requirements?"</blockquote>
+              <blockquote class="ds-callout">"I want to create a new prompt for [your purpose]. Can you help me follow the prompt-library-requirements?"</blockquote>
             </li>
             <li>
               <strong>Review and refine</strong> the generated content with the AI's help.
@@ -129,30 +123,27 @@ Your content goes here...</code></pre>
           </ol>
         </div>
       </div>
-    </div>
+    </details>
 
-    <div class="accordion">
-      <button class="accordion-btn">
-        <h2>3. GitHub Issues</h2>
-        <span class="accordion-icon">▲</span>
-      </button>
-      <div class="accordion-content">
-        <div class="method-content">
+    <details class="pl-accordion">
+      <summary><h2 class="pl-accordion__title">3. GitHub Issues</h2></summary>
+      <div class="pl-accordion__content pl-stack-sm">
+        <div class="pl-prose">
           <p>
             If you have a content idea but don't want to create the files yourself, you can submit a content suggestion via GitHub Issues.
           </p>
           
-          <div class="submit-links">
-            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a Prompt</a>
-            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a Rule</a>
-            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a Project Config</a>
-            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a Workflow State</a>
+          <div class="pl-row pl-mt-24">
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="ds-btn ds-btn-secondary">Submit a Prompt</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="ds-btn ds-btn-secondary">Submit a Rule</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="ds-btn ds-btn-secondary">Submit a Project Config</a>
+            <a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="ds-btn ds-btn-secondary">Submit a Workflow State</a>
           </div>
           
           <h3>Submitting a Content Suggestion</h3>
           <ol>
             <li>
-              <strong>Go to the <a href="https://github.com/Lullabot/prompt_library/issues/new" target="_blank">Issues page</a></strong> of the repository.
+              <strong>Go to the <a class="ds-link" href="https://github.com/Lullabot/prompt_library/issues/new" target="_blank" rel="noopener noreferrer">Issues page</a></strong> of the repository.
             </li>
             <li>
               <strong>Create a new issue</strong> with the title beginning with "Content Suggestion:".
@@ -181,22 +172,19 @@ Your content goes here...</code></pre>
           </ul>
         </div>
       </div>
-    </div>
+    </details>
 
-    <div class="accordion">
-      <button class="accordion-btn">
-        <h2>4. Submitting External Resources</h2>
-        <span class="accordion-icon">▲</span>
-      </button>
-      <div class="accordion-content">
-        <div class="method-content">
+    <details class="pl-accordion">
+      <summary><h2 class="pl-accordion__title">4. Submitting External Resources</h2></summary>
+      <div class="pl-accordion__content pl-stack-sm">
+        <div class="pl-prose">
           <p>
             You can now contribute external resources (guides, documentation, prompt lists, tools, etc.) to the library for any discipline.
           </p>
           <h3>How to Submit a Resource</h3>
           <ol>
             <li>
-              <strong>Use the <a href="https://github.com/Lullabot/prompt_library/issues/new/choose" target="_blank">Resource Submission Issue Template</a></strong> on GitHub.
+              <strong>Use the <a class="ds-link" href="https://github.com/Lullabot/prompt_library/issues/new/choose" target="_blank" rel="noopener noreferrer">Resource Submission Issue Template</a></strong> on GitHub.
             </li>
             <li>
               <strong>Fill out all required fields</strong> (title, description, URL, resource type, topics, discipline, etc.).
@@ -220,23 +208,20 @@ Your content goes here...</code></pre>
           </ol>
         </div>
       </div>
-    </div>
-    <div class="accordion">
-      <button class="accordion-btn">
-        <h2>5. Contributing a Skill</h2>
-        <span class="accordion-icon">▲</span>
-      </button>
-      <div class="accordion-content">
-        <div class="method-content">
+    </details>
+    <details class="pl-accordion">
+      <summary><h2 class="pl-accordion__title">5. Contributing a Skill</h2></summary>
+      <div class="pl-accordion__content pl-stack-sm">
+        <div class="pl-prose">
           <p>
-            Skills live in the <a href="https://github.com/Lullabot/lullabot-skills" target="_blank">Lullabot/lullabot-skills</a> repository and are automatically synced to this site when a pull request is merged. You don't need to touch this repository at all — just contribute upstream and your skill appears here within minutes.
+            Skills live in the <a class="ds-link" href="https://github.com/Lullabot/lullabot-skills" target="_blank" rel="noopener noreferrer">Lullabot/lullabot-skills</a> repository and are automatically synced to this site when a pull request is merged. You don't need to touch this repository at all — just contribute upstream and your skill appears here within minutes.
           </p>
 
           <h3>Step-by-Step Process</h3>
           <ol>
             <li>
               <strong>Fork the upstream repository</strong>
-              <p><a href="https://github.com/Lullabot/lullabot-skills/fork" target="_blank">Fork Lullabot/lullabot-skills</a> to your GitHub account and clone it locally.</p>
+              <p><a class="ds-link" href="https://github.com/Lullabot/lullabot-skills/fork" target="_blank" rel="noopener noreferrer">Fork Lullabot/lullabot-skills</a> to your GitHub account and clone it locally.</p>
             </li>
             <li>
               <strong>Create a branch and a new folder</strong>
@@ -293,22 +278,19 @@ tags:
 User-Facing-Change: Initial release with support for X and Y</code></pre>
           <p>Commits without this trailer (typo fixes, internal refactors) are excluded from the public changelog automatically.</p>
 
-          <div class="submit-links" style="margin-top: 1.5rem;">
-            <a href="https://github.com/Lullabot/lullabot-skills" class="cta-button" target="_blank">Browse Existing Skills</a>
-            <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button" target="_blank">Open an Issue Instead</a>
+          <div class="pl-row pl-mt-24">
+            <a href="https://github.com/Lullabot/lullabot-skills" class="ds-btn ds-btn-secondary" target="_blank" rel="noopener noreferrer">Browse Existing Skills</a>
+            <a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="ds-btn ds-btn-secondary" target="_blank" rel="noopener noreferrer">Open an Issue Instead</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </details>
+  </section>
 
-  <div class="accordion">
-    <button class="accordion-btn">
-      <h2>Content Requirements & Standards</h2>
-      <span class="accordion-icon">▲</span>
-    </button>
-    <div class="accordion-content">
-      <div class="requirements-section">
+  <details class="pl-accordion">
+    <summary><h2 class="pl-accordion__title">Content Requirements & Standards</h2></summary>
+    <div class="pl-accordion__content pl-stack-sm">
+      <div class="pl-prose">
         <h3>Required Metadata Fields</h3>
         <ul>
           <li><strong>title:</strong> Clear, descriptive title</li>
@@ -318,7 +300,7 @@ User-Facing-Change: Initial release with support for X and Y</code></pre>
         </ul>
       </div>
       
-      <div class="requirements-section">
+      <div class="pl-prose">
         <h3>Content Formatting Guidelines</h3>
         <ul>
           <li>Use Markdown syntax for formatting</li>
@@ -329,7 +311,7 @@ User-Facing-Change: Initial release with support for X and Y</code></pre>
         </ul>
       </div>
 
-      <div class="requirements-section">
+      <div class="pl-prose">
         <h3>Testing/Validation Steps</h3>
         <p>Before submitting your contribution:</p>
         <ol>
@@ -340,248 +322,15 @@ User-Facing-Change: Initial release with support for X and Y</code></pre>
         </ol>
       </div>
     </div>
-  </div>
+  </details>
 
-  <div class="help-resources">
+  <section class="pl-prose">
     <h2>Additional Resources</h2>
     <ul>
-      <li><a href="{{ baseUrl }}/help">Artifact Types Guide</a> - Overview of different content types</li>
-      <li><a href="https://github.com/Lullabot/prompt_library/blob/main/README.md">README</a> - Project overview and structure</li>
-      <li><a href="https://github.com/Lullabot/prompt_library/issues">Issues</a> - See current content requests</li>
+      <li><a class="ds-link" href="{{ baseUrl }}/help">Artifact Types Guide</a> - Overview of different content types</li>
+      <li><a class="ds-link" href="https://github.com/Lullabot/prompt_library/blob/main/README.md">README</a> - Project overview and structure</li>
+      <li><a class="ds-link" href="https://github.com/Lullabot/prompt_library/issues">Issues</a> - See current content requests</li>
     </ul>
+  </section>
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const accordionBtns = document.querySelectorAll('.accordion-btn');
-    
-    accordionBtns.forEach(button => {
-      button.addEventListener('click', function() {
-        this.classList.toggle('active');
-        const icon = this.querySelector('.accordion-icon');
-        icon.textContent = this.classList.contains('active') ? '▼' : '▲';
-        
-        const content = this.nextElementSibling;
-        content.classList.toggle('show');
-      });
-    });
-  });
-</script>
-
-<style>
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  .page-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-
-  .intro-text {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-
-  /* Accordion Styles */
-  .accordion-container {
-    margin-bottom: 2rem;
-  }
-
-  .accordion {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-
-  .accordion-btn {
-    width: 100%;
-    background-color: var(--card-background);
-    padding: 1.5rem;
-    text-align: left;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background-color 0.3s;
-  }
-
-  .accordion-btn:hover {
-    background-color: var(--background-color);
-  }
-
-  .accordion-btn h2 {
-    font-size: 1.75rem;
-    color: var(--text-color);
-    margin: 0;
-    font-weight: 600;
-  }
-
-  .accordion-icon {
-    font-size: 1.2rem;
-    color: var(--text-color);
-    transition: transform 0.3s;
-  }
-
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    padding: 0 1.5rem;
-  }
-
-  .accordion-content.show {
-    max-height: 2000px;
-    padding: 0 1.5rem 1.5rem 1.5rem;
-  }
-
-  /* Content section styles */
-  .method-content {
-    margin-bottom: 2rem;
-  }
-
-  .method-content h3 {
-    font-size: 1.3rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  .method-content ol,
-  .method-content ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .method-content li {
-    margin-bottom: 1rem;
-  }
-
-  .method-content li strong {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  pre {
-    background-color: var(--background-color);
-    border-radius: 0.375rem;
-    padding: 1rem;
-    overflow-x: auto;
-    margin: 1rem 0;
-  }
-
-  code {
-    font-family: monospace;
-    font-size: 0.95rem;
-  }
-
-  blockquote {
-    border-left: 4px solid var(--border-color);
-    padding-left: 1rem;
-    margin: 1rem 0;
-    font-style: italic;
-  }
-
-  .requirements-section {
-    margin-bottom: 1.5rem;
-  }
-
-  .requirements-section h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-  }
-
-  .help-resources {
-    background-color: var(--card-background);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .help-resources h2 {
-    font-size: 1.75rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--border-color);
-  }
-
-  .help-resources ul {
-    margin-left: 1.5rem;
-  }
-
-  .help-resources li {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Link styles */
-  a {
-    color: #2b6cb0;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  a:hover {
-    color: #1d4e89;
-    text-decoration: underline;
-  }
-
-  /* External links */
-  a[target="_blank"]::after {
-    content: " ↗";
-    font-size: 0.8em;
-    vertical-align: super;
-  }
-
-  .quick-submit {
-    background: var(--card-background);
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  .quick-submit h2 {
-    margin-bottom: 0.5rem;
-  }
-  .submit-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-  .cta-button {
-    display: inline-block;
-    background-color: #2b6cb0;
-    color: #fff;
-    padding: 0.5rem 1.25rem;
-    border-radius: 0.375rem;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.2s;
-    border: none;
-  }
-  .cta-button:hover {
-    background-color: #1d4e89;
-  }
-  .quick-submit-note {
-    margin-top: 0.75rem;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.75;
-  }
-</style>

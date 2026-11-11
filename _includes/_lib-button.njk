@@ -1,12 +1,16 @@
 {#
-  Library Button — Framer "Library Button" (m6SKoROEH).
-  variant: "filled" (Framer dmpGepZk0) | "outline" (Framer e4iNiqO4b)
+  Library button: a link styled with the Lullabot App Design System.
+  variant: "primary"   .ds-btn-primary, the call to action (56px, red outline)
+           "secondary" .ds-btn-secondary, a compact action (40px)
+           "text"      .ds-btn-text, a minor or navigational action
+  Primary and text variants end in the system's arrow.
   Usage: {% from "_lib-button.njk" import libButton %}
-         {{ libButton("GitHub", "https://…", "outline", true) }}
+         {{ libButton("Contribution guide", baseUrl + "/contributing", "text") }}
 #}
-{% macro libButton(label, href, variant="outline", newTab=false) %}
-<a class="rd-btn rd-btn--{{ variant }}" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
-  <span class="rd-btn__label">{{ label }}</span>
-  <span class="rd-btn__arrow" aria-hidden="true">→</span>
+{% from "_icons.njk" import arrow %}
+{% macro libButton(label, href, variant="primary", newTab=false) %}
+<a class="{% if variant == 'text' %}ds-btn-text{% else %}ds-btn ds-btn-{{ variant }}{% endif %}" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
+  {{ label }}
+  {% if variant != 'secondary' %}{{ arrow() }}{% endif %}
 </a>
 {% endmacro %}

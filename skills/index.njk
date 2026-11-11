@@ -2,32 +2,27 @@
 title: "All Skills"
 description: "Browse all skills across every discipline."
 layout: "base.njk"
+eyebrow: "Library"
 ---
+{% from "_content-table.njk" import contentTable, countLabel %}
+{% from "_icons.njk" import arrow %}
 
-<div class="content-type-page">
-  <h1 class="page-title">🛠️ All Skills</h1>
-  <p class="page-description">{{ description }}</p>
-
-  {% set compact = false %}
+{% set items = collections.skills %}
+<div class="pl-container pl-main pl-stack">
   {% include "skills-bundle-banner.njk" %}
 
-  <div class="content-list">
-    {% for item in collections.skills %}
-      <article class="content-item fade-up">
-        <h2><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h2>
-        <p class="item-description">{{ item.data.description }}</p>
-        <div class="item-meta">
-          <span class="item-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>
-          <span class="item-date">{{ item.date | date }}</span>
-        </div>
-        <div class="item-tags">
-          {% for tag in item.data.tags %}
-            <span class="tag">{{ tag }}</span>
-          {% endfor %}
-        </div>
-      </article>
-    {% endfor %}
-  </div>
+  <section class="pl-stack-sm">
+    {% if items | length %}
+    <div class="pl-row">
+      <span class="ds-count">{{ countLabel(items | length, "skills") }}</span>
+    </div>
+    {{ contentTable(items, title, true) }}
+    {% else %}
+    <div class="ds-empty">
+      <p class="ds-empty-title">No skills yet</p>
+      <p class="ds-empty-text">Nothing has been added here. Submissions appear once they are merged.</p>
+      <a class="ds-btn-text" href="{{ baseUrl }}/contributing">How to contribute {{ arrow() }}</a>
+    </div>
+    {% endif %}
+  </section>
 </div>
-
-{% include "content-type-styles.njk" %}

@@ -1,60 +1,23 @@
 ---
 layout: discipline.njk
+pageKind: listing
 ---
+{% from "_content-table.njk" import contentTable, countLabel %}
+{% from "_icons.njk" import arrow %}
 
-<div class="content-type-header">
-    <h1>{{ title }}</h1>
-    <p class="description">{{ description }}</p>
-</div>
-
-<div class="content-list">
-    {% for item in collections[contentType] | filterByDiscipline(discipline) %}
-        <article class="content-item fade-up">
-            <h2>
-                <a href="{{ item.url }}">{{ item.data.title }}</a>
-                {% if item | isRecentlyUpdated %}<span class="updated-badge">Updated</span>{% endif %}
-                {% if item.data.version %}<span class="version-tag">v{{ item.data.version }}</span>{% endif %}
-            </h2>
-            <p>{{ item.data.description }}</p>
-            <div class="metadata">
-                <span class="date">{{ item.date | date("yyyy-MM-dd") }}</span>
-                {% if item.data.tags %}
-                    <div class="tags">
-                        {% for tag in item.data.tags %}
-                            <span class="tag">{{ tag }}</span>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            </div>
-        </article>
-    {% endfor %}
-</div>
-
-<style>
-  .updated-badge {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: #12212b;
-    padding: 0.1rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    vertical-align: middle;
-    margin-left: 0.5rem;
-  }
-
-  .version-tag {
-    display: inline-block;
-    background-color: var(--tag-background);
-    color: var(--text-muted);
-    padding: 0.1rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.7rem;
-    font-family: var(--font-mono);
-    font-weight: 500;
-    vertical-align: middle;
-    margin-left: 0.25rem;
-  }
-</style>
+{% set items = collections[contentType] | filterByDiscipline(discipline) %}
+{% set typeLabel = contentType | replace("-", " ") | title %}
+<section class="pl-stack-sm">
+    {% if items | length %}
+    <div class="pl-row">
+        <span class="ds-count">{{ countLabel(items | length, contentType) }}</span>
+    </div>
+    {{ contentTable(items, title) }}
+    {% else %}
+    <div class="ds-empty">
+        <p class="ds-empty-title">No {{ typeLabel | lower }} yet</p>
+        <p class="ds-empty-text">Nothing has been added to this section. Submissions appear here once they are merged.</p>
+        <a class="ds-btn-text" href="{{ baseUrl }}/contributing">How to contribute {{ arrow() }}</a>
+    </div>
+    {% endif %}
+</section>

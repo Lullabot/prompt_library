@@ -1,0 +1,54 @@
+{#
+  Content listing: the design system's table, one row per item.
+  Usage: {% from "_content-table.njk" import contentTable, countLabel %}
+         <span class="ds-count">{{ countLabel(items | length, "skills") }}</span>
+         {{ contentTable(items, "Skills in Development", true) }}
+
+  contentTable(items, label, showDiscipline)
+    label           accessible name for the table
+    showDiscipline  adds a Discipline column (cross-discipline listings)
+#}
+{% macro countLabel(count, type) %}
+{%- set singular = {
+  'prompts': 'prompt', 'rules': 'rule', 'agents': 'agent', 'skills': 'skill',
+  'resources': 'resource', 'project-configs': 'project config', 'workflow-states': 'workflow state'
+} -%}
+{{ count }} {{ (singular[type] or 'item') if count == 1 else (type | replace('-', ' ')) }}
+{%- endmacro %}
+
+{% macro contentTable(items, label, showDiscipline=false) %}
+<div class="pl-scroll-x">
+  <table class="pl-content-table" aria-label="{{ label }}">
+    <thead>
+      <tr>
+        <th scope="col" class="pl-col-name">Name</th>
+        <th scope="col">Description</th>
+        {% if showDiscipline %}<th scope="col">Discipline</th>{% endif %}
+        <th scope="col" class="pl-col-tags">Tags</th>
+        <th scope="col">Added</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <th scope="row">
+          <a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a>
+          {% if item.data.version or (item | isRecentlyUpdated) %}
+          <div class="pl-row pl-row-tight pl-mt-8">
+            {% if item | isRecentlyUpdated %}<span class="ds-tag">Updated</span>{% endif %}
+            {% if item.data.version %}<span class="ds-tag">v{{ item.data.version }}</span>{% endif %}
+          </div>
+          {% endif %}
+        </th>
+        <td><p class="pl-clamp">{{ item.data.description }}</p></td>
+        {% if showDiscipline %}<td class="pl-nowrap ds-muted">{{ item.data.discipline | replace('-', ' ') | title }}</td>{% endif %}
+        {# Keyword tags are plain text here. As chips, five to eight per row
+           outweighed the names they describe. #}
+        <td class="ds-hint">{% if item.data.tags %}{{ item.data.tags | join(", ") }}{% endif %}</td>
+        <td class="pl-nowrap ds-muted"><time datetime="{{ item.date | date }}">{{ item.date | date }}</time></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endmacro %}
