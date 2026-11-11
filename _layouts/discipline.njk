@@ -1,58 +1,50 @@
 ---
 layout: base.njk
+pageKind: discipline
 ---
+{% from "_content-table.njk" import contentTable, countLabel %}
+{% from "_icons.njk" import arrow %}
 
 {# Fall back to deriving the discipline from the URL so a page that forgets the
    `discipline` frontmatter doesn't produce broken `//<type>` nav links. #}
 {% set disc = discipline or (page.url | disciplineFromUrl) %}
-<nav class="discipline-nav">
-    <span class="discipline-name">{{ disc | replace("-", " ") | title }} : </span>
-    <a href="{{ baseUrl }}/{{ disc }}/prompts">Prompts</a>
-    <a href="{{ baseUrl }}/{{ disc }}/rules">Rules</a>
-    <a href="{{ baseUrl }}/{{ disc }}/project-configs">Project Configs</a>
-    <a href="{{ baseUrl }}/{{ disc }}/agents">Agents</a>
-    <a href="{{ baseUrl }}/{{ disc }}/skills">Skills</a>
-    <a href="{{ baseUrl }}/{{ disc }}/resources">Resources</a>
-</nav>
+{% set discLabel = disc | replace("-", " ") | title %}
+{% set typeTabs = ['prompts', 'rules', 'project-configs', 'agents', 'skills', 'resources'] %}
 
-{# Landing page (no contentType set): list ALL of the discipline's content,
-   grouped by content type. Content-type pages set `contentType`, so this block
-   is skipped there to avoid double-listing. #}
-{% if not contentType %}
-<div class="content-type-header">
-    <h1>{{ title or (disc | replace("-", " ") | title) }}</h1>
-    {% if description %}<p class="description">{{ description }}</p>{% endif %}
-</div>
+<div class="pl-container pl-main pl-stack">
+    <nav class="pl-tabs" aria-label="{{ discLabel }} content types">
+        <a class="ds-sort-tab{% if not contentType %} ds-sort-tab-active{% endif %}" href="{{ baseUrl }}/{{ disc }}/"{% if not contentType %} aria-current="page"{% endif %}>Overview</a>
+        {% for type in typeTabs %}
+        <a class="ds-sort-tab{% if contentType == type %} ds-sort-tab-active{% endif %}" href="{{ baseUrl }}/{{ disc }}/{{ type }}/"{% if contentType == type %} aria-current="page"{% endif %}>{{ type | replace("-", " ") | title }}</a>
+        {% endfor %}
+    </nav>
 
-{% set typeOrder = ['prompts', 'rules', 'agents', 'skills', 'project-configs', 'resources', 'workflow-states'] %}
-{% for type in typeOrder %}
-    {% set items = collections[type] | filterByDiscipline(disc) %}
-    {% if items | length %}
-        <section class="discipline-group">
-            <h2 class="discipline-group__title">
-                <a href="{{ baseUrl }}/{{ disc }}/{{ type }}">{{ type | replace("-", " ") | title }}</a>
-                <span class="discipline-group__count">{{ items | length }}</span>
-            </h2>
-            <div class="content-list">
-                {% for item in items %}
-                    <article class="content-item fade-up">
-                        <h2>
-                            <a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a>
-                            {% if item | isRecentlyUpdated %}<span class="updated-badge">Updated</span>{% endif %}
-                            {% if item.data.version %}<span class="version-tag">v{{ item.data.version }}</span>{% endif %}
-                        </h2>
-                        <p>{{ item.data.description }}</p>
-                    </article>
-                {% endfor %}
+    {# Landing page (no contentType set): list ALL of the discipline's content,
+       grouped by content type. Content-type pages set `contentType`, so this block
+       is skipped there to avoid double-listing. #}
+    {% if not contentType %}
+    {% set typeOrder = ['prompts', 'rules', 'agents', 'skills', 'project-configs', 'resources', 'workflow-states'] %}
+    {% for type in typeOrder %}
+        {% set items = collections[type] | filterByDiscipline(disc) %}
+        {% if items | length %}
+        {% set typeLabel = type | replace("-", " ") | title %}
+        <section>
+            <div class="pl-section-head pl-mb-24">
+                <h2 class="ds-section-title">{{ typeLabel }}</h2>
+                <span class="ds-count">{{ countLabel(items | length, type) }}</span>
             </div>
+            {{ contentTable(items, typeLabel + " in " + discLabel) }}
         </section>
+        {% endif %}
+    {% endfor %}
+    {% if (disc | disciplineContentCount) == 0 %}
+    <div class="ds-empty">
+        <p class="ds-empty-title">Nothing here yet</p>
+        <p class="ds-empty-text">No content has been added to {{ discLabel }}. Prompts, rules, agents and resources appear here once they are submitted.</p>
+        <a class="ds-btn-text" href="{{ baseUrl }}/contributing">How to contribute {{ arrow() }}</a>
+    </div>
     {% endif %}
-{% endfor %}
-{% if (disc | disciplineContentCount) == 0 %}
-    <p class="discipline-empty-note">No content has been added to this discipline yet.</p>
-{% endif %}
-{% endif %}
+    {% endif %}
 
-<div class="discipline-body">
-{{ content | safe }}
+    {{ content | safe }}
 </div>

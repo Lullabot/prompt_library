@@ -12,6 +12,27 @@ module.exports = function(eleventyConfig) {
   // Copy static assets
   eleventyConfig.addPassthroughCopy("assets");
 
+  // Rendered Markdown can't carry classes, so give it the design system's
+  // (assets/ds/): links are .ds-link, blockquotes are .ds-callout, and
+  // tables scroll inside a wrapper instead of widening the page.
+  eleventyConfig.amendLibrary("md", (md) => {
+    const passthrough = (tokens, idx, options, env, self) => self.renderToken(tokens, idx, options);
+    const addClass = (rule, className) => {
+      const original = md.renderer.rules[rule] || passthrough;
+      md.renderer.rules[rule] = (tokens, idx, options, env, self) => {
+        tokens[idx].attrJoin('class', className);
+        return original(tokens, idx, options, env, self);
+      };
+    };
+    addClass('link_open', 'ds-link');
+    addClass('blockquote_open', 'ds-callout');
+
+    const tableOpen = md.renderer.rules.table_open || passthrough;
+    const tableClose = md.renderer.rules.table_close || passthrough;
+    md.renderer.rules.table_open = (...args) => `<div class="pl-scroll-x">${tableOpen(...args)}`;
+    md.renderer.rules.table_close = (...args) => `${tableClose(...args)}</div>`;
+  });
+
   // Add filters
   eleventyConfig.addFilter("date", function(date, format = "yyyy-MM-dd") {
     if (date === "now") {

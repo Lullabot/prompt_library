@@ -1,14 +1,16 @@
 {#
-  Type Card — Framer "Type Card" (zZ0bGFHll).
+  Type card: one content type with its count, on the system's panel.
   Usage: {% from "_type-card.njk" import typeCard %}
          {{ typeCard("Prompts", 12, "Reusable starting points…", "/prompts/") }}
 #}
-{% macro typeCard(title, count, description, href, newTab=false) %}
-<a class="rd-card rd-card--type" href="{{ href }}"{% if newTab %} target="_blank" rel="noopener noreferrer"{% endif %}>
-  <div class="rd-card__type-head">
-    <h3 class="rd-card__title">{{ title }}</h3>
-    <span class="rd-count">{{ count }}</span>
+{% from "_icons.njk" import arrow %}
+{% macro typeCard(title, count, description, href) %}
+<article class="ds-panel pl-type-card">
+  <div class="pl-type-card__head">
+    <h3 class="ds-heading-md">{{ title }}</h3>
+    <span class="ds-stat">{{ count }}</span>
   </div>
-  <p class="rd-card__desc">{{ description }}</p>
-</a>
+  <p class="ds-body-sm">{{ description }}</p>
+  <a class="ds-btn-text" href="{{ href }}">Browse <span class="visually-hidden">{{ title | lower }}</span> {{ arrow() }}</a>
+</article>
 {% endmacro %}

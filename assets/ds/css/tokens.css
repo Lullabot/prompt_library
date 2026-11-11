@@ -1,0 +1,217 @@
+/* ============================================================
+   LULLABOT APP DESIGN SYSTEM — TOKENS
+   Values are lullabot.com's, from the lullabot.com-d8 theme
+   (web/themes/custom/lullabot/components/00-base). Palette names
+   map as: red = --c-primary, ocean = --c-primary-dark,
+   gray = --c-grayscale, blue = --c-secondary.
+
+   Additions lullabot.com does not have, because apps need them:
+   the status colors (success, warning, error) and the dark theme.
+   Both are marked where they are defined.
+   ============================================================ */
+
+:root {
+    /* ---------- Type families ----------
+       lullabot.com sets everything in Circular (licensed) and code in
+       IBM Plex Mono. Satoshi (Fontshare), loaded as a variable font so
+       the 450 weight exists, stands in for Circular. */
+    --ds-font-display: "Satoshi", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --ds-font-body: "Satoshi", "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --ds-font-mono: "IBM Plex Mono", Consolas, "Liberation Mono", monospace;
+
+    --ds-weight-normal: 450;
+    --ds-weight-medium: 500;
+    --ds-weight-heavy: 700;
+    /* Uppercase tracked labels (buttons, nav, eyebrows, tags). lullabot.com
+       sets them in Circular 500, and Satoshi 500 matches its label width
+       (measured on the "See our work?" button: 130.5px vs 130.6px). */
+    --ds-weight-caps: 500;
+
+    /* ---------- Red (--c-primary) ---------- */
+    --ds-red-1000: #A51400;
+    --ds-red-900: #CF1900;
+    --ds-red-800: #F81E00; /* the brand red */
+    --ds-red-700: #F9442B;
+    --ds-red-500: #FB8E80;
+    --ds-red-200: #FEE0DC;
+
+    /* ---------- Ocean (--c-primary-dark) ---------- */
+    --ds-ocean-1000: #12212B;
+    --ds-ocean-950: #1B303F;
+    --ds-ocean-900: #20394B;
+    --ds-ocean-800: #445A6A;
+    --ds-ocean-700: #5E798D;
+    --ds-ocean-600: #869EAE;
+    --ds-ocean-500: #AEBEC9;
+    --ds-ocean-400: #C7D3DB;
+    --ds-ocean-300: #D7DFE5;
+    --ds-ocean-200: #E0E6EB;
+    --ds-ocean-100: #EDF0F2;
+    --ds-ocean-50: #F9FAFB;
+
+    /* ---------- Gray (--c-grayscale) ---------- */
+    --ds-gray-1000: #01070B;
+    --ds-gray-900: #171D21;
+    --ds-gray-800: #272F35;
+    --ds-gray-700: #323C43;
+    --ds-gray-600: #434E56;
+    --ds-gray-500: #5D686F;
+    --ds-gray-400: #75818A;
+    --ds-gray-300: #909BA2;
+    --ds-gray-200: #B1B9BE;
+    --ds-gray-100: #D6D9DC;
+    --ds-gray-50: #F4F5F6;
+    --ds-gray-0: #FFFFFF;
+
+    /* ---------- Blue (--c-secondary): focus only ---------- */
+    --ds-blue-900: #1481B8;
+    --ds-blue-800: #1D8FC9;
+    --ds-blue-700: #38A5DC;
+    --ds-blue-100: #D8F2FF;
+
+    /* ---------- Semantic: brand ----------
+       lullabot.com fills its red buttons with #F81E00 under a white
+       label, which is 4.06:1. This keeps that. */
+    --ds-brand: var(--ds-red-800);
+    --ds-brand-fill: var(--ds-red-800);
+    --ds-on-brand: #FFFFFF;
+    --ds-check-fill: var(--ds-red-900);
+
+    /* ---------- Semantic: text ---------- */
+    --ds-fg-heading: var(--ds-gray-1000);   /* headings, nav, labels, links */
+    --ds-fg-1: var(--ds-gray-900);          /* body text */
+    --ds-fg-2: var(--ds-ocean-800);         /* tags, counts, secondary text */
+    --ds-fg-3: var(--ds-gray-600);          /* field values, quiet copy */
+    --ds-fg-placeholder: var(--ds-gray-200);
+    --ds-fg-invert: #FFFFFF;
+
+    /* ---------- Semantic: surfaces ---------- */
+    --ds-bg-1: var(--ds-gray-0);            /* page */
+    --ds-bg-2: var(--ds-ocean-50);          /* striped table rows */
+    --ds-bg-3: var(--ds-gray-50);           /* tags, counts, bands */
+    --ds-bg-card: linear-gradient(225deg, var(--ds-ocean-200), var(--ds-ocean-100));
+    --ds-bg-ink: var(--ds-ocean-1000);      /* table headers, current page */
+    --ds-on-ink: #FFFFFF;
+    --ds-fill-strong: var(--ds-gray-1000);  /* secondary button hover, solid button */
+
+    /* ---------- Buttons ----------
+       lullabot.com's secondary button is white with a red border and
+       fills black; its --dark variant swaps the border to white and the
+       fill to gray-800. The tertiary chip has a red-900 border. */
+    --ds-btn-secondary-border: var(--ds-red-800);
+    --ds-btn-secondary-fill: var(--ds-gray-1000);
+    --ds-btn-tertiary-border: var(--ds-red-900);
+
+    /* ---------- Semantic: lines ---------- */
+    --ds-border-subtle: var(--ds-ocean-300);  /* header rule, separators */
+    --ds-border-strong: var(--ds-gray-400);   /* input underlines, table rows */
+    --ds-border-ink: var(--ds-ocean-1000);    /* table frame */
+    --ds-border-pale: var(--ds-gray-100);     /* pager cells */
+    --ds-dots: var(--ds-ocean-300);
+
+    /* ---------- Semantic: links ---------- */
+    --ds-link-fill: var(--ds-ocean-200);
+    --ds-link-focus-fill: var(--ds-blue-100);
+
+    /* ---------- Focus ---------- */
+    --ds-focus-ring: var(--ds-blue-700);
+    --ds-focus-width: 4px;
+    --ds-focus-line: var(--ds-blue-800);      /* input underline on focus */
+
+    /* ---------- Status (app addition; lullabot.com has none) ---------- */
+    --ds-success: #2F7A4D;
+    --ds-warning: #B8730F;
+    --ds-error: #B43A25;
+    --ds-error-fill: #B43A25;
+
+    /* ---------- Shape and depth ---------- */
+    --ds-r-none: 0px;
+    --ds-r-round: 50%;                        /* avatars and status dots only */
+    --ds-header-shadow: 0 -1px 0 0 var(--ds-border-subtle) inset, 0 0 64px rgba(0, 0, 0, 0.05);
+    --ds-overlay-shadow: 0 0 64px rgba(0, 0, 0, 0.1);
+
+    /* ---------- Motion ---------- */
+    --ds-dur: 250ms;
+    --ds-dur-draw: 350ms;
+    --ds-dur-line: 500ms;
+    --ds-ease-spring: cubic-bezier(0.47, 1.64, 0.41, 0.8);
+    --ds-ease-nav: cubic-bezier(0.4, 0.005, 1, 0.75);
+}
+
+/* Dark theme (app addition). lullabot.com has no site-wide dark mode,
+   but it has dark sections (.layout--dark and the --dark component
+   variants): a near-black ground, white text, red outlines that fill
+   red, gray-600 link fills and dots. This theme extends those choices
+   to the whole page.
+
+   Applied two ways: a theme toggle stamps data-theme on <html> (see
+   assets/theme.js), and the system preference is the fallback for
+   anyone who has not chosen, including visitors with JavaScript off.
+   The two blocks below must stay identical. */
+:root[data-theme="dark"] {
+    --ds-fg-heading: var(--ds-gray-0);
+    --ds-fg-1: var(--ds-gray-0);
+    --ds-fg-2: var(--ds-gray-200);
+    --ds-fg-3: var(--ds-gray-200);
+    --ds-fg-placeholder: var(--ds-gray-400);
+    --ds-fg-invert: var(--ds-gray-1000);
+
+    --ds-bg-1: var(--ds-gray-1000);
+    --ds-bg-2: var(--ds-gray-900);
+    --ds-bg-3: var(--ds-gray-800);
+    --ds-bg-card: linear-gradient(225deg, var(--ds-gray-800), var(--ds-gray-900));
+    --ds-bg-ink: var(--ds-gray-800);
+    --ds-fill-strong: var(--ds-gray-0);
+    --ds-btn-secondary-border: var(--ds-gray-0);
+    --ds-btn-secondary-fill: var(--ds-gray-800);
+
+    --ds-border-subtle: var(--ds-gray-700);
+    --ds-border-strong: var(--ds-gray-500);
+    --ds-border-ink: var(--ds-gray-500);
+    --ds-border-pale: var(--ds-gray-700);
+    --ds-dots: var(--ds-gray-600);
+
+    --ds-link-fill: var(--ds-gray-600);
+    --ds-link-focus-fill: var(--ds-blue-900);
+
+    --ds-error: #FF8A70;
+    --ds-success: #6FBF8E;
+    --ds-warning: #E8A93C;
+    --ds-header-shadow: 0 -1px 0 0 var(--ds-border-subtle) inset;
+    --ds-overlay-shadow: 0 0 64px rgba(0, 0, 0, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --ds-fg-heading: var(--ds-gray-0);
+        --ds-fg-1: var(--ds-gray-0);
+        --ds-fg-2: var(--ds-gray-200);
+        --ds-fg-3: var(--ds-gray-200);
+        --ds-fg-placeholder: var(--ds-gray-400);
+        --ds-fg-invert: var(--ds-gray-1000);
+
+        --ds-bg-1: var(--ds-gray-1000);
+        --ds-bg-2: var(--ds-gray-900);
+        --ds-bg-3: var(--ds-gray-800);
+        --ds-bg-card: linear-gradient(225deg, var(--ds-gray-800), var(--ds-gray-900));
+        --ds-bg-ink: var(--ds-gray-800);
+        --ds-fill-strong: var(--ds-gray-0);
+        --ds-btn-secondary-border: var(--ds-gray-0);
+        --ds-btn-secondary-fill: var(--ds-gray-800);
+
+        --ds-border-subtle: var(--ds-gray-700);
+        --ds-border-strong: var(--ds-gray-500);
+        --ds-border-ink: var(--ds-gray-500);
+        --ds-border-pale: var(--ds-gray-700);
+        --ds-dots: var(--ds-gray-600);
+
+        --ds-link-fill: var(--ds-gray-600);
+        --ds-link-focus-fill: var(--ds-blue-900);
+
+        --ds-error: #FF8A70;
+        --ds-success: #6FBF8E;
+        --ds-warning: #E8A93C;
+        --ds-header-shadow: 0 -1px 0 0 var(--ds-border-subtle) inset;
+        --ds-overlay-shadow: 0 0 64px rgba(0, 0, 0, 0.6);
+    }
+}

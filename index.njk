@@ -2,12 +2,14 @@
 title: "Prompt Library"
 description: "A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams."
 layout: "base.njk"
+eyebrow: "AI workflows, ready to reuse"
+heading: "Find the right prompt before the work starts."
 hideHeaderSearch: true
-bodyClass: "rd-home"
 needsSwiper: true
 ---
 {% from "_lib-button.njk" import libButton %}
 {% from "_type-card.njk" import typeCard %}
+{% from "_icons.njk" import chevron %}
 
 {% set displayTypes = ['prompts', 'rules', 'agents', 'skills', 'resources'] %}
 {% set allDisciplines = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance', 'admin'] %}
@@ -29,236 +31,168 @@ needsSwiper: true
 } %}
 {% set totalResources = displayTypes | sumTypeCounts %}
 {% set disciplineCount = allDisciplines | activeDisciplineCount(displayTypes) %}
+{# The carousel shows the newest items; the listing pages hold the rest. #}
+{% set recentLimit = 12 %}
 
-<div class="rd-page">
+<div class="pl-container pl-main pl-stack">
 
-  {# 2. Hero #}
-  <section class="rd-hero">
-    <span class="rd-eyebrow"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> AI workflows, ready to reuse</span>
-    <h1 class="rd-hero__title">Find the right prompt before the work starts.</h1>
-    <p class="rd-hero__sub">A searchable library of prompts, rules, agents, skills, and resources for practical AI workflows across project teams.</p>
-
-    <div class="rd-search">
-      <form class="rd-searchbar search-form" role="search">
-        <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
-        <label for="search-input" class="visually-hidden">Search</label>
-        <input type="search" id="search-input" class="search-input rd-searchbar__input"
-               placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
-        <button type="submit" class="rd-btn rd-btn--filled rd-searchbar__btn">Search <span aria-hidden="true">→</span></button>
-      </form>
-      <div class="rd-chips">
-        <button type="button" class="rd-chip is-active" data-query="prompt">Prompts</button>
-        <button type="button" class="rd-chip" data-query="skill">Skills</button>
-        <button type="button" class="rd-chip" data-query="agent">Agents</button>
-        <button type="button" class="rd-chip" data-query="development">Development</button>
-        <button type="button" class="rd-chip" data-query="content strategy">Content Strategy</button>
-      </div>
-      <div id="search-results" class="search-results" hidden></div>
+  {# Search: counts, then the filter band #}
+  <section class="pl-stack-sm" aria-label="Search the library">
+    <div class="pl-row">
+      <span class="ds-count">{{ totalResources }} resources</span>
+      <span class="ds-count">{{ displayTypes | length }} content types</span>
+      <span class="ds-count">{{ disciplineCount }} disciplines</span>
     </div>
 
-    <div class="rd-stats">
-      <span><strong>{{ totalResources }}</strong> resources</span>
-      <span><strong>{{ displayTypes | length }}</strong> content types</span>
-      <span><strong>{{ disciplineCount }}</strong> disciplines</span>
-    </div>
-  </section>
-
-  {# 3. Install callout #}
-  <section class="rd-install">
-    <div class="rd-install__card">
-      <div class="rd-install__copy">
-        <span class="rd-eyebrow rd-eyebrow--plain">Claude Code skills bundle</span>
-        <h2 class="rd-install__title">Install all skills at once.</h2>
-        <p class="rd-install__desc">Clone the shared skill bundle into your project and let Claude Code pick up the workflows automatically.</p>
-      </div>
-      <div class="rd-terminal">
-        <div class="rd-terminal__dots" aria-hidden="true">
-          <span class="rd-dot rd-dot--r"></span>
-          <span class="rd-dot rd-dot--y"></span>
-          <span class="rd-dot rd-dot--g"></span>
+    <div class="ds-band">
+      <form class="search-form pl-search__form" role="search">
+        <div class="pl-search__field">
+          <label class="ds-label" for="search-input">Search prompts, rules, agents, and skills</label>
+          <input type="search" id="search-input" class="ds-input search-input" autocomplete="off">
+          <div id="search-results" class="search-results" hidden></div>
         </div>
-        <code class="rd-terminal__cmd">git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills</code>
-        <button type="button" class="rd-btn rd-btn--filled rd-copy"
-                data-copy="git clone https://github.com/Lullabot/lullabot-skills.git .claude/skills">
-          <span class="rd-copy__label">Copy command</span> <span aria-hidden="true">→</span>
-        </button>
+        <button type="submit" class="ds-btn ds-btn-primary">Search</button>
+      </form>
+      <div class="pl-chips" role="group" aria-label="Quick searches">
+        <button type="button" class="ds-btn ds-btn-tertiary pl-chip" data-query="prompt" aria-pressed="false">Prompts</button>
+        <button type="button" class="ds-btn ds-btn-tertiary pl-chip" data-query="skill" aria-pressed="false">Skills</button>
+        <button type="button" class="ds-btn ds-btn-tertiary pl-chip" data-query="agent" aria-pressed="false">Agents</button>
+        <button type="button" class="ds-btn ds-btn-tertiary pl-chip" data-query="development" aria-pressed="false">Development</button>
+        <button type="button" class="ds-btn ds-btn-tertiary pl-chip" data-query="content strategy" aria-pressed="false">Content Strategy</button>
       </div>
     </div>
   </section>
 
-  {# 4. Recently Added (carousel) #}
-  <section class="rd-section">
-    <div class="rd-section__head rd-section__head--split">
-      <div class="rd-section__heading">
-        <span class="rd-eyebrow rd-eyebrow--plain">Recently Added</span>
-        <h2 class="rd-section__title">New and updated workflows</h2>
-        <p class="rd-section__lead">The latest prompts, rules, agents, and skills added to the library.</p>
+  {# Install callout #}
+  {% include "skills-bundle-banner.njk" %}
+
+  {# Recently Added (carousel) #}
+  <section>
+    <div class="pl-section-head pl-mb-24">
+      <div>
+        <p class="ds-eyebrow">Recently Added</p>
+        <h2 class="ds-section-title">New and updated workflows</h2>
+        <p class="ds-section-note">The latest prompts, rules, agents, and skills added to the library.</p>
       </div>
-      {{ libButton("View all", baseUrl + "/skills/", "outline") }}
+      <div class="pl-row">
+        {{ libButton("View all", baseUrl + "/skills/", "text") }}
+        <div class="pl-row pl-row-tight">
+          <button type="button" class="ds-btn ds-btn-secondary pl-carousel-prev" aria-label="Previous items">{{ chevron("prev") }}</button>
+          <button type="button" class="ds-btn ds-btn-secondary pl-carousel-next" aria-label="Next items">{{ chevron("next") }}</button>
+        </div>
+      </div>
     </div>
-    <div class="swiper-container recently-added-swiper">
+    <div class="swiper pl-carousel recently-added-swiper">
       <div class="swiper-wrapper">
         {% for item in collections.recentlyAdded %}
+        {% if loop.index <= recentLimit %}
           <div class="swiper-slide">
-            <article class="recent-item">
-              <h3><a href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h3>
-              <div class="recent-meta">
-                {% if item.data.contentType %}<span class="recent-type">{{ item.data.contentType | replace('-', ' ') | title }}</span>{% endif %}
-                {% if item.data.discipline %}<span class="recent-discipline">{{ item.data.discipline | replace('-', ' ') | title }}</span>{% endif %}
-                {% if item.data.version %}<span class="recent-version">v{{ item.data.version }}</span>{% endif %}
-                {% if item | isRecentlyUpdated %}<span class="recent-updated">Updated</span>{% endif %}
+            <article class="ds-panel pl-recent">
+              <h3 class="ds-heading-md"><a class="ds-link" href="{{ item.url | fullUrl }}">{{ item.data.title }}</a></h3>
+              <div class="pl-row pl-row-tight">
+                {% if item.data.contentType %}<span class="ds-tag">{{ item.data.contentType | replace('-', ' ') | title }}</span>{% endif %}
+                {% if item.data.discipline %}<span class="ds-tag">{{ item.data.discipline | replace('-', ' ') | title }}</span>{% endif %}
+                {% if item.data.version %}<span class="ds-tag">v{{ item.data.version }}</span>{% endif %}
+                {% if item | isRecentlyUpdated %}<span class="ds-tag">Updated</span>{% endif %}
               </div>
-              <p class="recent-desc">{{ item.data.description }}</p>
+              <p class="ds-body-sm">{{ item.data.description }}</p>
             </article>
           </div>
+        {% endif %}
         {% endfor %}
       </div>
       <div class="swiper-pagination"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
     </div>
   </section>
 
-  {# 5. Browse by Type #}
-  <section class="rd-section">
-    <div class="rd-section__head rd-section__head--center">
-      <span class="rd-eyebrow rd-eyebrow--plain">Browse by Type</span>
-      <h2 class="rd-section__title">Choose the shape of help you need</h2>
-      <p class="rd-section__lead">Each content type has a different job: starting points, standards, installable workflows, role-based assistants, and reference material.</p>
+  {# Browse by Type #}
+  <section>
+    <div class="pl-section-head pl-mb-24">
+      <div>
+        <p class="ds-eyebrow">Browse by Type</p>
+        <h2 class="ds-section-title">Choose the shape of help you need</h2>
+        <p class="ds-section-note">Each content type has a different job: starting points, standards, installable workflows, role-based assistants, and reference material.</p>
+      </div>
     </div>
-    <div class="rd-grid rd-grid--types">
+    <div class="pl-grid pl-grid--types">
       {% for t in displayTypes %}
         {{ typeCard(t | replace('-', ' ') | title, t | typeCount, typeDescriptions[t], baseUrl + "/" + t + "/") }}
       {% endfor %}
     </div>
   </section>
 
-  {# 6. Browse by Discipline (matrix) #}
-  <section class="rd-section">
-    <div class="rd-section__head rd-section__head--split">
-      <div class="rd-section__heading">
-        <span class="rd-eyebrow rd-eyebrow--plain">Browse by Discipline</span>
-        <h2 class="rd-section__title">A library map for every team</h2>
-        <p class="rd-section__lead">A compact matrix so people can scan across teams and resource types quickly.</p>
+  {# Browse by Discipline (matrix) #}
+  <section>
+    <div class="pl-section-head pl-mb-24">
+      <div>
+        <p class="ds-eyebrow">Browse by Discipline</p>
+        <h2 class="ds-section-title">A library map for every team</h2>
+        <p class="ds-section-note">A compact matrix so people can scan across teams and resource types quickly.</p>
       </div>
     </div>
-    <div class="rd-matrix" role="table" aria-label="Resources by discipline and type">
-      <div class="rd-matrix__row rd-matrix__row--head" role="row">
-        <span class="rd-matrix__cell rd-matrix__cell--label" role="columnheader">Discipline</span>
-        {% for t in displayTypes %}
-          <span class="rd-matrix__cell" role="columnheader">{{ t | replace('-', ' ') | title }}</span>
-        {% endfor %}
-      </div>
-      {% for d in matrixDisciplines %}
-        <div class="rd-matrix__row" role="row">
-          <span class="rd-matrix__cell rd-matrix__cell--label" role="rowheader"><a href="{{ baseUrl }}/{{ d.slug }}/">{{ d.label }}</a></span>
-          {% for t in displayTypes %}
+    <div class="pl-scroll-x">
+      <table class="pl-matrix" aria-label="Resources by discipline and type">
+        <thead>
+          <tr>
+            <th scope="col">Discipline</th>
+            {% for t in displayTypes %}
+            <th scope="col">{{ t | replace('-', ' ') | title }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in matrixDisciplines %}
+          <tr>
+            <th scope="row"><a href="{{ baseUrl }}/{{ d.slug }}/">{{ d.label }}</a></th>
+            {% for t in displayTypes %}
             {% set n = d.slug | disciplineTypeCount(t) %}
-            <span class="rd-matrix__cell" role="cell">
-              {% if n > 0 %}<a href="{{ baseUrl }}/{{ d.slug }}/{{ t }}/">{{ n }}</a>{% else %}<span class="rd-matrix__dash">—</span>{% endif %}
-            </span>
+            <td>
+              {% if n > 0 %}<a href="{{ baseUrl }}/{{ d.slug }}/{{ t }}/" aria-label="{{ n }} {{ t | replace('-', ' ') }} in {{ d.label }}">{{ n }}</a>{% else %}<span class="ds-muted" aria-label="None">&ndash;</span>{% endif %}
+            </td>
+            {% endfor %}
+          </tr>
           {% endfor %}
-        </div>
-      {% endfor %}
+        </tbody>
+      </table>
     </div>
   </section>
 
-  {# 7. Share your knowledge #}
-  <section class="rd-cta-wrap">
-    <div class="rd-cta">
-      <div class="rd-cta__copy">
-        <h2 class="rd-cta__title">Share your best workflow.</h2>
-        <p class="rd-cta__desc">Submit a prompt, rule, agent, or skill and help the library become more useful for everyone.</p>
-      </div>
-      <div class="rd-cta__actions">
-        {{ libButton("Submit Prompt", "https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml", "filled", true) }}
-        {{ libButton("Contribution Guide", baseUrl + "/contributing", "outline") }}
-      </div>
+  {# Share your knowledge #}
+  <section class="ds-panel pl-cta">
+    <div>
+      <h2 class="ds-section-title">Share your best workflow</h2>
+      <p class="ds-section-note">Submit a prompt, rule, agent, or skill and help the library become more useful for everyone.</p>
+    </div>
+    <div class="pl-row">
+      {{ libButton("Submit a prompt", "https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml", "primary", true) }}
+      {{ libButton("Contribution guide", baseUrl + "/contributing", "text") }}
     </div>
   </section>
 
 </div>
 
 <script>
-  (function () {
-    // Filter chips populate and trigger the search
-    var input = document.getElementById('search-input');
-    document.querySelectorAll('.rd-chip').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        document.querySelectorAll('.rd-chip').forEach(function (c) { c.classList.remove('is-active'); });
-        chip.classList.add('is-active');
-        if (input) {
-          input.value = chip.dataset.query || chip.textContent.trim();
-          input.dispatchEvent(new Event('input', { bubbles: true }));
-          input.focus();
-        }
-      });
-    });
-
-    // Copy command button
-    document.querySelectorAll('.rd-copy').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var text = btn.getAttribute('data-copy') || '';
-        var label = btn.querySelector('.rd-copy__label');
-        var prev = label ? label.textContent : '';
-        var done = function () {
-          if (label) { label.textContent = 'Copied'; }
-          btn.classList.add('is-copied');
-          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copied'); }, 1600);
-        };
-        var fail = function () {
-          if (label) { label.textContent = 'Copy failed'; }
-          btn.classList.add('is-copy-failed');
-          setTimeout(function () { if (label) { label.textContent = prev; } btn.classList.remove('is-copy-failed'); }, 1600);
-        };
-        var fallbackCopy = function () {
-          try {
-            var ta = document.createElement('textarea');
-            ta.value = text;
-            ta.setAttribute('readonly', '');
-            ta.style.position = 'absolute';
-            ta.style.left = '-9999px';
-            document.body.appendChild(ta);
-            ta.select();
-            var ok = document.execCommand('copy');
-            document.body.removeChild(ta);
-            return ok;
-          } catch (e) { return false; }
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(done).catch(function () {
-            if (fallbackCopy()) { done(); } else { fail(); }
-          });
-        } else if (fallbackCopy()) {
-          done();
-        } else {
-          fail();
-        }
-      });
-    });
-  })();
-</script>
-
-<script>
-  // Recently Added carousel (Swiper) — waits until the Swiper lib has loaded
+  // Recently Added carousel (Swiper). Waits until the Swiper lib has loaded.
   (function () {
     var IDLE_MS = 30000; // resume autoplay after this long without interaction
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function initRecentlyAddedSwiper() {
       var idleTimer = null;
       var swiper = new Swiper('.recently-added-swiper', {
         slidesPerView: 1,
-        spaceBetween: 20,
+        spaceBetween: 24,
         loop: true,
-        loopAdditionalSlides: 5,
         watchSlidesProgress: true,
-        autoplay: { delay: 5000, disableOnInteraction: false },
+        // No automatic movement for people who asked for reduced motion.
+        autoplay: reduceMotion ? false : { delay: 5000, disableOnInteraction: false },
         pagination: { el: '.swiper-pagination', clickable: true, dynamicBullets: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        navigation: { nextEl: '.pl-carousel-next', prevEl: '.pl-carousel-prev' },
         breakpoints: {
-          640: { slidesPerView: 2, spaceBetween: 20 },
-          960: { slidesPerView: 3, spaceBetween: 24 }
+          768: { slidesPerView: 2 },
+          960: { slidesPerView: 3 }
         }
       });
+      if (reduceMotion) { return; }
 
       // Pause autoplay on any interaction; resume after 30s of inactivity.
       function onInteract() {
@@ -270,6 +204,9 @@ needsSwiper: true
       }
       swiper.el.addEventListener('pointerdown', onInteract, { passive: true });
       swiper.el.addEventListener('keydown', onInteract);
+      document.querySelectorAll('.pl-carousel-prev, .pl-carousel-next').forEach(function (button) {
+        button.addEventListener('click', onInteract);
+      });
     }
     function checkSwiperAndInit() {
       if (typeof Swiper !== 'undefined') { initRecentlyAddedSwiper(); }

@@ -1,3 +1,30 @@
+{% from "_icons.njk" import robot, search, moon, sun %}
+{#
+  Root layout. Styling comes from the Lullabot App Design System, vendored
+  in assets/ds/ (see README.md for the version). assets/css/site.css adds
+  layout only.
+
+  Page header data (all optional, set in front matter):
+    heading   h1 text when it should differ from the <title> text
+    eyebrow   small caps line above the h1
+    lede      intro sentence; falls back to `description`
+    pageKind  set by the layouts: "item", "listing" or "discipline"
+    hidePageHeader / hideHeaderSearch
+#}
+{% set disciplineSlugs = ['development', 'project-management', 'sales-marketing', 'content-strategy', 'design', 'quality-assurance', 'admin'] %}
+{% set indexedTypes = ['prompts', 'rules', 'project-configs', 'agents', 'skills', 'resources'] %}
+{% set navItems = [
+  { slug: 'prompts', label: 'Prompts', href: '/prompts/' },
+  { slug: 'rules', label: 'Rules', href: '/rules/' },
+  { slug: 'agents', label: 'Agents', href: '/agents/' },
+  { slug: 'skills', label: 'Skills', href: '/skills/' },
+  { slug: 'resources', label: 'Resources', href: '/resources/' },
+  { slug: 'help', label: 'Help', href: '/help' }
+] %}
+{% set urlFirst = page.url | disciplineFromUrl %}
+{% set urlSecond = page.url | contentTypeFromUrl %}
+{% set segDiscipline = discipline or urlFirst %}
+{% set segType = contentType or urlSecond %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,69 +32,127 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="{{ baseUrl }}">
     <title>{{ title }} - Prompt Library</title>
-    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/styles.css">
-    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/redesign.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="{{ baseUrl }}/assets/ds/favicon.ico" type="image/vnd.microsoft.icon">
+    {# Blocking and first, so data-theme is set before first paint. #}
+    <script src="{{ baseUrl }}/assets/ds/theme.js" data-storage-key="prompt-library-theme"></script>
+    <script>
+      // ?theme=light|dark forces a theme without saving it (previews, screenshots).
+      (function () {
+        var forced = new URLSearchParams(window.location.search).get('theme');
+        if (forced === 'light' || forced === 'dark') {
+          document.documentElement.setAttribute('data-theme', forced);
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/ds/css/index.css">
+    <link rel="stylesheet" href="{{ baseUrl }}/assets/css/site.css">
     {% if needsSwiper %}
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" defer></script>
     {% endif %}
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="{{ baseUrl }}/assets/js/theme.js"></script>
 </head>
-<body class="{{ bodyClass }}">
-    <header class="rd-topbar">
-        <a class="rd-brand" href="{{ baseUrl }}/" aria-label="Prompt Library home">
-            <span class="rd-brand__mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 6l5 6-5 6"/>
-                    <path d="M13 18h6"/>
-                </svg>
-            </span>
-            <span class="rd-brand__name">Prompt Library</span>
-        </a>
-        {% if not hideHeaderSearch %}
-        <div class="rd-topbar__search">
-            <form class="search-form" role="search">
-                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
-                <label for="search-input" class="visually-hidden">Search</label>
-                <input type="search" id="search-input" class="search-input"
-                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
-            </form>
-            <div id="search-results" class="search-results" hidden></div>
-        </div>
-        {% endif %}
-        <nav class="rd-topbar__links" aria-label="Primary">
-            <a href="{{ baseUrl }}/">Home</a>
-            <a href="{{ baseUrl }}/help">Help</a>
-        </nav>
-        <div class="rd-topbar__actions">
-            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
-            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
-                <i class="fas fa-moon" aria-hidden="true"></i>
-            </button>
+<body>
+    <header class="ds-site-header pl-site-header">
+        <div class="pl-header">
+            <a href="{{ baseUrl }}/" class="ds-brand-block" aria-label="Prompt Library home">{{ robot() }}</a>
+            <a href="{{ baseUrl }}/" class="ds-wordmark pl-header__wordmark" tabindex="-1" aria-hidden="true">Prompt Library</a>
+
+            <nav class="pl-header__nav" aria-label="Primary">
+                {% for item in navItems %}
+                {% set isCurrent = (urlFirst == item.slug) or (urlSecond == item.slug) %}
+                <a class="ds-nav-link{% if isCurrent %} ds-nav-link-active{% endif %}" href="{{ baseUrl }}{{ item.href }}"{% if isCurrent %} aria-current="page"{% endif %}>{{ item.label }}</a>
+                {% endfor %}
+            </nav>
+
+            <div class="pl-header__spacer"></div>
+
+            {% if not hideHeaderSearch %}
+            <div class="pl-header__search">
+                <form class="search-form pl-header__search-form" role="search">
+                    {{ search() }}
+                    <label for="search-input" class="visually-hidden">Search the library</label>
+                    <input type="search" id="search-input" class="ds-input search-input" placeholder="Search" autocomplete="off">
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            {% endif %}
+
+            <div class="pl-header__util">
+                <button type="button" class="ds-theme-toggle" onclick="dsTheme.toggle()" aria-pressed="false" aria-label="Toggle dark mode">
+                    {{ moon("pl-icon pl-theme-icon-moon") }}
+                    {{ sun("pl-icon pl-theme-icon-sun") }}
+                    <span class="pl-theme-label">Theme</span>
+                </button>
+            </div>
+
+            <div class="pl-header__util pl-header__util--menu">
+                <details class="pl-menu">
+                    <summary class="ds-label-caps">Menu</summary>
+                    <nav class="pl-menu__panel" aria-label="Primary, compact">
+                        {% for item in navItems %}
+                        {% set isCurrent = (urlFirst == item.slug) or (urlSecond == item.slug) %}
+                        <a class="ds-nav-link-block{% if isCurrent %} ds-nav-link-block-active{% endif %}" href="{{ baseUrl }}{{ item.href }}"{% if isCurrent %} aria-current="page"{% endif %}>{{ item.label }}</a>
+                        {% endfor %}
+                        <a class="ds-nav-link-block" href="{{ baseUrl }}/contributing">Contributing</a>
+                    </nav>
+                </details>
+            </div>
         </div>
     </header>
+
+    {% if not hidePageHeader %}
+    <div class="ds-page-header">
+        <div class="ds-page-header-inner pl-container">
+            {% if pageKind == "item" and (segDiscipline in disciplineSlugs) %}
+            <p class="ds-eyebrow">
+                <a href="{{ baseUrl }}/{{ segDiscipline }}/">{{ segDiscipline | replace("-", " ") | title }}</a>
+                {% if segType %}
+                <span class="pl-eyebrow-sep" aria-hidden="true">/</span>
+                {% if segType in indexedTypes %}<a href="{{ baseUrl }}/{{ segDiscipline }}/{{ segType }}/">{{ segType | replace("-", " ") | title }}</a>{% else %}{{ segType | replace("-", " ") | title }}{% endif %}
+                {% endif %}
+            </p>
+            {% elif pageKind == "listing" and (segDiscipline in disciplineSlugs) %}
+            <p class="ds-eyebrow"><a href="{{ baseUrl }}/{{ segDiscipline }}/">{{ segDiscipline | replace("-", " ") | title }}</a></p>
+            {% elif pageKind == "discipline" %}
+            <p class="ds-eyebrow">Discipline</p>
+            {% elif eyebrow %}
+            <p class="ds-eyebrow">{{ eyebrow }}</p>
+            {% endif %}
+            <h1 class="ds-page-title">{{ heading or title }}</h1>
+            {# The lede is for a sentence or two. Longer descriptions (skill
+               trigger text, mostly) drop to body size so they don't fill a
+               phone screen at 24/40. #}
+            {% set ledeText = lede or description %}
+            {% if ledeText and (ledeText | length) > 200 %}
+            <p class="ds-body-md pl-page-summary">{{ ledeText }}</p>
+            {% elif ledeText %}
+            <p class="ds-page-lede">{{ ledeText }}</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 
     <main>
         {{ content | safe }}
     </main>
 
-    <footer class="rd-footer">
-        <span class="rd-footer__copy">&copy; {{ "now" | date("yyyy") }} Prompt Library</span>
-        <div class="rd-footer__links">
-            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="{{ baseUrl }}/help">Help</a>
+    <footer class="pl-footer">
+        <div class="pl-container pl-footer__inner">
+            <p class="ds-body-sm">&copy; {{ "now" | date("yyyy") }} Prompt Library</p>
+            <nav class="pl-footer__links" aria-label="Footer">
+                <a class="ds-btn-text" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a class="ds-btn-text" href="{{ baseUrl }}/contributing">Contributing</a>
+                <a class="ds-btn-text" href="{{ baseUrl }}/help">Help</a>
+            </nav>
         </div>
     </footer>
 
-    <div id="markdown-modal" class="markdown-modal">
-        <div class="markdown-content">
-            <button class="close-button" aria-label="Close">&times;</button>
-            <div id="markdown-display" class="markdown-body"></div>
-        </div>
-    </div>
-
-    <script src="{{ baseUrl }}/assets/js/main.js"></script>
+    <script src="{{ baseUrl }}/assets/js/main.js" defer></script>
 </body>
-</html> 
+</html>

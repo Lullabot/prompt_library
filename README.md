@@ -54,7 +54,8 @@ npm run build
 │   ├── discipline.njk  # Discipline-specific layout
 │   └── content-type.njk # Content type layout
 ├── assets/             # Static assets
-│   ├── css/           # Stylesheets
+│   ├── ds/            # Lullabot App Design System (vendored, do not edit)
+│   ├── css/           # site.css: layout on top of the design system
 │   ├── js/            # JavaScript files
 │   └── images/        # Image assets
 ├── development/        # Development discipline content
@@ -95,6 +96,14 @@ npm run build
 ├── README.md
 └── llms.txt           # AI context file (auto-generated)
 ```
+
+## Design System
+
+The site is styled with the [Lullabot App Design System](https://github.com/Lullabot/lullabot-app-design-system): lullabot.com's design language for internal apps. Its CSS (`tokens.css`, `base.css`, `components.css`, `index.css`), `theme.js` and favicon are copied into `assets/ds/`, because the package has no npm release and its repository is private, so CI can't install it.
+
+**Version copied:** 0.2.4 plus the unreleased changes on `main` as of 2026-11-10 (Satoshi replaces Figtree, the section-title rule is opt-in). To update, copy `css/` and `assets/theme.js` from a newer checkout over `assets/ds/` and change this line.
+
+Never edit the files in `assets/ds/`. `assets/css/site.css` holds layout plus a few patterns the system doesn't have yet (code blocks, an accordion, a dark footer, a pressed filter chip); each is marked `GAP` in the CSS and built from `--ds-*` tokens. Before writing new CSS, read the package's `DESIGN.md` and reach for a `.ds-*` class.
 
 ## Content Organization
 

@@ -1,0 +1,741 @@
+/* ==========================================================================
+   Prompt Library: site layer on the Lullabot App Design System.
+
+   The system is vendored in assets/ds/ and supplies every color, type size
+   and shape. This file adds layout only, plus a handful of patterns the
+   system does not have yet. Those are built from --ds-* tokens, follow the
+   matching lullabot.com component, and are marked "GAP" so they can be
+   swapped for a .ds-* class when the system gains one.
+
+   Rules for editing: no new colors, no radius, no shadows, no hover lift.
+   Reach for a .ds-* class before adding anything here.
+   ========================================================================== */
+
+/* ---------- Reset the system's base layer leaves to Tailwind ---------- */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--ds-bg-1);
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Layout ---------- */
+
+/* The system's content column: 80rem, with 16, 24 and 32px gutters. */
+.pl-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+@media (min-width: 768px) {
+  .pl-container { padding-inline: 24px; }
+}
+
+@media (min-width: 960px) {
+  .pl-container { padding-inline: 32px; }
+}
+
+.pl-main {
+  padding-block: 48px 88px;
+}
+
+/* Sections sit 56px apart. */
+.pl-stack > * + * { margin-block-start: 56px; }
+.pl-stack-sm > * + * { margin-block-start: 24px; }
+
+/* Reading column for long-form pages. */
+.pl-measure { max-width: 56rem; }
+
+.pl-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.pl-row-between { justify-content: space-between; }
+.pl-row-end { align-items: flex-end; }
+.pl-row-tight { gap: 8px; }
+
+.pl-scroll-x { overflow-x: auto; }
+.pl-nowrap { white-space: nowrap; }
+
+.pl-list-reset {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pl-mt-8 { margin-block-start: 8px; }
+.pl-mt-16 { margin-block-start: 16px; }
+.pl-mt-24 { margin-block-start: 24px; }
+.pl-mt-32 { margin-block-start: 32px; }
+.pl-mb-16 { margin-block-end: 16px; }
+.pl-mb-24 { margin-block-end: 24px; }
+
+.pl-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+.pl-mono {
+  font: 400 13px/20px var(--ds-font-mono);
+}
+
+/* ---------- Site header layout ---------- */
+
+/* A deliberate stacking context, so the search results and the menu sit
+   above the page header's dot pattern. */
+.pl-site-header { z-index: 20; }
+
+.pl-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.pl-header__wordmark {
+  align-self: center;
+  padding-inline: 16px 8px;
+}
+
+@media (min-width: 480px) {
+  .pl-header__wordmark { padding-inline: 20px 8px; }
+}
+
+.pl-header__nav {
+  display: none;
+  align-items: stretch;
+  margin-inline-start: 24px;
+}
+
+.pl-header__spacer { flex: 1; }
+
+.pl-header__util {
+  display: flex;
+  align-items: center;
+  padding-inline: 8px;
+  border-inline-start: 1px solid var(--ds-border-subtle);
+}
+
+@media (min-width: 480px) {
+  .pl-header__util { padding-inline: 12px; }
+}
+
+/* Under 480px the toggle is its icon alone. */
+@media (max-width: 479px) {
+  .pl-theme-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+.pl-theme-icon-sun { display: none; }
+:root[data-theme="dark"] .pl-theme-icon-sun { display: block; }
+:root[data-theme="dark"] .pl-theme-icon-moon { display: none; }
+
+/* Header search: lullabot.com's header-search, a field in its own ruled
+   cell. On phones it drops to a second row. */
+.pl-header__search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 0 100%;
+  order: 10;
+  padding: 0 16px 16px;
+  border-block-start: 1px solid var(--ds-border-subtle);
+}
+
+.pl-header__search-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  width: 100%;
+  color: var(--ds-fg-3);
+}
+
+.pl-header__search-form .pl-icon { margin-block-end: 12px; }
+
+@media (min-width: 768px) {
+  .pl-header__search {
+    flex: 0 1 320px;
+    order: 0;
+    padding: 0 16px;
+    border-block-start: 0;
+    border-inline-start: 1px solid var(--ds-border-subtle);
+  }
+}
+
+/* Menu for narrow screens. The summary is the system's disclosure label;
+   as a flex box it centers in the header cell like the theme toggle. */
+.pl-menu > summary.ds-label-caps {
+  display: flex;
+  padding: 8px;
+}
+
+.pl-menu__panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: 30;
+  padding-block: 8px 16px;
+  background: var(--ds-bg-1);
+  border-block: 1px solid var(--ds-border-subtle);
+  box-shadow: var(--ds-overlay-shadow);
+}
+
+@media (min-width: 1280px) {
+  .pl-header__nav { display: flex; }
+  .pl-header__util--menu { display: none; }
+}
+
+/* ---------- Page header ---------- */
+
+.ds-eyebrow a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--ds-brand);
+  text-underline-offset: 5px;
+}
+
+/* A long description in the lede's place, at body size. */
+.pl-page-summary {
+  margin-block-start: 24px;
+  max-width: 68ch;
+}
+
+.pl-eyebrow-sep {
+  margin-inline: 8px;
+  color: var(--ds-fg-2);
+}
+
+/* ---------- Search ---------- */
+
+.pl-search__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 24px;
+}
+
+.pl-search__field {
+  position: relative;
+  flex: 1 1 320px;
+}
+
+.pl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block-start: 24px;
+}
+
+/* GAP: the system's tertiary chip has no selected state. This holds its
+   own hover fill while the chip is pressed. The outline stays red, so a
+   pressed chip still has an edge on a dark ground. */
+.pl-chip[aria-pressed="true"] {
+  background-size: 100% 100%;
+  color: var(--ds-on-brand);
+}
+
+.pl-chip[aria-pressed="true"]:hover {
+  border-color: var(--ds-btn-tertiary-border);
+}
+
+/* Results dropdown, per the system's dropdown rule: square, on the page
+   ground, a subtle border and the overlay shadow. */
+.search-results {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  z-index: 30;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--ds-bg-1);
+  border: 1px solid var(--ds-border-subtle);
+  box-shadow: var(--ds-overlay-shadow);
+}
+
+@media (min-width: 768px) {
+  .pl-header__search .search-results {
+    inset-inline: auto 0;
+    width: min(480px, 100vw - 32px);
+  }
+}
+
+.pl-result {
+  display: block;
+  padding: 16px;
+  color: var(--ds-fg-1);
+  border-block-end: 1px solid var(--ds-border-subtle);
+  transition: background-color var(--ds-dur);
+}
+
+.search-result:last-child .pl-result { border-block-end: 0; }
+
+.pl-result:hover,
+.pl-result:focus-visible {
+  background: var(--ds-bg-3);
+}
+
+.pl-result:focus-visible { outline-offset: -4px; }
+
+.pl-result__title {
+  display: block;
+  font-weight: var(--ds-weight-heavy);
+  color: var(--ds-fg-heading);
+}
+
+.pl-result__meta,
+.pl-result__desc {
+  display: block;
+  margin-block-start: 4px;
+}
+
+.pl-search-message {
+  padding: 16px;
+  color: var(--ds-fg-2);
+}
+
+/* ---------- Sections, grids and cards ---------- */
+
+.pl-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.pl-section-head .ds-eyebrow { margin-block-end: 16px; }
+
+.pl-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.pl-grid--types { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+.pl-type-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pl-type-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.pl-type-card .ds-btn-text { margin-block-start: auto; }
+
+/* Two columns from 960px: copy on the left, the command on the right. */
+.pl-install {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 960px) {
+  .pl-install { grid-template-columns: 1fr 1fr; }
+}
+
+.pl-command {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+}
+
+.pl-command pre { width: 100%; }
+
+.pl-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* ---------- Tables ----------
+   ADAPTATION: the system's tables follow lullabot.com's "tabled" component,
+   which rules off every row in gray-400 with 8px of padding. On listings
+   with long descriptions that reads as a stack of heavy lines. These rules
+   follow Lullabot's document house style for data tables instead (the
+   lullabot-documents skill, references/doc-styles.md):
+
+   - no rules between rows; the alternating fill separates them
+   - no rules between columns; a pale rule on the outer left and right only
+   - even padding on all four sides (0.14in there, 16px on this scale)
+   - header labels centered vertically, body cells aligned to the top
+
+   The header ground, type and colors are still the system's. The pale rule
+   also closes the bottom edge, which the document style leaves open. */
+
+thead th {
+  padding: 16px;
+  vertical-align: middle;
+}
+
+/* The header's outer edges match its fill. */
+thead th:first-child { border-inline-start: 1px solid var(--ds-bg-ink); }
+thead th:last-child { border-inline-end: 1px solid var(--ds-bg-ink); }
+
+tbody td,
+tbody th {
+  padding: 16px;
+  border-block-end: 0;
+}
+
+tbody tr > :first-child { border-inline-start: 1px solid var(--ds-border-pale); }
+tbody tr > :last-child { border-inline-end: 1px solid var(--ds-border-pale); }
+
+tbody tr:last-child > td,
+tbody tr:last-child > th { border-block-end: 1px solid var(--ds-border-pale); }
+
+.pl-content-table { min-width: 720px; }
+.pl-content-table tbody th { font-weight: var(--ds-weight-medium); }
+.pl-content-table .pl-col-name { width: 24%; }
+.pl-content-table .pl-col-tags { width: 20%; }
+
+/* Long descriptions stop at three lines so rows stay comparable; the item
+   page carries the full text. */
+.pl-clamp {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
+}
+
+.pl-matrix { min-width: 600px; }
+
+.pl-matrix thead th:not(:first-child),
+.pl-matrix td {
+  text-align: end;
+  font-variant-numeric: tabular-nums;
+}
+
+.pl-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Section tabs for a discipline's content types (the system's sort tabs). */
+.pl-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  border-block-end: 1px solid var(--ds-border-subtle);
+}
+
+/* ---------- Recently added carousel (Swiper, reskinned) ---------- */
+
+.pl-carousel {
+  --swiper-theme-color: var(--ds-fg-heading);
+  --swiper-pagination-color: var(--ds-fg-heading);
+  --swiper-pagination-bullet-inactive-color: var(--ds-border-strong);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-border-radius: 0;
+  padding-block-end: 40px;
+}
+
+.pl-carousel .swiper-slide {
+  display: flex;
+  height: auto;
+}
+
+.pl-carousel .swiper-pagination-bullet { border-radius: var(--ds-r-none); }
+
+/* Without Swiper (script blocked or still loading) the row scrolls. */
+.pl-carousel:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+}
+
+.pl-carousel:not(.swiper-initialized) .swiper-slide { flex: 0 0 min(85%, 380px); }
+
+.pl-recent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+/* ---------- Item pages ---------- */
+
+.pl-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pl-changelog {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.pl-changelog li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  padding-block: 12px;
+  border-block-start: 1px solid var(--ds-border-subtle);
+}
+
+.pl-resources {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+
+.pl-resources li + li { margin-block-start: 8px; }
+
+/* ---------- Code ----------
+   GAP: the system has a mono face and a code size but no code block.
+   These follow lullabot.com's text atom: snippets are white mono on a dark
+   ground, and inline code is ocean-800 on a pale ground. The dark ground
+   uses --ds-bg-ink so it stays dark in both themes. */
+
+pre {
+  padding: 24px;
+  overflow-x: auto;
+  font: 400 13px/20px var(--ds-font-mono);
+  color: var(--ds-on-ink);
+  background: var(--ds-bg-ink);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  tab-size: 2;
+}
+
+pre code {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+}
+
+:not(pre) > code {
+  padding: 2px 6px;
+  font-size: 0.875em;
+  color: var(--ds-fg-2);
+  background: var(--ds-bg-3);
+  overflow-wrap: break-word;
+}
+
+/* A snippet with a copy button (added by main.js). */
+.pl-code { position: relative; }
+.pl-code > pre { padding-block-start: 72px; }
+
+.pl-code__copy {
+  position: absolute;
+  inset-block-start: 16px;
+  inset-inline-end: 16px;
+}
+
+/* ---------- Prose ----------
+   Rendered Markdown and long hand-written pages. Type follows the system's
+   scale: 18/32 body, section-title and heading-md headings. */
+
+.pl-prose {
+  font: var(--ds-weight-normal) 18px/32px var(--ds-font-body);
+  overflow-wrap: break-word;
+}
+
+.pl-prose > * + * { margin-block-start: 24px; }
+
+.pl-prose h1,
+.pl-prose h2 {
+  font: var(--ds-weight-heavy) 24px/32px var(--ds-font-display);
+  letter-spacing: -0.02em;
+}
+
+.pl-prose h3 {
+  font: var(--ds-weight-heavy) 20px/24px var(--ds-font-display);
+  letter-spacing: -0.02em;
+}
+
+.pl-prose h4,
+.pl-prose h5,
+.pl-prose h6 {
+  font: var(--ds-weight-heavy) 18px/32px var(--ds-font-display);
+  letter-spacing: -0.02em;
+}
+
+.pl-prose > h1:not(:first-child),
+.pl-prose > h2:not(:first-child) { margin-block-start: 56px; }
+
+.pl-prose > h3:not(:first-child),
+.pl-prose > h4:not(:first-child) { margin-block-start: 40px; }
+
+@media (min-width: 1280px) {
+  .pl-prose h1,
+  .pl-prose h2 { font-size: 32px; line-height: 40px; }
+}
+
+.pl-prose ul,
+.pl-prose ol {
+  margin-block-end: 0;
+  padding-inline-start: 24px;
+}
+
+/* Bullets follow Lullabot's document house style (lullabot-documents skill):
+   a small red arrow at the text margin with the text hanging 0.25in (24px)
+   in, and a gray square for sub-bullets that sits where the parent's text
+   starts. lullabot.com also marks its lists in red. The "/ ''" gives the
+   glyph empty alt text so screen readers skip it. */
+.pl-prose ul {
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.pl-prose ul > li {
+  position: relative;
+  padding-inline-start: 24px;
+}
+
+.pl-prose ul > li::before {
+  content: "\2192";
+  content: "\2192" / "";
+  position: absolute;
+  inset-inline-start: 0;
+  font-size: 0.72em;
+  color: var(--ds-brand);
+}
+
+.pl-prose ul ul > li::before {
+  content: "\25A0";
+  content: "\25A0" / "";
+  font-size: 0.5em;
+  color: var(--ds-fg-3);
+}
+
+.pl-prose li + li { margin-block-start: 8px; }
+.pl-prose li > * + * { margin-block-start: 8px; }
+.pl-prose li > ul,
+.pl-prose li > ol { margin-block-start: 8px; }
+
+.pl-prose hr {
+  margin-block: 40px;
+  border: 0;
+  border-block-start: 1px solid var(--ds-border-subtle);
+}
+
+/* ---------- Accordion ----------
+   GAP: the system's disclosure is a 12px caps label, too small to head a
+   page section. This follows lullabot.com's accordion-item: a medium 20px
+   label, a plus that turns to a cross when open, and a bottom rule that
+   darkens on hover. */
+
+.pl-accordion {
+  border-block-end: 1px solid var(--ds-border-subtle);
+  transition: border-color var(--ds-dur);
+}
+
+.pl-accordion:hover { border-block-end-color: var(--ds-fg-heading); }
+
+.pl-accordion > summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 32px 0 16px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--ds-fg-heading);
+}
+
+.pl-accordion > summary::-webkit-details-marker { display: none; }
+
+.pl-accordion > summary::after {
+  content: "";
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-inline-start: auto;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+  transition: transform 200ms ease-in, color var(--ds-dur);
+}
+
+.pl-accordion > summary:hover::after { color: var(--ds-brand); }
+.pl-accordion[open] > summary::after { transform: rotate(45deg); }
+
+.pl-accordion__title {
+  font: var(--ds-weight-medium) 20px/32px var(--ds-font-body);
+  letter-spacing: 0;
+}
+
+.pl-accordion__content { padding-block: 8px 40px; }
+
+/* ---------- Footer ----------
+   GAP: the system has no dark section. lullabot.com's footer sits on a
+   dark ground with white text (.layout--dark); this scopes the text tokens
+   to the ink ground so .ds-btn-text and plain copy read on it. */
+
+.pl-footer {
+  --ds-fg-heading: var(--ds-on-ink);
+  --ds-fg-1: var(--ds-on-ink);
+  padding-block: 40px;
+  color: var(--ds-on-ink);
+  background: var(--ds-bg-ink);
+}
+
+.pl-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.pl-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+}

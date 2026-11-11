@@ -4,36 +4,40 @@ description: "Helpful resources and explanations for using the Prompt Library."
 layout: "base.njk"
 ---
 
-<div class="help-container">
-  <h1 class="help-title">Help & Guidance</h1>
+<div class="pl-container pl-main">
+  <div class="pl-measure pl-stack">
 
-  <details class="accordion-section">
-    <summary class="accordion-title">Prompting Best Practices</summary>
-    <div class="accordion-content">
+  <section>
+  <details class="pl-accordion">
+    <summary><h2 class="pl-accordion__title">Prompting Best Practices</h2></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>Here are some excellent resources for learning how to write effective prompts:</p>
       <ul>
-        <li><a href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer">Prompting Guide by DAIR.AI</a></li>
-        <li><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer">Anthropic's Introduction to Prompt Engineering</a></li>
-        <li><a href="https://aurachat.io/learn/tips-for-prompting" target="_blank" rel="noopener noreferrer">AuraChat Prompting Tips</a></li>
-        <li><a href="https://platform.openai.com/docs/guides/prompt-engineering/six-strategies-for-getting-better-results" target="_blank" rel="noopener noreferrer">OpenAI's Prompt Engineering Strategies</a></li>
-        <li><a href="https://academy.openai.com/" target="_blank" rel="noopener noreferrer">OpenAI Academy</a></li>
-        <li><a href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener noreferrer">Introduction to AI Fluency</a></li>
-        <li><a href="https://www.operatorshandbook.com/p/how-to-work-with-ai-getting-the-most" target="_blank" rel="noopener noreferrer">Getting the most out of Deep Research</a></li>
+        <li><a class="ds-link" href="https://www.promptingguide.ai/" target="_blank" rel="noopener noreferrer">Prompting Guide by DAIR.AI</a></li>
+        <li><a class="ds-link" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview" target="_blank" rel="noopener noreferrer">Anthropic's Introduction to Prompt Engineering</a></li>
+        <li><a class="ds-link" href="https://aurachat.io/learn/tips-for-prompting" target="_blank" rel="noopener noreferrer">AuraChat Prompting Tips</a></li>
+        <li><a class="ds-link" href="https://platform.openai.com/docs/guides/prompt-engineering/six-strategies-for-getting-better-results" target="_blank" rel="noopener noreferrer">OpenAI's Prompt Engineering Strategies</a></li>
+        <li><a class="ds-link" href="https://academy.openai.com/" target="_blank" rel="noopener noreferrer">OpenAI Academy</a></li>
+        <li><a class="ds-link" href="https://www.anthropic.com/ai-fluency" target="_blank" rel="noopener noreferrer">Introduction to AI Fluency</a></li>
+        <li><a class="ds-link" href="https://www.operatorshandbook.com/p/how-to-work-with-ai-getting-the-most" target="_blank" rel="noopener noreferrer">Getting the most out of Deep Research</a></li>
       </ul>
     </div>
   </details>
 
-  <h2 class="section-heading">Artifact Types</h2>
-  <p>The Prompt Library organizes reusable assets into several artifact types. Each type serves a distinct purpose in AI-assisted development and project management.</p>
+  
+  </section>
 
-  <details class="artifact-section accordion-section">
-    <summary class="accordion-title">AI Prompts</summary>
-    <div class="accordion-content">
+  <section>
+<h2 class="ds-section-title ds-section-title-decorated">Artifact Types</h2>
+  <p class="ds-section-note">The Prompt Library organizes reusable assets into several artifact types. Each type serves a distinct purpose in AI-assisted development and project management.</p>
+
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">AI Prompts</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>AI prompts are predefined inputs used to guide AI models in generating responses. They are essential for ensuring that AI outputs are relevant and useful.</p>
-      <p class="file-location"><strong>Usage:</strong> Copy and paste the prompt directly into your AI assistant's chat window.</p>
-      <div class="example-block">
-        <div class="example-label">Example: Project Management User Story Generator</div>
-        <code># User Story Generator Prompt
+      <p class="ds-callout"><strong>Usage:</strong> Copy and paste the prompt directly into your AI assistant's chat window.</p>
+      <p class="ds-label-caps">Example: Project Management User Story Generator</p>
+      <pre><code># User Story Generator Prompt
 
 ## Format Template
 As a [type of user]
@@ -59,21 +63,19 @@ Acceptance Criteria:
 - Support desktop, tablet, and mobile views
 - Allow custom viewport dimensions
 - Show responsive breakpoints
-- Real-time preview updates</code>
-      </div>
-      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="cta-button">Submit a new Prompt</a></div>
+- Real-time preview updates</code></pre>
+      <p><a href="https://github.com/Lullabot/prompt_library/issues/new?template=prompt-submission.yml" class="ds-btn ds-btn-secondary">Submit a new Prompt</a></p>
     </div>
   </details>
 
-  <details class="artifact-section accordion-section">
-    <summary class="accordion-title">Rules (.cursor/rules)</summary>
-    <div class="accordion-content">
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">Rules (.cursor/rules)</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>Cursor Rules define specific behaviors, guidelines, and configurations for your development environment and AI interactions within the Cursor editor. They help maintain consistency, enforce standards, and streamline workflows.</p>
-      <p class="file-location"><strong>File Location Examples:</strong> <code>.cursor/rules/code-review.mdc</code>, <code>.cursor/rules/project-guidelines.md</code></p>
+      <p class="ds-callout"><strong>File Location Examples:</strong> <code>.cursor/rules/code-review.mdc</code>, <code>.cursor/rules/project-guidelines.md</code></p>
       <p>These rules can cover a wide range of topics, including coding standards, commit message formats, documentation requirements, and even persona definitions for the AI.</p>
-      <div class="example-block">
-        <div class="example-label">Example: Code Review Guidelines</div>
-        <code># Code Review Guidelines
+      <p class="ds-label-caps">Example: Code Review Guidelines</p>
+      <pre><code># Code Review Guidelines
 
 ## Scope
 Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
@@ -95,20 +97,18 @@ Applies to: JavaScript, TypeScript, and React files (*.js, *.ts, *.jsx, *.tsx)
 ## Additional Notes
 - Run linter before submitting
 - Update documentation if needed
-- Consider backwards compatibility</code>
-      </div>
-      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="cta-button">Submit a new Rule</a></div>
+- Consider backwards compatibility</code></pre>
+      <p><a href="https://github.com/Lullabot/prompt_library/issues/new?template=rule-submission.yml" class="ds-btn ds-btn-secondary">Submit a new Rule</a></p>
     </div>
   </details>
 
-  <details class="artifact-section accordion-section">
-    <summary class="accordion-title">Project Configs</summary>
-    <div class="accordion-content">
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">Project Configs</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>Project configurations are settings and parameters that define how a project is built, run, or how specific tools related to the project should behave. They are crucial for maintaining consistency and sharing setup information.</p>
-      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/project-configs/[config-name].md</code> (e.g., <code>development/project-configs/11ty-setup.md</code>)</p>
-      <div class="example-block">
-        <div class="example-label">Example: Next.js Project Configuration</div>
-        <code># Next.js Configuration Guide
+      <p class="ds-callout"><strong>File Location Example:</strong> <code>[category]/project-configs/[config-name].md</code> (e.g., <code>development/project-configs/11ty-setup.md</code>)</p>
+      <p class="ds-label-caps">Example: Next.js Project Configuration</p>
+      <pre><code># Next.js Configuration Guide
 
 ## Image Optimization
 - Supported domains: assets.example.com
@@ -139,20 +139,18 @@ Old Path | New Path | Type
 ## Development Notes
 - Update env variables per environment
 - Test redirects after deployment
-- Monitor experimental features</code>
-      </div>
-      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="cta-button">Submit a new Project Config</a></div>
+- Monitor experimental features</code></pre>
+      <p><a href="https://github.com/Lullabot/prompt_library/issues/new?template=project-config-submission.yml" class="ds-btn ds-btn-secondary">Submit a new Project Config</a></p>
     </div>
   </details>
 
-  <details class="artifact-section accordion-section">
-    <summary class="accordion-title">Workflow States</summary>
-    <div class="accordion-content">
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">Workflow States</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>Workflow states represent the different stages of a project, task, or content lifecycle. They help in tracking progress, defining processes, and managing tasks efficiently.</p>
-      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/workflow-states/[workflow-name].md</code> (e.g., <code>content-strategy/workflow-states/editorial-workflow.md</code>)</p>
-      <div class="example-block">
-        <div class="example-label">Example: Content Publishing Workflow</div>
-        <code># Content Publishing Workflow
+      <p class="ds-callout"><strong>File Location Example:</strong> <code>[category]/workflow-states/[workflow-name].md</code> (e.g., <code>content-strategy/workflow-states/editorial-workflow.md</code>)</p>
+      <p class="ds-label-caps">Example: Content Publishing Workflow</p>
+      <pre><code># Content Publishing Workflow
 
 ## Draft
 **Owner**: Content Writer
@@ -187,17 +185,16 @@ Content is live on the website
 ## Notes
 - All required fields must be completed
 - Each state requires sign-off
-- Published content needs archive strategy</code>
-      </div>
-      <div class="submit-link"><a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="cta-button">Submit a new Workflow State</a></div>
+- Published content needs archive strategy</code></pre>
+      <p><a href="https://github.com/Lullabot/prompt_library/issues/new?template=workflow-state-submission.yml" class="ds-btn ds-btn-secondary">Submit a new Workflow State</a></p>
     </div>
   </details>
 
-  <details class="artifact-section accordion-section">
-    <summary class="accordion-title">Skills</summary>
-    <div class="accordion-content">
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">Skills</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>Skills are specialized capabilities that extend AI assistants like Claude Code with domain-specific knowledge, workflows, and behaviors. They define how the assistant should respond to specific types of tasks, including what tools it can use and what process it should follow.</p>
-      <p class="file-location"><strong>File Location Example:</strong> <code>[category]/skills/[skill-name].md</code> (e.g., <code>content-strategy/skills/humanizer.md</code>)</p>
+      <p class="ds-callout"><strong>File Location Example:</strong> <code>[category]/skills/[skill-name].md</code> (e.g., <code>content-strategy/skills/humanizer.md</code>)</p>
       <p>Skills are invoked using slash commands (e.g., <code>/humanizer</code>) and can include:</p>
       <ul>
         <li><strong>Name and description:</strong> How to invoke the skill and when to use it</li>
@@ -206,9 +203,8 @@ Content is live on the website
         <li><strong>Pattern recognition:</strong> Specific items to look for or transform</li>
         <li><strong>Output format:</strong> How results should be presented</li>
       </ul>
-      <div class="example-block">
-        <div class="example-label">Example: Code Review Skill</div>
-        <code>---
+      <p class="ds-label-caps">Example: Code Review Skill</p>
+      <pre><code>---
 name: code-review
 description: |
   Review code for quality, security, and best practices.
@@ -242,17 +238,20 @@ When given code to review:
 Provide:
 1. Summary of what the code does
 2. List of issues found (if any)
-3. Specific suggestions for improvement</code>
-      </div>
-      <div class="submit-link"><a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="cta-button">Submit a new Skill</a></div>
+3. Specific suggestions for improvement</code></pre>
+      <p><a href="https://github.com/Lullabot/lullabot-skills/issues/new" class="ds-btn ds-btn-secondary">Submit a new Skill</a></p>
     </div>
   </details>
 
-  <h2 class="section-heading">Core Concepts</h2>
+  
+  </section>
 
-  <details class="accordion-section">
-    <summary class="accordion-title">Memory Bank</summary>
-    <div class="accordion-content">
+  <section>
+<h2 class="ds-section-title">Core Concepts</h2>
+
+  <details class="pl-accordion">
+    <summary><h3 class="pl-accordion__title">Memory Bank</h3></summary>
+    <div class="pl-accordion__content pl-prose">
       <p>The Memory Bank is a structured collection of Markdown files designed to provide persistent context and project knowledge. Since AI assistants like Cursor may have their memory reset between sessions, the Memory Bank ensures that critical information about the project's goals, technical details, current progress, and active context is always available.</p>
       <p>Key components typically include:</p>
       <ul>
@@ -264,8 +263,10 @@ Provide:
         <li><code>progress.md</code>: Status and known issues.</li>
       </ul>
       <p>Maintaining the Memory Bank is crucial for effective collaboration with AI assistants. These files are typically located in the <code>memory-bank/</code> directory, often with subdirectories for each component e.g. <code>memory-bank/projectbrief.md</code></p>
-      <p><a href="https://github.com/tacticlaunch/cursor-bank">Browse the Memory Bank documentation</a> 
+      <p><a class="ds-link" href="https://github.com/tacticlaunch/cursor-bank">Browse the Memory Bank documentation</a></p>
     </div>
   </details>
+  </section>
 
-</div> 
+  </div>
+</div>

@@ -142,6 +142,17 @@ All fields are optional. Existing content without versioning builds and renders 
 
 Content pages display a version badge and "Updated" date when present, plus a collapsible changelog section. Collection listings show an "Updated" badge for items with `lastUpdated` within the last 30 days.
 
+## Design System
+
+The site uses the [Lullabot App Design System](https://github.com/Lullabot/lullabot-app-design-system), vendored in `assets/ds/` (version noted in `README.md`). Follow its `DESIGN.md` and `skill/SKILL.md` for any UI work.
+
+- **Never edit `assets/ds/`.** Update it by copying a newer release over it.
+- **Use `.ds-*` classes and `--ds-*` tokens** for color, type and shape. `assets/css/site.css` is for layout (`.pl-*` classes) and the few patterns marked `GAP` that the system lacks.
+- **Rules that are easy to break:** red only on outlines, rules, underlines and hover fills; square corners; no resting shadows or hover lift; never remove the focus ring; tables for listings.
+- **Page headers live in `_layouts/base.njk`.** Pages set `title`, `description` (the lede), and optionally `eyebrow` and `heading` in front matter. Don't add an `<h1>` to a page body.
+- **Dark mode** keys off `data-theme` on `<html>`, set by `assets/ds/theme.js`. Append `?theme=light` or `?theme=dark` to any URL to force a theme for screenshots.
+- Rendered Markdown gets `.ds-link`, `.ds-callout` and a scrolling table wrapper from the `amendLibrary("md", …)` block in `.eleventy.js`.
+
 ## Key Configuration Files
 
 - `.eleventy.js`: Main 11ty configuration, defines collections, filters, and build settings
