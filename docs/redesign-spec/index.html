@@ -1,10 +1,13 @@
 <h1>Prompt Library — Homepage Redesign Spec</h1>
+<blockquote class="ds-callout">
+<p><strong>Superseded (2026-11-10).</strong> The site now follows the Lullabot App Design System (see &quot;Design System&quot; in <code>README.md</code>). The <code>--rd-*</code> tokens, <code>redesign.css</code> and the rounded Framer components described below no longer exist. The page structure (search, install callout, recently added, type cards, discipline matrix, call to action) carried over. This file is kept as a record of the earlier design.</p>
+</blockquote>
 <p>Source of truth for the homepage redesign. Extracted from the Framer project
 <strong>&quot;Miraculous Motivation&quot;</strong> (<code>8OZqoCrNXFsUHCrgmH3H</code>), page <code>/</code> (node <code>augiA20Il</code>),
 plus the design page <strong>&quot;Prompt Library Theme Comparison&quot;</strong> (light + dark versions).</p>
-<blockquote>
+<blockquote class="ds-callout">
 <p><strong>How this was captured.</strong> The dark version was read node-for-node via the
-<a href="https://github.com/remorses/unframer">unframer</a> MCP (<code>getProjectXml</code> /
+<a href="https://github.com/remorses/unframer" class="ds-link">unframer</a> MCP (<code>getProjectXml</code> /
 <code>getNodeXml</code>). The light version is a Framer <em>replica/variant</em> node, which the
 MCP cannot traverse, so its palette was read from an editor screenshot. Framer's
 first-party <code>@framer/agent</code> bridge could not be used for reads — it fails with
@@ -23,7 +26,7 @@ templates. Counts are computed <strong>live</strong> from collections (never har
 <h2>Palette (both themes)</h2>
 <p>Implemented as <code>--rd-*</code> tokens scoped to <code>:root</code> (light) and <code>:root.dark-theme</code>
 (dark) so the redesign is self-contained and does not restyle interior pages.</p>
-<table>
+<div class="pl-scroll-x"><table>
 <thead>
 <tr>
 <th>Token</th>
@@ -131,7 +134,7 @@ templates. Counts are computed <strong>live</strong> from collections (never har
 </tr>
 </tbody>
 </table>
-<p>Fonts: <strong>Inter</strong> (already the site font). Framer weights used: Black, ExtraBold,
+</div><p>Fonts: <strong>Inter</strong> (already the site font). Framer weights used: Black, ExtraBold,
 Bold, SemiBold, Medium, Regular.</p>
 <p><strong>Confidence:</strong> dark values + page-bg + the &quot;terminal stays dark / coral is shared&quot;
 decisions are exact. Light ink/muted/chip/header values were read off a 32%-zoom
@@ -165,7 +168,7 @@ top → bottom:</p>
 <p>Heading (&quot;Recently Added&quot; eyebrow / &quot;New and updated workflows&quot; / body) + &quot;View all&quot;
 button (→ <code>/skills/</code>). Then a <strong>Resource Card grid</strong> (<code>minmax(300px, 1fr)</code>), driven
 by <code>collections.recentlyAdded</code>. Framer mock cards:</p>
-<table>
+<div class="pl-scroll-x"><table>
 <thead>
 <tr>
 <th>Title</th>
@@ -213,12 +216,12 @@ by <code>collections.recentlyAdded</code>. Framer mock cards:</p>
 </tr>
 </tbody>
 </table>
-<p>Status rule: <code>lastUpdated</code> within 30d → &quot;Updated&quot;; <code>version</code> set → <code>v{version}</code>;
+</div><p>Status rule: <code>lastUpdated</code> within 30d → &quot;Updated&quot;; <code>version</code> set → <code>v{version}</code>;
 else if recently created → &quot;New&quot;.</p>
 <h3>5. Browse by Type (<code>BrowseByType</code>)</h3>
 <p>Centered heading (&quot;Browse by Type&quot; / &quot;Choose the shape of help you need&quot; / body) +
 <strong>Type Card grid</strong> (<code>minmax(198px, 1fr)</code>). Cards (count = live):</p>
-<table>
+<div class="pl-scroll-x"><table>
 <thead>
 <tr>
 <th>Type</th>
@@ -254,12 +257,12 @@ else if recently created → &quot;New&quot;.</p>
 </tr>
 </tbody>
 </table>
-<h3>6. Browse by Discipline (<code>BrowseByDiscipline</code>)</h3>
+</div><h3>6. Browse by Discipline (<code>BrowseByDiscipline</code>)</h3>
 <p>Heading (&quot;Browse by Discipline&quot; / &quot;A library map for every team&quot; / body) + a
 <strong>6-column matrix</strong> (<code>--rd-surface</code>, radius <code>26px</code>). Header row (<code>--rd-matrix-head</code>):
 <code>Discipline | Prompts | Rules | Agents | Skills | Resources</code>. Cells show counts or
 <code>—</code>. Framer mock rows (counts illustrative — implementation computes live):</p>
-<table>
+<div class="pl-scroll-x"><table>
 <thead>
 <tr>
 <th>Discipline</th>
@@ -313,7 +316,7 @@ else if recently created → &quot;New&quot;.</p>
 </tr>
 </tbody>
 </table>
-<blockquote>
+</div><blockquote class="ds-callout">
 <p><strong>⚠️ Fidelity note:</strong> the Framer matrix omits <strong>Sales Marketing</strong> (5 rows, but the
 stats say &quot;6 disciplines&quot; and SEO Expert is Sales Marketing). The implementation
 <strong>includes all 6 disciplines</strong>.</p>
@@ -327,7 +330,7 @@ stats say &quot;6 disciplines&quot; and SEO Expert is Sales Marketing). The impl
 <h3>8. Footer</h3>
 <p><code>space-between</code>: &quot;© {year} Prompt Library&quot; + links GitHub, Help.</p>
 <h2>Components → Nunjucks macros</h2>
-<table>
+<div class="pl-scroll-x"><table>
 <thead>
 <tr>
 <th>Framer component</th>
@@ -357,7 +360,7 @@ stats say &quot;6 disciplines&quot; and SEO Expert is Sales Marketing). The impl
 </tr>
 </tbody>
 </table>
-<p>Button variants in Framer: filled = <code>dmpGepZk0</code>, outline = <code>e4iNiqO4b</code>.</p>
+</div><p>Button variants in Framer: filled = <code>dmpGepZk0</code>, outline = <code>e4iNiqO4b</code>.</p>
 <h2>Data layer (<code>.eleventy.js</code>)</h2>
 <p>Added Nunjucks filters (live counts):</p>
 <ul>

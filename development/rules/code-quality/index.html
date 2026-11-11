@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,112 +14,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="base-url" content="/prompt_library">
     <title>Code Quality Standards - Prompt Library</title>
-    <link rel="stylesheet" href="/prompt_library/assets/css/styles.css">
-    <link rel="stylesheet" href="/prompt_library/assets/css/redesign.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="/prompt_library/assets/ds/favicon.ico" type="image/vnd.microsoft.icon">
     
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="/prompt_library/assets/js/theme.js"></script>
+    <script src="/prompt_library/assets/ds/theme.js" data-storage-key="prompt-library-theme"></script>
+    <script>
+      // ?theme=light|dark forces a theme without saving it (previews, screenshots).
+      (function () {
+        var forced = new URLSearchParams(window.location.search).get('theme');
+        if (forced === 'light' || forced === 'dark') {
+          document.documentElement.setAttribute('data-theme', forced);
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/prompt_library/assets/ds/css/index.css">
+    <link rel="stylesheet" href="/prompt_library/assets/css/site.css">
+    
 </head>
-<body class="">
-    <header class="rd-topbar">
-        <a class="rd-brand" href="/prompt_library/" aria-label="Prompt Library home">
-            <span class="rd-brand__mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 6l5 6-5 6"/>
-                    <path d="M13 18h6"/>
-                </svg>
-            </span>
-            <span class="rd-brand__name">Prompt Library</span>
-        </a>
-        
-        <div class="rd-topbar__search">
-            <form class="search-form" role="search">
-                <i class="fas fa-search rd-searchbar__icon" aria-hidden="true"></i>
-                <label for="search-input" class="visually-hidden">Search</label>
-                <input type="search" id="search-input" class="search-input"
-                       placeholder="Search prompts, rules, agents, skills…" aria-label="Search content">
-            </form>
-            <div id="search-results" class="search-results" hidden></div>
-        </div>
-        
-        <nav class="rd-topbar__links" aria-label="Primary">
-            <a href="/prompt_library/">Home</a>
-            <a href="/prompt_library/help">Help</a>
-        </nav>
-        <div class="rd-topbar__actions">
-            <a class="rd-btn rd-btn--outline" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub <span class="rd-btn__arrow" aria-hidden="true">&rarr;</span></a>
-            <button id="theme-toggle" class="rd-theme-toggle" onclick="toggleTheme()" aria-label="Switch theme">
-                <i class="fas fa-moon" aria-hidden="true"></i>
-            </button>
+<body>
+    <header class="ds-site-header pl-site-header">
+        <div class="pl-header">
+            <a href="/prompt_library/" class="ds-brand-block" aria-label="Prompt Library home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 34" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M28.9071,16.5648 L30.3109,16.5648 C31.2429,16.5648 31.9989,17.3197 32,18.2504 L32,24.6904 C32,25.6211 31.244,26.376 30.312,26.376 L28.9083,26.376 L28.9083,29.731 C28.9083,31.5878 27.401,33.0918 25.5427,33.0918 L6.45728,33.0918 C4.59789,33.0918 3.09174,31.5866 3.09174,29.731 L3.09174,26.376 L1.68797,26.376 C0.755958,26.376 0,25.6211 0,24.6904 L0,18.2504 C0,17.3197 0.755958,16.5648 1.68797,16.5648 L3.09174,16.5648 L3.09174,13.365 C3.09174,11.5081 4.59903,10.0042 6.45728,10.0042 L14.468,10.0042 L14.468,6.30441 C13.3921,5.74948 12.6557,4.63152 12.6557,3.33894 C12.6557,1.4948 14.1527,0 15.9994,0 C17.8462,0 19.3431,1.4948 19.3431,3.33894 C19.3431,4.63038 18.6068,5.74948 17.5309,6.30441 L17.5309,10.0042 L25.5416,10.0042 C27.401,10.0042 28.9071,11.5093 28.9071,13.365 L28.9071,16.5648 Z M13.4393,17.4806 C13.4393,18.5333 12.5847,19.3867 11.5304,19.3867 C10.4762,19.3867 9.6215,18.5333 9.6215,17.4806 C9.6215,16.4278 10.4762,15.5744 11.5304,15.5744 C12.5847,15.5744 13.4393,16.4278 13.4393,17.4806 Z M22.5626,17.4806 C22.5626,18.5333 21.708,19.3867 20.6537,19.3867 C19.5995,19.3867 18.7448,18.5333 18.7448,17.4806 C18.7448,16.4278 19.5995,15.5744 20.6537,15.5744 C21.708,15.5744 22.5626,16.4278 22.5626,17.4806 Z M16.0834,27.7008 C12.7846,27.7008 9.68136,26.4208 7.34558,24.0964 C6.85081,23.6047 6.84967,22.8049 7.34215,22.312 C7.83458,21.818 8.63545,21.8168 9.12907,22.3086 C10.9885,24.1584 13.4589,25.1765 16.0834,25.1765 C18.716,25.1765 21.1899,24.1527 23.0516,22.2937 C23.5452,21.8007 24.3449,21.8007 24.8385,22.2937 C25.3321,22.7866 25.3321,23.5851 24.8385,24.078 C22.5005,26.4151 19.3915,27.7008 16.0834,27.7008 Z"/></svg></a>
+            <a href="/prompt_library/" class="ds-wordmark pl-header__wordmark" tabindex="-1" aria-hidden="true">Prompt Library</a>
+
+            <nav class="pl-header__nav" aria-label="Primary">
+                
+                
+                <a class="ds-nav-link" href="/prompt_library/prompts/">Prompts</a>
+                
+                
+                <a class="ds-nav-link ds-nav-link-active" href="/prompt_library/rules/" aria-current="page">Rules</a>
+                
+                
+                <a class="ds-nav-link" href="/prompt_library/agents/">Agents</a>
+                
+                
+                <a class="ds-nav-link" href="/prompt_library/skills/">Skills</a>
+                
+                
+                <a class="ds-nav-link" href="/prompt_library/resources/">Resources</a>
+                
+                
+                <a class="ds-nav-link" href="/prompt_library/help">Help</a>
+                
+            </nav>
+
+            <div class="pl-header__spacer"></div>
+
+            
+            <div class="pl-header__search">
+                <form class="search-form pl-header__search-form" role="search">
+                    <svg class="pl-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+                    <label for="search-input" class="visually-hidden">Search the library</label>
+                    <input type="search" id="search-input" class="ds-input search-input" placeholder="Search" autocomplete="off">
+                </form>
+                <div id="search-results" class="search-results" hidden></div>
+            </div>
+            
+
+            <div class="pl-header__util">
+                <button type="button" class="ds-theme-toggle" onclick="dsTheme.toggle()" aria-pressed="false" aria-label="Toggle dark mode">
+                    <svg class="pl-icon pl-theme-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg>
+                    <svg class="pl-icon pl-theme-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
+                    <span class="pl-theme-label">Theme</span>
+                </button>
+            </div>
+
+            <div class="pl-header__util pl-header__util--menu">
+                <details class="pl-menu">
+                    <summary class="ds-label-caps">Menu</summary>
+                    <nav class="pl-menu__panel" aria-label="Primary, compact">
+                        
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/prompts/">Prompts</a>
+                        
+                        
+                        <a class="ds-nav-link-block ds-nav-link-block-active" href="/prompt_library/rules/" aria-current="page">Rules</a>
+                        
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/agents/">Agents</a>
+                        
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/skills/">Skills</a>
+                        
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/resources/">Resources</a>
+                        
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/help">Help</a>
+                        
+                        <a class="ds-nav-link-block" href="/prompt_library/contributing">Contributing</a>
+                    </nav>
+                </details>
+            </div>
         </div>
     </header>
 
+    
+    <div class="ds-page-header">
+        <div class="ds-page-header-inner pl-container">
+            
+            <p class="ds-eyebrow">
+                <a href="/prompt_library/development/">Development</a>
+                
+                <span class="pl-eyebrow-sep" aria-hidden="true">/</span>
+                <a href="/prompt_library/development/rules/">Rules</a>
+                
+            </p>
+            
+            <h1 class="ds-page-title">Code Quality Standards</h1>
+            
+            
+            
+            <p class="ds-page-lede">Rules for maintaining high code quality across all projects.</p>
+            
+        </div>
+    </div>
+    
+
     <main>
         
-<div class="markdown-content">
-  <h1>Code Quality Standards</h1>
-  <p class="description">Rules for maintaining high code quality across all projects.</p>
 
-  <div class="metadata">
-    <div class="tags">
-      
-        <span class="tag">standards</span>
-      
-        <span class="tag">best practices</span>
-      
-        <span class="tag">development</span>
-      
-    </div>
-    <div class="metadata-right">
-      
-      
-        <time datetime="2024-03-20">2024-03-20</time>
-      
-    </div>
-  </div>
 
-  
 
-  
-  
-  
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-    
-  
-  <div class="agent-buttons">
-    
-    
-    
-    <a href="https://claude.ai/new?q=Fetch%20the%20rules%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Frules%2Fcode-quality%2FRULE.md%20and%20apply%20them%20to%20this%20project." class="agent-button agent-button--claude" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with Claude</span>
-    </a>
-    <a href="https://chatgpt.com/?q=Fetch%20the%20rules%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Frules%2Fcode-quality%2FRULE.md%20and%20apply%20them%20to%20this%20project." class="agent-button agent-button--chatgpt" target="_blank" rel="noopener">
-      <span class="agent-button-label">Read with ChatGPT</span>
-    </a>
-    
-    <button class="agent-button agent-button--copy" data-prompt="Fetch the rules from https://lullabot.github.io/prompt_library/development/rules/code-quality/RULE.md and apply them to this project.">
-      <span class="agent-button-label">Copy for agent</span>
-    </button>
-  </div>
-  
-  
 
-  <div class="content">
-    <pre><code># Code Quality Standards
+
+
+
+
+
+<div class="pl-container pl-main">
+  <div class="pl-measure pl-stack">
+
+    <section class="ds-panel" aria-label="Details">
+      <dl class="ds-meta">
+        
+        <div><dt>Type</dt><dd>Rules</dd></div>
+        
+        
+        <div><dt>Discipline</dt><dd><a class="ds-link" href="/prompt_library/development/">Development</a></dd></div>
+        
+        
+        
+        
+        <div><dt>Added</dt><dd><time datetime="2024-03-20">2024-03-20</time></dd></div>
+        
+        
+        <div class="ds-meta-wide">
+          <dt>Tags</dt>
+          <dd>
+            <ul class="pl-tags">
+              <li class="ds-tag">standards</li><li class="ds-tag">best practices</li><li class="ds-tag">development</li>
+            </ul>
+          </dd>
+        </div>
+        
+      </dl>
+
+      
+      
+      
+      
+      
+        
+      
+      
+      
+        
+      
+      <div class="pl-item-actions pl-mt-32">
+        
+        
+        
+        <a href="https://claude.ai/new?q=Fetch%20the%20rules%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Frules%2Fcode-quality%2FRULE.md%20and%20apply%20them%20to%20this%20project." class="ds-btn ds-btn-secondary" target="_blank" rel="noopener">Read with Claude</a>
+        <a href="https://chatgpt.com/?q=Fetch%20the%20rules%20from%20https%3A%2F%2Flullabot.github.io%2Fprompt_library%2Fdevelopment%2Frules%2Fcode-quality%2FRULE.md%20and%20apply%20them%20to%20this%20project." class="ds-btn ds-btn-secondary" target="_blank" rel="noopener">Read with ChatGPT</a>
+        
+        <button type="button" class="ds-btn ds-btn-secondary" data-copy="Fetch the rules from https://lullabot.github.io/prompt_library/development/rules/code-quality/RULE.md and apply them to this project.">
+          <span data-copy-label>Copy for agent</span>
+        </button>
+      </div>
+      
+      
+
+      
+
+      
+    </section>
+
+    <div class="pl-prose">
+      <pre><code># Code Quality Standards
 
 ## General Principles
 1. Write code that is easy to read and understand
@@ -157,387 +255,24 @@
 - Monitor and profile performance 
 </code></pre>
 
+    </div>
+
   </div>
 </div>
 
-<style>
-  .markdown-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-  }
-
-  .description {
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-  }
-
-  .metadata {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    color: var(--text-muted);
-    flex-wrap: wrap;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .metadata-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-shrink: 0;
-    white-space: nowrap;
-    margin-left: auto;
-  }
-
-  .tag {
-    background-color: var(--tag-background);
-    color: var(--text-color);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-  }
-
-  .version-badge {
-    background-color: var(--accent-color);
-    color: #12212b;
-    padding: 0.15rem 0.5rem;
-    border-radius: 0.25rem;
-    font-size: 0.8rem;
-    font-family: var(--font-mono);
-    font-weight: 600;
-  }
-
-  .last-updated {
-    color: var(--text-muted);
-    font-size: 0.875rem;
-  }
-
-  .changelog-section {
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 0;
-  }
-
-  .changelog-section summary {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    color: var(--text-color);
-    font-size: 0.95rem;
-  }
-
-  .changelog-section summary:hover {
-    color: var(--primary-color);
-  }
-
-  .changelog-list {
-    list-style: none;
-    margin: 0;
-    padding: 0 1rem 0.75rem;
-  }
-
-  .changelog-entry {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-    padding: 0.4rem 0;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.875rem;
-  }
-
-  .changelog-version {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    white-space: nowrap;
-    color: var(--accent-color);
-  }
-
-  .changelog-date {
-    color: var(--text-muted);
-    white-space: nowrap;
-    font-size: 0.8rem;
-  }
-
-  .changelog-summary {
-    color: var(--text-color);
-  }
-
-  .content {
-    line-height: 1.6;
-  }
-
-  .content h2 {
-    color: var(--text-color);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .content ul, .content ol {
-    margin-left: 1.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .content li {
-    margin-bottom: 0.5rem;
-  }
-
-  /* Install header with zip link */
-  .skill-install-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-  }
-
-  .skill-install-header p {
-    margin: 0;
-  }
-
-  .zip-download-link {
-    white-space: nowrap;
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
-    text-decoration: none;
-    font-family: var(--font-mono);
-    transition: all 0.2s;
-  }
-
-  .zip-download-link:hover {
-    color: var(--primary-color);
-    border-color: var(--primary-color);
-  }
-
-  /* Resource list inside collapsible */
-  .resource-list {
-    list-style: none;
-    margin: 0.5rem 0 0;
-    padding: 0;
-  }
-
-  .resource-item {
-    margin-bottom: 0.5rem;
-  }
-
-  .resource-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0.375rem;
-    text-decoration: none;
-    color: var(--primary-color);
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    transition: all 0.2s;
-  }
-
-  .resource-link:hover {
-    background-color: var(--tag-background);
-    border-color: var(--primary-color);
-  }
-
-  .resource-icon {
-    font-size: 1rem;
-  }
-
-  /* Agent action buttons */
-  .agent-buttons {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .agent-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.45rem 0.85rem;
-    font-size: 0.8rem;
-    font-family: var(--font-mono);
-    border: 1px solid var(--border-color);
-    border-radius: 0.375rem;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    background-color: var(--surface-color);
-    color: var(--text-muted);
-  }
-
-  .agent-button:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-  }
-
-  .agent-button--claude:hover {
-    border-color: #d97706;
-    color: #d97706;
-  }
-
-  .agent-button--chatgpt:hover {
-    border-color: #10a37f;
-    color: #10a37f;
-  }
-
-  .agent-button--copy.copied {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: #12212b;
-  }
-
-  .agent-help {
-    margin: -0.75rem 0 1.5rem;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-  }
-
-  /* Code block styling */
-  .content pre {
-    background-color: var(--code-background);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    overflow-x: auto;
-    border: 1px solid var(--code-border);
-    position: relative;
-  }
-
-  .content pre code {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    line-height: 1.7;
-    display: block;
-  }
-
-  /* Inline code styling */
-  .content code:not(pre code) {
-    background-color: var(--inline-code-background);
-    color: var(--inline-code-text);
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.875em;
-    font-family: var(--font-mono);
-  }
-
-  /* Copy button styling */
-  .copy-button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 0.25rem 0.5rem;
-    background-color: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-    opacity: 0;
-  }
-
-  .content pre:hover .copy-button {
-    opacity: 1;
-  }
-
-  .copy-button:hover {
-    background-color: var(--tag-background);
-    border-color: var(--text-muted);
-  }
-
-  .copy-button.copied {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-    color: #12212b;
-  }
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Add copy button to all code blocks
-    document.querySelectorAll('pre').forEach(pre => {
-      const code = pre.querySelector('code');
-      if (code) {
-        const button = document.createElement('button');
-        button.className = 'copy-button';
-        button.textContent = 'Copy';
-
-        button.addEventListener('click', async () => {
-          try {
-            await navigator.clipboard.writeText(code.textContent);
-            button.textContent = 'Copied!';
-            button.classList.add('copied');
-
-            // Reset button after 2 seconds
-            setTimeout(() => {
-              button.textContent = 'Copy';
-              button.classList.remove('copied');
-            }, 2000);
-          } catch (err) {
-            console.error('Failed to copy:', err);
-            button.textContent = 'Failed to copy';
-          }
-        });
-
-        pre.appendChild(button);
-      }
-    });
-
-    // "Copy for agent" button
-    document.querySelectorAll('.agent-button--copy').forEach(button => {
-      button.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(button.dataset.prompt);
-          const label = button.querySelector('.agent-button-label');
-          label.textContent = 'Copied!';
-          button.classList.add('copied');
-          setTimeout(() => {
-            label.textContent = 'Copy for agent';
-            button.classList.remove('copied');
-          }, 2000);
-        } catch (err) {
-          console.error('Failed to copy:', err);
-        }
-      });
-    });
-  });
-</script>
-
     </main>
 
-    <footer class="rd-footer">
-        <span class="rd-footer__copy">&copy; 2026 Prompt Library</span>
-        <div class="rd-footer__links">
-            <a href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="/prompt_library/help">Help</a>
+    <footer class="pl-footer">
+        <div class="pl-container pl-footer__inner">
+            <p class="ds-body-sm">&copy; 2026 Prompt Library</p>
+            <nav class="pl-footer__links" aria-label="Footer">
+                <a class="ds-btn-text" href="https://github.com/Lullabot/prompt_library" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a class="ds-btn-text" href="/prompt_library/contributing">Contributing</a>
+                <a class="ds-btn-text" href="/prompt_library/help">Help</a>
+            </nav>
         </div>
     </footer>
 
-    <div id="markdown-modal" class="markdown-modal">
-        <div class="markdown-content">
-            <button class="close-button" aria-label="Close">&times;</button>
-            <div id="markdown-display" class="markdown-body"></div>
-        </div>
-    </div>
-
-    <script src="/prompt_library/assets/js/main.js"></script>
+    <script src="/prompt_library/assets/js/main.js" defer></script>
 </body>
-</html> 
+</html>

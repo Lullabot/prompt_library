@@ -1,0 +1,152 @@
+/* ============================================================
+   BASE
+   Element rules sit in a cascade layer named base. Tailwind v4 puts
+   its utilities in cascade layers, and unlayered CSS beats every layer
+   regardless of specificity, so left unlayered these would override
+   utilities such as text-right or px-6 on the same elements. Without
+   Tailwind the layer is harmless: your own unlayered CSS still wins.
+   ============================================================ */
+
+@layer base {
+    html {
+        background: var(--ds-bg-1);
+    }
+
+    /* lullabot.com: Circular at 450, grayscale-900 text, 16px. */
+    body {
+        font-family: var(--ds-font-body);
+        font-weight: var(--ds-weight-normal);
+        font-size: 16px;
+        line-height: 1.5;
+        color: var(--ds-fg-1);
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    /* lullabot.com's heading mixin: 700, -0.02em, grayscale-1000. */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--ds-font-display);
+        font-weight: var(--ds-weight-heavy);
+        letter-spacing: -0.02em;
+        color: var(--ds-fg-heading);
+    }
+
+    code, pre, kbd, samp {
+        font-family: var(--ds-font-mono);
+    }
+
+    /* The components assume Tailwind's preflight. These are the parts of
+       it they depend on, restated so an app without Tailwind renders the
+       same: links take their color from context, and form controls use
+       the page font. */
+    *, ::before, ::after {
+        box-sizing: border-box;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    button, input, select, textarea {
+        font: inherit;
+        color: inherit;
+        margin: 0;
+    }
+
+    /* Preflight's margin reset, so headings, lists and checkboxes start
+       flush. It lives here in the base layer rather than on the component
+       classes, so Tailwind margin utilities (mt-6 on a .ds-meta, mb-6 on
+       a .ds-section-title) still win. */
+    h1, h2, h3, h4, h5, h6, p, dl, dd, figure, blockquote, pre {
+        margin: 0;
+    }
+}
+
+/* Focus, as on lullabot.com: a 4px solid blue outline (#38A5DC) on
+   anything focusable. Only on :focus-visible, so a mouse click on a
+   button doesn't leave a ring behind; lullabot.com does the same for its
+   buttons with :focus:not(:focus-visible). Controls that sit inside a
+   frame (buttons, nav links, pager cells, the logo) inset the ring by
+   4px; see components.css. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: var(--ds-focus-width) solid var(--ds-focus-ring);
+    outline-offset: 0;
+}
+
+/* lullabot.com honors both the OS setting and its own on-page
+   animation toggle, which writes data-animation-pause="true". */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: 1ms !important;
+        animation-duration: 1ms !important;
+    }
+}
+
+[data-animation-pause="true"] *,
+[data-animation-pause="true"] *::before,
+[data-animation-pause="true"] *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+}
+
+/* ============================================================
+   TABLES
+   lullabot.com's data-table treatment (its "tabled" component): an
+   ocean-1000 header row with white bold labels, alternating ocean-50
+   and white rows, gray-400 row rules, 16px grayscale-900 text. Element
+   rules sit in the base layer so cell utilities (text-right, px-*)
+   still win.
+   ============================================================ */
+
+@layer base {
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 16px;
+        line-height: 24px;
+        color: var(--ds-fg-1);
+    }
+
+    thead th {
+        font-weight: var(--ds-weight-heavy);
+        color: var(--ds-on-ink);
+        background: var(--ds-bg-ink);
+        border: 0;
+        text-align: start;
+        padding: 8px 16px;
+        vertical-align: bottom;
+    }
+
+    tbody tr:nth-child(odd) { background: var(--ds-bg-2); }
+    tbody tr:nth-child(even) { background: var(--ds-bg-1); }
+
+    tbody td,
+    tbody th {
+        border: 0;
+        border-block-end: 1px solid var(--ds-border-strong);
+        padding: 8px 16px;
+        text-align: start;
+        vertical-align: top;
+        color: var(--ds-fg-1);
+    }
+
+    tfoot td,
+    tfoot th {
+        font-weight: var(--ds-weight-medium);
+        background: var(--ds-bg-2);
+        padding: 8px 16px;
+        border-block-start: 2px solid var(--ds-border-ink);
+    }
+
+    caption {
+        caption-side: top;
+        text-align: start;
+        font-size: 16px;
+        font-weight: var(--ds-weight-medium);
+        color: var(--ds-fg-1);
+        padding: 8px 16px;
+        border-inline-start: 3px solid var(--ds-brand);
+        margin-block-end: 16px;
+    }
+}

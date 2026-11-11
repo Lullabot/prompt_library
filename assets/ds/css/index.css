@@ -1,0 +1,8 @@
+/* The whole system in load order. With Tailwind v4, import this after
+   `@import 'tailwindcss'` and tailwind-v4.css. base.css keeps its element
+   rules in `@layer base`, so they merge into Tailwind's base layer and
+   utilities still win on the same element. The component classes are
+   unlayered and win over utilities. */
+@import './tokens.css';
+@import './base.css';
+@import './components.css';

@@ -1,0 +1,972 @@
+/* ============================================================
+   LULLABOT APP DESIGN SYSTEM — COMPONENTS
+   Values follow lullabot.com (lullabot.com-d8 theme, components/).
+   Each section names the lullabot.com component it follows, or says
+   it is an app addition where lullabot.com has nothing comparable.
+   Load after tokens.css and base.css (index.css does this for you).
+
+   Breakpoints are lullabot.com's: small 480px, medium 768px,
+   large 960px, xl 1280px.
+   ============================================================ */
+
+/* ============================================================
+   TYPE
+   lullabot.com's paragraph, heading and label scales
+   (01-atoms/text). Page and section titles are further down.
+   ============================================================ */
+
+/* heading--xs */
+.ds-heading-md {
+    font: var(--ds-weight-heavy) 20px/24px var(--ds-font-display);
+    letter-spacing: -0.02em;
+    color: var(--ds-fg-heading);
+}
+
+/* paragraph--md and paragraph--sm */
+.ds-body-md { font: var(--ds-weight-normal) 18px/32px var(--ds-font-body); }
+.ds-body-sm { font: var(--ds-weight-normal) 16px/24px var(--ds-font-body); letter-spacing: 0.01em; }
+
+/* label--md: the small tracked caps above a headline ("Hi, We're
+   Lullabot"). Ink, not red. */
+.ds-eyebrow {
+    font: var(--ds-weight-caps) 14px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-heading);
+}
+
+/* label--sm: tracked caps for metadata labels and table-adjacent
+   furniture. */
+.ds-label-caps {
+    font: var(--ds-weight-caps) 12px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-heading);
+}
+
+/* ============================================================
+   BUTTONS
+   lullabot.com's .button (01-atoms/buttons). A 1.5px outline with a
+   tracked uppercase label; on hover a fill grows left to right over
+   250ms and the label turns white. Square, no lift.
+   ============================================================ */
+
+.ds-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    min-height: 56px;
+    padding: 16px 32px;
+    font: var(--ds-weight-caps) 14px/1.15 var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: var(--ds-r-none);
+    /* The default is lullabot.com's primary button: red outline, ink
+       label, red fill. */
+    border: 1.5px solid var(--ds-btn-border, var(--ds-brand));
+    color: var(--ds-btn-text, var(--ds-fg-1));
+    background-color: var(--ds-btn-bg, transparent);
+    /* The fill is a background layer rather than an overlay pseudo-element,
+       so a bare text label is never painted over and callers do not have to
+       wrap it in a span. */
+    background-image: linear-gradient(to right, var(--ds-btn-fill, var(--ds-brand-fill)), var(--ds-btn-fill, var(--ds-brand-fill)));
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 0% 100%;
+    transition: background-size var(--ds-dur), color var(--ds-dur), border-color var(--ds-dur);
+}
+
+.ds-btn:hover:not(:disabled) {
+    background-size: 100% 100%;
+    color: var(--ds-btn-hover-text, var(--ds-on-brand));
+    border-color: var(--ds-btn-hover-border, var(--ds-btn-border, var(--ds-brand)));
+}
+
+.ds-btn:focus-visible { outline-offset: -4px; }
+
+.ds-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* Primary (lullabot.com .button). Also the default with no variant. */
+.ds-btn-primary {
+    --ds-btn-border: var(--ds-brand);
+    --ds-btn-text: var(--ds-fg-1);
+    --ds-btn-fill: var(--ds-brand-fill);
+}
+
+/* Secondary (lullabot.com .button--secondary): white, red outline,
+   ocean-1000 label, fills black. Compact. */
+.ds-btn-secondary {
+    --ds-btn-bg: var(--ds-gray-0);
+    --ds-btn-border: var(--ds-btn-secondary-border);
+    --ds-btn-text: var(--ds-ocean-1000);
+    --ds-btn-fill: var(--ds-btn-secondary-fill);
+    --ds-btn-hover-border: var(--ds-btn-secondary-fill);
+    min-height: 40px;
+    padding: 10px 14px;
+}
+
+/* Tertiary (lullabot.com .button--tertiary): a white chip for filters,
+   sentence case at 18px, red-900 outline, fills black. */
+.ds-btn-tertiary {
+    --ds-btn-bg: var(--ds-gray-0);
+    --ds-btn-border: var(--ds-btn-tertiary-border);
+    --ds-btn-text: var(--ds-gray-700);
+    --ds-btn-fill: var(--ds-gray-1000);
+    --ds-btn-hover-border: var(--ds-gray-1000);
+    min-height: 40px;
+    padding: 10px 14px;
+    font-size: 18px;
+    font-weight: var(--ds-weight-normal);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Solid (lullabot.com's header Contact button): black, no outline,
+   turns red on hover. */
+.ds-btn-solid {
+    --ds-btn-bg: var(--ds-fill-strong);
+    --ds-btn-border: var(--ds-fill-strong);
+    --ds-btn-text: var(--ds-fg-invert);
+    --ds-btn-fill: var(--ds-brand-fill);
+    --ds-btn-hover-border: var(--ds-brand-fill);
+}
+
+/* Danger (app addition): the primary shape in the error color. */
+.ds-btn-danger {
+    --ds-btn-border: var(--ds-error);
+    --ds-btn-text: var(--ds-error);
+    --ds-btn-fill: var(--ds-error-fill);
+    --ds-btn-hover-text: #FFFFFF;
+}
+
+/* Compact size: lullabot.com's secondary/tertiary dimensions. */
+.ds-btn-sm {
+    min-height: 40px;
+    padding: 10px 14px;
+    gap: 8px;
+}
+
+/* Kept from v0.1 so existing markup keeps working. .ds-btn-brand is now
+   the same as .ds-btn-primary, and .ds-btn-ghost the same as
+   .ds-btn-secondary. */
+.ds-btn-brand {
+    --ds-btn-border: var(--ds-brand);
+    --ds-btn-text: var(--ds-fg-1);
+    --ds-btn-fill: var(--ds-brand-fill);
+}
+
+.ds-btn-ghost {
+    --ds-btn-bg: var(--ds-gray-0);
+    --ds-btn-border: var(--ds-btn-secondary-border);
+    --ds-btn-text: var(--ds-ocean-1000);
+    --ds-btn-fill: var(--ds-btn-secondary-fill);
+    --ds-btn-hover-border: var(--ds-btn-secondary-fill);
+    min-height: 40px;
+    padding: 10px 14px;
+}
+
+/* The call-to-action arrow (lullabot.com .button__icon--animated): it
+   squeezes to 80% width on hover with a springy ease. */
+.ds-btn-arrow {
+    width: 28px;
+    height: 12px;
+    flex: none;
+    transform-origin: 0% 50%;
+    transition: transform var(--ds-dur) var(--ds-ease-spring);
+}
+
+.ds-btn:hover .ds-btn-arrow,
+.ds-btn-text:hover .ds-btn-arrow,
+.ds-btn-text:focus-visible .ds-btn-arrow { transform: scaleX(0.8); }
+
+/* Text action (lullabot.com .link--primary): tracked caps, a red arrow,
+   and a 1px red underline that springs in from the left on hover. */
+.ds-btn-text {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: var(--ds-weight-caps) 14px/24px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-heading);
+    padding: 0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.ds-btn-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-bottom: 1px solid var(--ds-brand);
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    transition: transform var(--ds-dur-draw) var(--ds-ease-spring);
+}
+
+.ds-btn-text:hover::after { transform: scaleX(1); }
+
+.ds-btn-text .ds-btn-arrow { color: var(--ds-brand); }
+
+/* ============================================================
+   LINKS
+   lullabot.com .link--inline: medium weight, a 1px red underline at a
+   5px offset, and a pale fill that rises from the bottom on hover while
+   the underline turns ink. Focus swaps the underline for a pale blue
+   ground and a 2px ring.
+   ============================================================ */
+
+.ds-link,
+.ds-link-quiet,
+table a:not(.ds-btn):not(.ds-btn-text):not(.ds-sort-tab):not(.ds-sort-link):not(.ds-tag):not(.ds-unstyled) {
+    font-weight: var(--ds-weight-medium);
+    color: var(--ds-fg-heading);
+    text-decoration-line: underline;
+    text-decoration-color: var(--ds-brand);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+    background: linear-gradient(transparent, transparent 50%, var(--ds-link-fill) 50%);
+    background-size: 100% 200%;
+    transition: background var(--ds-dur);
+}
+
+.ds-link:hover,
+.ds-link-quiet:hover,
+table a:not(.ds-btn):not(.ds-btn-text):not(.ds-sort-tab):not(.ds-sort-link):not(.ds-tag):not(.ds-unstyled):hover {
+    background-position: 100% 100%;
+    text-decoration-color: var(--ds-fg-heading);
+}
+
+.ds-link:focus-visible,
+.ds-link-quiet:focus-visible,
+table a:not(.ds-btn):not(.ds-btn-text):not(.ds-sort-tab):not(.ds-sort-link):not(.ds-tag):not(.ds-unstyled):focus-visible {
+    outline-width: 2px;
+    background: var(--ds-link-focus-fill);
+    text-decoration: none;
+}
+
+/* ============================================================
+   NAVIGATION
+   lullabot.com .main-menu__link at desktop: label--md caps in ink, and
+   a 4px red bar that scales in from the left on hover and stays on the
+   current item.
+   ============================================================ */
+
+.ds-nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 12px;
+    font: var(--ds-weight-caps) 14px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ds-fg-heading);
+    text-decoration: none;
+}
+
+.ds-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--ds-brand);
+    transform: scaleX(0);
+    transform-origin: 0% 50%;
+    transition: transform var(--ds-dur) var(--ds-ease-nav);
+}
+
+.ds-nav-link:hover::after,
+.ds-nav-link-active::after { transform: scaleX(1); }
+
+.ds-nav-link:focus-visible { outline-offset: -4px; }
+
+@media (min-width: 1280px) {
+    .ds-nav-link { padding: 0 8px; }
+}
+
+/* Stacked links for the mobile menu (app addition; lullabot.com's
+   mobile menu is a full-screen dark overlay). Same type, with the 4px
+   red bar on the left. */
+.ds-nav-link-block {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font: var(--ds-weight-caps) 14px/24px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-heading);
+    border-left: 4px solid transparent;
+    text-decoration: none;
+    transition: border-color var(--ds-dur);
+}
+
+.ds-nav-link-block:hover,
+.ds-nav-link-block-active { border-left-color: var(--ds-brand); }
+
+.ds-nav-link-block:focus-visible { outline-offset: -4px; }
+
+/* ============================================================
+   FORMS
+   lullabot.com form items (01-atoms/forms): sentence-case labels at
+   16px medium, 18px field text on a 1.5px gray underline, and a blue
+   underline that springs across on focus. Required fields get a red
+   asterisk.
+   ============================================================ */
+
+.ds-label {
+    display: flex;
+    margin-bottom: 16px;
+    font: var(--ds-weight-medium) 16px/24px var(--ds-font-body);
+    letter-spacing: 0.01em;
+    color: var(--ds-fg-1);
+}
+
+.ds-label-required::after {
+    content: "*";
+    margin-left: 8px;
+    color: var(--ds-brand);
+}
+
+/* Field guidance (paragraph--xs). */
+.ds-hint {
+    font: var(--ds-weight-normal) 14px/24px var(--ds-font-body);
+    letter-spacing: 0.01em;
+    color: var(--ds-fg-3);
+    max-width: 62ch;
+}
+
+.ds-hint code {
+    font: 400 13px/20px var(--ds-font-mono);
+}
+
+.ds-input {
+    display: block;
+    width: 100%;
+    font: var(--ds-weight-normal) 18px/1.5 var(--ds-font-body);
+    color: var(--ds-fg-3);
+    border: 0;
+    border-bottom: 1.5px solid var(--ds-border-strong);
+    border-radius: var(--ds-r-none);
+    padding: 16px 0 8px;
+    box-shadow: none;
+    /* The focus underline is a background layer that grows across the
+       bottom edge, so it works on the input element itself without a
+       wrapper. */
+    background: linear-gradient(var(--ds-focus-line), var(--ds-focus-line)) no-repeat left bottom / 0% 1.5px;
+    transition: background-size var(--ds-dur-line) var(--ds-ease-spring), color var(--ds-dur);
+}
+
+.ds-input::placeholder { color: var(--ds-fg-placeholder); }
+.ds-input:hover::placeholder { color: var(--ds-gray-300); }
+
+.ds-input:focus { background-size: 100% 1.5px; box-shadow: none; }
+
+.ds-input:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* App addition: lullabot.com has no error state for fields. */
+.ds-input-error { border-bottom-color: var(--ds-error); }
+
+/* Selects (lullabot.com .form-item__select): the same underline, and
+   its chevron. The chevron is drawn in the field-text color for each
+   theme, since a data URI can't use currentColor. */
+select.ds-input {
+    appearance: none;
+    cursor: pointer;
+    padding-right: 32px;
+    background:
+        url("data:image/svg+xml,%3Csvg width='18' height='9' viewBox='0 0 18 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.9671 1.5625L9.51401 8.3125C9.23276 8.59375 8.81089 8.59375 8.52964 8.3125L0.98276 1.5625C0.654635 1.28125 0.654635 0.812503 0.935885 0.531253C1.21714 0.203128 1.68589 0.203128 1.96714 0.484378L8.99839 6.76563L15.9828 0.484378C16.264 0.203128 16.7328 0.203128 17.014 0.531253C17.2953 0.812503 17.2953 1.28125 16.9671 1.5625Z' fill='%23434E56'/%3E%3C/svg%3E") no-repeat right 4px center,
+        linear-gradient(var(--ds-focus-line), var(--ds-focus-line)) no-repeat left bottom / 0% 1.5px;
+}
+
+select.ds-input:hover { color: var(--ds-fg-heading); }
+
+select.ds-input:focus {
+    background-size: auto, 100% 1.5px;
+}
+
+:root[data-theme="dark"] select.ds-input {
+    background-image:
+        url("data:image/svg+xml,%3Csvg width='18' height='9' viewBox='0 0 18 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.9671 1.5625L9.51401 8.3125C9.23276 8.59375 8.81089 8.59375 8.52964 8.3125L0.98276 1.5625C0.654635 1.28125 0.654635 0.812503 0.935885 0.531253C1.21714 0.203128 1.68589 0.203128 1.96714 0.484378L8.99839 6.76563L15.9828 0.484378C16.264 0.203128 16.7328 0.203128 17.014 0.531253C17.2953 0.812503 17.2953 1.28125 16.9671 1.5625Z' fill='%23B1B9BE'/%3E%3C/svg%3E"),
+        linear-gradient(var(--ds-focus-line), var(--ds-focus-line));
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) select.ds-input {
+        background-image:
+            url("data:image/svg+xml,%3Csvg width='18' height='9' viewBox='0 0 18 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M16.9671 1.5625L9.51401 8.3125C9.23276 8.59375 8.81089 8.59375 8.52964 8.3125L0.98276 1.5625C0.654635 1.28125 0.654635 0.812503 0.935885 0.531253C1.21714 0.203128 1.68589 0.203128 1.96714 0.484378L8.99839 6.76563L15.9828 0.484378C16.264 0.203128 16.7328 0.203128 17.014 0.531253C17.2953 0.812503 17.2953 1.28125 16.9671 1.5625Z' fill='%23B1B9BE'/%3E%3C/svg%3E"),
+            linear-gradient(var(--ds-focus-line), var(--ds-focus-line));
+    }
+}
+
+select.ds-input option {
+    background: var(--ds-bg-1);
+    color: var(--ds-fg-1);
+}
+
+/* File inputs: the picker button takes lullabot.com's secondary button
+   look. */
+.ds-input[type="file"] {
+    padding: 12px 0;
+    font-size: 16px;
+}
+
+.ds-input[type="file"]::file-selector-button {
+    font: var(--ds-weight-caps) 14px/1.15 var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    min-height: 40px;
+    padding: 10px 14px;
+    margin-right: 16px;
+    border: 1.5px solid var(--ds-btn-secondary-border);
+    border-radius: var(--ds-r-none);
+    background: var(--ds-gray-0);
+    color: var(--ds-ocean-1000);
+    cursor: pointer;
+    transition: background-color var(--ds-dur), color var(--ds-dur), border-color var(--ds-dur);
+}
+
+.ds-input[type="file"]::file-selector-button:hover {
+    background: var(--ds-btn-secondary-fill);
+    border-color: var(--ds-btn-secondary-fill);
+    color: #FFFFFF;
+}
+
+/* Checkbox (lullabot.com .input_wrapper.checkbox): a 24px square on
+   gray-50 with a 1.5px gray-200 border that fills red-900 with a white
+   check. Unchecked boxes preview the fill on hover. */
+.ds-checkbox {
+    appearance: none;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border: 1.5px solid var(--ds-gray-200);
+    border-radius: var(--ds-r-none);
+    background: var(--ds-bg-3) no-repeat center;
+    cursor: pointer;
+    transition: background-color var(--ds-dur-line) ease;
+}
+
+.ds-checkbox:checked,
+.ds-checkbox:not(:checked):hover {
+    background-color: var(--ds-check-fill);
+    border-color: var(--ds-check-fill);
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.0625 0.414062C11.2969 0.648438 11.2969 1 11.0625 1.21094L4.875 7.39844C4.66406 7.63281 4.3125 7.63281 4.10156 7.39844L0.914062 4.21094C0.679688 4 0.679688 3.64844 0.914062 3.41406C1.125 3.20312 1.47656 3.20312 1.6875 3.41406L4.5 6.22656L10.2891 0.414062C10.5 0.203125 10.8516 0.203125 11.0625 0.414062Z' fill='white'/%3E%3C/svg%3E%0A");
+}
+
+.ds-checkbox:focus-visible { border-color: var(--ds-focus-ring); }
+
+/* The label beside a checkbox: 18px, normal weight, sentence case. */
+.ds-check-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    font: var(--ds-weight-normal) 18px/1.5 var(--ds-font-body);
+    color: var(--ds-fg-1);
+    cursor: pointer;
+}
+
+/* Callout (lullabot.com's table caption treatment, .tabled__caption): a
+   3px red rule on the left, 16px medium. For the context a form or a
+   list needs before it starts. */
+.ds-callout {
+    border-inline-start: 3px solid var(--ds-brand);
+    padding: 8px 16px;
+    font: var(--ds-weight-medium) 16px/24px var(--ds-font-body);
+    color: var(--ds-fg-1);
+    max-width: 68ch;
+}
+
+/* ============================================================
+   TABLE FURNITURE
+   Tables themselves are styled in base.css.
+   ============================================================ */
+
+/* Sortable column headers, white on the ocean header row (app
+   addition). The sorted column carries a red underline. */
+.ds-sort-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+}
+
+.ds-sort-link:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 5px;
+}
+
+.ds-sort-link-active {
+    text-decoration: underline;
+    text-decoration-color: var(--ds-brand);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+}
+
+/* Sort tabs (lullabot.com .tabs__link): 16px medium in ink, with a red
+   underline that springs across on hover and stays on the active tab. */
+.ds-sort-tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: 8px 16px;
+    font: var(--ds-weight-medium) 16px/24px var(--ds-font-body);
+    color: var(--ds-fg-heading);
+    text-decoration: none;
+}
+
+.ds-sort-tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    border-bottom: 2px solid var(--ds-brand);
+    transition: width var(--ds-dur-line) var(--ds-ease-spring);
+}
+
+.ds-sort-tab:hover::after,
+.ds-sort-tab-active::after { width: 100%; }
+
+/* Pill (app addition): a short label attached to a record, such as who
+   has claimed an issue. lullabot.com has no pills, so this uses its
+   byline-label shape (square, pale ground) in sentence case. */
+.ds-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: var(--ds-bg-3);
+    color: var(--ds-fg-2);
+    font: var(--ds-weight-medium) 14px/16px var(--ds-font-body);
+    white-space: nowrap;
+}
+
+/* Theme toggle (app addition), styled like lullabot.com's "Animations
+   on/off" switch label: label--sm caps in ink. */
+.ds-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 0;
+    border-radius: var(--ds-r-none);
+    background: transparent;
+    color: var(--ds-fg-heading);
+    font: var(--ds-weight-caps) 12px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.ds-theme-toggle:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--ds-brand);
+    text-underline-offset: 5px;
+}
+
+/* Status text (app addition). These follow the theme, which Tailwind
+   color classes cannot do since they compile to fixed hex values. */
+.ds-text-error { color: var(--ds-error); }
+.ds-text-success { color: var(--ds-success); }
+.ds-text-warning { color: var(--ds-warning); }
+
+/* ============================================================
+   SITE HEADER
+   lullabot.com .header and .logo-link: 80px, an inset ocean-300 rule
+   and a soft 64px shadow, and the robot on a 72px red block flush to
+   the left edge that turns ocean-1000 on hover.
+   ============================================================ */
+
+.ds-site-header {
+    position: relative;
+    background: var(--ds-bg-1);
+    box-shadow: var(--ds-header-shadow);
+}
+
+.ds-brand-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 64px;
+    height: 64px;
+    background: var(--ds-red-800);
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background-color 0.3s linear;
+}
+
+.ds-brand-block:hover { background: var(--ds-ocean-1000); }
+.ds-brand-block:focus-visible { outline-offset: -4px; }
+.ds-brand-block svg { width: 32px; height: auto; }
+
+@media (min-width: 480px) {
+    .ds-brand-block { width: 72px; height: 80px; }
+}
+
+/* App name beside the logo (app addition; lullabot.com shows the logo
+   alone). */
+.ds-wordmark {
+    font: var(--ds-weight-heavy) 20px/1 var(--ds-font-display);
+    letter-spacing: -0.02em;
+    color: var(--ds-fg-heading);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Live system state in the header (app addition), in the label--sm
+   style lullabot.com uses for its animation toggle. The dot pulses the
+   way lullabot.com's logo dot does while work is running. */
+.ds-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: var(--ds-weight-caps) 12px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-heading);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ds-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--ds-r-round);
+    background: var(--ds-success);
+    flex: none;
+}
+
+.ds-status-dot-busy {
+    background: var(--ds-warning);
+    animation: ds-pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
+}
+
+@keyframes ds-pulse-dot {
+    0% { transform: scale(0.8); }
+    50% { transform: scale(1); }
+    100% { transform: scale(0.8); }
+}
+
+/* ============================================================
+   PAGE HEADER
+   lullabot.com's page hero (resource-node-hero): label--md eyebrow,
+   heading--2xl title, paragraph--xl lede, and the dot pattern on the
+   right on wide screens.
+   ============================================================ */
+
+.ds-page-header {
+    position: relative;
+    overflow: hidden;
+    background: var(--ds-bg-1);
+}
+
+.ds-page-header::after {
+    content: "";
+    position: absolute;
+    top: 72px;
+    right: 0;
+    width: min(37%, 472px);
+    height: 144px;
+    background-image: radial-gradient(var(--ds-dots), transparent 16%);
+    background-size: 16px 16px;
+    pointer-events: none;
+}
+
+@media (max-width: 959px) {
+    .ds-page-header::after { display: none; }
+}
+
+.ds-page-header-inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 56px;
+    padding-bottom: 40px;
+}
+
+@media (min-width: 480px) {
+    .ds-page-header-inner { padding-top: 72px; }
+}
+
+@media (min-width: 960px) {
+    .ds-page-header-inner { padding-top: 88px; padding-bottom: 56px; }
+}
+
+.ds-page-header .ds-eyebrow { margin-bottom: 24px; }
+
+.ds-page-title {
+    font: var(--ds-weight-heavy) 40px/48px var(--ds-font-display);
+    letter-spacing: -0.02em;
+    color: var(--ds-fg-heading);
+    overflow-wrap: anywhere;
+}
+
+@media (min-width: 480px) {
+    .ds-page-title { font-size: 48px; line-height: 56px; }
+}
+
+@media (min-width: 1280px) {
+    .ds-page-title { font-size: 62px; line-height: 72px; }
+}
+
+.ds-page-lede {
+    margin-top: 24px;
+    max-width: 60ch;
+    font: var(--ds-weight-medium) 20px/40px var(--ds-font-body);
+    color: var(--ds-fg-1);
+}
+
+@media (min-width: 480px) {
+    .ds-page-lede { font-size: 24px; letter-spacing: -0.01em; }
+}
+
+/* ============================================================
+   SECTIONS
+   lullabot.com .heading--md. App adaptation: lullabot.com opens its
+   sections with .heading--decorated, a 72px × 1.5px red rule above the
+   heading. That works on a marketing page with a few sections, but an
+   app dashboard opens many cards with section titles, and the rule
+   repeated on every one is noise. The rule is opt-in here, with
+   .ds-section-title-decorated, for at most one heading per screen.
+   ============================================================ */
+
+.ds-section-title {
+    font: var(--ds-weight-heavy) 24px/32px var(--ds-font-display);
+    letter-spacing: -0.02em;
+    color: var(--ds-fg-heading);
+}
+
+/* lullabot.com .heading--decorated. */
+.ds-section-title-decorated::before {
+    content: "";
+    display: block;
+    width: 72px;
+    height: 1.5px;
+    margin-bottom: 32px;
+    background: var(--ds-brand);
+}
+
+@media (min-width: 1280px) {
+    .ds-section-title { font-size: 32px; line-height: 40px; }
+    .ds-section-title-decorated::before { margin-bottom: 40px; }
+}
+
+/* paragraph--sm under a section title. */
+.ds-section-note {
+    margin-top: 16px;
+    font: var(--ds-weight-normal) 16px/24px var(--ds-font-body);
+    letter-spacing: 0.01em;
+    color: var(--ds-fg-3);
+    max-width: 62ch;
+}
+
+/* Panel (lullabot.com's featured-resource card ground): the 225° ocean
+   200 to 100 gradient, no border. */
+.ds-panel {
+    background: var(--ds-bg-card);
+    padding: 32px;
+}
+
+@media (max-width: 479px) {
+    .ds-panel { padding: 24px; }
+}
+
+/* Band: a flat gray-50 strip for filter bars. */
+.ds-band {
+    background: var(--ds-bg-3);
+    padding: 24px;
+}
+
+/* ============================================================
+   TAGS, COUNTS, RANKS
+   ============================================================ */
+
+/* Content-type tag (lullabot.com .byline__type, "ARTICLE"): label--sm
+   caps in ocean-800 on gray-50. */
+.ds-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    background: var(--ds-bg-3);
+    color: var(--ds-fg-2);
+    font: var(--ds-weight-caps) 12px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+a.ds-tag { transition: background-color var(--ds-dur), color var(--ds-dur); }
+a.ds-tag:hover { background: var(--ds-fill-strong); color: var(--ds-fg-invert); }
+
+/* Result count (lullabot.com's "635 Results" chip): 18px in ocean-800 on
+   gray-50, 40px tall to match the tertiary filter chips beside it. */
+.ds-count {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 10px 14px;
+    background: var(--ds-bg-3);
+    color: var(--ds-fg-2);
+    font: var(--ds-weight-normal) 18px/1.2 var(--ds-font-body);
+    white-space: nowrap;
+}
+
+/* Rank numerals for leaderboards (app addition). */
+.ds-rank {
+    display: inline-block;
+    min-width: 2ch;
+    font: var(--ds-weight-heavy) 16px/24px var(--ds-font-display);
+    font-variant-numeric: tabular-nums;
+    color: var(--ds-fg-3);
+}
+
+.ds-rank-top { color: var(--ds-fg-heading); }
+
+/* Headline figure (lullabot.com .stats-component heading, heading--md at
+   its xl size). */
+.ds-stat {
+    font: var(--ds-weight-heavy) 32px/40px var(--ds-font-display);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ds-fg-heading);
+}
+
+/* ============================================================
+   METADATA LIST (app addition)
+   Label over value on a grid, for a record's facts. Labels are
+   label--sm; values are paragraph--md.
+   ============================================================ */
+
+.ds-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px 32px;
+}
+
+.ds-meta dt {
+    font: var(--ds-weight-caps) 12px/16px var(--ds-font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ds-fg-2);
+}
+
+.ds-meta dd {
+    margin-top: 8px;
+    font: var(--ds-weight-normal) 18px/32px var(--ds-font-body);
+    color: var(--ds-fg-1);
+    overflow-wrap: anywhere;
+}
+
+.ds-meta-wide { grid-column: span 2; }
+
+@media (max-width: 767px) {
+    .ds-meta-wide { grid-column: auto; }
+}
+
+/* ============================================================
+   EMPTY STATES AND NOTICES (app additions)
+   Built from lullabot.com parts: its dot pattern, heading--sm, and the
+   3px red caption rule.
+   ============================================================ */
+
+.ds-empty {
+    position: relative;
+    padding: 56px 32px;
+    text-align: center;
+    border: 1.5px dashed var(--ds-border-strong);
+    background-image: radial-gradient(var(--ds-dots), transparent 16%);
+    background-size: 16px 16px;
+}
+
+.ds-empty-title {
+    font: var(--ds-weight-heavy) 24px/32px var(--ds-font-display);
+    letter-spacing: -0.02em;
+    color: var(--ds-fg-heading);
+}
+
+.ds-empty-text {
+    margin: 8px auto 0;
+    max-width: 52ch;
+    font: var(--ds-weight-normal) 16px/24px var(--ds-font-body);
+    letter-spacing: 0.01em;
+    color: var(--ds-fg-3);
+}
+
+.ds-empty .ds-btn,
+.ds-empty .ds-btn-text { margin-top: 24px; }
+
+.ds-empty-icon {
+    width: 40px;
+    height: auto;
+    margin: 0 auto 24px;
+    color: var(--ds-border-strong);
+}
+
+/* Flash messages: the caption rule in a status color on gray-50. */
+.ds-alert {
+    border-inline-start: 3px solid var(--ds-success);
+    background: var(--ds-bg-3);
+    padding: 16px;
+    font: var(--ds-weight-normal) 16px/24px var(--ds-font-body);
+    color: var(--ds-fg-1);
+}
+
+.ds-alert-error { border-inline-start-color: var(--ds-error); }
+
+/* Secondary inline text. */
+.ds-muted { color: var(--ds-fg-2); }
+
+/* Disclosure caret for <details> summaries styled as labels. */
+details > summary.ds-label-caps { list-style: none; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+details > summary.ds-label-caps::-webkit-details-marker { display: none; }
+details > summary.ds-label-caps::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(-45deg);
+    transition: transform var(--ds-dur);
+}
+details[open] > summary.ds-label-caps::before { transform: rotate(45deg); }
+
+/* ============================================================
+   LOW-DENSITY HAIRLINES
+   lullabot.com's 1.5px lines are drawn 1px wide on 1x screens but
+   still take 1.5px of layout, so everything below one lands on a half
+   pixel and uppercase labels further down render a pixel high. On
+   low-density screens the in-flow ones are laid out at the 1px they
+   draw at anyway. Kept last so it wins over the rules above.
+   ============================================================ */
+
+@media (max-resolution: 1.5dppx) {
+    .ds-section-title-decorated::before { height: 1px; }
+    .ds-input { border-bottom-width: 1px; }
+    .ds-empty { border-width: 1px; }
+}
